@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Countdown Timer
-Plugin URI: http://www.andrewferguson.net/wordpress-plugins/
+Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
 Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.1
+Version: 1.1.1 Beta
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 function afdn_countdownTimer_myOptionsSubpanel(){
 $pluginName = "afdn_countdownTimer";
-$pluginVersion = "1.1";
+$pluginVersion = "1.1.1";
 
 	
 	if (isset($_POST['info_update'])) //If the user has submitted the form, do the following
@@ -137,8 +137,8 @@ $pluginVersion = "1.1";
 						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){ 
 							if($dates["oneTime"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
-							<td><input type="text" size="50" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["text"]; ?>" /></td>
-							<td><input type="text" size="50" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
+							<td><input type="text" size="35" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["text"]; ?>" /></td>
+							<td><input type="text" size="35" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
 							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked":NULL)?>/></td>
 							</tr>
 							<?php
@@ -149,8 +149,8 @@ $pluginVersion = "1.1";
 						} 						
 							?><tr>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
-							<td><input type="text" size="50" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
-							<td><input type="text" size="50" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
+							<td><input type="text" size="35" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
+							<td><input type="text" size="35" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
 							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
 							</tr>
 							<?php
@@ -217,15 +217,14 @@ $pluginVersion = "1.1";
 
 
 function afdn_countdownTimer_optionsPage(){
-	if(function_exists('add_options_page')){
-			add_options_page('Countdown Timer', 'Countdown Timer', 10, basename(__FILE__), 'afdn_countdownTimer_myOptionsSubpanel');
+	if(function_exists('add_management_page')){
+			add_management_page('Countdown Timer', 'Countdown Timer', 10, basename(__FILE__), 'afdn_countdownTimer_myOptionsSubpanel');
 	}
 }
 
 
 /*This function is called from your page to output the actual data*/
 function afdn_countdownTimer(){
-
 	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 	
 	//There are two sets of arrays, 'onetime' and 'recurring', which need to be combined these next lines do that...
