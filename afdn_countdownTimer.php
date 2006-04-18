@@ -241,9 +241,15 @@ $pluginVersion = "1.3.1";
 	</div> <?
 }
 
-function afdn_countdownTimer_loop(){
+function afdn_countdownTimer_loop($theContent){
+	if(preg_match("/<!--afdn_countdownTimer-->/", $theContent)){
+		$theContent = str_replace("<!--afdn_countdownTimer-->", afdn_countdownTimer('return'), $theContent);
+	}
+	else{
+		return $theContent;
+	}
+	return $theContent;
 
-return "This works";
 
 }
 
@@ -255,7 +261,8 @@ function afdn_countdownTimer_optionsPage(){
 
 
 /*This function is called from your page to output the actual data*/
-function afdn_countdownTimer(){
+function afdn_countdownTimer($output = "echo"){ //'echo' will print the results, 'return' will just return them
+
 	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
 	
@@ -303,8 +310,14 @@ function afdn_countdownTimer(){
 	
 	//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 	for($i = 0; $i < $eventCount; $i++){
-		echo cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"]);
+		if($output == "echo")
+			echo cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"]);
+		elseif($output == "return"){
+			$toReturn .= cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"]);
+		}
 	}
+	if($output == "return")
+			return $toReturn;
 }
 /*PLUGIN-WIDE FUNCTIONS*/
 
@@ -377,7 +390,9 @@ function strtorecurringtime($string){
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');
 
+$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
 
-if($getOptions["enableTheLoop"])
+if($getOptions["enableTheLoop"]){
 	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
+}
 ?>
