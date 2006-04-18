@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
 Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.3
+Version: 1.3.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 function afdn_countdownTimer_myOptionsSubpanel(){
 $pluginName = "afdn_countdownTimer";
-$pluginVersion = "1.3";
+$pluginVersion = "1.3.1";
 
 	
 	if (isset($_POST['info_update'])) //If the user has submitted the form, do the following
@@ -76,7 +76,8 @@ $pluginVersion = "1.3";
 		
 		$afdnOptions = array(	"deleteOneTimeEvents" => $_POST['deleteOneTimeEvents'],
 								"checkUpdate" => $_POST['checkUpdate'],
-								"timeOffset" => $_POST['timeOffset']); //Create the array to store the countdown options
+								"timeOffset" => $_POST['timeOffset'],
+								"enableTheLoop" => $_POST['enableTheLoop']); //Create the array to store the countdown options
 		
 		update_option("afdn_countdowntracker", serialize($results)); //Update the WPDB
 		update_option("afdn_countdownOptions", serialize($afdnOptions));//Update the WPDB
@@ -179,6 +180,16 @@ $pluginVersion = "1.3";
 							
 			</fieldset>
 			
+			<fieldset name="inPost">
+				<legend><b>Include in The Loop</b>
+				<p>To include CountdownTimer within a post or page, simple enable The Loop function below and then insert
+				<code>&lt;!--afdn_countdownTimer--&gt;</code>
+				where you want the countdown to be inserted</p>
+				<p>Enable CountdownTimer within The Loop?
+				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked":NULL)?> />Yes :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked":NULL)?>/>No</p>
+							
+			</fieldset>
+			
 			<fieldset name="recurring">
 				<legend><b>Recurring Events</b></legend>
 				<p>Recurring events are going to take some time to work out because there is no PHP function that can handle it natively. 
@@ -230,7 +241,11 @@ $pluginVersion = "1.3";
 	</div> <?
 }
 
+function afdn_countdownTimer_loop(){
 
+return "This works";
+
+}
 
 function afdn_countdownTimer_optionsPage(){
 	if(function_exists('add_management_page')){
@@ -361,4 +376,8 @@ function strtorecurringtime($string){
 }
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');
+
+
+if($getOptions["enableTheLoop"])
+	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
 ?>
