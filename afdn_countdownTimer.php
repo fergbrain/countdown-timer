@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
 Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.3.1
+Version: 1.4
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 function afdn_countdownTimer_myOptionsSubpanel(){
-$pluginName = "afdn_countdownTimer";
-$pluginVersion = "1.3.1";
+$pluginVersion = "1.4";
+$updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
 	
 	if (isset($_POST['info_update'])) //If the user has submitted the form, do the following
@@ -111,7 +111,14 @@ $pluginVersion = "1.3.1";
 					Check for updates? <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> />Yes :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/>No		
 					<?php if($getOptions["checkUpdate"]==1){
 						echo "<br /><br />";
-						include_once("http://andrewferguson.net/wp-content/dl/wp/version.php?pn=$pluginName&pv=$pluginVersion");
+						$currentVersion = file_get_contents($updateURL);
+						if($currentVersion == $pluginVersion){
+						  echo "You have the latest version.";
+						}
+						else{
+						  echo "You have version <strong>$pluginVersion</strong>, the current version is <strong>$currentVersion</strong>.<br />";
+						  echo "Download the latest version at <a href=\"http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php\">http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php</a>";
+						  }
 						}
 						?>
 			</fieldset>
