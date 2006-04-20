@@ -276,11 +276,14 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 	</div> <?
 }
 
-function afdn_countdownTimer_loop($theContent){																	//Filter function for including the countdown with The Loop
-	if(preg_match("/<!--afdn_countdownTimer-->/", $theContent)){												//If the string is found within the loop, replace it
-		$theContent = str_replace("<!--afdn_countdownTimer-->", afdn_countdownTimer('return'), $theContent);	//The actual replacement of the string with the timer
+function afdn_countdownTimer_loop($theContent){																							//Filter function for including the countdown with The Loop
+	if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
+		$theContent = preg_replace("/<!--afdn_countdownTimer(\(([0-9]+)\))?-->/e", "afdn_countdownTimer('return', $2)", $theContent);	//The actual replacement of the string with the timer
 	}
-	return $theContent;																							//Return theContent
+	elseif(preg_match("<!--afdn_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
+		$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('return', 0)", $theContent);	//The actual replacement of the string with the timer
+	}
+	return $theContent;																													//Return theContent
 }
 
 function afdn_countdownTimer_optionsPage(){																		//Action function for adding the configuration panel to the Management Page
@@ -291,7 +294,7 @@ function afdn_countdownTimer_optionsPage(){																		//Action function f
 
 
 /*This function is called from your page to output the actual data*/
-function afdn_countdownTimer($output = "echo"){ //'echo' will print the results, 'return' will just return them
+function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will print the results, 'return' will just return them
 
 	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
@@ -337,7 +340,8 @@ function afdn_countdownTimer($output = "echo"){ //'echo' will print the results,
 			}
 		}	
 	}
-	
+	if($eventLimit != 0)	//If the eventLimit is set
+		$eventCount = $eventLimit;
 	//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 	for($i = 0; $i < $eventCount; $i++){
 		if($output == "echo")
