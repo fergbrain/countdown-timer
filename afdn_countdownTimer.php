@@ -105,10 +105,18 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 		<script language="javascript">
 		//Not used, yet
 		function clearField(eventType, fieldNum){
-			var inputID = eventType + '_link' + fieldNum;
-			document.afdn_countdownTimer.inputID.value = '';
+			var agree=confirm('Are you sure you wish to delete '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
+			if(agree){
+				var inputID = eventType + '_table' + fieldNum;
+				document.getElementById(inputID).style.display = 'none';
+				document.getElementsByName(eventType+'_date'+fieldNum).item(0).value = '';
+				document.getElementsByName(eventType+'_text'+fieldNum).item(0).value = '';
+				document.getElementsByName(eventType+'_link'+fieldNum).item(0).value = '';
+				document.getElementsByName(eventType+'_timeSince'+fieldNum).item(0).value = '';
+				}
+			else
+				return false;
 		}
-		
 		</script>
 		<form method="post" name="afdn_countdownTimer">
 			<h2>Countdown Timer</h2>
@@ -123,11 +131,15 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						if($currentVersion == $pluginVersion){
 						  echo "You have the latest version.";
 						}
-						else{
+						elseif($currentVersion > $pluginVersion){
 						  echo "You have version <strong>$pluginVersion</strong>, the current version is <strong>$currentVersion</strong>.<br />";
 						  echo "Download the latest version at <a href=\"http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php\">http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php</a>";
-						  }
 						}
+						elseif($currentVersion < $pluginVersion){
+							echo "Beta version, eh?";
+						}
+						
+					}
 						?>
 			</fieldset>
 			
@@ -170,6 +182,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				</p>
 				<table>
 				<tr>
+					<td><?php _e('Delete'); ?></td>
 					<td><?php _e('Event Date'); ?></td>
 					<td><?php _e('Event Title'); ?></td>
 					<td><?php _e('Link'); ?></td>
@@ -181,6 +194,8 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						$oneTimeEvent_entriesCount = count($dates["oneTime"]);
 						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){ 
 							if($dates["oneTime"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
+							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
+							<td><a href="javascript:void(0);" onClick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo stripslashes($dates["oneTime"][$i]["text"]); ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
@@ -193,6 +208,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						@next($dates["oneTime"]);
 						} 						
 							?><tr>
+							<td></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
