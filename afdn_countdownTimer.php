@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
 Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.5
+Version: 1.6.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -29,7 +29,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 $pluginVersion = "1.5";
 $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
-	
+
 	if (isset($_POST['info_update']))																		//If the user has submitted the form, do the following
 	{
 		/*Begin One Time Events*/
@@ -40,15 +40,15 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 			}
 			else{																							//If not, add it to an array so the data can be updated
 				$results["oneTime"][$j] = array(	"date" => strtotime($_POST["oneTimeEvent_date$i"]),		//Date of the event converted to UNIX time
-													"text" => $_POST["oneTimeEvent_text$i"],				//Text associated with the event (i.e. event label)	
+													"text" => $_POST["oneTimeEvent_text$i"],				//Text associated with the event (i.e. event label)
 													"timeSince" => $_POST["oneTimeEvent_timeSince$i"],		//After the event has occured, should "Time Since" be displayed? Boolean value (0 0 for no or 1 for yes)
 													"link" => $_POST["oneTimeEvent_link$i"],				//Where should the text link to (this can be null)
 												); 															//For every field, create an array. Then stick that array into the master array
-				$j++;																		
+				$j++;
 			}
 		}
 		/*End One Time Events*/
-		
+
 		/*Begin Recurring Events*/
 		$recurringEvent_count = $_POST['recurringEvent_count']; 											//Figure out how many fields there are
 		$j=0;
@@ -56,16 +56,16 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 			if($_POST["recurringEvent_text$i"]=="" || $_POST["recurringEvent_date$i"]==""){
 			}
 			else{
-				$results["recurring"][$j] = array(	"date" => $_POST["recurringEvent_date$i"], 
+				$results["recurring"][$j] = array(	"date" => $_POST["recurringEvent_date$i"],
 													"text" => $_POST["recurringEvent_text$i"],
-													"timeSince" => $_POST["recurringEvent_timeSince$i"],			
+													"timeSince" => $_POST["recurringEvent_timeSince$i"],
 													"nextOccurance" => strtorecurringtime($_POST["recurringEvent_date$i"]),		//Figure out when the next occurance of this event is
 													); 														//For every field, create an array. Then stick that array into the master array
 				$j++;
 			}
 		}
 		/*End Recurring Events*/
-		
+
 		/*Begin sorting events by time*/
 		for($x=0; $x<$oneTimeEvent_count; $x++){
 			for($z=0; $z<$oneTimeEvent_count-1; $z++){
@@ -74,23 +74,23 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 					$results["oneTime"][$z] = $results["oneTime"][$z+1];
 					$results["oneTime"][$z+1] = $temp;
 				}
-			}	
+			}
 		}
-		/*End sorting events by time*/	
-		
+		/*End sorting events by time*/
+
 		$afdnOptions = array(	"deleteOneTimeEvents" => $_POST['deleteOneTimeEvents'],					//Should One Time Events be deleted after the happen (boolean)
 								"checkUpdate" => $_POST['checkUpdate'],									//Should the plugin check for updates (boolean)
 								"timeOffset" => $_POST['timeOffset'],									//What is the timeoffset
 								"enableTheLoop" => $_POST['enableTheLoop']								//Should the timer be allowed within the loop (boolean)
 								); //Create the array to store the countdown options
-		
+
 		update_option("afdn_countdowntracker", serialize($results)); //Update the WPDB for the data
 		update_option("afdn_countdownOptions", serialize($afdnOptions));//Update the WPDB for the options
 	}
-	
-	$dates = get_option("afdn_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
-	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB to make sure a fresh copy is being used
-	
+
+	$dates = unserialize(get_option("afdn_countdowntracker")); //Get the events from the WPDB to make sure a fresh copy is being used
+	$getOptions = unserialize(get_option("afdn_countdownOptions"));//Get the options from the WPDB to make sure a fresh copy is being used
+
 	/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
 	if($getOptions["deleteOneTimeEvents"]){
 		foreach($dates as $key => $value){
@@ -100,7 +100,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 		}
 	}
 	?>
-	
+
 	<div class=wrap>
 		<script language="javascript">
 		//Not used, yet
@@ -120,11 +120,11 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 		</script>
 		<form method="post" name="afdn_countdownTimer">
 			<h2>Countdown Timer</h2>
-			
+
 			<!-- Options for the plugin management -->
 			<fieldset name="management" class="options">
 				<legend><strong>Management</strong></legend>
-					Check for updates? <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> />Yes :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/>No		
+					Check for updates? <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> />Yes :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/>No
 					<?php if($getOptions["checkUpdate"]==1){
 						echo "<br /><br />";
 						$currentVersion = file_get_contents($updateURL);
@@ -138,12 +138,12 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						elseif($currentVersion < $pluginVersion){
 							echo "Beta version, eh?";
 						}
-						
+
 					}
 						?>
 			</fieldset>
-			
-			<!-- Include within The Loop -->			
+
+			<!-- Include within The Loop -->
 			<fieldset name="inPost" class="options">
 				<legend><b>Include in The Loop</b>
 				<p>To include CountdownTimer within a post or page, simple enable The Loop function below and then insert
@@ -151,9 +151,9 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				where you want the countdown to be inserted</p>
 				<p>Enable CountdownTimer within The Loop?
 				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked":NULL)?> />Yes :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked":NULL)?>/>No</p>
-							
+
 			</fieldset>
-			
+
 			<!-- Time Display -->
 			<fieldset name="options" class="options">
 				<legend><strong	>Options</strong></legend>
@@ -165,7 +165,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				</ul>
 				<p>onHover Time Format <input type="text" value="<?php print($getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
 			</fieldset>
-			
+
 			<!-- One Time Events -->
 			<fieldset name="ote" class="options">
 				<legend><b>One Time Events</b></legend>
@@ -178,7 +178,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						<li>next thursday</li>
 						<li>last monday</li>
 					</ul>
-				
+
 				</p>
 				<table>
 				<tr>
@@ -188,11 +188,11 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 					<td><?php _e('Link'); ?></td>
 					<td><?php _e('Display "Time since"'); ?></td>
 				</tr>
-					<?php 
+					<?php
 						//global $count;
 						$oneTimeEvent_count = 0;
 						$oneTimeEvent_entriesCount = count($dates["oneTime"]);
-						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){ 
+						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
 							if($dates["oneTime"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
 							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
 							<td><a href="javascript:void(0);" onClick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
@@ -204,9 +204,9 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 							<?php
 							$oneTimeEvent_count++;
 							 }
-						
+
 						@next($dates["oneTime"]);
-						} 						
+						}
 							?><tr>
 							<td></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
@@ -218,16 +218,16 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />';
 						?>
 				</table>
-			
-			
+
+
 			<p>Automatically delete '<?php _e('One Time Events') ?>' after they have occured? <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked":NULL)?> />Yes :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked":NULL)?>/>No</p>
-							
+
 			</fieldset>
-			
-			<!-- Recurring Events -->			
+
+			<!-- Recurring Events -->
 			<fieldset name="recurring" class="options">
 				<legend><b>Recurring Events</b></legend>
-				<p>Recurring events are going to take some time to work out because there is no PHP function that can handle it natively. 
+				<p>Recurring events are going to take some time to work out because there is no PHP function that can handle it natively.
 					So I'm going to have to build a function from scratch and that will take some time. In the meantime, enter dates in
 					the format <strong>hh:mm TZ mm/dd</strong> and the very basic parsing I have done already should be able to figure
 					out what is going on. If you have any tips, ideas, or suggestions, please please please let me know. The function specs are posted in the comments so that you can take a crack at developing your own expressions, if you so desire.</p>
@@ -239,10 +239,10 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 					<td><?php _e('Display "Time since"'); ?></td>
 					<td><?php _e('Next Occurance'); ?></td>
 				</tr>
-					<?php 
+					<?php
 						$recurringEvent_count = 0;
 						$recurringEvent_entriesCount = count($dates["recurring"]);
-						for($i=0; $i < $recurringEvent_entriesCount+1; $i++){ 
+						for($i=0; $i < $recurringEvent_entriesCount+1; $i++){
 							if($dates["recurring"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
 							<tr>
 							<td><input type="text" size="35" name="recurringEvent_date<?php echo $recurringEvent_count; ?>" value="<?php echo $dates["recurring"][$i]["date"]; ?>" /></td>
@@ -254,9 +254,9 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 							<?php
 							$recurringEvent_count++;
 							 }
-						
+
 						@next($dates["recurring"]);
-						} 						
+						}
 							?><tr>
 							<td><input type="text" size="35" name="recurringEvent_date<?php echo $recurringEvent_count; ?>"  /></td>
 							<td><input type="text" size="25" name="recurringEvent_text<?php echo $recurringEvent_count; ?>" /></td>
@@ -268,7 +268,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						echo '<input type="hidden" name="recurringEvent_count" value="'.($recurringEvent_count+1).'" />';
 						?>
 				</table>
-			</fieldset>							
+			</fieldset>
 			<div class="submit"><input type="submit" name="info_update" value="<?php
 				_e('Update Events', 'Localization name')
 			 ?>&raquo;" /></div>
@@ -296,17 +296,17 @@ function afdn_countdownTimer_optionsPage(){																		//Action function f
 /*This function is called from your page to output the actual data*/
 function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will print the results, 'return' will just return them
 
-	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
-	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
-	
+	$dates = unserialize(get_option("afdn_countdowntracker"));//Get our text, times, and settings from the database
+	$getOptions = unserialize(get_option("afdn_countdownOptions"));//Get the options from the WPDB
+
 	//There are two sets of arrays, 'onetime' and 'recurring', which need to be combined these next lines do that...
-	$numOneTimeDates = count($dates["oneTime"]); 
+	$numOneTimeDates = count($dates["oneTime"]);
 	$numRecurringDates = count($dates["recurring"]);
 
 	if(($numOneTimeDates + $numRecurringDates) == 0){
 		echo "<li>No dates present</li>";
 	}
-	
+
 	//Putting the 'onetime' events into a new array
 	for($i = 0; $i < $numOneTimeDates; $i++){
 		$thisDate[$i] = array(	"text" => $dates["oneTime"][$i]["text"],
@@ -315,7 +315,7 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 								"link" => $dates["oneTime"][$i]["link"],
 								);
 	}
-	
+
 	//Putting the 'recurring' events into the array
 	for($i = 0; $i < $numRecurringDates; $i++){
 		$thisDate[$i+$numOneTimeDates] = array(	"text" => $dates["recurring"][$i]["text"],
@@ -324,9 +324,9 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 												"link" => $dates["recurring"][$i]["link"],
 										);
 	}
-	/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page. 
+	/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
 	At some point, I plan to make this into a function; but for, this will do...
-	
+
 	And what it does is this:
 	The number of elements in the array are counted. Then for array is gone through x^(x-1) times. This allows for all posible date permuations to be sorted out and ordered correctly.
 	Genious, yes? */
@@ -338,7 +338,7 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 				$thisDate[$z] = $thisDate[$z+1];
 				$thisDate[$z+1] = $temp;
 			}
-		}	
+		}
 	}
 	if($eventLimit != 0)	//If the eventLimit is set
 		$eventCount = $eventLimit;
@@ -361,9 +361,8 @@ $time is an integer formated in UNIX time.
 $offset is a signed integer (i.e. it has both positive and negitive values) and represents the sum of many timezone offsets to make sure that the correct time is displayed, no matter what timezone you are in, your server is in, or your blog is in.
 $timeSince is a single integer representitive of a boolean value. 1 = True; 0 = False. This really should be passed along as a boolean value, so it's on the to do list to fix. In any event, if this value is set to "True", after an event has passed, the text will count up from the time the even happened. If it is set to "False, it will not count and the event will not be displayed.
 
-Simple enough?		
+Simple enough?
 */
-
 
 function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s"){
 	$time_left = $time - time() + $offset;
@@ -395,11 +394,14 @@ $min is another integer masquerading as a boolean. If set to "True" (i.e. "1"), 
 */
 function cdt_hms($s, $min=1){
 	$years=intval($s/31536000); //How many years?
-	$days=intval(($s-$years*31536000)/86400); //How many days?
-	$hours=intval(($s-($years*31536000)-($days*86400))/3600); //How many hours?
-	$minutes=intval(($s-($years*31536000)-($days*86400)-($hours*3600))/60); //How many minutes?
+	$months=intval(($s-$years*31536000)/2592000);
+	$days=intval(($s-($years*31536000)-($months*2592000))/86400); //How many days?
+	$hours=intval(($s-($years*31536000)-($months*2592000)-($days*86400))/3600); //How many hours?
+	$minutes=intval(($s-($years*31536000)-($months*2592000)-($days*86400)-($hours*3600))/60); //How many minutes?
 	if ($years) //If there are any years, display them
 		$r=$r.abs($years).' '.__("year").($years==1?NULL:"s").', '; //Absolute values (ABS function) are used to be compatible with counting up from events
+	if($months) //If there are any years, display them
+		$r=$r.abs($months).' '.__("month").($months==1?NULL:"s").', ';
 	if ($days) //If there are any days, display them
 		$r=$r.abs($days).' '.__("day").($days==1?NULL:"s").', ';
 	if ($hours) //If there are any hours, display them
@@ -409,19 +411,23 @@ function cdt_hms($s, $min=1){
 	return $r; //...and return the result (a string)
 }
 
+function time_difference($start, $end, $offset){
+
+}
+
 /* I created this function to handle dates that repeat every year. The idea is that I can design a whole bunch of conditions and then pass a string of text to this function
 and have it return UNIX time stamp*/
 function strtorecurringtime($string){
 	$newString = date("r", strtotime($string));
 	if(strtotime($newString) < (time()-15768000)) //15768000 is 6 months. This avoids resetting for the new date too soon.
 		$newString = date("r", strtotime($string."/".(date("Y")+1)));
-	
+
 	return strtotime($newString);
 }
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
 
-$getOptions = get_option("afdn_countdownOptions");				//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
+$getOptions = unserialize(get_option("afdn_countdownOptions"));				//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
 
 if($getOptions["enableTheLoop"]){								//If the timer is to be allowed in The Loop, run this
 	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
