@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
 Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.6.1
+Version: 1.6.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 function afdn_countdownTimer_myOptionsSubpanel(){
-$pluginVersion = "1.5";
+$pluginVersion = "1.6.2";
 $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
 
@@ -84,12 +84,12 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 								"enableTheLoop" => $_POST['enableTheLoop']								//Should the timer be allowed within the loop (boolean)
 								); //Create the array to store the countdown options
 
-		update_option("afdn_countdowntracker", serialize($results)); //Update the WPDB for the data
-		update_option("afdn_countdownOptions", serialize($afdnOptions));//Update the WPDB for the options
+		update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
+		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 	}
 
-	$dates = unserialize(get_option("afdn_countdowntracker")); //Get the events from the WPDB to make sure a fresh copy is being used
-	$getOptions = unserialize(get_option("afdn_countdownOptions"));//Get the options from the WPDB to make sure a fresh copy is being used
+	$dates = get_option("afdn_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
+	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB to make sure a fresh copy is being used
 
 	/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
 	if($getOptions["deleteOneTimeEvents"]){
@@ -296,8 +296,8 @@ function afdn_countdownTimer_optionsPage(){																		//Action function f
 /*This function is called from your page to output the actual data*/
 function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will print the results, 'return' will just return them
 
-	$dates = unserialize(get_option("afdn_countdowntracker"));//Get our text, times, and settings from the database
-	$getOptions = unserialize(get_option("afdn_countdownOptions"));//Get the options from the WPDB
+	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
+	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
 
 	//There are two sets of arrays, 'onetime' and 'recurring', which need to be combined these next lines do that...
 	$numOneTimeDates = count($dates["oneTime"]);
