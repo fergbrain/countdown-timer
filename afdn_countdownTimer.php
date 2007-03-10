@@ -2,13 +2,13 @@
 /*
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
-Plugin Description: Add template tages to coutn down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.6.2
+Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
+Version: 1.7
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
-Countdown Timer - Adds a template tag to count down to a specified date or recurring date
-Copyright (c) 2005-2006 Andrew Ferguson
+Countdown Timer - Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
+Copyright (c) 2005-2007 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 function afdn_countdownTimer_myOptionsSubpanel(){
-$pluginVersion = "1.6.2";
+$pluginVersion = "1.7";
 $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
 
@@ -80,12 +80,16 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 
 		$afdnOptions = array(	"deleteOneTimeEvents" => $_POST['deleteOneTimeEvents'],					//Should One Time Events be deleted after the happen (boolean)
 								"checkUpdate" => $_POST['checkUpdate'],									//Should the plugin check for updates (boolean)
-								"timeOffset" => $_POST['timeOffset'],									//What is the timeoffset
-								"enableTheLoop" => $_POST['enableTheLoop']								//Should the timer be allowed within the loop (boolean)
+								"timeOffset" => $_POST['timeOffset'],									//What is the time format
+								"enableTheLoop" => $_POST['enableTheLoop'],								//Should the timer be allowed within the loop (boolean)
+								"displayFormatPrefix" => $_POST['displayFormatPrefix'],					
+								"displayFormatSuffix" => $_POST['displayFormatSuffix'],
 								); //Create the array to store the countdown options
 
 		update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
+		
+		echo '<div id="message" class="updated fade"><p>Options updated successfully.</p></div>';					//Report to the user that the data has been updated successfully
 	}
 
 	$dates = get_option("afdn_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
@@ -121,7 +125,27 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 		<form method="post" name="afdn_countdownTimer">
 			<h2>Countdown Timer</h2>
 
-			<!-- Options for the plugin management -->
+			<!-- Notes and pleas-->
+			<fieldset name="notes" class="options">
+				<legend><strong>Notes</strong></legend>
+				<p>You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you'll probably want to use code similar to:</p>
+				<p><code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
+  &lt;ul&gt;<br />
+  &lt;?php afdn_countdownTimer(); ?&gt;<br />
+  &lt;/ul&gt;<br />
+  &lt;/li&gt;</code>		</p>
+				<p>Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I’m a college student  and really only do this programming thing on the side for the love of it.<br />
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form></p>
+			</fieldset>
+			
+			<!-- Options for the plugin management -->			
 			<fieldset name="management" class="options">
 				<legend><strong>Management</strong></legend>
 					Check for updates? <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> />Yes :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/>No
@@ -145,7 +169,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 
 			<!-- Include within The Loop -->
 			<fieldset name="inPost" class="options">
-				<legend><b>Include in The Loop</b>
+				<legend><strong>Include in The Loop</strong>
 				<p>To include CountdownTimer within a post or page, simple enable The Loop function below and then insert
 				<code>&lt;!--afdn_countdownTimer--&gt;</code>
 				where you want the countdown to be inserted</p>
@@ -155,8 +179,8 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 			</fieldset>
 
 			<!-- Time Display -->
-			<fieldset name="options" class="options">
-				<legend><strong	>Options</strong></legend>
+			<fieldset name="onHoverTimeFormat " class="options">
+				<legend><strong>onHover Time Format </strong></legend>
 				<p>If you set "onHover Time Format", hovering over the time left will show the user what the date of the event is; or in the case of a recurring event, when the next occurance is. onHover Time Format uses <a href-"http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
 				<p>Examples:</p>
 				<ul>
@@ -165,19 +189,33 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				</ul>
 				<p>onHover Time Format <input type="text" value="<?php print($getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
 			</fieldset>
+			
+			<!-- Display Format -->
+			<fieldset name="displayFormatOptions" class="options">
+				<legend><strong>Display Format Options</strong></legend>
+				<p>This setting allows you to customize how each event is wrapped.</p>
+				<p>Examples:</p>
+				<ul>
+					<li><em>Prefix:</em> <code>&lt;li&gt;</code><br />
+						<em>Suffix:</em> <code>&lt;/li&gt;</code></li>
+				</ul>
+				
+				<p>Display Format Prefix <input type="text" value="<?php print($getOptions["displayFormatPrefix"]); ?>" name="displayFormatPrefix" /></p>
+				<p>Display Format Suffix <input type="text" value="<?php print($getOptions["displayFormatSuffix"]); ?>" name="displayFormatSuffix" /></p>
+			</fieldset>
 
 			<!-- One Time Events -->
 			<fieldset name="ote" class="options">
 				<legend><b>One Time Events</b></legend>
 				<p>Countdown timer uses <a href="http://us2.php.net/strtotime">PHP's strtodate function</a> and will parse about any English textual datetime description.</p>
 				<p>Examples of some (but not all) valid dates:
-					<ul>
+			<ul>
 						<li>now</li>
 						<li>31 january 1986</li>
 						<li>+1 day</li>
 						<li>next thursday</li>
 						<li>last monday</li>
-					</ul>
+			</ul>
 
 				</p>
 				<table>
@@ -197,7 +235,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
 							<td><a href="javascript:void(0);" onClick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
-							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo stripslashes($dates["oneTime"][$i]["text"]); ?>" /></td>
+							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlentities(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
 							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked":NULL)?>/></td>
 							</tr>
@@ -246,7 +284,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 							if($dates["recurring"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
 							<tr>
 							<td><input type="text" size="35" name="recurringEvent_date<?php echo $recurringEvent_count; ?>" value="<?php echo $dates["recurring"][$i]["date"]; ?>" /></td>
-							<td><input type="text" size="25" name="recurringEvent_text<?php echo $recurringEvent_count; ?>" value="<?php echo stripslashes($dates["recurring"][$i]["text"]); ?>" /></td>
+							<td><input type="text" size="25" name="recurringEvent_text<?php echo $recurringEvent_count; ?>" value="<?php echo htmlentities(stripslashes($dates["recurring"][$i]["text"])); ?>" /></td>
 							<td><input type="text" size="25" name="recurringeEvent_link<?php echo $recurringEvent_count; ?>" value="<?php echo $dates["recurring"][$i]["link"]; ?>" /></td>
 							<td><input type="checkbox" name="recurringEvent_timeSince<?php echo $recurringEvent_count; ?>" value="1" <?php print($dates["recurring"][$i]["timeSince"]==1?"checked":NULL)?>/></td>
 							<td><?php echo date("r", $dates["recurring"][$i]["nextOccurance"]); ?></td>
@@ -303,10 +341,6 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 	$numOneTimeDates = count($dates["oneTime"]);
 	$numRecurringDates = count($dates["recurring"]);
 
-	if(($numOneTimeDates + $numRecurringDates) == 0){
-		echo "<li>No dates present</li>";
-	}
-
 	//Putting the 'onetime' events into a new array
 	for($i = 0; $i < $numOneTimeDates; $i++){
 		$thisDate[$i] = array(	"text" => $dates["oneTime"][$i]["text"],
@@ -342,16 +376,23 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 	}
 	if($eventLimit != 0)	//If the eventLimit is set
 		$eventCount = $eventLimit;
+
+	global $fergcorp_countdownTimer_noEventsPresent;
+	$fergcorp_countdownTimer_noEventsPresent = TRUE;
 	//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 	for($i = 0; $i < $eventCount; $i++){
 		if($output == "echo")
-			echo cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"]);
+			echo cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		elseif($output == "return"){
-			$toReturn .= cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"]);
+			$toReturn .= cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		}
 	}
 	if($output == "return")
 			return $toReturn;
+			
+	if($fergcorp_countdownTimer_noEventsPresent = TRUE){
+		echo "<li>No dates present</li>";
+	}
 }
 /*PLUGIN-WIDE FUNCTIONS*/
 
@@ -364,23 +405,25 @@ $timeSince is a single integer representitive of a boolean value. 1 = True; 0 = 
 Simple enough?
 */
 
-function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s"){
+function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>"){
 	$time_left = $time - time() + $offset;
 	if(($time_left < 0)&&($timeSince==1)){
-		$content = "<li><b>".($link==""?$text.":":"<a href=\"$link\">".$text.":</a>")."</b><br />\n";
+		$fergcorp_countdownTimer_noEventsPresent = FALSE;
+		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= cdt_hms($time_left)." ago</li>";
+			$content .= cdt_hms($time_left)." ago".$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".cdt_hms($time_left)." ago</abbr></li>";
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".cdt_hms($time_left)." ago</abbr>".$displayFormatSuffix;
 		return $content;
 		//return NULL;
 	}
 	elseif($time_left > 0){
-		$content = "<li><b>".($link==""?$text.":":"<a href=\"$link\">".$text.":</a>")."</b><br />\n";
+		$fergcorp_countdownTimer_noEventsPresent = FALSE;
+		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= cdt_hms($time_left)."</li>";
+			$content .= cdt_hms($time_left).$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".cdt_hms($time_left)."</abbr></li>";
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".cdt_hms($time_left)."</abbr>".$displayFormatSuffix;
 		return $content;
 	}
 	else{
@@ -427,7 +470,7 @@ function strtorecurringtime($string){
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
 
-$getOptions = unserialize(get_option("afdn_countdownOptions"));				//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
+$getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
 
 if($getOptions["enableTheLoop"]){								//If the timer is to be allowed in The Loop, run this
 	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
