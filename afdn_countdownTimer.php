@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Countdown Timer
-Plugin URI: http://www.andrewferguson.net/wordpress-plugins/#countdown
+Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.7
+Version: 1.7.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 function afdn_countdownTimer_myOptionsSubpanel(){
-$pluginVersion = "1.7";
+$pluginVersion = "1.7.1";
 $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
 
@@ -96,7 +96,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB to make sure a fresh copy is being used
 
 	/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
-	if($getOptions["deleteOneTimeEvents"]){
+	if($getOptions["deleteOneTimeEvents"] && (count($dates["oneTime"][0])!=0) ){
 		foreach($dates as $key => $value){
 			if(($value["date"]<=time())&&($value["timeSince"]=="")){
 			$dates[$key]["date"]=0;
@@ -134,7 +134,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
   &lt;?php afdn_countdownTimer(); ?&gt;<br />
   &lt;/ul&gt;<br />
   &lt;/li&gt;</code>		</p>
-				<p>Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I’m a college student  and really only do this programming thing on the side for the love of it.<br />
+				<p>Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.<br />
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -157,7 +157,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 						}
 						elseif($currentVersion > $pluginVersion){
 						  echo "You have version <strong>$pluginVersion</strong>, the current version is <strong>$currentVersion</strong>.<br />";
-						  echo "Download the latest version at <a href=\"http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php\">http://dev.wp-plugins.org/file/countdown-timer/trunk/afdn_countdownTimer.php</a>";
+						  echo "Download the latest version at <a href=\"http://dev.wp-plugins.org/file/countdown-timer/tags/$currentVersion/afdn_countdownTimer.php?format=raw\">http://dev.wp-plugins.org/file/countdown-timer/tags/$currentVersion/afdn_countdownTimer.php?format=raw</a>";
 						}
 						elseif($currentVersion < $pluginVersion){
 							echo "Beta version, eh?";
@@ -220,7 +220,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				</p>
 				<table>
 				<tr>
-					<td><?php _e('Delete'); ?></td>
+					<td><strong><?php _e('Delete'); ?></strong></td>
 					<td><?php _e('Event Date'); ?></td>
 					<td><?php _e('Event Title'); ?></td>
 					<td><?php _e('Link'); ?></td>
@@ -389,9 +389,9 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 	}
 	if($output == "return")
 			return $toReturn;
-			
-	if($fergcorp_countdownTimer_noEventsPresent = TRUE){
-		echo "<li>No dates present</li>";
+	
+	if($fergcorp_countdownTimer_noEventsPresent == TRUE){
+		echo $getOptions["displayFormatPrefix"]."No dates present".$getOptions["displayFormatSuffix"];
 	}
 }
 /*PLUGIN-WIDE FUNCTIONS*/
@@ -406,11 +406,13 @@ Simple enough?
 */
 
 function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>"){
+	global $fergcorp_countdownTimer_noEventsPresent;
 	$time_left = $time - time() + $offset;
 	if(($time_left < 0)&&($timeSince==1)){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
+			//$content .= cdt_hms($time_left).(($time_left < 0)&&($timeSince==1)?" ago":NULL).$displayFormatSuffix;
 			$content .= cdt_hms($time_left)." ago".$displayFormatSuffix;
 		else
 			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".cdt_hms($time_left)." ago</abbr>".$displayFormatSuffix;
