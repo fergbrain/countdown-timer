@@ -12,7 +12,7 @@ This plugin allows you to setup a series of dates to countdown to in terms of ye
 
 == Installation ==
 
-Here’s the code you need in insert into your sidebar.php file:
+Here's the code you need in insert into your sidebar.php file:
 
 `<li id='countdown'><h2>Countdown:</h2>
 <ul>
@@ -28,7 +28,7 @@ If you want to call the timer from within the WP Loop, make sure The Loop functi
 
 where you want the timer displayed.
 
-== Frequenty Asked Questions ==
+== Frequently Asked Questions ==
 
 = Where I am supposed to set the count down time? =
 
