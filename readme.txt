@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event
 Requires at least: 1.5
-Tested up to: 2.1.2
-Stable tag: 1.7.1
+Tested up to: 2.1.3
+Stable tag: 1.7.2
 
 This plugin allows you to setup a series of dates to countdown to in terms of years, days, hours, minutes, and seconds.
 
