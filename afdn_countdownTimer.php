@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
-Version: 1.7.1
+Version: 1.7.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 function afdn_countdownTimer_myOptionsSubpanel(){
-$pluginVersion = "1.7.1";
+$pluginVersion = "1.7.2";
 $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?format=txt";
 
 
@@ -122,7 +122,6 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 				return false;
 		}
 		</script>
-		<form method="post" name="afdn_countdownTimer">
 			<h2>Countdown Timer</h2>
 
 			<!-- Notes and pleas-->
@@ -144,7 +143,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 ">
 </form></p>
 			</fieldset>
-			
+			<form method="post" name="afdn_countdownTimer">
 			<!-- Options for the plugin management -->			
 			<fieldset name="management" class="options">
 				<legend><strong>Management</strong></legend>
@@ -169,7 +168,7 @@ $updateURL = "http://dev.wp-plugins.org/file/countdown-timer/trunk/version.inc?f
 
 			<!-- Include within The Loop -->
 			<fieldset name="inPost" class="options">
-				<legend><strong>Include in The Loop</strong>
+				<legend><strong>Include in The Loop</strong></legend>
 				<p>To include CountdownTimer within a post or page, simple enable The Loop function below and then insert
 				<code>&lt;!--afdn_countdownTimer--&gt;</code>
 				where you want the countdown to be inserted</p>
