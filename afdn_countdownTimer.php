@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 function afdn_countdownTimer_myOptionsSubpanel(){
 
+	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
+
 	if (isset($_POST['info_update']))																		//If the user has submitted the form, do the following
 	{
 		/*Begin One Time Events*/
@@ -75,7 +77,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 		update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 		
-		echo '<div id="message" class="updated fade"><p>"Options updated successfully.</p></div>';					//Report to the user that the data has been updated successfully
+		echo '<div id="message" class="updated fade"><p>'. __('Options updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
 	}
 
 	$dates = get_option("afdn_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
@@ -189,6 +191,8 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 							 }
 
 						@next($dates["oneTime"]);
+
+
 						}
 							?><tr>
 							<td></td>
@@ -402,8 +406,11 @@ $min is another integer masquerading as a boolean. If set to "True" (i.e. "1"), 
 function cdt_hms($s, $min=1){
 	global $getOptions;
 	
+	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
+	
 	if($getOptions['showYear']){
 		$years=intval($s/31536000); //How many years?
+		$years = $years + (intval($s/31104000) - $years); //Deal with the discrepency between actual years and ideal years
 		$s = $s - ($years*31536000);
 		if ($years) //If there are any years, display them
 			$r=$r.abs($years).' '.($years==1?__("year", "afdn_countdownTimer"):__("years", "afdn_countdownTimer")).', '; //Absolute values (ABS function) are used to be compatible with counting up from events
