@@ -130,7 +130,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 
 			<!-- Notes and pleas-->
 			<fieldset name="notes" class="options">
-				<legend><strong>Notes</strong></legend>
+				<legend><strong><?php _e('Notes', 'afdn_countdownTimer'); ?></strong></legend>
 				<p>You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you'll probably want to use code similar to:</p>
 				<p><code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
   &lt;ul&gt;<br />
@@ -151,9 +151,9 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			
 			<!-- One Time Events -->
 			<fieldset name="ote" class="options">
-				<legend><b>One Time Events</b></legend>
+				<legend><b><?php _e('One Time Events', 'afdn_countdownTimer'); ?></b></legend>
 				<p>Countdown timer uses <a href="http://us2.php.net/strtotime">PHP's strtodate function</a> and will parse about any English textual datetime description.</p>
-				<p>Examples of some (but not all) valid dates:
+				<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:
 			<ul>
 						<li>now</li>
 						<li>31 january 1986</li>
@@ -203,15 +203,15 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 				</table>
 
 
-			<p>Automatically delete '<?php _e('One Time Events') ?>' after they have occured? <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked":NULL)?> />Yes :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked":NULL)?>/>No</p>
+			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
 			
 			
 			<!-- Options for the plugin management -->			
 			<fieldset name="management" class="options">
-				<legend><strong>Management</strong></legend>
-					Check for updates? <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> />Yes :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/>No
+				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>
+					<?php _e('Check for updates?', 'afdn_countdownTimer'); ?> <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?>
 					<?php if($getOptions["checkUpdate"]==1){
 						echo "<br /><br />";
 						echo "<iframe src='http://fergcorp.com/wordpress/version.php?plugin=afdn_countdownTimer&amp;version=". get_option("fergcorp_countdownTimer_version") ."' width='100%' height='90' scrolling='auto' frameborder='0'></iframe>";
@@ -222,55 +222,55 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 
 			<!-- Include within The Loop -->
 			<fieldset name="inPost" class="options">
-				<legend><strong>Include in The Loop</strong></legend>
-				<p>To include CountdownTimer within a post or page, simple enable The Loop function below and then insert
+				<legend><strong><?php _e('Include in The Loop', 'afdn_countdownTimer'); ?></strong></legend>
+				<p><?php _e('To include CountdownTimer within a post or page, simple enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:
 				<code>&lt;!--afdn_countdownTimer--&gt;</code>
-				where you want the countdown to be inserted</p>
-				<p>Enable CountdownTimer within The Loop?
-				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked":NULL)?> />Yes :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked":NULL)?>/>No</p>
+				<?php _e('where you want the countdown to be inserted', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Enable CountdownTimer within The Loop?', 'afdn_countdownTimer'); ?>
+				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
 			<!-- Countdown Time Display -->
 			<fieldset name="countdownTimeDisplay" class="options">
-				<legend><strong>Countdown Time Display</strong></legend>
-				<p>This settings controls what unites of time are displayed.</p>
-				<p>Years? <input name="showYear" type = "radio" value = "1" <?php print($getOptions["showYear"]==1?"checked":NULL) ?> /> Yes :: <input name="showYear" type = "radio" value = "0" <?php print($getOptions["showYear"]==0?"checked":NULL) ?> /> No</p>
-				<p>Months? <input name="showMonth" type = "radio" value = "1" <?php print($getOptions["showMonth"]==1?"checked":NULL) ?> /> Yes :: <input name="showMonth" type = "radio" value = "0" <?php print($getOptions["showMonth"]==0?"checked":NULL) ?> /> No</p>
-				<p>Days? <input name="showDay" type = "radio" value = "1" <?php print($getOptions["showDay"]==1?"checked":NULL) ?> /> Yes :: <input name="showDay" type = "radio" value = "0" <?php print($getOptions["showDay"]==0?"checked":NULL) ?> /> No</p>
-				<p>Hours? <input name="showHour" type = "radio" value = "1" <?php print($getOptions["showHour"]==1?"checked":NULL) ?> /> Yes :: <input name="showHour" type = "radio" value = "0" <?php print($getOptions["showHour"]==0?"checked":NULL) ?> /> No</p>
-				<p>Minutes? <input name="showMinute" type = "radio" value = "1" <?php print($getOptions["showMinute"]==1?"checked":NULL) ?> /> Yes :: <input name="showMinute" type = "radio" value = "0" <?php print($getOptions["showMinute"]==0?"checked":NULL) ?> /> No</p>
-				<p>Seconds? <input name="showSecond" type = "radio" value = "1" <?php print($getOptions["showSecond"]==1?"checked":NULL) ?> /> Yes :: <input name="showSecond" type = "radio" value = "0" <?php print($getOptions["showSecond"]==0?"checked":NULL) ?> /> No</p>
+				<legend><strong><?php _e('Countdown Time Display', 'afdn_countdownTimer'); ?></strong></legend>
+				<p><?php _e('This settings controls what unites of time are displayed.', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Years?', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($getOptions["showYear"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($getOptions["showYear"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Months?', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($getOptions["showMonth"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($getOptions["showMonth"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Days?', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($getOptions["showDay"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($getOptions["showDay"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Hours?', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($getOptions["showHour"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($getOptions["showHour"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Minutes?', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($getOptions["showMinute"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($getOptions["showMinute"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Seconds?', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($getOptions["showSecond"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($getOptions["showSecond"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
 			</fieldset>	
 				
 
 			<!-- onHover Time Display -->
 			<fieldset name="onHoverTimeFormat" class="options">
-				<legend><strong>onHover Time Format </strong></legend>
-				<p>If you set "onHover Time Format", hovering over the time left will show the user what the date of the event is; or in the case of a recurring event, when the next occurance is. onHover Time Format uses <a href-"http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
-				<p>Examples:</p>
+				<legend><strong><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?></strong></legend>
+				<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is; or in the case of a recurring event, when the next occurance is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href-"http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
+				<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
 				<ul>
-					<li>"<em>j M Y, G:i:s</em>" goes to "<strong>17 Mar 2006, 14:50:00</strong>"</li>
-					<li>"<em>F jS, Y, g:i a</em>" goes to "<strong>March 17th, 2006, 2:50 pm</strong>"</li>
+					<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2006, 14:50:00</strong>"</li>
+					<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>March 17th, 2006, 2:50 pm</strong>"</li>
 				</ul>
-				<p>onHover Time Format <input type="text" value="<?php print($getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
+				<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
 			</fieldset>
 			
 			<!-- Display Format -->
 			<fieldset name="displayFormatOptions" class="options">
-				<legend><strong>Display Format Options</strong></legend>
-				<p>This setting allows you to customize how each event is wrapped.</p>
-				<p>Examples:</p>
+				<legend><strong><?php _e('Display Format Options', 'afdn_countdownTimer'); ?></strong></legend>
+				<p><?php _e('This setting allows you to customize how each event is wrapped.', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
 				<ul>
-					<li><em>Prefix:</em> <code>&lt;li&gt;</code></li>
-					<li><em>Suffix:</em> <code>&lt;/li&gt;</code></li>
+					<li><em><?php _e('Prefix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;li&gt;</code></li>
+					<li><em><?php _e('Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
 				</ul>
 				
-				<p>Display Format Prefix <input type="text" value="<?php print($getOptions["displayFormatPrefix"]); ?>" name="displayFormatPrefix" /></p>
-				<p>Display Format Suffix <input type="text" value="<?php print($getOptions["displayFormatSuffix"]); ?>" name="displayFormatSuffix" /></p>
+				<p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["displayFormatPrefix"]); ?>" name="displayFormatPrefix" /></p>
+				<p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["displayFormatSuffix"]); ?>" name="displayFormatSuffix" /></p>
 			</fieldset>
 
 			<div class="submit"><input type="submit" name="info_update" value="<?php
-				_e('Update Events', 'Localization name')
+				_e('Update Events', 'afdn_countdownTimer')
 			 ?>&raquo;" /></div>
 		</form>
 	</div> <?
