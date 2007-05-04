@@ -2,12 +2,12 @@
 /*
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
-Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
+Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event
 Version: 1.8 Alpha
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
-Countdown Timer - Add template tags to count down the years, days, hours, and minutes to a particular event or recurring date
+Countdown Timer - Add template tags to count down the years, days, hours, and minutes to a particular event
 Copyright (c) 2005-2007 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
@@ -191,6 +191,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 							 }
 
 						@next($dates["oneTime"]);
+
 
 
 						}
@@ -378,20 +379,18 @@ function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			//$content .= cdt_hms($time_left).(($time_left < 0)&&($timeSince==1)?" ago":NULL).$displayFormatSuffix;
-			$content .= cdt_hms($time_left)." ago".$displayFormatSuffix;
+			$content .= fergcorp_fuzzyDate((time() + $offset), $time)." ago".$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".cdt_hms($time_left)." ago</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".fergcorp_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
 		return $content;
-		//return NULL;
 	}
 	elseif($time_left > 0){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= cdt_hms($time_left).$displayFormatSuffix;
+			$content .= fergcorp_fuzzyDate($time, (time() + $offset)).$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".cdt_hms($time_left)."</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".fergcorp_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
 		return $content;
 	}
 	else{
@@ -399,64 +398,111 @@ function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat
 	}
 }
 
-/*$cdt_hms takes a two variable integers and returns a single string
-$s is an integer formated in UNIX time and is set to the event date (i.e. usually sometime in the future)
-$min is another integer masquerading as a boolean. If set to "True" (i.e. "1"), the minutes until an event will be displayed. Otherwise, they will not.
-*/
-function cdt_hms($s, $min=1){
+function fergcorp_fuzzyDate($targetTime, $nowTime){
 	global $getOptions;
 	
-	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
+	$rollover = 0;
+	$s = '';
+
+	$nowYear = date("Y", $nowTime);
+	$nowMonth = date("m", $nowTime);
+	$nowDay = date("d", $nowTime);
+	$nowHour = date("H", $nowTime);
+	$nowMinute = date("i", $nowTime);
+	$nowSecond = date("s", $nowTime);
 	
+	$targetYear = date("Y", $targetTime);
+	$targetMonth = date("m", $targetTime);
+	$targetDay = date("d", $targetTime);
+	$targetHour = date("H", $targetTime);
+	$targetMinute = date("i", $targetTime);
+	$targetSecond = date("s", $targetTime);
+	
+	$resultantYear = $targetYear - $nowYear;
+	$resultantMonth = $targetMonth - $nowMonth;
+	$resultantDay = $targetDay - $nowDay;
+	$resultantHour = $targetHour - $nowHour;
+	$resultantMinute = $targetMinute - $nowMinute;
+	$resultantSecond = $targetSecond - $nowSecond;
+	
+	
+	if($resultantSecond < 0){
+		$resultantMinute--;
+		$resultantSecond = 60 + $resultantSecond;
+	}
+	
+	if($resultantMinute < 0){
+		$resultantHour--;
+		$resultantMinute = 60 + $resultantMinute;
+	}
+	
+	if($resultantHour < 0){
+		$resultantDay--;
+		$resultantHour = 24 + $resultantHour;
+	}
+	
+	if($resultantDay < 0){
+		$resultantMonth--;
+		$resultantDay = $resultantDay + date("t", $targetMonth);
+	}
+	
+	if($resultantMonth < 0){
+		$resultantYear--;
+		$resultantMonth = $resultantMonth + 12;
+	}
+	
+	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
+
+	//Year
 	if($getOptions['showYear']){
-		$years=intval($s/31536000); //How many years?
-		$years = $years + (intval($s/31104000) - $years); //Deal with the discrepency between actual years and ideal years
-		$s = $s - ($years*31536000);
-		if ($years) //If there are any years, display them
-			$r=$r.abs($years).' '.($years==1?__("year", "afdn_countdownTimer"):__("years", "afdn_countdownTimer")).', '; //Absolute values (ABS function) are used to be compatible with counting up from events
+		$s = $resultantYear.' '.($resultantYear==1?__("year", "afdn_countdownTimer"):__("years", "afdn_countdownTimer")).', ';;
 	}
-	if($getOptions['showMonth']){	
-		$months=intval($s/2592000);
-		$s = $s - $months*2592000;
-		if($months) //If there are any years, display them
-			$r=$r.abs($months).' '.($months==1?__("month", "afdn_countdownTimer"):__("months", "afdn_countdownTimer")).', ';
+	else{
+		$rollover = $resultantYear*31536000;
 	}
+
+	//Month	
+	if($getOptions['showMonth']){
+		$s = $s.($resultantMonth + intval($rollover/2592000)).' '.($resultantMonth==1?__("month", "afdn_countdownTimer"):__("months", "afdn_countdownTimer")).', ';
+		$rollover = $rollover - intval($rollover/2592000)*2592000;
+	}
+	else{
+		$rollover = $rollover + $resultantMonth*2592000;
+	}
+
+	//Day
 	if($getOptions['showDay']){
-		$days=intval($s/86400); //How many days?
-		$s = $s - $days*86400;
-		if ($days) //If there are any days, display them
-			$r=$r.abs($days).' '.($days==1?__("day", "afdn_countdownTimer"):__("days", "afdn_countdownTimer")).', ';
+		$s = $s.($resultantDay + intval($rollover/86400)).' '.($resultantDay==1?__("day", "afdn_countdownTimer"):__("days", "afdn_countdownTimer")).', ';
+		$rollover = $rollover - intval($rollover/86400)*86400;
 	}
+	else{
+		$rollover = $rollover + $resultantDay*86400;
+	}
+	
+	//Hour
 	if($getOptions['showHour']){
-		$hours=intval($s/3600); //How many hours?
-		$s = $s - $hours*3600;
-		if ($hours) //If there are any hours, display them
-			$r=$r.abs($hours).' '.($hours==1?__("hour", "afdn_countdownTimer"):__("hours", "afdn_countdownTimer")).', ';
+		$s = $s.($resultantHour + intval($rollover/3600)).' '.($resultantHour==1?__("hour", "afdn_countdownTimer"):__("hours", "afdn_countdownTimer")).', ';
+		$rollover = $rollover - intval($rollover/3600)*3600;
 	}
+	else{
+		$rollover = $rollover + $resultantHour*3600;
+	}
+	
+	//Minute
 	if($getOptions['showMinute']){
-		$minutes=intval($s/60); //How many minutes?
-		$s = $s - $minutes*60;
-		if($min) //If we want minutes, display them
-			$r=$r.abs($minutes).' '.($minutes==1?__("minute", "afdn_countdownTimer"):__("minutes", "afdn_countdownTimer")).', ';
+		$s = $s.($resultantMinute + intval($rollover/60)).' '.($resultantMinute==1?__("minute", "afdn_countdownTimer"):__("minutes", "afdn_countdownTimer")).', ';
+		$rollover = $rollover - intval($rollover/60)*60;
 	}
+	else{
+		$rollover = $rollover + $resultantMinute*60;
+	}
+	
+	//Second
 	if($getOptions['showSecond']){
-		$r = $r.abs($s).' '.($minutes==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
+		$s = $s.($resultantSecond + intval($rollover/86400)).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
 	}
-	return rtrim($r,", "); //...and return the result (a string)
-}
-
-function time_difference($start, $end, $offset){
-
-}
-
-/* I created this function to handle dates that repeat every year. The idea is that I can design a whole bunch of conditions and then pass a string of text to this function
-and have it return UNIX time stamp*/
-function strtorecurringtime($string){
-	$newString = date("r", strtotime($string));
-	if(strtotime($newString) < (time()-15768000)) //15768000 is 6 months. This avoids resetting for the new date too soon.
-		$newString = date("r", strtotime($string."/".(date("Y")+1)));
-
-	return strtotime($newString);
+	
+	return rtrim($s,", "); //...and return the result (a string)
 }
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
