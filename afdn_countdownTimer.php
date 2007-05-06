@@ -97,7 +97,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 		<script language="javascript">
 
 		function clearField(eventType, fieldNum){ //For deleting events without reloading
-			var agree=confirm('Are you sure you wish to delete '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
+			var agree=confirm('<?php _e('Are you sure you wish to delete', 'afdn_countdownTimer'); ?> '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
 			if(agree){
 				var inputID = eventType + '_table' + fieldNum;
 				document.getElementById(inputID).style.display = 'none';
@@ -133,13 +133,13 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			<!-- Notes and pleas-->
 			<fieldset name="notes" class="options">
 				<legend><strong><?php _e('Notes', 'afdn_countdownTimer'); ?></strong></legend>
-				<p>You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you'll probably want to use code similar to:</p>
+				<p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you'll probably want to use code similar to", 'afdn_countdownTimer'); ?>:</p>
 				<p><code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
   &lt;ul&gt;<br />
   &lt;?php afdn_countdownTimer(); ?&gt;<br />
   &lt;/ul&gt;<br />
   &lt;/li&gt;</code>		</p>
-				<p>Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.<br />
+				<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?><br />
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -154,7 +154,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			<!-- One Time Events -->
 			<fieldset name="ote" class="options">
 				<legend><b><?php _e('One Time Events', 'afdn_countdownTimer'); ?></b></legend>
-				<p>Countdown timer uses <a href="http://us2.php.net/strtotime">PHP's strtodate function</a> and will parse about any English textual datetime description.</p>
+				<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtodate function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
 				<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:
 			<ul>
 						<li>now</li>
@@ -349,21 +349,21 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 	//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 	for($i = 0; $i < $eventCount; $i++){
 		if($output == "echo")
-			echo cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
+			echo fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		elseif($output == "return"){
-			$toReturn .= cdt_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
+			$toReturn .= fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		}
 	}
 	if($output == "return")
 			return $toReturn;
 	
 	if($fergcorp_countdownTimer_noEventsPresent == TRUE){
-		echo $getOptions["displayFormatPrefix"]."No dates present".$getOptions["displayFormatSuffix"];
+		echo $getOptions["displayFormatPrefix"].__('No dates present', 'afdn_countdownTimer').$getOptions["displayFormatSuffix"];
 	}
 }
 /*PLUGIN-WIDE FUNCTIONS*/
 
-/*cdt_format takes four variables and returns a single strong for the output of the plugin
+/*fergcorp_countdownTimer_format takes four variables and returns a single strong for the output of the plugin
 $text is a string with just the text associated with a given date, for example "My 20th Birthday!" HTML formatting is allowed, just be sure to close your tags
 $time is an integer formated in UNIX time.
 $offset is a signed integer (i.e. it has both positive and negitive values) and represents the sum of many timezone offsets to make sure that the correct time is displayed, no matter what timezone you are in, your server is in, or your blog is in.
@@ -372,25 +372,25 @@ $timeSince is a single integer representitive of a boolean value. 1 = True; 0 = 
 Simple enough?
 */
 
-function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>"){
+function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>"){
 	global $fergcorp_countdownTimer_noEventsPresent, $getOptions;
 	$time_left = $time - time() + $offset;
 	if(($time_left < 0)&&($timeSince==1)){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= fergcorp_fuzzyDate((time() + $offset), $time)." ago".$displayFormatSuffix;
+			$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago".$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".fergcorp_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
 		return $content;
 	}
 	elseif($time_left > 0){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= fergcorp_fuzzyDate($time, (time() + $offset)).$displayFormatSuffix;
+			$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset)).$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".fergcorp_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
 		return $content;
 	}
 	else{
@@ -398,7 +398,7 @@ function cdt_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat
 	}
 }
 
-function fergcorp_fuzzyDate($targetTime, $nowTime){
+function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 	global $getOptions;
 	
 	$rollover = 0;
