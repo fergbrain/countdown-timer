@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event
-Version: 1.8 Alpha
+Version: 1.8 Beta
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -93,8 +93,8 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 	}
 	?>
 
-	<div class=wrap>
-		<script language="javascript">
+	<div class="wrap">
+		<script language="javascript" type="text/javascript">
 
 		function clearField(eventType, fieldNum){ //For deleting events without reloading
 			var agree=confirm('<?php _e('Are you sure you wish to delete', 'afdn_countdownTimer'); ?> '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
@@ -131,7 +131,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			<h2>Countdown Timer</h2>
 
 			<!-- Notes and pleas-->
-			<fieldset name="notes" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('Notes', 'afdn_countdownTimer'); ?></strong></legend>
 				<p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you'll probably want to use code similar to", 'afdn_countdownTimer'); ?>:</p>
 				<p><code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
@@ -139,23 +139,26 @@ function afdn_countdownTimer_myOptionsSubpanel(){
   &lt;?php afdn_countdownTimer(); ?&gt;<br />
   &lt;/ul&gt;<br />
   &lt;/li&gt;</code>		</p>
-				<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?><br />
+  
+  				<p><?php _e("Alternatively, you can use the <a href='http://www.andrewferguson.net/wordpress-plugins/countdown-timer/'>Countdown Timer Widget</a> if you have widget enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
+  
+				<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-">
-</form></p>
+" />
+</form>
 			</fieldset>
-			<form method="post" name="afdn_countdownTimer">
+			<form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>" >
 			
 			<!-- One Time Events -->
-			<fieldset name="ote" class="options">
+			<fieldset class="options">
 				<legend><b><?php _e('One Time Events', 'afdn_countdownTimer'); ?></b></legend>
 				<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtodate function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:
+				<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:</p>
 			<ul>
 						<li>now</li>
 						<li>31 january 1986</li>
@@ -163,8 +166,6 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 						<li>next thursday</li>
 						<li>last monday</li>
 			</ul>
-
-				</p>
 				<table>
 				<tr>
 					<td><strong><?php _e('Delete'); ?></strong></td>
@@ -180,11 +181,11 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
 							if($dates["oneTime"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
 							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
-							<td><a href="javascript:void(0);" onClick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
+							<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
 							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
-							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked":NULL)?>/></td>
+							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
 							</tr>
 							<?php
 							$oneTimeEvent_count++;
@@ -202,21 +203,20 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
 							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
 							</tr>
-							<?php
-						echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />';
-						?>
 				</table>
+				
+					<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 
 
-			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
+			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
 			
 			
 			<!-- Options for the plugin management -->			
-			<fieldset name="management" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>
-					<?php _e('Check for updates?', 'afdn_countdownTimer'); ?> <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?>
+					<?php _e('Check for updates?', 'afdn_countdownTimer'); ?> <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?>
 					<?php if($getOptions["checkUpdate"]==1){
 						echo "<br /><br />";
 						echo "<iframe src='http://fergcorp.com/wordpress/version.php?plugin=afdn_countdownTimer&amp;version=". get_option("fergcorp_countdownTimer_version") ."' width='100%' height='90' scrolling='auto' frameborder='0'></iframe>";
@@ -226,42 +226,42 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			</fieldset>
 
 			<!-- Include within The Loop -->
-			<fieldset name="inPost" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('Include in The Loop', 'afdn_countdownTimer'); ?></strong></legend>
 				<p><?php _e('To include CountdownTimer within a post or page, simple enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:
 				<code>&lt;!--afdn_countdownTimer--&gt;</code>
 				<?php _e('where you want the countdown to be inserted', 'afdn_countdownTimer'); ?></p>
 				<p><?php _e('Enable CountdownTimer within The Loop?', 'afdn_countdownTimer'); ?>
-				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<input name="enableTheLoop" type="radio" value="1" <?php print($getOptions["enableTheLoop"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($getOptions["enableTheLoop"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
 			<!-- Countdown Time Display -->
-			<fieldset name="countdownTimeDisplay" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('Countdown Time Display', 'afdn_countdownTimer'); ?></strong></legend>
 				<p><?php _e('This settings controls what unites of time are displayed.', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Years?', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($getOptions["showYear"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($getOptions["showYear"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Months?', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($getOptions["showMonth"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($getOptions["showMonth"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Days?', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($getOptions["showDay"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($getOptions["showDay"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Hours?', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($getOptions["showHour"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($getOptions["showHour"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Minutes?', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($getOptions["showMinute"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($getOptions["showMinute"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-				<p><?php _e('Seconds?', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($getOptions["showSecond"]==1?"checked":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($getOptions["showSecond"]==0?"checked":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Years?', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($getOptions["showYear"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($getOptions["showYear"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Months?', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Days?', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($getOptions["showDay"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($getOptions["showDay"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Hours?', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($getOptions["showHour"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($getOptions["showHour"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Minutes?', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($getOptions["showMinute"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($getOptions["showMinute"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
+				<p><?php _e('Seconds?', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
 			</fieldset>	
 				
 
 			<!-- onHover Time Display -->
-			<fieldset name="onHoverTimeFormat" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?></strong></legend>
-				<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is; or in the case of a recurring event, when the next occurance is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href-"http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
+				<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is; or in the case of a recurring event, when the next occurance is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href="http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
 				<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
 				<ul>
-					<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2006, 14:50:00</strong>"</li>
-					<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>March 17th, 2006, 2:50 pm</strong>"</li>
+					<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
+					<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
 				</ul>
 				<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
 			</fieldset>
 			
 			<!-- Display Format -->
-			<fieldset name="displayFormatOptions" class="options">
+			<fieldset class="options">
 				<legend><strong><?php _e('Display Format Options', 'afdn_countdownTimer'); ?></strong></legend>
 				<p><?php _e('This setting allows you to customize how each event is wrapped.', 'afdn_countdownTimer'); ?></p>
 				<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
@@ -270,8 +270,8 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 					<li><em><?php _e('Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
 				</ul>
 				
-				<p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["displayFormatPrefix"]); ?>" name="displayFormatPrefix" /></p>
-				<p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($getOptions["displayFormatSuffix"]); ?>" name="displayFormatSuffix" /></p>
+				<p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($getOptions["displayFormatPrefix"])); ?>" name="displayFormatPrefix" /></p>
+				<p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
 			</fieldset>
 
 			<div class="submit"><input type="submit" name="info_update" value="<?php
@@ -280,6 +280,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 		</form>
 	</div> <?
 }
+
 
 function afdn_countdownTimer_loop($theContent){																							//Filter function for including the countdown with The Loop
 	if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
@@ -454,7 +455,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
 
 	//Year
-	if($getOptions['showYear']){
+	if($getOptions['showYear'] && ($resultantYear)){
 		$s = $resultantYear.' '.($resultantYear==1?__("year", "afdn_countdownTimer"):__("years", "afdn_countdownTimer")).', ';;
 	}
 	else{
