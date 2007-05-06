@@ -85,9 +85,9 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 
 	/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
 	if($getOptions["deleteOneTimeEvents"] && (count($dates["oneTime"][0])!=0) ){
-		foreach($dates as $key => $value){
+		foreach($dates["oneTime"] as $key => $value){
 			if(($value["date"]<=time())&&($value["timeSince"]=="")){
-			$dates[$key]["date"]=0;
+			$dates["oneTime"][$key]["text"]=NULL;
 			}
 		}
 	}
@@ -179,7 +179,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 						$oneTimeEvent_count = 0;
 						$oneTimeEvent_entriesCount = count($dates["oneTime"]);
 						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
-							if($dates["oneTime"][$i]["date"]!=''){ //If the time is NULL, skip over it?>
+							if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
 							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
 							<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
@@ -281,7 +281,6 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 	</div> <?
 }
 
-
 function afdn_countdownTimer_loop($theContent){																							//Filter function for including the countdown with The Loop
 	if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
 		$theContent = preg_replace("/<!--afdn_countdownTimer(\(([0-9]+)\))?-->/e", "afdn_countdownTimer('return', $2)", $theContent);	//The actual replacement of the string with the timer
@@ -300,10 +299,18 @@ function afdn_countdownTimer_optionsPage(){																		//Action function f
 
 
 /*This function is called from your page to output the actual data*/
-function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will print the results, 'return' will just return them
+function afdn_countdownTimer($output = "echo", $eventLimit = -1){ //'echo' will print the results, 'return' will just return them
 
 	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 	$getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
+	
+	if(count($dates["oneTime"][0])!=0){
+		foreach($dates["oneTime"] as $key => $value){
+			if(($value["date"]<=time())&&($value["timeSince"]=="")){
+			$dates["oneTime"][$key]["text"]=NULL;
+			}
+		}
+	}
 
 	//There are two sets of arrays, 'onetime' and 'recurring', which need to be combined these next lines do that...
 	$numOneTimeDates = count($dates["oneTime"]);
@@ -342,7 +349,7 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 			}
 		}
 	}
-	if($eventLimit != 0)	//If the eventLimit is set
+	if($eventLimit != -1)	//If the eventLimit is set
 		$eventCount = $eventLimit;
 
 	global $fergcorp_countdownTimer_noEventsPresent;
@@ -354,6 +361,9 @@ function afdn_countdownTimer($output = "echo", $eventLimit = 0){ //'echo' will p
 		elseif($output == "return"){
 			$toReturn .= fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		}
+
+		if($thisDate[$i]["text"]==NULL)
+			$eventCount++;
 	}
 	if($output == "return")
 			return $toReturn;
