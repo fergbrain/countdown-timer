@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-05-06 01:29-0700\n"
+"PO-Revision-Date: 2007-05-07 17:50-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -198,55 +198,71 @@ msgstr ""
 msgid "Update Events"
 msgstr ""
 
-#: afdn_countdownTimer.php:362
+#: afdn_countdownTimer.php:372
 msgid "No dates present"
 msgstr ""
 
-#: afdn_countdownTimer.php:459
+#: afdn_countdownTimer.php:469
 msgid "year"
 msgstr ""
 
-#: afdn_countdownTimer.php:459
+#: afdn_countdownTimer.php:469
 msgid "years"
 msgstr ""
 
-#: afdn_countdownTimer.php:467
+#: afdn_countdownTimer.php:477
 msgid "month"
 msgstr ""
 
-#: afdn_countdownTimer.php:467
+#: afdn_countdownTimer.php:477
 msgid "months"
 msgstr ""
 
-#: afdn_countdownTimer.php:476
+#: afdn_countdownTimer.php:486
 msgid "day"
 msgstr ""
 
-#: afdn_countdownTimer.php:476
+#: afdn_countdownTimer.php:486
 msgid "days"
 msgstr ""
 
-#: afdn_countdownTimer.php:485
+#: afdn_countdownTimer.php:495
 msgid "hour"
 msgstr ""
 
-#: afdn_countdownTimer.php:485
+#: afdn_countdownTimer.php:495
 msgid "hours"
 msgstr ""
 
-#: afdn_countdownTimer.php:494
+#: afdn_countdownTimer.php:504
 msgid "minute"
 msgstr ""
 
-#: afdn_countdownTimer.php:494
+#: afdn_countdownTimer.php:504
 msgid "minutes"
 msgstr ""
 
-#: afdn_countdownTimer.php:503
+#: afdn_countdownTimer.php:513
 msgid "second"
 msgstr ""
 
-#: afdn_countdownTimer.php:503
+#: afdn_countdownTimer.php:513
 msgid "seconds"
+msgstr ""
+
+#: afdn_countdownTimer.php:605
+msgid "Widget title:"
+msgstr ""
+
+#: afdn_countdownTimer.php:606
+msgid "Maximum # of events to show:"
+msgstr ""
+
+#: afdn_countdownTimer.php:608
+msgid "Notes:"
+msgstr ""
+
+#: afdn_countdownTimer.php:608
+msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr ""
 

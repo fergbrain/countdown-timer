@@ -2,12 +2,12 @@
 /*
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
-Plugin Description: Add template tags to count down the years, days, hours, and minutes to a particular event
-Version: 1.8 Beta
+Plugin Description: Add template tags and widget to count down the years, days, hours, and minutes to a particular event
+Version: 1.8
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
-Countdown Timer - Add template tags to count down the years, days, hours, and minutes to a particular event
+Countdown Timer - Add template tags and widget to count down the years, days, hours, and minutes to a particular event
 Copyright (c) 2005-2007 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
@@ -361,9 +361,9 @@ function afdn_countdownTimer($output = "echo", $eventLimit = -1){ //'echo' will 
 		elseif($output == "return"){
 			$toReturn .= fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], (date("Z") - (get_settings('gmt_offset') * 3600)), $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $getOptions["timeOffset"], $getOptions["displayFormatPrefix"], $getOptions["displayFormatSuffix"]);
 		}
-
-		if($thisDate[$i]["text"]==NULL)
+		if(($thisDate[$i]["text"]==NULL) && (isset($thisDate[$i]))){
 			$eventCount++;
+		}
 	}
 	if($output == "return")
 			return $toReturn;
@@ -522,6 +522,11 @@ add_action('activate_afdn_countdownTimer.php', 'afdn_countdownTimer_install');
 
 function afdn_countdownTimer_install(){
 	$version = get_option("fergcorp_countdownTimer_version");
+	$widgetVersion = get_option("widget_fergcorp_countdown");
+	
+	if($widgetVersion == NULL)
+		update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
+		
 	
 	if($version == NULL){ //Version < 1.8
 			
@@ -563,12 +568,81 @@ function afdn_countdownTimer_install(){
 		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options*/
 		update_option("fergcorp_countdownTimer_version", "1.8");
 	}
-
 }
 
 $getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
 
 if($getOptions["enableTheLoop"]){								//If the timer is to be allowed in The Loop, run this
 	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
+}
+
+// Put functions into one big function we'll call at the plugins_loaded
+// action. This ensures that all required plugin functions are defined.
+
+if(!function_exists('widget_fergcorp_countdown_init')){
+
+	function widget_fergcorp_countdown_init() {
+	
+		// Check for the required plugin functions. This will prevent fatal
+		// errors occurring when you deactivate the dynamic-sidebar plugin.
+		if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
+			return;
+			
+		// This saves options and prints the widget's config form.
+		function widget_fergcorp_countdown_control() {
+			$options = $newoptions = get_option('widget_fergcorp_countdown');
+			if ( $_POST['delicious-submit'] ) {
+				$newoptions['title'] = strip_tags(stripslashes($_POST['countdown-title']));
+				$newoptions['count'] = (int) $_POST['countdown-count'];
+			}
+			if ( $options != $newoptions ) {
+				$options = $newoptions;
+				update_option('widget_fergcorp_countdown', $options);
+			}
+		?>
+					<div style="text-align:left">
+					<label for="countdown-title" style="line-height:35px;display:block;"><?php _e('Widget title:', 'afdn_countdownTimer'); ?> <input type="text" id="countdown-title" name="countdown-title" value="<?php echo wp_specialchars($options['title'], true); ?>" /></label>
+					<label for="countdown-count" style="line-height:35px;display:block;"><?php _e('Maximum # of events to show:', 'afdn_countdownTimer'); ?> <input type="text" id="countdown-count" name="countdown-count" value="<?php echo $options['count']; ?>" size="5"/></label>
+					<input type="hidden" name="countdown-submit" id="countdown-submit" value="1" />
+					<small><strong><?php _e('Notes:', 'widget_fergcorp_countdown'); ?></strong> <?php _e("Set 'Maximum # of events' to '-1' if you want no limit.", 'afdn_countdownTimer'); ?></small>
+					</div>
+		<?php
+		}
+			
+			
+	
+		// This is the function that outputs our little Google search form.
+		function widget_fergcorp_countdown($args) {
+		
+			$options = get_option('widget_fergcorp_countdown');
+			
+			// $args is an array of strings that help widgets to conform to
+			// the active theme: before_widget, before_title, after_widget,
+			// and after_title are the array keys. Default tags: li and h2.
+			extract($args);
+			
+			$title = $options['title'];
+	
+			// These lines generate our output. Widgets can be very complex
+			// but as you can see here, they can also be very, very simple.
+			echo $before_widget . $before_title . $title . $after_title;
+	
+			?>
+				<ul>
+					<?php afdn_countdownTimer("echo", $options['count']); ?>
+				</ul>
+			<?php
+			echo $after_widget;
+		}
+	
+		// This registers our widget so it appears with the other available
+		// widgets and can be dragged and dropped into any active sidebars.
+		register_sidebar_widget(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown');
+		register_widget_control(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown_control');
+	
+	}
+	
+	// Run our code later in case this loads prior to any required plugins.
+	add_action('widgets_init', 'widget_fergcorp_countdown_init');
 }
 ?>
