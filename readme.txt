@@ -1,16 +1,20 @@
 === Countdown Timer ===
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
-Tags: countdown, timer, count, date, event, widget
+Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international
 Requires at least: 2.0
-Tested up to: 2.1.3
+Tested up to: 2.2
 Stable tag: 1.8
 
-This plugin allows you to setup a series of dates to countdown to in terms of years, days, hours, minutes, and seconds.
+This plugin allows you to setup a series of dates to count to or from in terms of years, days, hours, minutes, and seconds.
 
 == Description ==
 
-Countdown Timer allows you to setup one or more dates to count down to or away from. Version 1.8 includes great new features, including:
+Countdown Timer allows you to setup one or more dates to count down to or away from.
+
+Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
+
+Version 1.8 includes great new features, including:
 
 * Built in widget! No need to download and activate another plugin!
 * Ability to select any combination of years, days, hours, minutes, and seconds to display
@@ -51,7 +55,3 @@ where you want the timer displayed.
 = Where I am supposed to set the count down time? =
 
 Log into your WordPress Dashboard. Click on Manage, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
-
-= How do I get the two timers I have setup separate themselves into two different lines? =
-
-In the management page, there's a prefix and suffix option. You'll need to use that to prefix and suffix each event with the appropriate HTML code, such as `<p>` and `</p>` or `<li>` and `</li>`.
