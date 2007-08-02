@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, days, hours, and minutes to a particular event
-Version: 1.8
+Version: 1.8.5
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -281,13 +281,20 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 	</div> <?
 }
 
-function afdn_countdownTimer_loop($theContent){																							//Filter function for including the countdown with The Loop
+function afdn_countdownTimer_loop($theContent){		
+	global $getOptions;
+																					//Filter function for including the countdown with The Loop
 	if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
 		$theContent = preg_replace("/<!--afdn_countdownTimer(\(([0-9]+)\))?-->/e", "afdn_countdownTimer('return', $2)", $theContent);	//The actual replacement of the string with the timer
 	}
 	elseif(preg_match("<!--afdn_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
-		$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('return', 0)", $theContent);	//The actual replacement of the string with the timer
+		$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('return', -1)", $theContent);				//The actual replacement of the string with the timer
 	}
+	
+	if(preg_match("<!--afdn_countdownTimer_single\((.*?)\)-->", $theContent)){
+		$theContent = preg_replace("/<!--afdn_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", 'true', '', '".$getOptions['timeOffset']."', '', '', '')", $theContent);
+	}
+	
 	return $theContent;																													//Return theContent
 }
 
@@ -383,26 +390,30 @@ $timeSince is a single integer representitive of a boolean value. 1 = True; 0 = 
 Simple enough?
 */
 
-function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>"){
+function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>", $displayStyle = "cursor:pointer; border-bottom:1px black dashed"){
 	global $fergcorp_countdownTimer_noEventsPresent, $getOptions;
 	$time_left = $time - time() + $offset;
 	if(($time_left < 0)&&($timeSince==1)){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
-		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
+		if($text)
+			$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
 			$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago".$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
+		//echo $content;
 		return $content;
 	}
 	elseif($time_left > 0){
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
-		$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
+		if($text)
+			$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
 			$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset)).$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"cursor:pointer; border-bottom:1px black dashed\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
-		return $content;
+			$content .= "<abbr title = \"".date($timeFormat, $time)."\" style=\"". $displayStyle ."\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
+			//echo $content;
+			return $content;
 	}
 	else{
 		return NULL;
@@ -518,14 +529,12 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 
 add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
 
-add_action('activate_afdn_countdownTimer.php', 'afdn_countdownTimer_install');
+add_action('activate_'.plugin_basename(__FILE__), 'afdn_countdownTimer_install');
 
 function afdn_countdownTimer_install(){
 	$version = get_option("fergcorp_countdownTimer_version");
-	$widgetVersion = get_option("widget_fergcorp_countdown");
 	
-	if($widgetVersion == NULL)
-		update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
+	update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
 		
 	
 	if($version == NULL){ //Version < 1.8
@@ -539,6 +548,7 @@ function afdn_countdownTimer_install(){
 									"enableTheLoop" => "0",								//Should the timer be allowed within the loop (boolean)
 									"displayFormatPrefix" => "<li>",					
 									"displayFormatSuffix" => "</li>",
+									"displayStyle" => "cursor:pointer; border-bottom:1px black dashed",
 									"showYear" => "1",
 									"showMonth" => "1",
 									"showDay" => "1",
@@ -556,6 +566,7 @@ function afdn_countdownTimer_install(){
 									"enableTheLoop" => $getOptions['enableTheLoop'],								//Should the timer be allowed within the loop (boolean)
 									"displayFormatPrefix" => $getOptions['displayFormatPrefix'],					
 									"displayFormatSuffix" => $getOptions['displayFormatSuffix'],
+									"displayStyle" => "cursor:pointer; border-bottom:1px black dashed",
 									"showYear" => "1",
 									"showMonth" => "1",
 									"showDay" => "1",
@@ -565,9 +576,26 @@ function afdn_countdownTimer_install(){
 									); //Create the array to store the countdown options
 			
 		}
-		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options*/
-		update_option("fergcorp_countdownTimer_version", "1.8");
 	}
+	elseif(version < 1.83){
+				$afdnOptions = array(	"deleteOneTimeEvents" => $getOptions['deleteOneTimeEvents'],					//Should One Time Events be deleted after the happen (boolean)
+									"checkUpdate" => $getOptions['checkUpdate'],									//Should the plugin check for updates (boolean)
+									"timeOffset" => $getOptions['timeOffset'],									//What is the time format
+									"enableTheLoop" => $getOptions['enableTheLoop'],								//Should the timer be allowed within the loop (boolean)
+									"displayFormatPrefix" => $getOptions['displayFormatPrefix'],					
+									"displayFormatSuffix" => $getOptions['displayFormatSuffix'],
+									"displayStyle" => "cursor:pointer; border-bottom:1px black dashed",
+									"showYear" => $getOptions['showYear'],
+									"showMonth" => $getOptions['showMonth'],
+									"showDay" => $getOptions['showDay'],
+									"showHour" => $getOptions['showHour'],
+									"showMinute" => $getOptions['showMinute'],
+									"showSecond" => $getOptions['showSecond'],
+									);
+	}
+	
+	update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options*/
+	update_option("fergcorp_countdownTimer_version", "1.8.5");
 }
 
 $getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
