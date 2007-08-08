@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Version: 1.9 RC2
+Version: 1.9
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -142,7 +142,13 @@ function afdn_countdownTimer_myOptionsSubpanel(){
   &lt;/ul&gt;<br />
   &lt;/li&gt;</code>		</p>
   
-  				<p><?php _e("Alternatively, you can use the <a href='http://www.andrewferguson.net/wordpress-plugins/countdown-timer/'>Countdown Timer Widget</a> if you have widget enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
+  				<p><?php _e("Alternatively, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
+				<p><?php _e("If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:", 'afdn_countdownTimer'); ?></p>
+				<p>
+					<code><?php _e("Time until my birthday:", 'afdn_countdownTimer'); ?><br />
+					&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
+				</p>
+				<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime'>PHP's strtodate function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
   
 				<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
 
@@ -180,22 +186,23 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 						//global $count;
 						$oneTimeEvent_count = 0;
 						$oneTimeEvent_entriesCount = count($dates["oneTime"]);
-						for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
-							if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
-							<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
-							<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
-							<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
-							<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
-							<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
-							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
-							</tr>
-							<?php
-							$oneTimeEvent_count++;
-							 }
+						if($dates != ""){
+							for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
+								if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
+								<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
+								<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
+								<td><input type="text" size="35" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo date("r", $dates["oneTime"][$i]["date"]); ?>" /></td>
+								<td><input type="text" size="25" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
+								<td><input type="text" size="25" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
+								<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
+								</tr>
+								<?php
+								$oneTimeEvent_count++;
+								 }
+						
+							@next($dates["oneTime"]);
 
-						@next($dates["oneTime"]);
-
-
+							}
 
 						}
 							?><tr>
@@ -540,7 +547,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 	
 	//Second
 	if($getOptions['showSecond']){
-		$s = $s.($resultantSecond + intval($rollover/86400)).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
+		$s = $s.($resultantSecond + $rollover).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
 	}
 	
 	return rtrim($s,", "); //...and return the result (a string)
@@ -597,7 +604,7 @@ function afdn_countdownTimer_install(){
 			
 		}
 	}
-	elseif($version < 1.88){
+	elseif($version < 1.9){
 				$afdnOptions = array(	"deleteOneTimeEvents" => $getOptions['deleteOneTimeEvents'],					//Should One Time Events be deleted after the happen (boolean)
 									"checkUpdate" => $getOptions['checkUpdate'],									//Should the plugin check for updates (boolean)
 									"timeOffset" => $getOptions['timeOffset'],									//What is the time format
@@ -616,7 +623,7 @@ function afdn_countdownTimer_install(){
 	}
 	
 	update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options*/
-	update_option("fergcorp_countdownTimer_version", "1.892");
+	update_option("fergcorp_countdownTimer_version", "1.9");
 }
 
 $getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
