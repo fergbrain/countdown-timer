@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Version: 1.921
+Version: 1.95
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -30,9 +30,6 @@ if (isset($_GET['showJavaScript'])) {
 /*******************************************************************************\
 Countdown Timer JavaScript Module
 Copyright (c) 2007 Andrew Ferguson
-
-Based on: Ultimate Countdown Timer JavaScript Module
-Copyright (c) 2007 Tobias Quetschke
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -48,56 +45,109 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 \*******************************************************************************/
 
 
-function afdn_countdownTimer_js ()
+function fergcorp_countdownTimer_js ()
 {
     var r = 0;
-    for (var i=0; i < afdn_countdownTimer_js_events.length; i++) {
-        if (afdn_countdownTimer_js_events[i][3] == 0) {
-            var result = afdn_countdownTimer_js_language['reached'].replace(/%s/g, afdn_countdownTimer_js_events[i][2]);
-            if (afdn_countdownTimer_js_events[i][5] == true) {
-                afdn_countdownTimer_js_events[i][4] = 'up';
-                afdn_countdownTimer_js_events[i][3] = 1;
-            } else afdn_countdownTimer_js_events[i][1] = false;
-        } else {
-            var leftover = afdn_countdownTimer_js_events[i][3];
-            var text = new Array();
-            var days = parseInt(Math.abs(leftover/86400)); leftover-=days*86400;
-            if (days == 1) {text[text.length] = afdn_countdownTimer_js_language['day'];} else if (days > 0) {text[text.length] = afdn_countdownTimer_js_language['days'].replace(/%s/g, days);}
-            var hours = parseInt(Math.abs(leftover/3600)); leftover-=hours*3600;
-            if (hours == 1) {text[text.length] = afdn_countdownTimer_js_language['hour'];} else if (hours > 0) {text[text.length] = afdn_countdownTimer_js_language['hours'].replace(/%s/g, hours);}
-            var minutes = parseInt(Math.abs(leftover/60)); leftover-=minutes*60;
-            if (minutes == 1) {text[text.length] = afdn_countdownTimer_js_language['minute'];} else if (minutes > 0) {text[text.length] = afdn_countdownTimer_js_language['minutes'].replace(/%s/g, minutes);}
-            var seconds = parseInt(Math.abs(leftover)); leftover-=seconds;
-            if (seconds == 1) {text[text.length] = afdn_countdownTimer_js_language['second'];} else if (seconds > 0) {text[text.length] = afdn_countdownTimer_js_language['seconds'].replace(/%s/g, seconds);}
-            var output = '';
-            for (var j=1; j<=text.length; j++) {
-                if (j == 1) output += text[j-1];
-                else {
-                    if (j == text.length) output += afdn_countdownTimer_js_language['and']+text[j-1];
-                    else output += ', '+text[j-1];
-                }
-            }
-            var result = "\""+afdn_countdownTimer_js_events[i][2]+"\" "
-            if (afdn_countdownTimer_js_events[i][4] == 'down') {
-                result += afdn_countdownTimer_js_language['in'].replace(/%s/g, output);
-                afdn_countdownTimer_js_events[i][3]--;
-            } else if (afdn_countdownTimer_js_events[i][4] == 'up') {
-                result += afdn_countdownTimer_js_language['ago'].replace(/%s/g, output);
-                afdn_countdownTimer_js_events[i][3]++;
-            }
-            result += ".";
-        }
-        if (typeof(afdn_countdownTimer_js_events[i][0]) == 'string') document.getElementById(afdn_countdownTimer_js_events[i][0]).innerHTML = result;
-        else if (typeof(afdn_countdownTimer_js_events[i][0]) == 'object') {
-            for (var k=0; k<afdn_countdownTimer_js_events[i][0].length; k++) {
-                document.getElementById(afdn_countdownTimer_js_events[i][0][k]).innerHTML = result;
-            }
-        }
-    }
-    if (r > 0) window.setTimeout('afdn_countdownTimer_js()', 1000);
+    for (var i=0; i < fergcorp_countdownTimer_js_events.length; i++) {
+		var yr = '';
+		var mo = '';
+		var wk = '';
+		var dy = '';
+		var hr = '';
+		var mn = '';
+		var sc = '';
+		
+		//Seconds
+		//if(fergcorp_countdownTimer_js_events[i]['second'] != ""){
+			fergcorp_countdownTimer_js_events[i]['second']--;
+			if(fergcorp_countdownTimer_js_events[i]['second'] < 0){
+				fergcorp_countdownTimer_js_events[i]['second'] = 60;
+				fergcorp_countdownTimer_js_events[i]['minute']--;
+			}
+			if(fergcorp_countdownTimer_js_events[i]['second'] == 1){
+				sc = fergcorp_countdownTimer_js_events[i]['second'] + " " + fergcorp_countdownTimer_js_language["second"];
+			}
+			else{
+				sc = fergcorp_countdownTimer_js_events[i]['second'] + " " + fergcorp_countdownTimer_js_language["seconds"];
+			}
+		//}
+		//Minute
+		//if(fergcorp_countdownTimer_js_events[i]['minute'] != ""){
+			if(fergcorp_countdownTimer_js_events[i]['minute'] < 0){
+				fergcorp_countdownTimer_js_events[i]['minute'] = 59;
+				fergcorp_countdownTimer_js_events[i]['hour']--;
+			}
+			if(fergcorp_countdownTimer_js_events[i]['mn'] == 1){
+				mn = fergcorp_countdownTimer_js_events[i]['minute'] + " " + fergcorp_countdownTimer_js_language["minute"] + ", ";
+			}
+			else{
+				mn = fergcorp_countdownTimer_js_events[i]['minute'] + " " + fergcorp_countdownTimer_js_language["minutes"] + ", ";
+			}
+		//}
+		////Hour
+		//if(fergcorp_countdownTimer_js_events[i]['hour'] != ""){
+			if(fergcorp_countdownTimer_js_events[i]['hour'] < 0){
+				fergcorp_countdownTimer_js_events[i]['hour'] = 23;
+				fergcorp_countdownTimer_js_events[i]['day']--;
+			}
+			if(fergcorp_countdownTimer_js_events[i]['hour'] == 1){
+				hr = fergcorp_countdownTimer_js_events[i]['hour'] + " " + fergcorp_countdownTimer_js_language["hour"] + ", ";
+			}
+			else{
+				hr = fergcorp_countdownTimer_js_events[i]['hour'] + " " + fergcorp_countdownTimer_js_language["hours"] + ", ";
+			}
+		//}
+		//Days
+		//if(fergcorp_countdownTimer_js_events[i]['day'] != ""){
+			if(fergcorp_countdownTimer_js_events[i]['day'] < 0){
+				fergcorp_countdownTimer_js_events[i]['day'] = 29;
+				fergcorp_countdownTimer_js_events[i]['month']--;
+			}
+			if(fergcorp_countdownTimer_js_events[i]['day'] == 1){
+				dy = fergcorp_countdownTimer_js_events[i]['day'] + " " + fergcorp_countdownTimer_js_language["day"] + ", ";
+			}
+			else{
+				dy = fergcorp_countdownTimer_js_events[i]['day'] + " " + fergcorp_countdownTimer_js_language["days"] + ", ";
+			}
+		//}
+		//Weeks
+		//if(fergcorp_countdownTimer_js_events[i]['week'] != ""){
+		//	if(fergcorp_countdownTimer_js_events[i]['week'] == 1){
+		//		wk = fergcorp_countdownTimer_js_events[i]['week'] + " " + fergcorp_countdownTimer_js_language["week"] + ", ";
+		//	}
+		//	else{
+		//		wk = fergcorp_countdownTimer_js_events[i]['week'] + " " + fergcorp_countdownTimer_js_language["weeks"] + ", ";
+		//	}
+		//}		
+		//Months
+		//if(fergcorp_countdownTimer_js_events[i]['month'] != ""){
+			if(fergcorp_countdownTimer_js_events[i]['month'] < 0){
+				fergcorp_countdownTimer_js_events[i]['month'] = 11;
+				fergcorp_countdownTimer_js_events[i]['year']--;
+			}
+			if(fergcorp_countdownTimer_js_events[i]['month'] == 1){
+				mo = fergcorp_countdownTimer_js_events[i]['month'] + " " + fergcorp_countdownTimer_js_language["month"] + ", ";
+			}
+			else{
+				mo = fergcorp_countdownTimer_js_events[i]['month'] + " " + fergcorp_countdownTimer_js_language["months"] + ", ";
+			}
+		//}
+		//Years
+		//if(fergcorp_countdownTimer_js_events[i]['year'] != ""){
+			if(fergcorp_countdownTimer_js_events[i]['year'] == 1){
+				yr = fergcorp_countdownTimer_js_events[i]['year'] + " " + fergcorp_countdownTimer_js_language["year"] + ", ";
+			}
+			else{
+				yr = fergcorp_countdownTimer_js_events[i]['year'] + " " + fergcorp_countdownTimer_js_language["years"] + ", ";
+			}
+		//}
+		document.getElementById(fergcorp_countdownTimer_js_events[i]["id"]).innerHTML = yr + mo + wk + dy + hr + mn + sc;
+	}
+	
+    window.setTimeout('fergcorp_countdownTimer_js()', 1000);
 }
 
-afdn_countdownTimer_js();
+fergcorp_countdownTimer_js();
     <?php
     exit;
 }
@@ -659,7 +709,14 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 	}
 
 	$nonceTracker = md5(rand());
-	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array($nonceTracker,	$resultantYear, $resultantMonth, $resultantDay, $resultantHour, $resultantMinute, $resultantSecond);
+	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"		=> $nonceTracker,
+																								"year"		=> $resultantYear,
+																								"month"		=> $resultantMonth,
+																								"day"		=> $resultantDay,
+																								"hour"		=> $resultantHour,
+																								"minute"	=> $resultantMinute,
+																								"second"	=> $resultantSecond,
+																								);
 	
 	return "<span id = '$nonceTracker'>".rtrim($s,", ")."</span>"; //...and return the result (a string)
 }
@@ -751,12 +808,10 @@ if(1) {
 
 function afdn_countdownTimer_js(){
 	global $fergcorp_countdownTimer_nonceTracker;
-	print_r($fergcorp_countdownTimer_nonceTracker);
 	//ksort(\$fergcorp_countdownTimer_nonceTracker);
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
 	echo "<!--\n";
 	echo "var fergcorp_countdownTimer_js_language = new Array();\n";
-
 	echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('years', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(__('month', 'afdn_countdownTimer'))."';\n";
@@ -773,20 +828,20 @@ function afdn_countdownTimer_js(){
 	echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('seconds', 'afdn_countdownTimer'))."';\n";
 	echo "var fergcorp_countdownTimer_js_events = new Array();\n";
 	for($i=0; $i < count($fergcorp_countdownTimer_nonceTracker); $i++){
-			echo "fergcorp_countdownTimer_js_events[$i] = new Array(\"".$fergcorp_countdownTimer_nonceTracker[$i][0]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][1]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][2]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][3]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][4]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][5]."\",".
-																			"\"".$fergcorp_countdownTimer_nonceTracker[$i][6]."\");\n";
+			echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['id']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['year'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['year']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['month'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['month']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['week'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['week']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['day'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['day']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['hour']		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['hour']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['minute']	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['minute']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['second'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['second']."\";\n";
 	
 	}
 	echo "//-->\n";
 	echo "</script>\n";
-	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/afdn_countdownTimerphp?showJavaScript"></script>';
-	echo "<a onClick=\"javascript:alert(document.getElementById('".$fergcorp_countdownTimer_nonceTracker[0][0]."').innerHTML);\">Click to test</a>";
-
+	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/afdn_countdownTimer.php?showJavaScript"></script>';
 }
 
 
