@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Version: 1.95
+Version: 1.96
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -861,7 +861,7 @@ if(!function_exists('widget_fergcorp_countdown_init')){
 		// This saves options and prints the widget's config form.
 		function widget_fergcorp_countdown_control() {
 			$options = $newoptions = get_option('widget_fergcorp_countdown');
-			if ( $_POST['delicious-submit'] ) {
+			if ( $_POST['countdown-submit'] ) {
 				$newoptions['title'] = strip_tags(stripslashes($_POST['countdown-title']));
 				$newoptions['count'] = (int) $_POST['countdown-count'];
 			}
