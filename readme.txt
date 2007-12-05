@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international
 Requires at least: 2.0
-Tested up to: 2.2.2
-Stable tag: 1.9
+Tested up to: 2.3.1
+Stable tag: 1.91
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
