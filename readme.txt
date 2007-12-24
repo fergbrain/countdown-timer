@@ -68,3 +68,7 @@ with
 where ## is the maximum number of events you wish to be displayed.
 
 Events are automatically sorted by date of occurence.
+
+== Screenshots ==
+1. Administration Interface
+2. Example on Blog
