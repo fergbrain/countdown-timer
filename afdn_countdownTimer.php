@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Version: 1.96
+Version: 1.961
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -347,19 +347,6 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 
 			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
-			</fieldset>
-			
-			
-			<!-- Options for the plugin management -->			
-			<fieldset class="options">
-				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>
-					<?php _e('Check for updates?', 'afdn_countdownTimer'); ?> <input name="checkUpdate" type="radio" value="1" <?php print($getOptions["checkUpdate"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="checkUpdate" type="radio" value="0" <?php print($getOptions["checkUpdate"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?>
-					<?php if($getOptions["checkUpdate"]==1){
-						echo "<br /><br />";
-						echo "<iframe src='http://fergcorp.com/wordpress/version.php?plugin=afdn_countdownTimer&amp;version=". get_option("fergcorp_countdownTimer_version") ."' width='100%' height='90' scrolling='auto' frameborder='0'></iframe>";
-						
-					}
-						?>
 			</fieldset>
 
 			<!-- Include within The Loop/One-off Countdowns -->
