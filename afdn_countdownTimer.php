@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Version: 1.961
+Version: 1.97
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -24,133 +24,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
-
-if (isset($_GET['showJavaScript'])) {
-    ?>
-/*******************************************************************************\
-Countdown Timer JavaScript Module
-Copyright (c) 2007 Andrew Ferguson
----------------------------------------------------------------------------------
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-\*******************************************************************************/
-
-
-function fergcorp_countdownTimer_js ()
-{
-    var r = 0;
-    for (var i=0; i < fergcorp_countdownTimer_js_events.length; i++) {
-		var yr = '';
-		var mo = '';
-		var wk = '';
-		var dy = '';
-		var hr = '';
-		var mn = '';
-		var sc = '';
-		
-		//Seconds
-		//if(fergcorp_countdownTimer_js_events[i]['second'] != ""){
-			fergcorp_countdownTimer_js_events[i]['second']--;
-			if(fergcorp_countdownTimer_js_events[i]['second'] < 0){
-				fergcorp_countdownTimer_js_events[i]['second'] = 60;
-				fergcorp_countdownTimer_js_events[i]['minute']--;
-			}
-			if(fergcorp_countdownTimer_js_events[i]['second'] == 1){
-				sc = fergcorp_countdownTimer_js_events[i]['second'] + " " + fergcorp_countdownTimer_js_language["second"];
-			}
-			else{
-				sc = fergcorp_countdownTimer_js_events[i]['second'] + " " + fergcorp_countdownTimer_js_language["seconds"];
-			}
-		//}
-		//Minute
-		//if(fergcorp_countdownTimer_js_events[i]['minute'] != ""){
-			if(fergcorp_countdownTimer_js_events[i]['minute'] < 0){
-				fergcorp_countdownTimer_js_events[i]['minute'] = 59;
-				fergcorp_countdownTimer_js_events[i]['hour']--;
-			}
-			if(fergcorp_countdownTimer_js_events[i]['mn'] == 1){
-				mn = fergcorp_countdownTimer_js_events[i]['minute'] + " " + fergcorp_countdownTimer_js_language["minute"] + ", ";
-			}
-			else{
-				mn = fergcorp_countdownTimer_js_events[i]['minute'] + " " + fergcorp_countdownTimer_js_language["minutes"] + ", ";
-			}
-		//}
-		////Hour
-		//if(fergcorp_countdownTimer_js_events[i]['hour'] != ""){
-			if(fergcorp_countdownTimer_js_events[i]['hour'] < 0){
-				fergcorp_countdownTimer_js_events[i]['hour'] = 23;
-				fergcorp_countdownTimer_js_events[i]['day']--;
-			}
-			if(fergcorp_countdownTimer_js_events[i]['hour'] == 1){
-				hr = fergcorp_countdownTimer_js_events[i]['hour'] + " " + fergcorp_countdownTimer_js_language["hour"] + ", ";
-			}
-			else{
-				hr = fergcorp_countdownTimer_js_events[i]['hour'] + " " + fergcorp_countdownTimer_js_language["hours"] + ", ";
-			}
-		//}
-		//Days
-		//if(fergcorp_countdownTimer_js_events[i]['day'] != ""){
-			if(fergcorp_countdownTimer_js_events[i]['day'] < 0){
-				fergcorp_countdownTimer_js_events[i]['day'] = 29;
-				fergcorp_countdownTimer_js_events[i]['month']--;
-			}
-			if(fergcorp_countdownTimer_js_events[i]['day'] == 1){
-				dy = fergcorp_countdownTimer_js_events[i]['day'] + " " + fergcorp_countdownTimer_js_language["day"] + ", ";
-			}
-			else{
-				dy = fergcorp_countdownTimer_js_events[i]['day'] + " " + fergcorp_countdownTimer_js_language["days"] + ", ";
-			}
-		//}
-		//Weeks
-		//if(fergcorp_countdownTimer_js_events[i]['week'] != ""){
-		//	if(fergcorp_countdownTimer_js_events[i]['week'] == 1){
-		//		wk = fergcorp_countdownTimer_js_events[i]['week'] + " " + fergcorp_countdownTimer_js_language["week"] + ", ";
-		//	}
-		//	else{
-		//		wk = fergcorp_countdownTimer_js_events[i]['week'] + " " + fergcorp_countdownTimer_js_language["weeks"] + ", ";
-		//	}
-		//}		
-		//Months
-		//if(fergcorp_countdownTimer_js_events[i]['month'] != ""){
-			if(fergcorp_countdownTimer_js_events[i]['month'] < 0){
-				fergcorp_countdownTimer_js_events[i]['month'] = 11;
-				fergcorp_countdownTimer_js_events[i]['year']--;
-			}
-			if(fergcorp_countdownTimer_js_events[i]['month'] == 1){
-				mo = fergcorp_countdownTimer_js_events[i]['month'] + " " + fergcorp_countdownTimer_js_language["month"] + ", ";
-			}
-			else{
-				mo = fergcorp_countdownTimer_js_events[i]['month'] + " " + fergcorp_countdownTimer_js_language["months"] + ", ";
-			}
-		//}
-		//Years
-		//if(fergcorp_countdownTimer_js_events[i]['year'] != ""){
-			if(fergcorp_countdownTimer_js_events[i]['year'] == 1){
-				yr = fergcorp_countdownTimer_js_events[i]['year'] + " " + fergcorp_countdownTimer_js_language["year"] + ", ";
-			}
-			else{
-				yr = fergcorp_countdownTimer_js_events[i]['year'] + " " + fergcorp_countdownTimer_js_language["years"] + ", ";
-			}
-		//}
-		document.getElementById(fergcorp_countdownTimer_js_events[i]["id"]).innerHTML = yr + mo + wk + dy + hr + mn + sc;
-	}
-	
-    window.setTimeout('fergcorp_countdownTimer_js()', 1000);
-}
-
-fergcorp_countdownTimer_js();
-    <?php
-    exit;
-}
 
 function afdn_countdownTimer_myOptionsSubpanel(){
 
@@ -348,6 +221,12 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
+			
+			<!-- Options for the plugin management -->			
+			<fieldset class="options">
+				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>						
+					<p><?php _e('Enable JavaScript countdown?', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
+			</fieldset>
 
 			<!-- Include within The Loop/One-off Countdowns -->
 			<fieldset class="options">
@@ -538,9 +417,9 @@ function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $li
 		if($text)
 			$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago".$displayFormatSuffix;
+			$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ago".$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time)." ago</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ago</abbr>".$displayFormatSuffix;
 		//echo $content;
 		return $content;
 	}
@@ -549,9 +428,9 @@ function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $li
 		if($text)
 			$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 		if($timeFormat == "")
-			$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset)).$displayFormatSuffix;
+			$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time).$displayFormatSuffix;
 		else
-			$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset))."</abbr>".$displayFormatSuffix;
+			$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time)."</abbr>".$displayFormatSuffix;
 			//echo $content;
 			return $content;
 	}
@@ -562,7 +441,7 @@ function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $li
 
 
 //It's amazing how hard counting can really be.
-function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
+function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTime){
 	global $getOptions;
 	global $fergcorp_countdownTimer_nonceTracker;
 	if(!isset($fergcorp_countdownTimer_nonceTracker))
@@ -696,13 +575,9 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
 	}
 
 	$nonceTracker = md5(rand());
-	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"		=> $nonceTracker,
-																								"year"		=> $resultantYear,
-																								"month"		=> $resultantMonth,
-																								"day"		=> $resultantDay,
-																								"hour"		=> $resultantHour,
-																								"minute"	=> $resultantMinute,
-																								"second"	=> $resultantSecond,
+	
+	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
+																								"targetDate"	=> $realTargetTime,
 																								);
 	
 	return "<span id = '$nonceTracker'>".rtrim($s,", ")."</span>"; //...and return the result (a string)
@@ -798,6 +673,7 @@ function afdn_countdownTimer_js(){
 	//ksort(\$fergcorp_countdownTimer_nonceTracker);
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
 	echo "<!--\n";
+	
 	echo "var fergcorp_countdownTimer_js_language = new Array();\n";
 	echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('years', 'afdn_countdownTimer'))."';\n";
@@ -813,22 +689,18 @@ function afdn_countdownTimer_js(){
 	echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('minutes', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('second', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('seconds', 'afdn_countdownTimer'))."';\n";
+	
 	echo "var fergcorp_countdownTimer_js_events = new Array();\n";
 	for($i=0; $i < count($fergcorp_countdownTimer_nonceTracker); $i++){
 			echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
 			echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['id']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['year'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['year']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['month'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['month']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['week'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['week']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['day'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['day']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['hour']		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['hour']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['minute']	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['minute']."\";\n";
-			echo "fergcorp_countdownTimer_js_events[$i]['second'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['second']."\";\n";
+			echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['targetDate']."\";\n";
 	
 	}
 	echo "//-->\n";
 	echo "</script>\n";
-	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/afdn_countdownTimer.php?showJavaScript"></script>';
+	/*echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/afdn_countdownTimer.php?showJavaScript"></script>';*/
+	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.php"></script>';
 }
 
 
