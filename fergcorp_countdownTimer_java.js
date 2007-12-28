@@ -20,15 +20,6 @@ function rtrim(stringToTrim) {
 	return stringToTrim.replace(/..$/,"");
 }
 
-var getOptions = new Array();
-getOptions['showYear'] = true;
-getOptions['showMonth'] = true;
-getOptions['showWeek'] = false;
-getOptions['showDay'] = true;
-getOptions['showHour'] = true;
-getOptions['showMinute'] = true;
-getOptions['showSecond'] = true;
-
 function fergcorp_countdownTimer_js ()
 {
     var r = 0;
@@ -56,7 +47,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	var nowDate = nowTime;
 	var targetDate = targetTime;
 	
-	
+	var s = '';
 	
 	var nowYear = nowDate.getFullYear();
 	var nowMonth = nowDate.getMonth() + 1;
