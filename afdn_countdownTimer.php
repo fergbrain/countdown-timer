@@ -684,6 +684,8 @@ function afdn_countdownTimer_js(){
 	echo "getOptions['showHour'] = ".$fergcorp_countdownTimer_getOptions['showHour'].";\n";
 	echo "getOptions['showMinute'] = ".$fergcorp_countdownTimer_getOptions['showMinute'].";\n";
 	echo "getOptions['showSecond'] = ".$fergcorp_countdownTimer_getOptions['showSecond'].";\n";
+	echo "getOptions['stripZero'] = ".$fergcorp_countdownTimer_getOptions['stripZero'].";\n";
+	
 	
 	echo "var fergcorp_countdownTimer_js_language = new Array();\n";
 	echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
