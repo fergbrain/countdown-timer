@@ -415,7 +415,7 @@ $time is an integer formated in UNIX time.
 $offset is actually an illconceived idea that shouldn't have been implemented here. Let it be zero and you won't have any problems.
 $timeSince is a single integer representitive of a boolean value. 1 = True; 0 = False. This really should be passed along as a boolean value, so it's on the to do list to fix. In any event, if this value is set to "True", after an event has passed, the text will count up from the time the even happened. If it is set to "False, it will not count and the event will not be displayed.
 
-Note: As of version 2.0, I'm using following the way that WordPress handles time zones issues and am using gmdate. At some point, this will actually revert back to using date and then setting the date with the date_timezone_set() functionality introducted in PHP5.
+Note: I'm using following the way that WordPress handles time zones issues and am using gmdate. At some point, this will actually revert back to using date and then setting the date with the date_timezone_set() functionality introducted in PHP5.
 
 Simple enough?
 */
@@ -599,7 +599,6 @@ add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for ad
 register_activation_hook( __FILE__, 'afdn_countdownTimer_install');
 
 function afdn_countdownTimer_install(){
-	//$version = get_option("fergcorp_countdownTimer_version");
 	$theOptions = get_option("afdn_countdownOptions");
 	
 	if(get_option("widget_fergcorp_countdown") == NULL){	//Create default details for the widget if needed
@@ -624,6 +623,7 @@ function afdn_countdownTimer_install(){
 							"enableJS"				=> "1",
 						);
 			
+	//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
 	foreach($afdnOptions as $key => &$value){
 		if(array_key_exists($key, $theOptions)){
 			$value = $theOptions["$key"];
@@ -650,7 +650,8 @@ function afdn_countdownTimer_js(){
 	
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
 	echo "<!--\n";
-	
+
+	//Pass on what units of time should be used
 	echo "var getOptions = new Array();\n";
 	echo "getOptions['showYear'] = ".$fergcorp_countdownTimer_getOptions['showYear'].";\n";
 	echo "getOptions['showMonth'] = ".$fergcorp_countdownTimer_getOptions['showMonth'].";\n";
@@ -660,8 +661,8 @@ function afdn_countdownTimer_js(){
 	echo "getOptions['showMinute'] = ".$fergcorp_countdownTimer_getOptions['showMinute'].";\n";
 	echo "getOptions['showSecond'] = ".$fergcorp_countdownTimer_getOptions['showSecond'].";\n";
 	echo "getOptions['stripZero'] = ".$fergcorp_countdownTimer_getOptions['stripZero'].";\n";
-	
-	
+
+	//Pass on language variables	
 	echo "var fergcorp_countdownTimer_js_language = new Array();\n";
 	echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('years', 'afdn_countdownTimer'))."';\n";
@@ -678,6 +679,7 @@ function afdn_countdownTimer_js(){
 	echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('second', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('seconds', 'afdn_countdownTimer'))."';\n";
 	
+	//Pass on details about each timer
 	echo "var fergcorp_countdownTimer_js_events = new Array();\n";
 	for($i=0; $i < count($fergcorp_countdownTimer_nonceTracker); $i++){
 			echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
@@ -687,7 +689,8 @@ function afdn_countdownTimer_js(){
 	}
 	echo "//-->\n";
 	echo "</script>\n";
-	/*echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/afdn_countdownTimer.php?showJavaScript"></script>';*/
+	
+	//The workhorse 
 	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.js"></script>';
 }
 

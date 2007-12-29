@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international
 Requires at least: 2.0
-Tested up to: 2.2.2
-Stable tag: 1.91
+Tested up to: 2.3.1
+Stable tag: 2.0
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,24 +14,20 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 1.9 includes all the great features of past versions plus:
+Version 2.0 includes all the great features of past versions plus:
 
-* One-off countdown timers (i.e. standalone timers for posts, etc)
-* Ability to customize timer style
-* Added "week" as a unit of time
-* Even more bug fixes
+* Javascript enabled timers automatically update the countdown in real time
+* A handful of bug fixes
 
 Note to those upgrading from version 1.7.2 or earlier: Recurring events have been removed!
 
 == Installation ==
 
-Delete any previous version of Countdown Timer and/or Countdown Timer Widget.
+Delete any previous version of Countdown Timer and associated files.
 
-Download and install afdn_countdownTimer.php into your plugins directory.
+Download and install the timer into your plugins directory.
 
-Activate.
-
-Here's the code you need in insert into your sidebar.php file:
+Activate the timer and add the widget or add the following code into your sidebar.php file:
 
 `<li id='countdown'><h2>Countdown:</h2>
 <ul>
@@ -39,19 +35,17 @@ Here's the code you need in insert into your sidebar.php file:
 </ul>
 </li>`
 
-The plugin also has a built-in widget you can use instead of the above code.
-
-If you want to call the timer from within the WP Loop, make sure The Loop function is enabled in the plugin configuration and then insert:
+If you want to call the timer from within the WordPress Loop, make sure The Loop function is enabled in the plugin configuration and then insert:
 
 `<!--afdn_countdownTimer-->`
 
-where you want the timer displayed.
+where you want the timer(s) displayed.
 
 You can also create a single event by using:
 
 `<!--afdn_countdownTimer_single("ENTER_DATE_HERE")-->`
 
-replacing "ENTER_DATE_HERE" with the appropriate PHP strtodate() parseable string.
+replacing "ENTER\_DATE\_HERE" with the appropriate PHP strtodate() parseable string.
 
 == Frequently Asked Questions ==
 
@@ -62,12 +56,16 @@ Log into your WordPress Dashboard. Click on Manage, click on Countdown Timer. Sc
 = How do I limit the number of countdown timers displayed? =
 
 If you're using the widget, there is an option to set the maximum number of timers shown. If you are not using the widget, replace
+
 `afdn_countdownTimer()`
+
 with
+
 `afdn_countdownTimer(##)`
+
 where ## is the maximum number of events you wish to be displayed.
 
-Events are automatically sorted by date of occurence.
+Events are automatically sorted by date of occurrence.
 
 == Screenshots ==
 1. Administration Interface
