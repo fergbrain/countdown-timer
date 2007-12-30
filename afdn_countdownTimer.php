@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.1
+Version: 2.01
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -624,14 +624,17 @@ function afdn_countdownTimer_install(){
 						);
 			
 	//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
-	foreach($afdnOptions as $key => &$value){
+	foreach($afdnOptions as $key => $value){
 		if(array_key_exists($key, $theOptions)){
-			$value = $theOptions["$key"];
+			$newOptionsArray["$key"] = $theOptions["$key"];
+		}
+		else{
+			$newOptionsArray["$key"] = $value;
 		}
 	}
 	
-	update_option("afdn_countdownOptions", $afdnOptions); //Update the WPDB for the options
-	update_option("fergcorp_countdownTimer_version", "2.0");
+	update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
+	update_option("fergcorp_countdownTimer_version", "2.01");
 }
 
 $fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
