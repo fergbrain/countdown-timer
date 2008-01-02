@@ -585,7 +585,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 		$s = $s.($resultantSecond + $rollover).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
 	}
 
-	$nonceTracker = md5(rand());
+	$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it's not a number
 	
 	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
 																								"targetDate"	=> $realTargetTime,
