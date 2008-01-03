@@ -694,7 +694,7 @@ function afdn_countdownTimer_js(){
 	echo "</script>\n";
 	
 	//The workhorse 
-	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.js"></script>';
+	echo '<script language="JavaScript" type="text/javascript" src="'.get_bloginfo('url').'wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.js"></script>';
 }
 
 
