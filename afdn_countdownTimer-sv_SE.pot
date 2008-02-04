@@ -1,0 +1,342 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: afdn_countdownTimer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2008-01-11 12:04+0100\n"
+"Last-Translator: Mattias Tengblad <mst@wp-support.se>\n"
+"Language-Team: WP-Support Sverige / Mattias Tengblad <info@wp-support.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: afdn_countdownTimer.php:84
+msgid "Options updated successfully."
+msgstr "Inställningar uppdaterade."
+
+#: afdn_countdownTimer.php:104
+msgid "Are you sure you wish to delete"
+msgstr "Är du säker på att du vill radera"
+
+#: afdn_countdownTimer.php:139
+msgid "Notes"
+msgstr "Noteringar"
+
+#: afdn_countdownTimer.php:140
+msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
+msgstr "Du har kommit så här långt, du är nästan där. För att infoga nedräkningen i din sidomeny så kan du använda nedräkningswidgeten om du har widgets påslaget (eller har möjlighet att aktivera det)."
+
+#: afdn_countdownTimer.php:141
+msgid "Alternatively, you can also use this code"
+msgstr "Alternativt så kan du använda följande kod"
+
+#: afdn_countdownTimer.php:149
+msgid "If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:"
+msgstr "Om du vill hantera nedräkningar inviduellt så som i inlägg eller på sidor så kan du använda följande kod:"
+
+#: afdn_countdownTimer.php:151
+msgid "Time until my birthday:"
+msgstr "Tid till min födelsedag:"
+
+#: afdn_countdownTimer.php:154
+msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
+msgstr "Där <em>\"ENTER_DATE_HERE\"</em> använder <a href='http://us2.php.net/strtotime'>PHP's strtotime funktioner</a> och kommer att känna igen engelskt utformade textade datum. Om du använder detta var säker på att du aktiverat \"Aktivera Nedräkning inom Loopen\" inställningen nedan."
+
+#: afdn_countdownTimer.php:156
+msgid "Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it."
+msgstr "Förhoppningsvis om du <em>verkligen</em> gillar mitt tillägg (och/eller mig) så kanske du kan tänka dig en donation. Jag har spenderat mer och mer tid för att skapa supportande tillägg. Jag är högskolestuderande och kan bara programera på sida om skolan för att jag älskar det."
+
+#: afdn_countdownTimer.php:170
+msgid "One Time Events"
+msgstr "Tidsevent"
+
+#: afdn_countdownTimer.php:171
+msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
+msgstr "Nedräkningar använder <a href='http://us2.php.net/strtotime'>PHP's strtotime funktioner</a> och kommer att känna igen engelskt utformade textade datum."
+
+#: afdn_countdownTimer.php:172
+msgid "Examples of some (but not all) valid dates"
+msgstr "Exempel på några (inte alla) riktiga datum"
+
+#: afdn_countdownTimer.php:182
+msgid "Delete"
+msgstr "Radera"
+
+#: afdn_countdownTimer.php:183
+msgid "Event Date"
+msgstr "Datum för Event"
+
+#: afdn_countdownTimer.php:184
+msgid "Event Title"
+msgstr "Titel för Event"
+
+#: afdn_countdownTimer.php:185
+msgid "Link"
+msgstr "Länk"
+
+#: afdn_countdownTimer.php:186
+msgid "Display \"Time since\""
+msgstr "Visa \"Tid sedan\""
+
+#: afdn_countdownTimer.php:223
+msgid "Automatically delete 'One Time Events' after they have occured?"
+msgstr "Radera automatiskt 'Engångsevent' efter att dom gått ut?"
+
+#: afdn_countdownTimer.php:223
+#: afdn_countdownTimer.php:230
+#: afdn_countdownTimer.php:243
+#: afdn_countdownTimer.php:250
+#: afdn_countdownTimer.php:251
+#: afdn_countdownTimer.php:252
+#: afdn_countdownTimer.php:253
+#: afdn_countdownTimer.php:254
+#: afdn_countdownTimer.php:255
+#: afdn_countdownTimer.php:256
+#: afdn_countdownTimer.php:257
+msgid "Yes"
+msgstr "Ja"
+
+#: afdn_countdownTimer.php:223
+#: afdn_countdownTimer.php:230
+#: afdn_countdownTimer.php:243
+#: afdn_countdownTimer.php:250
+#: afdn_countdownTimer.php:251
+#: afdn_countdownTimer.php:252
+#: afdn_countdownTimer.php:253
+#: afdn_countdownTimer.php:254
+#: afdn_countdownTimer.php:255
+#: afdn_countdownTimer.php:256
+#: afdn_countdownTimer.php:257
+msgid "No"
+msgstr "Nej"
+
+#: afdn_countdownTimer.php:229
+msgid "Management"
+msgstr "Hantering"
+
+#: afdn_countdownTimer.php:230
+msgid "Enable JavaScript countdown?"
+msgstr "Aktivera JavaScriptsnedräkning?"
+
+#: afdn_countdownTimer.php:235
+msgid "Include in The Loop/One-off Timers"
+msgstr "Inkludera i loopen/Engångstimers"
+
+#: afdn_countdownTimer.php:236
+msgid "To include Countdown Timer and/or One-off Timer within a post or page, simply enable The Loop function below and then insert"
+msgstr "För att infoga Nedräkningar och/eller engångstimers i ett inlägg eller på en sida, aktivera bara Loop funktionen nedan och ange sedan"
+
+#: afdn_countdownTimer.php:238
+msgid "where you want the countdown to be inserted"
+msgstr "där du vill ha din räknare"
+
+#: afdn_countdownTimer.php:239
+msgid "You can also insert a one-off timer within a post or page by using the following code:"
+msgstr "Du kan också infoga en engångstimer i ett inlägg eller på en sida genom att använda följande kod:"
+
+#: afdn_countdownTimer.php:242
+msgid "Enable CountdownTimer within The Loop?"
+msgstr "Aktivera nedräkning inom loopen?"
+
+#: afdn_countdownTimer.php:248
+msgid "Countdown Time Display"
+msgstr "Nedräkningsvisning"
+
+#: afdn_countdownTimer.php:249
+msgid "This settings controls what units of time are displayed."
+msgstr "Dessa inställningar kontrollerar vilka enheter av tid som ska visas."
+
+#: afdn_countdownTimer.php:250
+msgid "Years?"
+msgstr "År?"
+
+#: afdn_countdownTimer.php:251
+msgid "Months?"
+msgstr "Månader?"
+
+#: afdn_countdownTimer.php:252
+msgid "Weeks?"
+msgstr "Veckor?"
+
+#: afdn_countdownTimer.php:253
+msgid "Days?"
+msgstr "Dagar?"
+
+#: afdn_countdownTimer.php:254
+msgid "Hours?"
+msgstr "Timmar?"
+
+#: afdn_countdownTimer.php:255
+msgid "Minutes?"
+msgstr "Minuter?"
+
+#: afdn_countdownTimer.php:256
+msgid "Seconds?"
+msgstr "Sekunder?"
+
+#: afdn_countdownTimer.php:257
+msgid "Strip non-significant zeros?"
+msgstr "Ta bort icke behövliga nollor?"
+
+#: afdn_countdownTimer.php:263
+#: afdn_countdownTimer.php:270
+msgid "onHover Time Format"
+msgstr "Tidsformat för musaktivitet"
+
+#: afdn_countdownTimer.php:264
+msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses"
+msgstr "Om du anger 'Tidsformat för musaktivitet' så kommer datum/tid för eventet visas när besökaren rör med musen över nedräknaren. Tidsformat för musaktivitet använder"
+
+#: afdn_countdownTimer.php:265
+msgid "Examples"
+msgstr "Exempel"
+
+#: afdn_countdownTimer.php:267
+#: afdn_countdownTimer.php:268
+msgid "goes to"
+msgstr "blir"
+
+#: afdn_countdownTimer.php:275
+msgid "Display Format Options"
+msgstr "Visningsalternativ"
+
+#: afdn_countdownTimer.php:276
+msgid "This setting allows you to customize how each event is styled and wrapped."
+msgstr "Denna inställning låter dig formatera hur varje event ska se ut."
+
+#: afdn_countdownTimer.php:277
+msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer."
+msgstr "<strong>Stil för visning</strong> anger HTML stilattribut för varje timer."
+
+#: afdn_countdownTimer.php:278
+msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
+msgstr "<strong>Stil för visning prefix/suffix</strong> anger all inledande eller efterkommande HTML (eller text)"
+
+#: afdn_countdownTimer.php:279
+msgid "Examples/Defaults"
+msgstr "Exempel/Standard"
+
+#: afdn_countdownTimer.php:281
+msgid "Style"
+msgstr "Stil"
+
+#: afdn_countdownTimer.php:282
+msgid "Prefix"
+msgstr "Prefix"
+
+#: afdn_countdownTimer.php:283
+msgid "Suffix"
+msgstr "Suffix"
+
+#: afdn_countdownTimer.php:286
+msgid "Display Style"
+msgstr "Stil för visning"
+
+#: afdn_countdownTimer.php:287
+msgid "Display Format Prefix"
+msgstr "Stil för visning Prefix"
+
+#: afdn_countdownTimer.php:288
+msgid "Display Format Suffix"
+msgstr "Stil för visning Suffix"
+
+#: afdn_countdownTimer.php:292
+msgid "Update Events"
+msgstr "Uppdatera Event"
+
+#: afdn_countdownTimer.php:403
+#: afdn_countdownTimer.php:406
+msgid "No dates present"
+msgstr "Inga datum angivna"
+
+#: afdn_countdownTimer.php:517
+#: afdn_countdownTimer.php:667
+msgid "year"
+msgstr "år"
+
+#: afdn_countdownTimer.php:517
+#: afdn_countdownTimer.php:668
+msgid "years"
+msgstr "år"
+
+#: afdn_countdownTimer.php:528
+#: afdn_countdownTimer.php:669
+msgid "month"
+msgstr "månad"
+
+#: afdn_countdownTimer.php:528
+#: afdn_countdownTimer.php:670
+msgid "months"
+msgstr "månader"
+
+#: afdn_countdownTimer.php:540
+#: afdn_countdownTimer.php:671
+msgid "week"
+msgstr "vecka"
+
+#: afdn_countdownTimer.php:540
+#: afdn_countdownTimer.php:672
+msgid "weeks"
+msgstr "veckor"
+
+#: afdn_countdownTimer.php:550
+#: afdn_countdownTimer.php:673
+msgid "day"
+msgstr "dag"
+
+#: afdn_countdownTimer.php:550
+#: afdn_countdownTimer.php:674
+msgid "days"
+msgstr "dagar"
+
+#: afdn_countdownTimer.php:562
+#: afdn_countdownTimer.php:675
+msgid "hour"
+msgstr "timma"
+
+#: afdn_countdownTimer.php:562
+#: afdn_countdownTimer.php:676
+msgid "hours"
+msgstr "timmar"
+
+#: afdn_countdownTimer.php:574
+#: afdn_countdownTimer.php:677
+msgid "minute"
+msgstr "minut"
+
+#: afdn_countdownTimer.php:574
+#: afdn_countdownTimer.php:678
+msgid "minutes"
+msgstr "minuter"
+
+#: afdn_countdownTimer.php:585
+#: afdn_countdownTimer.php:679
+msgid "second"
+msgstr "sekund"
+
+#: afdn_countdownTimer.php:585
+#: afdn_countdownTimer.php:680
+msgid "seconds"
+msgstr "sekunder"
+
+#: afdn_countdownTimer.php:724
+msgid "Widget title:"
+msgstr "Widget titel:"
+
+#: afdn_countdownTimer.php:725
+msgid "Maximum # of events to show:"
+msgstr "Max antal event att visa:"
+
+#: afdn_countdownTimer.php:727
+msgid "Notes:"
+msgstr "Noteringar:"
+
+#: afdn_countdownTimer.php:727
+msgid "Set 'Maximum # of events' to '-1' if you want no limit."
+msgstr "Sätt 'Max antal event att visa' till '-1' om du inte vill ha någon gräns."
+
