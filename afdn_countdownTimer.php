@@ -25,6 +25,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+	$currentLocale = get_locale();
+	if(!empty($currentLocale)) {
+		$moFile = dirname(__FILE__) . "/afdn_countdownTimer-" . $currentLocale . ".mo";
+		if(@file_exists($moFile) && is_readable($moFile)) load_textdomain('afdn_countdownTimer', $moFile);
+	}
 
 	/**
 	 * Displays the option page
@@ -34,9 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 */
 	function afdn_countdownTimer_myOptionsSubpanel(){
-	
-		load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');									//Load the language translations, if any
-	
+		
 		if (isset($_POST['afdn_countdownTimer_update']))														//If the user has submitted the form, do the following
 		{
 			/*Begin One Time Events*/
@@ -279,11 +282,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 											</ul>
 											<table>
 											<tr>
-												<td><strong><?php _e('Delete'); ?></strong></td>
-												<td><?php _e('Event Date'); ?></td>
-												<td><?php _e('Event Title'); ?></td>
-												<td><?php _e('Link'); ?></td>
-												<td><?php _e('Display "Time since"'); ?></td>
+												<td><strong><?php _e('Delete', 'afdn_countdownTimer'); ?></strong></td>
+												<td><?php _e('Event Date', 'afdn_countdownTimer'); ?></td>
+												<td><?php _e('Event Title', 'afdn_countdownTimer'); ?></td>
+												<td><?php _e('Link', 'afdn_countdownTimer'); ?></td>
+												<td><?php _e('Display "Time since"', 'afdn_countdownTimer'); ?></td>
 											</tr>
 												<?php
 													//global $count;
@@ -320,7 +323,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 											<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 	
 	
-											<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>	
+											<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'afdn_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>	
 										</div>
 									</div>
 								</fieldset>
@@ -677,8 +680,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$resultantYear--;
 			$resultantMonth = $resultantMonth + 12;
 		}
-		
-		load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
 	
 		//Year
 		if($fergcorp_countdownTimer_getOptions['showYear']){
