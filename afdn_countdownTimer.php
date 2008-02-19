@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.10
+Version: 2.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -145,7 +145,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	
 	
 			<div class="wrap" id="afdn_countdownTimer_div">
-				<form method="post" action="">
+
 					<h2><?php _e('Countdown Timer', 'afdn_countdownTimer'); ?></h2>
 					<script type="text/javascript" src="../wp-includes/js/dbx.js"></script>
 					<script type="text/javascript">
@@ -214,15 +214,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<h3 class="dbx-handle"><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
 									<div class="dbx-content">
                                     	<ul>
-											<li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li>
-											<li><a href="http://wordpress.org/tags/countdown-timer"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li>
+											<li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/" target="_blank"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li>
+											<li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li>
                                         </ul>
 									</div>
 								</fieldset>
 					
 							</div>
 						</div>
-						
+                        <form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 						<div id="advancedstuff" class="dbx-group" >
 						
 							<!-- Installation -->
@@ -252,7 +252,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													</code>
 												</p>
 												
-												<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
+												<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
 										</div>
 									</div>
 								</fieldset>
@@ -432,11 +432,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										<div class="dbx-content">
 											<ul>
 												<?php afdn_countdownTimer(); ?>    
-                                                <?php 
-													if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-														afdn_countdownTimer_js();
-													}
-													?>                                    
+                                                <?php afdn_countdownTimer_js(); ?>                                    
 											</ul>
 										</div>
 									</div>
@@ -449,6 +445,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							</p>
 						</div>
 					</div>
+                    </form>
+
 	
 	<?php
 	
