@@ -92,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 			update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 			
-			echo '<div id="message" class="updated fade"><p>'. __('Options updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
+			echo '<div id="message" class="updated fade"><p>'. __('Options/dates updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
 		}
 	
 		$dates = get_option("afdn_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
@@ -146,7 +146,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	
 			<div class="wrap" id="afdn_countdownTimer_div">
 				<form method="post" action="">
-					<h2><?php _e('Countdown Timer for WordPress', 'afdn_countdownTimer'); ?></h2>
+					<h2><?php _e('Countdown Timer', 'afdn_countdownTimer'); ?></h2>
 					<script type="text/javascript" src="../wp-includes/js/dbx.js"></script>
 					<script type="text/javascript">
 					//<![CDATA[
@@ -195,9 +195,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						<div id="moremeta">
 							<div id="grabit" class="dbx-group">
 								<fieldset id="dm_donations" class="dbx-box">
-									<h3 class="dbx-handle"><?php _e('Recent Donations:','afdn_countdownTimer'); ?></h3>
+									<h3 class="dbx-handle"><?php _e('Donations:','afdn_countdownTimer'); ?></h3>
 									<div class="dbx-content">
-										<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
+										<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation.", 'afdn_countdownTimer'); ?></p>
+										<p><?php _e("I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
 	
 											<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 											<input type="hidden" name="cmd" value="_s-xclick" />
@@ -210,19 +211,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								</fieldset>
 								
 								<fieldset id="afdn_countdownTimer_pnres" class="dbx-box">
-									<h3 class="dbx-handle"><?php _e('About this Plugin:','afdn_countdownTimer'); ?></h3>
-									<div class="dbx-content">
-										<a href=""><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a><br />
-										<a href=""><?php _e('Support Forum','afdn_countdownTimer'); ?></a><br />
-										<a href=""><?php _e('Donate with PayPal','afdn_countdownTimer'); ?></a><br />
-										<a href=""><?php _e('My Amazon Wish List','afdn_countdownTimer'); ?></a><br />
-									</div>
-								</fieldset>
-								
-								<fieldset id="afdn_countdownTimer_smres" class="dbx-box">
 									<h3 class="dbx-handle"><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
 									<div class="dbx-content">
-										afdn_countdownTimer RESOURCES
+                                    	<ul>
+											<li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li>
+											<li><a href="http://wordpress.org/tags/countdown-timer"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li>
+                                        </ul>
 									</div>
 								</fieldset>
 					
@@ -231,7 +225,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						
 						<div id="advancedstuff" class="dbx-group" >
 						
-							<!-- Rebuild Area -->
+							<!-- Installation -->
 							<div class="dbx-b-ox-wrapper">
 								<fieldset id="afdn_countdownTimer_installation" class="dbx-box">
 									<div class="dbx-h-andle-wrapper">
@@ -263,6 +257,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									</div>
 								</fieldset>
 							</div>
+                            
 							<!-- Basic Options -->
 							<div class="dbx-b-ox-wrapper">
 								<fieldset id="afdn_countdownTimer_one_time_events" class="dbx-box">
@@ -328,7 +323,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									</div>
 								</fieldset>
 							</div>
-							
+
+							<!-- Management -->
 							<div class="dbx-b-ox-wrapper">
 								<fieldset id="afdn_countdownTimer_management" class="dbx-box">
 									<div class="dbx-h-andle-wrapper">
@@ -351,7 +347,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							</div>
 	
 							
-							<!-- AutoPrio Options -->
+							<!-- Display Options -->
 							<div class="dbx-b-ox-wrapper">
 								<fieldset id="afdn_countdownTimer_display_options" class="dbx-box">
 									<div class="dbx-h-andle-wrapper">
@@ -376,7 +372,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							</div>						
 							
 							
-							<!-- Location Options -->
+							<!-- Time Format -->
 							<div class="dbx-b-ox-wrapper">
 								<fieldset id="afdn_countdownTimer_onHover_time_format" class="dbx-box">
 									<div class="dbx-h-andle-wrapper">
@@ -426,7 +422,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							</div>
 							
 							
-							<!-- Change frequencies -->
+							<!-- Example Display -->
 							<div class="dbx-b-ox-wrapper">	
 								<fieldset id="afdn_countdownTimer_example_display" class="dbx-box">
 									<div class="dbx-h-andle-wrapper">
@@ -435,23 +431,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<div class="dbx-c-ontent-wrapper">
 										<div class="dbx-content">
 											<ul>
-												<?php afdn_countdownTimer(); ?>                                        
+												<?php afdn_countdownTimer(); ?>    
+                                                <?php 
+													if($fergcorp_countdownTimer_getOptions["enableJS"]) {
+														afdn_countdownTimer_js();
+													}
+													?>                                    
 											</ul>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-							
-							
-							<!-- Priorities -->	
-							<div class="dbx-b-ox-wrapper">	
-								<fieldset id="afdn_countdownTimer_priorities" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Priorities', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">			
-											PRIORITIES
 										</div>
 									</div>
 								</fieldset>
@@ -500,40 +486,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			return NULL; //because there are no dates at all!
 		}
 	
-		//There are two sets of arrays, 'onetime' and 'recurring', which need to be combined these next lines do that...
-		$numOneTimeDates = count($dates["oneTime"]);
-		$numRecurringDates = count($dates["recurring"]);
-	
-		//Putting the 'onetime' events into a new array
-		for($i = 0; $i < $numOneTimeDates; $i++){
-			$thisDate[$i] = array(	"text" => $dates["oneTime"][$i]["text"],
-									"date" => $dates["oneTime"][$i]["date"],
-									"timeSince" => $dates["oneTime"][$i]["timeSince"],
-									"link" => $dates["oneTime"][$i]["link"],
-									);
-		}
-	
-		//Putting the 'recurring' events into the array
-		for($i = 0; $i < $numRecurringDates; $i++){
-			$thisDate[$i+$numOneTimeDates] = array(	"text" => $dates["recurring"][$i]["text"],
-													"date" => $dates["recurring"][$i]["nextOccurance"],
-													"timeSince" => $dates["recurring"][$i]["timeSince"],
-													"link" => $dates["recurring"][$i]["link"],
-											);
-		}
 		/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
 		At some point, I plan to make this into a function; but for, this will do...
 	
 		And what it does is this:
 		The number of elements in the array are counted. Then for array is gone through x^(x-1) times. This allows for all posible date permuations to be sorted out and ordered correctly.
 		Genious, yes? */
-		$eventCount = count($thisDate);
+		$eventCount = count($dates["oneTime"]);
 		for($x=0; $x<$eventCount; $x++){
 			for($z=0; $z<$eventCount-1; $z++){
-				if(($thisDate[$z+1]["date"] < $thisDate[$z]["date"]) && (array_key_exists($z+1, $thisDate))){
-					$temp = $thisDate[$z];
-					$thisDate[$z] = $thisDate[$z+1];
-					$thisDate[$z+1] = $temp;
+				if(($dates["oneTime"][$z+1]["date"] < $dates["oneTime"][$z]["date"]) && (array_key_exists($z+1, $dates["oneTime"]))){
+					$temp = $dates["oneTime"][$z];
+					$dates["oneTime"][$z] = $dates["oneTime"][$z+1];
+					$dates["oneTime"][$z+1] = $temp;
 				}
 			}
 		}
@@ -545,11 +510,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 		for($i = 0; $i < $eventCount; $i++){
 			if($output == "echo")
-				echo fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], 0, $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $fergcorp_countdownTimer_getOptions["timeOffset"], $fergcorp_countdownTimer_getOptions["displayFormatPrefix"], $fergcorp_countdownTimer_getOptions["displayFormatSuffix"], $fergcorp_countdownTimer_getOptions["displayStyle"]);
+				echo fergcorp_countdownTimer_format(stripslashes($dates["oneTime"][$i]["text"]), $dates["oneTime"][$i]["date"], 0, $dates["oneTime"][$i]["timeSince"], $dates["oneTime"][$i]["link"], $fergcorp_countdownTimer_getOptions["timeOffset"], $fergcorp_countdownTimer_getOptions["displayFormatPrefix"], $fergcorp_countdownTimer_getOptions["displayFormatSuffix"], $fergcorp_countdownTimer_getOptions["displayStyle"]);
 			elseif($output == "return"){
-				$toReturn .= fergcorp_countdownTimer_format(stripslashes($thisDate[$i]["text"]), $thisDate[$i]["date"], 0, $thisDate[$i]["timeSince"], $thisDate[$i]["link"], $fergcorp_countdownTimer_getOptions["timeOffset"], $fergcorp_countdownTimer_getOptions["displayFormatPrefix"], $fergcorp_countdownTimer_getOptions["displayFormatSuffix"], $fergcorp_countdownTimer_getOptions["displayStyle"]);
+				$toReturn .= fergcorp_countdownTimer_format(stripslashes($dates["oneTime"][$i]["text"]), $dates["oneTime"][$i]["date"], 0, $dates["oneTime"][$i]["timeSince"], $dates["oneTime"][$i]["link"], $fergcorp_countdownTimer_getOptions["timeOffset"], $fergcorp_countdownTimer_getOptions["displayFormatPrefix"], $fergcorp_countdownTimer_getOptions["displayFormatSuffix"], $fergcorp_countdownTimer_getOptions["displayStyle"]);
 			}
-			if(($thisDate[$i]["text"]==NULL) && (isset($thisDate[$i]))){
+			if(($dates["oneTime"][$i]["text"]==NULL) && (isset($dates["oneTime"][$i]))){
 				$eventCount++;
 			}
 		}
@@ -667,6 +632,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		
 		if($resultantHour < 0){
+
 			$resultantDay--;
 			$resultantHour = 24 + $resultantHour;
 		}
