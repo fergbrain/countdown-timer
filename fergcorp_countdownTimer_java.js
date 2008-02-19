@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.01 (kept in step with fergcorp_countdownTimer.php)
+Version 2.1 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
@@ -87,8 +87,10 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	if(resultantDay < 0){
 		resultantMonth--;
-		resultantDay = resultantDay + 32 - new Date(targetYear, targetMonth, 32).getDate();
+		resultantDay = resultantDay + 32 - new Date(targetYear, targetMonth-1, 32).getDate();
 	}
+	
+	
 
 	if(resultantMonth < 0){
 		resultantYear--;
