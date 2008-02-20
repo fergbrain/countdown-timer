@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-19 15:26-0700\n"
-"PO-Revision-Date: 2008-02-19 15:26-0700\n"
+"PO-Revision-Date: 2008-02-20 10:12-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: WP-Support Sverige / Mattias Tengblad <info@wp-support.se>\n"
 "MIME-Version: 1.0\n"
@@ -17,77 +17,74 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: afdn_countdownTimer.php:95
-#, fuzzy
 msgid "Options/dates updated successfully."
-msgstr "Inställningar uppdaterade."
+msgstr "Inställningar/datum uppdaterade."
 
 #: afdn_countdownTimer.php:114
 msgid "Are you sure you wish to delete"
 msgstr "Är du säker på att du vill radera"
 
 #: afdn_countdownTimer.php:149
-#, fuzzy
 msgid "Countdown Timer"
-msgstr "Nedräkningsvisning"
+msgstr "Nedräkningstimer"
 
 #: afdn_countdownTimer.php:165
 #: afdn_countdownTimer.php:182
 msgid "open"
-msgstr ""
+msgstr "öppna"
 
 #: afdn_countdownTimer.php:166
 #: afdn_countdownTimer.php:183
 msgid "close"
-msgstr ""
+msgstr "stäng"
 
 #: afdn_countdownTimer.php:167
 #: afdn_countdownTimer.php:184
 msgid "click-down and drag to move this box"
-msgstr ""
+msgstr "klicka och håll i för att dra denna box"
 
 #: afdn_countdownTimer.php:168
 #: afdn_countdownTimer.php:185
 msgid "click to %toggle% this box"
-msgstr ""
+msgstr "klicka för att %markera% denna box"
 
 #: afdn_countdownTimer.php:169
 #: afdn_countdownTimer.php:186
 msgid "use the arrow keys to move this box"
-msgstr ""
+msgstr "använd piltangenterna för att flytta denna box"
 
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:187
 msgid ", or press the enter key to %toggle% it"
-msgstr ""
+msgstr ", eller tryck enter tangenten för att %markera%"
 
 #: afdn_countdownTimer.php:198
 msgid "Donations:"
-msgstr ""
+msgstr "Donationer:"
 
 #: afdn_countdownTimer.php:200
 msgid "Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation."
-msgstr ""
+msgstr "Förhoppningsvis om du <em>verkligen</em> gillar mitt tillägg (och/eller mig) så kan du kanske tänka dig att ge en liten donation."
 
 #: afdn_countdownTimer.php:201
-#, fuzzy
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
-msgstr "Förhoppningsvis om du <em>verkligen</em> gillar mitt tillägg (och/eller mig) så kanske du kan tänka dig en donation. Jag har spenderat mer och mer tid för att skapa supportande tillägg. Jag är högskolestuderande och kan bara programera på sida om skolan för att jag älskar det."
+msgstr "Jag har spenderat mer och mer tid för att skapa supportande tillägg. Jag är högskolestuderande och kan bara programera på sida om skolan för att jag älskar det."
 
 #: afdn_countdownTimer.php:214
 msgid "Resources:"
-msgstr ""
+msgstr "Resurser:"
 
 #: afdn_countdownTimer.php:217
 msgid "Plugin Homepage"
-msgstr ""
+msgstr "Tilläggets webbplats"
 
 #: afdn_countdownTimer.php:218
 msgid "Support Forum"
-msgstr ""
+msgstr "Support Forum"
 
 #: afdn_countdownTimer.php:232
 msgid "Installation Notes"
-msgstr ""
+msgstr "Installationsnoteringar"
 
 #: afdn_countdownTimer.php:236
 msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
@@ -106,9 +103,8 @@ msgid "Time until my birthday:"
 msgstr "Tid till min födelsedag:"
 
 #: afdn_countdownTimer.php:255
-#, fuzzy
 msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
-msgstr "Där <em>\"ENTER_DATE_HERE\"</em> använder <a href='http://us2.php.net/strtotime'>PHP's strtotime funktioner</a> och kommer att känna igen engelskt utformade textade datum. Om du använder detta var säker på att du aktiverat \"Aktivera Nedräkning inom Loopen\" inställningen nedan."
+msgstr "Där <em>\"ENTER_DATE_HERE\"</em> använder <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime funktioner</a> och kommer att känna igen engelskt utformade textade datum. Om du använder detta var säker på att du aktiverat \"Aktivera Nedräkning inom Loopen\" inställningen nedan."
 
 #: afdn_countdownTimer.php:265
 msgid "One Time Events"
@@ -179,9 +175,8 @@ msgid "Management"
 msgstr "Hantering"
 
 #: afdn_countdownTimer.php:335
-#, fuzzy
 msgid "To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert"
-msgstr "För att infoga Nedräkningar och/eller engångstimers i ett inlägg eller på en sida, aktivera bara Loop funktionen nedan och ange sedan"
+msgstr "För att infoga Nedräkning(ar) och/eller engångstimers i ett inlägg eller på en sida, aktivera bara Loop funktionen nedan och ange sedan"
 
 #: afdn_countdownTimer.php:337
 msgid "where you want the countdown to be inserted"
@@ -302,9 +297,8 @@ msgid "Display Format Suffix"
 msgstr "Stil för visning Suffix"
 
 #: afdn_countdownTimer.php:429
-#, fuzzy
 msgid "Example Display"
-msgstr "Exempel"
+msgstr "Exempelvisning"
 
 #: afdn_countdownTimer.php:444
 msgid "Update Events"
