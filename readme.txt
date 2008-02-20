@@ -1,10 +1,10 @@
 === Countdown Timer ===
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
-Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international
+Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
 Requires at least: 2.0
-Tested up to: 2.3.1
-Stable tag: 2.01
+Tested up to: 2.3.3
+Stable tag: 2.1
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,12 +14,14 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.0 includes all the great features of past versions plus:
+Version 2.1 includes all the great features of past versions plus:
 
-* Javascript enabled timers automatically update the countdown in real time
-* A handful of bug fixes
+* New and updated UI to match native WordPress interface
+* The regular round of bug fixes
+* Better i18n support
 
-Note to those upgrading from version 1.7.2 or earlier: Recurring events have been removed!
+Special thanks to:
+* Mattias Tengblad (Swedish translation)
 
 == Installation ==
 
