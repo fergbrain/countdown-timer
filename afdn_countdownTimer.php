@@ -142,6 +142,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			
 			
 			</script>
+            <?php
+			//UI is based on the code from Google XML Sitemaps by Arne Brachhold
+			?>
 	
 	
 			<div class="wrap" id="afdn_countdownTimer_div">
@@ -941,7 +944,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		echo "</script>\n";
 		
 		//The workhorse 
-		echo '<script language="JavaScript" type="text/javascript" src="'.get_bloginfo('url').'/wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.js"></script>';
+		echo '<script language="JavaScript" type="text/javascript" src="'.get_bloginfo('url').'/'.str_replace(ABSPATH, '', dirname(__FILE__)).'/fergcorp_countdownTimer_java.js"></script>';
 	}
 
 	/**
