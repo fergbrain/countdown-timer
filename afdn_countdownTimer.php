@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.01
+Version: 2.0.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -47,7 +47,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			}
 		}
 		/*End One Time Events*/
-		
+
 		/*Begin sorting events by time*/
 		for($x=0; $x<$oneTimeEvent_count; $x++){
 			for($z=0; $z<$oneTimeEvent_count-1; $z++){
@@ -64,7 +64,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 								"checkUpdate" 			=> $_POST['checkUpdate'],									//Should the plugin check for updates (boolean)
 								"timeOffset"			=> $_POST['timeOffset'],									//What is the time format
 								"enableTheLoop"		 	=> $_POST['enableTheLoop'],								//Should the timer be allowed within the loop (boolean)
-								"displayFormatPrefix" 	=> $_POST['displayFormatPrefix'],					
+								"displayFormatPrefix" 	=> $_POST['displayFormatPrefix'],
 								"displayFormatSuffix" 	=> $_POST['displayFormatSuffix'],
 								"displayStyle" 			=> $_POST['displayStyle'],
 								"showYear" 				=> $_POST['showYear'],
@@ -80,7 +80,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 
 		update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 		update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
-		
+
 		echo '<div id="message" class="updated fade"><p>'. __('Options updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
 	}
 
@@ -113,24 +113,24 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 			else
 				return false;
 		}
-		
+
 		function showHideContent(id, show){ //For hiding sections
 			var elem = document.getElementById(id);
 			if (elem){
 				if (show){
 					elem.style.display = 'block';
 					elem.style.visibility = 'visible';
-				} 
+				}
 				else{
 					elem.style.display = 'none';
 					elem.style.visibility = 'hidden';
 				}
 			}
-		}        
+		}
 
-		
-		
-		
+
+
+
 		</script>
 			<h2>Countdown Timer</h2>
 
@@ -144,7 +144,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
   &lt;?php afdn_countdownTimer(); ?&gt;<br />
   &lt;/ul&gt;<br />
   &lt;/li&gt;</code>		</p>
-  
+
 
 				<p><?php _e("If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:", 'afdn_countdownTimer'); ?></p>
 				<p>
@@ -152,7 +152,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 					&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
 				</p>
 				<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
-  
+
 				<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation. I've been spending more and more time writing and supporting plugins. I'm a college student  and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -164,7 +164,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 </form>
 			</fieldset>
 			<form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>" >
-			
+
 			<!-- One Time Events -->
 			<fieldset class="options">
 				<legend><b><?php _e('One Time Events', 'afdn_countdownTimer'); ?></b></legend>
@@ -202,7 +202,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 								<?php
 								$oneTimeEvent_count++;
 								 }
-						
+
 							@next($dates["oneTime"]);
 
 							}
@@ -216,17 +216,17 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 							<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
 							</tr>
 				</table>
-				
+
 					<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 
 
 			<p><?php _e("Automatically delete 'One Time Events' after they have occured?"); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 
 			</fieldset>
-			
-			<!-- Options for the plugin management -->			
+
+			<!-- Options for the plugin management -->
 			<fieldset class="options">
-				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>						
+				<legend><strong><?php _e('Management', 'afdn_countdownTimer'); ?></strong></legend>
 					<p><?php _e('Enable JavaScript countdown?', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 			</fieldset>
 
@@ -255,8 +255,8 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 				<p><?php _e('Minutes?', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
 				<p><?php _e('Seconds?', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
 				<p><?php _e('Strip non-significant zeros?', 'afdn_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></p>
-			</fieldset>	
-				
+			</fieldset>
+
 
 			<!-- onHover Time Display -->
 			<fieldset class="options">
@@ -269,7 +269,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 				</ul>
 				<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print($fergcorp_countdownTimer_getOptions["timeOffset"]); ?>" name="timeOffset" /></p>
 			</fieldset>
-			
+
 			<!-- Display Format -->
 			<fieldset class="options">
 				<legend><strong><?php _e('Display Format Options', 'afdn_countdownTimer'); ?></strong></legend>
@@ -282,7 +282,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 					<li><em><?php _e('Prefix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;li&gt;</code></li>
 					<li><em><?php _e('Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
 				</ul>
-				
+
 				<p><?php _e('Display Style', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"])); ?>" name="displayStyle" /></p>
 				<p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"])); ?>" name="displayFormatPrefix" /></p>
 				<p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
@@ -295,7 +295,7 @@ function afdn_countdownTimer_myOptionsSubpanel(){
 	</div> <?
 }
 
-function afdn_countdownTimer_loop($theContent){		
+function afdn_countdownTimer_loop($theContent){
 	global $fergcorp_countdownTimer_getOptions;
 																					//Filter function for including the countdown with The Loop
 	if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
@@ -304,11 +304,11 @@ function afdn_countdownTimer_loop($theContent){
 	elseif(preg_match("<!--afdn_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
 		$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('return', -1)", $theContent);				//The actual replacement of the string with the timer
 	}
-	
+
 	if(preg_match("<!--afdn_countdownTimer_single\((.*?)\)-->", $theContent)){
 		$theContent = preg_replace("/<!--afdn_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", 'true', '', '".$fergcorp_countdownTimer_getOptions['timeOffset']."', '', '', '')", $theContent);
 	}
-	
+
 	return $theContent;																													//Return theContent
 }
 
@@ -324,9 +324,9 @@ function afdn_countdownTimer($output = "echo", $eventLimit = -1){ //'echo' will 
 
 	$dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 	$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
-	
+
 	//Remove events that shouldn't be displayed because the time elapsed and the Time Since option isn't ticked
-	if($dates!=''){	
+	if($dates!=''){
 		if(count($dates["oneTime"][0])!=0){
 			foreach($dates["oneTime"] as $key => $value){
 				if(($value["date"]<=time())&&($value["timeSince"]=="")){
@@ -397,7 +397,7 @@ function afdn_countdownTimer($output = "echo", $eventLimit = -1){ //'echo' will 
 	}
 	if($output == "return")
 			return $toReturn;
-	
+
 	if($fergcorp_countdownTimer_noEventsPresent == TRUE){
 		if($output == "echo"){
 			echo $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'afdn_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
@@ -457,7 +457,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	global $fergcorp_countdownTimer_nonceTracker;
 	if(!isset($fergcorp_countdownTimer_nonceTracker))
 		$fergcorp_countdownTimer_nonceTracker = array();
-	
+
 	$rollover = 0;
 	$s = '';
 	$sigNumHit = false;
@@ -468,47 +468,47 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	$nowHour = date("H", $nowTime);
 	$nowMinute = date("i", $nowTime);
 	$nowSecond = date("s", $nowTime);
-	
+
 	$targetYear = date("Y", $targetTime);
 	$targetMonth = date("m", $targetTime);
 	$targetDay = date("d", $targetTime);
 	$targetHour = date("H", $targetTime);
 	$targetMinute = date("i", $targetTime);
 	$targetSecond = date("s", $targetTime);
-	
+
 	$resultantYear = $targetYear - $nowYear;
 	$resultantMonth = $targetMonth - $nowMonth;
 	$resultantDay = $targetDay - $nowDay;
 	$resultantHour = $targetHour - $nowHour;
 	$resultantMinute = $targetMinute - $nowMinute;
 	$resultantSecond = $targetSecond - $nowSecond;
-	
-	
+
+
 	if($resultantSecond < 0){
 		$resultantMinute--;
 		$resultantSecond = 60 + $resultantSecond;
 	}
-	
+
 	if($resultantMinute < 0){
 		$resultantHour--;
 		$resultantMinute = 60 + $resultantMinute;
 	}
-	
+
 	if($resultantHour < 0){
 		$resultantDay--;
 		$resultantHour = 24 + $resultantHour;
 	}
-	
+
 	if($resultantDay < 0){
 		$resultantMonth--;
 		$resultantDay = $resultantDay + date("t", $targetMonth);
 	}
-	
+
 	if($resultantMonth < 0){
 		$resultantYear--;
 		$resultantMonth = $resultantMonth + 12;
 	}
-	
+
 	load_plugin_textdomain('afdn_countdownTimer', 'wp-content/plugins');
 
 	//Year
@@ -522,7 +522,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 		$rollover = $resultantYear*31536000;
 	}
 
-	//Month	
+	//Month
 	if($fergcorp_countdownTimer_getOptions['showMonth']){
 		if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMonth){
 			$s = $s.($resultantMonth + intval($rollover/2592000)).' '.($resultantMonth==1?__("month", "afdn_countdownTimer"):__("months", "afdn_countdownTimer")).', ';
@@ -533,7 +533,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	else{
 		$rollover = $rollover + $resultantMonth*2592000;
 	}
-	
+
 	//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
 	if($fergcorp_countdownTimer_getOptions['showWeek']){
 		if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval( ($resultantDay + intval($rollover/86400) )/7)){
@@ -555,7 +555,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	else{
 		$rollover = $rollover + $resultantDay*86400;
 	}
-	
+
 	//Hour
 	if($fergcorp_countdownTimer_getOptions['showHour']){
 		if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantHour){
@@ -567,7 +567,7 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	else{
 		$rollover = $rollover + $resultantHour*3600;
 	}
-	
+
 	//Minute
 	if($fergcorp_countdownTimer_getOptions['showMinute']){
 		if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMinute){
@@ -579,18 +579,18 @@ function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTim
 	else{
 		$rollover = $rollover + $resultantMinute*60;
 	}
-	
+
 	//Second
 	if($fergcorp_countdownTimer_getOptions['showSecond']){
 		$s = $s.($resultantSecond + $rollover).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
 	}
 
 	$nonceTracker = md5(rand());
-	
+
 	$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
 																								"targetDate"	=> $realTargetTime,
 																								);
-	
+
 	return "<span id = '$nonceTracker'>".rtrim($s,", ")."</span>"; //...and return the result (a string)
 }
 
@@ -600,16 +600,16 @@ register_activation_hook( __FILE__, 'afdn_countdownTimer_install');
 
 function afdn_countdownTimer_install(){
 	$theOptions = get_option("afdn_countdownOptions");
-	
+
 	if(get_option("widget_fergcorp_countdown") == NULL){	//Create default details for the widget if needed
 		update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
 	}
-		
+
 	$afdnOptions = array(	"deleteOneTimeEvents"	=> "0",
 							"checkUpdate"			=> "1",
 							"timeOffset"			=> "F jS, Y, g:i a",
 							"enableTheLoop"			=> "0",
-							"displayFormatPrefix"	=> "<li>",					
+							"displayFormatPrefix"	=> "<li>",
 							"displayFormatSuffix"	=> "</li>",
 							"displayStyle"			=> "cursor:pointer; border-bottom:1px black dashed",
 							"showYear"				=> "1",
@@ -622,7 +622,7 @@ function afdn_countdownTimer_install(){
 							"stripZero"				=> "1",
 							"enableJS"				=> "1",
 						);
-			
+
 	//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
 	foreach($afdnOptions as $key => $value){
 		if(array_key_exists($key, $theOptions)){
@@ -632,7 +632,7 @@ function afdn_countdownTimer_install(){
 			$newOptionsArray["$key"] = $value;
 		}
 	}
-	
+
 	update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
 	update_option("fergcorp_countdownTimer_version", "2.01");
 }
@@ -650,7 +650,7 @@ if($fergcorp_countdownTimer_getOptions["enableJS"]) {
 function afdn_countdownTimer_js(){
 	global $fergcorp_countdownTimer_nonceTracker;
 	global $fergcorp_countdownTimer_getOptions;
-	
+
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
 	echo "<!--\n";
 
@@ -665,7 +665,7 @@ function afdn_countdownTimer_js(){
 	echo "getOptions['showSecond'] = ".$fergcorp_countdownTimer_getOptions['showSecond'].";\n";
 	echo "getOptions['stripZero'] = ".$fergcorp_countdownTimer_getOptions['stripZero'].";\n";
 
-	//Pass on language variables	
+	//Pass on language variables
 	echo "var fergcorp_countdownTimer_js_language = new Array();\n";
 	echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('years', 'afdn_countdownTimer'))."';\n";
@@ -681,19 +681,19 @@ function afdn_countdownTimer_js(){
 	echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('minutes', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('second', 'afdn_countdownTimer'))."';\n";
 	echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('seconds', 'afdn_countdownTimer'))."';\n";
-	
+
 	//Pass on details about each timer
 	echo "var fergcorp_countdownTimer_js_events = new Array();\n";
 	for($i=0; $i < count($fergcorp_countdownTimer_nonceTracker); $i++){
 			echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
 			echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['id']."\";\n";
 			echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['targetDate']."\";\n";
-	
+
 	}
 	echo "//-->\n";
 	echo "</script>\n";
-	
-	//The workhorse 
+
+	//The workhorse
 	echo '<script language="JavaScript" type="text/javascript" src="wp-content/plugins/countdown-timer/fergcorp_countdownTimer_java.js"></script>';
 }
 
@@ -705,12 +705,12 @@ function afdn_countdownTimer_js(){
 if(!function_exists('widget_fergcorp_countdown_init')){
 
 	function widget_fergcorp_countdown_init() {
-	
+
 		// Check for the required plugin functions. This will prevent fatal
 		// errors occurring when you deactivate the dynamic-sidebar plugin.
 		if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
 			return;
-			
+
 		// This saves options and prints the widget's config form.
 		function widget_fergcorp_countdown_control() {
 			$options = $newoptions = get_option('widget_fergcorp_countdown');
@@ -731,25 +731,25 @@ if(!function_exists('widget_fergcorp_countdown_init')){
 					</div>
 		<?php
 		}
-			
-			
-	
+
+
+
 		// This is the function that outputs our little Google search form.
 		function widget_fergcorp_countdown($args) {
-		
+
 			$options = get_option('widget_fergcorp_countdown');
-			
+
 			// $args is an array of strings that help widgets to conform to
 			// the active theme: before_widget, before_title, after_widget,
 			// and after_title are the array keys. Default tags: li and h2.
 			extract($args);
-			
+
 			$title = $options['title'];
-	
+
 			// These lines generate our output. Widgets can be very complex
 			// but as you can see here, they can also be very, very simple.
 			echo $before_widget . $before_title . $title . $after_title;
-	
+
 			?>
 				<ul>
 					<?php afdn_countdownTimer("echo", $options['count']); ?>
@@ -757,14 +757,14 @@ if(!function_exists('widget_fergcorp_countdown_init')){
 			<?php
 			echo $after_widget;
 		}
-	
+
 		// This registers our widget so it appears with the other available
 		// widgets and can be dragged and dropped into any active sidebars.
 		register_sidebar_widget(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown');
 		register_widget_control(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown_control');
-	
+
 	}
-	
+
 	// Run our code later in case this loads prior to any required plugins.
 	add_action('widgets_init', 'widget_fergcorp_countdown_init');
 }
