@@ -559,7 +559,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			if($timeFormat == "")
 				$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ago".$displayFormatSuffix;
 			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ago</abbr>".$displayFormatSuffix;
+				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ".__('ago', 'afdn_countdownTimer')."</abbr>".$displayFormatSuffix;
 			//echo $content;
 			return $content;
 		}
@@ -570,7 +570,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			if($timeFormat == "")
 				$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time).$displayFormatSuffix;
 			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">in ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time)."</abbr>".$displayFormatSuffix;
+				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".__('in', 'afdn_countdownTimer')." ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time)."</abbr>".$displayFormatSuffix;
 				//echo $content;
 				return $content;
 		}
