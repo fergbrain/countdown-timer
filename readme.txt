@@ -23,6 +23,8 @@ Version 2.1.1 includes all the great features of past versions plus:
 Special thanks to:
 
 * Mattias Tengblad (Swedish translation)
+* Joan Piqué (Spanish translation)
+* Sascha Grams (German translation
 
 == Installation ==
 
