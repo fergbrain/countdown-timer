@@ -24,7 +24,10 @@ Special thanks to:
 
 * Mattias Tengblad (Swedish translation)
 * Joan Piqué (Spanish translation)
-* Sascha Grams (German translation
+* Sascha Grams (German translation)
+* Serge (French translation)
+
+If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
 
 == Installation ==
 
