@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.1.1
+Version: 2.1.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -25,6 +25,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+			
+    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
+	wp_enqueue_script('post');
+	
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
 		$moFile = dirname(__FILE__) . "/afdn_countdownTimer-" . $currentLocale . ".mo";
@@ -145,312 +149,209 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <?php
 			//UI is based on the code from Google XML Sitemaps by Arne Brachhold
 			?>
-
+			
+            <div id="wpbody">
 
 			<div class="wrap" id="afdn_countdownTimer_div">
 
-					<h2><?php _e('Countdown Timer', 'afdn_countdownTimer'); ?></h2>
-					<script type="text/javascript" src="../wp-includes/js/dbx.js"></script>
-					<script type="text/javascript">
-					//<![CDATA[
-					addLoadEvent( function() {
-						var manager = new dbxManager('afdn_countdownTimer_afdn_countdownTimer_meta_33');
+				<h2><?php _e('Countdown Timer', 'afdn_countdownTimer'); ?></h2>
+            
+				<div id="poststuff">        
+                    
+						<div class="stuffbox">
+							<h3><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
+							<div class="inside">
+								<table width="75%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td><ul><li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/" target="_blank"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li></ul></td>
+                                    <td><ul><li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li></ul></td>
+                                    <td><ul><li><a href="http://www.amazon.com/gp/registry/registry.html?ie=UTF8&type=wishlist&id=E7Q6VO0I8XI4" target="_blank"><?php _e('Amazon Wishlist','afdn_countdownTimer'); ?></a></li></ul></td>
+                                    <td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                       <input type="hidden" name="cmd" value="_s-xclick" />
+                                       <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
+                                       <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                       <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+                                       " />
+                                </form></td>
+                                  </tr>
+                                </table>
 
-						//create new docking boxes group
-						var meta = new dbxGroup(
-							'grabit', 		// container ID [/-_a-zA-Z0-9/]
-							'vertical', 	// orientation ['vertical'|'horizontal']
-							'10', 			// drag threshold ['n' pixels]
-							'no',			// restrict drag movement to container axis ['yes'|'no']
-							'10', 			// animate re-ordering [frames per transition, or '0' for no effect]
-							'yes', 			// include open/close toggle buttons ['yes'|'no']
-							'open', 		// default state ['open'|'closed']
-							<?php echo "'" . js_escape(__('open')); ?>', 		// word for "open", as in "open this box"
-							<?php echo "'" . js_escape(__('close')); ?>', 		// word for "close", as in "close this box"
-							<?php echo "'" . js_escape(__('click-down and drag to move this box')); ?>', // sentence for "move this box" by mouse
-							<?php echo "'" . js_escape(__('click to %toggle% this box')); ?>', // pattern-match sentence for "(open|close) this box" by mouse
-							<?php echo "'" . js_escape(__('use the arrow keys to move this box')); ?>', // sentence for "move this box" by keyboard
-							<?php echo "'" . js_escape(__(', or press the enter key to %toggle% it')); ?>',  // pattern-match sentence-fragment for "(open|close) this box" by keyboard
-							'%mytitle%  [%dbxtitle%]' // pattern-match syntax for title-attribute conflicts
-							);
-
-						var advanced = new dbxGroup(
-							'advancedstuff', 		// container ID [/-_a-zA-Z0-9/]
-							'vertical', 		// orientation ['vertical'|'horizontal']
-							'10', 			// drag threshold ['n' pixels]
-							'yes',			// restrict drag movement to container axis ['yes'|'no']
-							'10', 			// animate re-ordering [frames per transition, or '0' for no effect]
-							'yes', 			// include open/close toggle buttons ['yes'|'no']
-							'open', 		// default state ['open'|'closed']
-							<?php echo "'" . js_escape(__('open')); ?>', 		// word for "open", as in "open this box"
-							<?php echo "'" . js_escape(__('close')); ?>', 		// word for "close", as in "close this box"
-							<?php echo "'" . js_escape(__('click-down and drag to move this box')); ?>', // sentence for "move this box" by mouse
-							<?php echo "'" . js_escape(__('click to %toggle% this box')); ?>', // pattern-match sentence for "(open|close) this box" by mouse
-							<?php echo "'" . js_escape(__('use the arrow keys to move this box')); ?>', // sentence for "move this box" by keyboard
-							<?php echo "'" . js_escape(__(', or press the enter key to %toggle% it')); ?>',  // pattern-match sentence-fragment for "(open|close) this box" by keyboard
-							'%mytitle%  [%dbxtitle%]' // pattern-match syntax for title-attribute conflicts
-							);
-					});
-					//]]>
-					</script>
-
-					<div id="poststuff">
-						<div id="moremeta">
-							<div id="grabit" class="dbx-group">
-								<fieldset id="dm_donations" class="dbx-box">
-									<h3 class="dbx-handle"><?php _e('Donations:','afdn_countdownTimer'); ?></h3>
-									<div class="dbx-content">
-										<p><?php _e("Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation.", 'afdn_countdownTimer'); ?></p>
-										<p><?php _e("I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
-
-											<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-											<input type="hidden" name="cmd" value="_s-xclick" />
-											<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
-											<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-											<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHfwYJKoZIhvcNAQcEoIIHcDCCB2wCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAxKZ3oeIHdPVl0tGrzEXwcVP/nVj6RoqppOi0P0jssuTChmZQPBBZisIN41eK2dKqqt7n1eM3nvx3muda4AjvDiJTS2zdktBlD5FgYILlmP5BuPluIMrLfUQJ8PPNuAEQr9B5L/0ern7JIH9BRQpRGDhPb8897SDPpe2cvt6zPBDELMAkGBSsOAwIaBQAwgfwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIgJlDVxy2t6SAgdhGLTilBm80+DBOr1VKjLVb7tTnyzHghcyzqgY+iwLiCpwwB38Y8kzBDkfa22MSlwv50Bk1ZAJjHHXWBibpx4r73n2/vnpS8GhmAjEXRFQww8+nwhJ61F0AL0EqmX6I70YOUwGb1w8tvHrK0peRBQgz/BQV7Ta0wIXakv7r8dm3AgC6OXrmnzxn+f7uIRiqEIobaazLMzTx9XncKs5fX2Izak2xJehl47ZpeZx6cSXeaAofV5E4NrrXyr39JNornDNsX9Pq8PZu7CmLq/hHCuQHr5D2o8RWNkWgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wNzAzMDYxOTUyMjRaMCMGCSqGSIb3DQEJBDEWBBRoXAE9LkzNPOUExRw29US+RfTC2jANBgkqhkiG9w0BAQEFAASBgFQ6w+E8MvvHfQx/lhS/WKoSo+5FgJ4M5mCSKkZGt+UIQr4ON9VdNS/URE1JTjT6YhGiu1mnyZitnlyOwGDRthLg3BYySPqkYuiMZTTfdTxazeAe9U73gdMU3QHP8jWf3q1PjXEiZ/QQL6t6BM/ZDipEvihTsw0q3f7l8VS8NIs6-----END PKCS7-----
-											" />
-											</form>
-									</div>
-								</fieldset>
-
-								<fieldset id="afdn_countdownTimer_pnres" class="dbx-box">
-									<h3 class="dbx-handle"><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
-									<div class="dbx-content">
-                                    	<ul>
-											<li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/" target="_blank"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li>
-											<li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li>
-                                        </ul>
-									</div>
-								</fieldset>
-
+								<p><?php _e("I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
 							</div>
 						</div>
+   
                         <form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-						<div id="advancedstuff" class="dbx-group" >
 
-							<!-- Installation -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_installation" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Installation Notes', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-												<p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
-												<p><?php _e("Alternatively, you can also use this code", 'afdn_countdownTimer'); ?>:</p>
-												<p>
-													<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
-														&lt;ul&gt;<br />
-														&lt;?php afdn_countdownTimer(); ?&gt;<br />
-														&lt;/ul&gt;<br />
-														&lt;/li&gt;
-													</code>
-												</p>
+						<!-- Installation -->
+						<div id="advancedstuff" class="postbox closed" >
+							<h3><?php _e('Installation Notes', 'afdn_countdownTimer') ?></h3>
+								<div class="inside">
+										<p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
+										<p><?php _e("Alternatively, you can also use this code", 'afdn_countdownTimer'); ?>:</p>
+										<p>
+											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
+												&lt;ul&gt;<br />
+												&lt;?php afdn_countdownTimer(); ?&gt;<br />
+												&lt;/ul&gt;<br />
+												&lt;/li&gt;
+											</code>
+										</p>
+											<p><?php _e("If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:", 'afdn_countdownTimer'); ?></p>
+											<p>
+											<code><?php _e("Time until my birthday:", 'afdn_countdownTimer'); ?><br />
+													&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;
+											</code>
+										</p>
+										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
+								</div>
+						</div>
 
-												<p><?php _e("If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:", 'afdn_countdownTimer'); ?></p>
-
-												<p>
-													<code><?php _e("Time until my birthday:", 'afdn_countdownTimer'); ?><br />
-															&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;
-													</code>
-												</p>
-
-												<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-							<!-- Basic Options -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_one_time_events" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('One Time Events', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
-											<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:</p>
-											<ul>
-														<li>now</li>
-														<li>31 january 1986</li>
-														<li>+1 day</li>
-														<li>next thursday</li>
-														<li>last monday</li>
-											</ul>
-											<table>
-											<tr>
-												<td><strong><?php _e('Delete', 'afdn_countdownTimer'); ?></strong></td>
-												<td><?php _e('Event Date', 'afdn_countdownTimer'); ?></td>
-												<td><?php _e('Event Title', 'afdn_countdownTimer'); ?></td>
-												<td><?php _e('Link', 'afdn_countdownTimer'); ?></td>
-												<td><?php _e('Display "Time since"', 'afdn_countdownTimer'); ?></td>
-											</tr>
-												<?php
-													//global $count;
-													$oneTimeEvent_count = 0;
-													$oneTimeEvent_entriesCount = count($dates["oneTime"]);
-													if($dates != ""){
-														for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
-															if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
-															<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
-															<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
-															<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
-															<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
-															<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
-															<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
-															</tr>
-															<?php
-															$oneTimeEvent_count++;
-															 }
-
-														@next($dates["oneTime"]);
-
-														}
-
-													}
-														?><tr>
-														<td></td>
-														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
-														<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
-														<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
-														<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
+						<!-- Basic Options -->
+						<div id="basicoptions" class="postbox">
+							<h3><?php _e('One Time Events', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
+										<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:</p>
+										<ul>
+													<li>now</li>
+													<li>31 january 1986</li>
+													<li>+1 day</li>
+													<li>next thursday</li>
+													<li>last monday</li>
+										</ul>
+										<table>
+										<tr>
+											<td><strong><?php _e('Delete', 'afdn_countdownTimer'); ?></strong></td>
+											<td><?php _e('Event Date', 'afdn_countdownTimer'); ?></td>
+											<td><?php _e('Event Title', 'afdn_countdownTimer'); ?></td>
+											<td><?php _e('Link', 'afdn_countdownTimer'); ?></td>
+											<td><?php _e('Display "Time since"', 'afdn_countdownTimer'); ?></td>
+										</tr>
+											<?php
+												//global $count;
+												$oneTimeEvent_count = 0;
+												$oneTimeEvent_entriesCount = count($dates["oneTime"]);
+												if($dates != ""){
+													for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
+														if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
+														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
+														<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
+														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
+														<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
+														<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $dates["oneTime"][$i]["link"]; ?>" /></td>
+														<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
 														</tr>
-											</table>
-
+														<?php
+														$oneTimeEvent_count++;
+														 }
+														@next($dates["oneTime"]);
+														}
+													}
+													?><tr>
+													<td></td>
+													<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
+													<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
+													<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
+													<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
+													</tr>
+										</table>
 											<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 
-
-											<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'afdn_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-							<!-- Management -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_management" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Management', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:</p>
-											<code>&lt;!--afdn_countdownTimer--&gt;</code>
-											<?php _e('where you want the countdown to be inserted', 'afdn_countdownTimer'); ?></p>
-											<p><?php _e('You can also insert a one-off timer within a post or page by using the following code:', 'afdn_countdownTimer'); ?></p>
-											<code>&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
-											<ul>
-												<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Enable CountdownTimer within The Loop:', 'afdn_countdownTimer'); ?> <input name="enableTheLoop" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
-											<ul>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-
-							<!-- Display Options -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_display_options" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Countdown Time Display', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<p><?php _e('This settings controls what units of time are displayed.', 'afdn_countdownTimer'); ?></p>
-											<ul>
-												<li><?php _e('Years:', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Months:', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Weeks:', 'afdn_countdownTimer'); ?> <input name="showWeek" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showWeek" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Days:', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Hours:', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Minutes:', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Seconds:', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-												<li><?php _e('Strip non-significant zeros:', 'afdn_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-											</ul>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-
-							<!-- Time Format -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_onHover_time_format" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('onHover Time Format', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<div>
-												<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href="http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
-					<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
-					<ul>
-						<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
-						<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
-					</ul>
-					<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]))); ?>" name="timeOffset" /></p>
-											</div>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-
-							<!-- Includes -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_display_format_options" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Display Format Options', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'afdn_countdownTimer'); ?></p>
-					<p><?php _e('<strong>Display Style</strong> sets the HTML Style attribute for each timer.', 'afdn_countdownTimer'); ?></p>
-					<p><?php _e('<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text).', 'afdn_countdownTimer'); ?></p>
-					<p><?php _e('Examples/Defaults', 'afdn_countdownTimer'); ?>:</p>
-					<ul>
-						<li><em><?php _e('Style', 'afdn_countdownTimer'); ?>:</em> <code>cursor:pointer; border-bottom:1px black dashed</code></li>
-						<li><em><?php _e('Prefix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;li&gt;</code></li>
-						<li><em><?php _e('Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
-					</ul>
-
-					<p><?php _e('Display Style', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"])); ?>" name="displayStyle" /></p>
-					<p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"])); ?>" name="displayFormatPrefix" /></p>
-					<p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-
-
-							<!-- Example Display -->
-							<div class="dbx-b-ox-wrapper">
-								<fieldset id="afdn_countdownTimer_example_display" class="dbx-box">
-									<div class="dbx-h-andle-wrapper">
-										<h3 class="dbx-handle"><?php _e('Example Display', 'afdn_countdownTimer') ?></h3>
-									</div>
-									<div class="dbx-c-ontent-wrapper">
-										<div class="dbx-content">
-											<ul>
-												<?php afdn_countdownTimer(); ?>
-                                                <?php afdn_countdownTimer_js(); ?>
-											</ul>
-										</div>
-									</div>
-								</fieldset>
+										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'afdn_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
 							</div>
 						</div>
+
+						<!-- Management -->
+						<div id="afdn_countdownTimer_management" class="postbox closed">
+							<h3><?php _e('Management', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:</p>
+								<code>&lt;!--afdn_countdownTimer--&gt;</code>
+								<p><?php _e('where you want the countdown to be inserted', 'afdn_countdownTimer'); ?></p>
+								<p><?php _e('You can also insert a one-off timer within a post or page by using the following code:', 'afdn_countdownTimer'); ?></p>
+								<code>&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
+								<ul>
+									<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Enable CountdownTimer within The Loop:', 'afdn_countdownTimer'); ?> <input name="enableTheLoop" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
+								</ul>
+							</div>	
+						</div>
+
+
+						<!-- Display Options -->
+						<div id="afdn_countdownTimer_display_options" class="postbox closed">
+                        	<h3><?php _e('Countdown Time Display', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<p><?php _e('This settings controls what units of time are displayed.', 'afdn_countdownTimer'); ?></p>
+								<ul>
+									<li><?php _e('Years:', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Months:', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Weeks:', 'afdn_countdownTimer'); ?> <input name="showWeek" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showWeek" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Days:', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Hours:', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Minutes:', 'afdn_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Seconds:', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+									<li><?php _e('Strip non-significant zeros:', 'afdn_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+								</ul>
+							</div>
+						</div>
+
+
+						<!-- Time Format -->
+						<div id="afdn_countdownTimer_onHover_time_format" class="postbox closed">
+							<h3><?php _e('onHover Time Format', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href="http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
+								<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
+								<ul>
+									<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
+									<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
+								</ul>
+								<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]))); ?>" name="timeOffset" /></p>
+							</div>
+						</div>
+
+						<!-- Includes -->
+						<div id="afdn_countdownTimer_display_format_options" class="postbox closed">
+                           	<h3><?php _e('Display Format Options', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'afdn_countdownTimer'); ?></p>
+								<p><?php _e('<strong>Display Style</strong> sets the HTML Style attribute for each timer.', 'afdn_countdownTimer'); ?></p>
+								<p><?php _e('<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text).', 'afdn_countdownTimer'); ?></p>
+								<p><?php _e('Examples/Defaults', 'afdn_countdownTimer'); ?>:</p>
+								<ul>
+                                       <li><em><?php _e('Style', 'afdn_countdownTimer'); ?>:</em> <code>cursor:pointer; border-bottom:1px black dashed</code></li>
+                                       <li><em><?php _e('Prefix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;li&gt;</code></li>
+                                       <li><em><?php _e('Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
+                                   </ul>
+                                    <p><?php _e('Display Style', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"])); ?>" name="displayStyle" /></p>
+                                   <p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"])); ?>" name="displayFormatPrefix" /></p>
+                                   <p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
+							</div>
+						</div>
+
+						<!-- Example Display -->
+						<div id="afdn_countdownTimer_example_display" class="postbox">
+                        	<h3><?php _e('Example Display', 'afdn_countdownTimer') ?></h3>
+							<div class="inside">
+								<ul>
+									<?php afdn_countdownTimer(); ?>
+                                    <?php afdn_countdownTimer_js(); ?>
+								</ul>
+							</div>
+						</div>
+
 						<div>
 							<p class="submit">
 								<input type="submit" name="afdn_countdownTimer_update" value="<?php _e('Update Events', 'afdn_countdownTimer'); ?>&raquo;" />
 							</p>
 						</div>
-					</div>
-                    </form>
+						</form>
+				</div>
+        
 
-
+			</div>
+            </div>
 	<?php
 
 	}
