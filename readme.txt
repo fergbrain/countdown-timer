@@ -26,6 +26,10 @@ Special thanks to:
 * Joan Piqué (Spanish translation)
 * Sascha Grams (German translation)
 * Serge (French translation)
+* [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brasil] translation)
+* [Atamert Ölçgen](http://www.muhuk.com) (Turkish translation)
+* [singha](http://singha.cz) (Czech translation)
+* Kobe Van Looveren (Dutch translation)
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
 
