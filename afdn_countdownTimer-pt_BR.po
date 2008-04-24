@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-12 19:14-0700\n"
-"PO-Revision-Date: 2008-03-12 19:14-0700\n"
+"PO-Revision-Date: 2008-04-23 18:02-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,11 +14,11 @@ msgstr ""
 
 #: afdn_countdownTimer.php:95
 msgid "Options/dates updated successfully."
-msgstr ""
+msgstr "Opções / datas atualizadas com sucesso."
 
 #: afdn_countdownTimer.php:114
 msgid "Are you sure you wish to delete"
-msgstr ""
+msgstr "Tem certeza de que deseja excluir"
 
 #: afdn_countdownTimer.php:152
 msgid "Countdown Timer"
@@ -27,116 +27,116 @@ msgstr ""
 #: afdn_countdownTimer.php:168
 #: afdn_countdownTimer.php:185
 msgid "open"
-msgstr ""
+msgstr "abrir"
 
 #: afdn_countdownTimer.php:169
 #: afdn_countdownTimer.php:186
 msgid "close"
-msgstr ""
+msgstr "fechar"
 
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:187
 msgid "click-down and drag to move this box"
-msgstr ""
+msgstr "clicar-segurar e arrastar para mover essa caixa"
 
 #: afdn_countdownTimer.php:171
 #: afdn_countdownTimer.php:188
 msgid "click to %toggle% this box"
-msgstr ""
+msgstr "clique para %alternar% essa caixa"
 
 #: afdn_countdownTimer.php:172
 #: afdn_countdownTimer.php:189
 msgid "use the arrow keys to move this box"
-msgstr ""
+msgstr "utilizar as teclas de setas para mover essa caixa"
 
 #: afdn_countdownTimer.php:173
 #: afdn_countdownTimer.php:190
 msgid ", or press the enter key to %toggle% it"
-msgstr ""
+msgstr "ou pressione a tecla ENTER para %alternar%(-la)"
 
 #: afdn_countdownTimer.php:201
 msgid "Donations:"
-msgstr ""
+msgstr "Doações"
 
 #: afdn_countdownTimer.php:203
 msgid "Hopefully if you <em>really</em> like my plugins (and/or me) you might consider making a donation."
-msgstr ""
+msgstr "Esperamos que se você <em>realmente</em> goste do meu plugins (e / ou de mim); então, você poderia considerar a hipótese de fazer uma doação."
 
 #: afdn_countdownTimer.php:204
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
-msgstr ""
+msgstr "Tenho gasto tempo e mais tempo para dar suporte a esse plugin. Sou estudante universitário e relamente faço esse tipo de programa porque gosto de fazer."
 
 #: afdn_countdownTimer.php:217
 msgid "Resources:"
-msgstr ""
+msgstr "Recursos"
 
 #: afdn_countdownTimer.php:220
 msgid "Plugin Homepage"
-msgstr ""
+msgstr "Página Oficial do Plugin"
 
 #: afdn_countdownTimer.php:221
 msgid "Support Forum"
-msgstr ""
+msgstr "Fórum de Suporte "
 
 #: afdn_countdownTimer.php:235
 msgid "Installation Notes"
-msgstr ""
+msgstr "Notas de Instalação"
 
 #: afdn_countdownTimer.php:239
 msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
-msgstr ""
+msgstr "Se chegou atá aqui, você está quase terminando. Para inserir o temporizador em sua barra lateral, você pode usar o temporizador Widget se você puder ativar widgets (ou têm a capacidade de permitir widgets)."
 
 #: afdn_countdownTimer.php:240
 msgid "Alternatively, you can also use this code"
-msgstr ""
+msgstr "Alternativamente, você pode usar esse codigo"
 
 #: afdn_countdownTimer.php:250
 msgid "If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:"
-msgstr ""
+msgstr "Se você deseja gerenciar individualmente a contagem regressiva dos temporizadores, bem como nos seus artigos ou nas suas páginas, você pode utilizar o seguinte código:"
 
 #: afdn_countdownTimer.php:253
 msgid "Time until my birthday:"
-msgstr ""
+msgstr "Tempo até o meu aniversário:"
 
 #: afdn_countdownTimer.php:258
 msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
-msgstr ""
+msgstr "Quando <em>\"ENTER_DATE_HERE\"</ em> usa <a href='http://us2.php.net/strtotime' target='_blank'> PHP's função strtotime</ a> e irá analisar cerca de quaisquer  descrição textual em Inglês datetime. Se você fizer isso, certifique-se de permitir que o \"Ativar CountdownTimer dentro do ciclo \" opção a seguir."
 
 #: afdn_countdownTimer.php:268
 msgid "One Time Events"
-msgstr ""
+msgstr "Uma única vez eventos"
 
 #: afdn_countdownTimer.php:272
 msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr ""
+msgstr "Countdown timer usa <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> e ira analisar sempre em Inglês a descrição datetime. "
 
 #: afdn_countdownTimer.php:273
 msgid "Examples of some (but not all) valid dates"
-msgstr ""
+msgstr "Exemplos de alguns (mas não todos) validadores de datas"
 
 #: afdn_countdownTimer.php:283
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: afdn_countdownTimer.php:284
 msgid "Event Date"
-msgstr ""
+msgstr "Data do Evento"
 
 #: afdn_countdownTimer.php:285
 msgid "Event Title"
-msgstr ""
+msgstr "Título do Evento"
 
 #: afdn_countdownTimer.php:286
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: afdn_countdownTimer.php:287
 msgid "Display \"Time since\""
-msgstr ""
+msgstr "Mostrar \"Time since\""
 
 #: afdn_countdownTimer.php:324
 msgid "Automatically delete 'One Time Events' after they have occured?"
-msgstr ""
+msgstr "Apagar automáticamente quando o evento tiver ocorrido?"
 
 #: afdn_countdownTimer.php:324
 #: afdn_countdownTimer.php:344
@@ -150,7 +150,7 @@ msgstr ""
 #: afdn_countdownTimer.php:369
 #: afdn_countdownTimer.php:370
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: afdn_countdownTimer.php:324
 #: afdn_countdownTimer.php:344
@@ -164,71 +164,71 @@ msgstr ""
 #: afdn_countdownTimer.php:369
 #: afdn_countdownTimer.php:370
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: afdn_countdownTimer.php:334
 msgid "Management"
-msgstr ""
+msgstr "Gerenciar"
 
 #: afdn_countdownTimer.php:338
 msgid "To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert"
-msgstr ""
+msgstr "Para inserir temporizador(es) dentro de um artigo ou página, basta ativar a função Loop abaixo e, em seguida, insira"
 
 #: afdn_countdownTimer.php:340
 msgid "where you want the countdown to be inserted"
-msgstr ""
+msgstr "Onde você deseja inserir contagem regressiva"
 
 #: afdn_countdownTimer.php:341
 msgid "You can also insert a one-off timer within a post or page by using the following code:"
-msgstr ""
+msgstr "Você também pode inserir um único temporizador dentro de um artigo ou página usando o código a seguir:"
 
 #: afdn_countdownTimer.php:344
 msgid "Enable JavaScript countdown:"
-msgstr ""
+msgstr "Habilita temporizador JavaScript"
 
 #: afdn_countdownTimer.php:345
 msgid "Enable CountdownTimer within The Loop:"
-msgstr ""
+msgstr "Habilita Temporizador com o Loop"
 
 #: afdn_countdownTimer.php:357
 msgid "Countdown Time Display"
-msgstr ""
+msgstr "Exibir Contagem de Tempo"
 
 #: afdn_countdownTimer.php:361
 msgid "This settings controls what units of time are displayed."
-msgstr ""
+msgstr "Esta configuração controla como as unidades de tempo são exibidas."
 
 #: afdn_countdownTimer.php:363
 msgid "Years:"
-msgstr ""
+msgstr "Anos"
 
 #: afdn_countdownTimer.php:364
 msgid "Months:"
-msgstr ""
+msgstr "Meses"
 
 #: afdn_countdownTimer.php:365
 msgid "Weeks:"
-msgstr ""
+msgstr "Semanas"
 
 #: afdn_countdownTimer.php:366
 msgid "Days:"
-msgstr ""
+msgstr "Dias"
 
 #: afdn_countdownTimer.php:367
 msgid "Hours:"
-msgstr ""
+msgstr "Horas"
 
 #: afdn_countdownTimer.php:368
 msgid "Minutes:"
-msgstr ""
+msgstr "Minutos"
 
 #: afdn_countdownTimer.php:369
 msgid "Seconds:"
-msgstr ""
+msgstr "Segundos"
 
 #: afdn_countdownTimer.php:370
 msgid "Strip non-significant zeros:"
-msgstr ""
+msgstr "Suprimir zeros não significantes:"
 
 #: afdn_countdownTimer.php:382
 #: afdn_countdownTimer.php:393
@@ -241,20 +241,20 @@ msgstr ""
 
 #: afdn_countdownTimer.php:388
 msgid "Examples"
-msgstr ""
+msgstr "Exemplos"
 
 #: afdn_countdownTimer.php:390
 #: afdn_countdownTimer.php:391
 msgid "goes to"
-msgstr ""
+msgstr "vai para"
 
 #: afdn_countdownTimer.php:405
 msgid "Display Format Options"
-msgstr ""
+msgstr "Exibir Opções de Formato"
 
 #: afdn_countdownTimer.php:409
 msgid "This setting allows you to customize how each event is styled and wrapped."
-msgstr ""
+msgstr "Esta configuração permite a você personalizar o modo como cada evento é estilizado e embalado."
 
 #: afdn_countdownTimer.php:410
 msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer."
@@ -262,140 +262,140 @@ msgstr ""
 
 #: afdn_countdownTimer.php:411
 msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
-msgstr ""
+msgstr " "
 
 #: afdn_countdownTimer.php:412
 msgid "Examples/Defaults"
-msgstr ""
+msgstr "Exemplos/Padrões"
 
 #: afdn_countdownTimer.php:414
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: afdn_countdownTimer.php:415
 msgid "Prefix"
-msgstr ""
+msgstr "Prefixo"
 
 #: afdn_countdownTimer.php:416
 msgid "Suffix"
-msgstr ""
+msgstr "Sufixo"
 
 #: afdn_countdownTimer.php:419
 msgid "Display Style"
-msgstr ""
+msgstr "Estilo Exibição"
 
 #: afdn_countdownTimer.php:420
 msgid "Display Format Prefix"
-msgstr ""
+msgstr "Formato exibição Prefixo"
 
 #: afdn_countdownTimer.php:421
 msgid "Display Format Suffix"
-msgstr ""
+msgstr "Formato exibição Sufixo"
 
 #: afdn_countdownTimer.php:432
 msgid "Example Display"
-msgstr ""
+msgstr "Exemplo de exibição"
 
 #: afdn_countdownTimer.php:447
 msgid "Update Events"
-msgstr ""
+msgstr "Atualizar Eventos"
 
 #: afdn_countdownTimer.php:527
 #: afdn_countdownTimer.php:530
 msgid "No dates present"
-msgstr ""
+msgstr "Nenhum data presente"
 
 #: afdn_countdownTimer.php:562
 msgid "ago"
-msgstr ""
+msgstr "atrás"
 
 #: afdn_countdownTimer.php:573
 msgid "in"
-msgstr ""
+msgstr "em"
 
 #: afdn_countdownTimer.php:654
 #: afdn_countdownTimer.php:920
 msgid "year"
-msgstr ""
+msgstr "ano"
 
 #: afdn_countdownTimer.php:654
 #: afdn_countdownTimer.php:921
 msgid "years"
-msgstr ""
+msgstr "anos"
 
 #: afdn_countdownTimer.php:665
 #: afdn_countdownTimer.php:922
 msgid "month"
-msgstr ""
+msgstr "mês"
 
 #: afdn_countdownTimer.php:665
 #: afdn_countdownTimer.php:923
 msgid "months"
-msgstr ""
+msgstr "meses"
 
 #: afdn_countdownTimer.php:677
 #: afdn_countdownTimer.php:924
 msgid "week"
-msgstr ""
+msgstr "semana"
 
 #: afdn_countdownTimer.php:677
 #: afdn_countdownTimer.php:925
 msgid "weeks"
-msgstr ""
+msgstr "semanas"
 
 #: afdn_countdownTimer.php:687
 #: afdn_countdownTimer.php:926
 msgid "day"
-msgstr ""
+msgstr "dia"
 
 #: afdn_countdownTimer.php:687
 #: afdn_countdownTimer.php:927
 msgid "days"
-msgstr ""
+msgstr "dias"
 
 #: afdn_countdownTimer.php:699
 #: afdn_countdownTimer.php:928
 msgid "hour"
-msgstr ""
+msgstr "hora"
 
 #: afdn_countdownTimer.php:699
 #: afdn_countdownTimer.php:929
 msgid "hours"
-msgstr ""
+msgstr "horas"
 
 #: afdn_countdownTimer.php:711
 #: afdn_countdownTimer.php:930
 msgid "minute"
-msgstr ""
+msgstr "minuto"
 
 #: afdn_countdownTimer.php:711
 #: afdn_countdownTimer.php:931
 msgid "minutes"
-msgstr ""
+msgstr "minutos"
 
 #: afdn_countdownTimer.php:722
 #: afdn_countdownTimer.php:932
 msgid "second"
-msgstr ""
+msgstr "segundo"
 
 #: afdn_countdownTimer.php:722
 #: afdn_countdownTimer.php:933
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #: afdn_countdownTimer.php:843
 msgid "Widget title:"
-msgstr ""
+msgstr "Widget Titulo"
 
 #: afdn_countdownTimer.php:844
 msgid "Maximum # of events to show:"
-msgstr ""
+msgstr "Máximo número de eventos para exibir:"
 
 #: afdn_countdownTimer.php:846
 msgid "Notes:"
-msgstr ""
+msgstr "Notas"
 
 #: afdn_countdownTimer.php:846
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
-msgstr ""
+msgstr "Configure 'Máximo número de evento' para '-1' se não quiser limitar."
 

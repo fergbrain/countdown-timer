@@ -14,7 +14,7 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.1 includes all the great features of past versions plus:
+Version 2.1.1 includes all the great features of past versions plus:
 
 * New and updated UI to match native WordPress interface
 * The regular round of bug fixes
@@ -23,6 +23,16 @@ Version 2.1 includes all the great features of past versions plus:
 Special thanks to:
 
 * Mattias Tengblad (Swedish translation)
+* Joan Piqué (Spanish translation)
+* Sascha Grams (German translation)
+* Serge (French translation)
+* [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brasil] translation)
+* [Atamert Ölçgen](http://www.muhuk.com) (Turkish translation)
+* [singha](http://singha.cz) (Czech translation)
+* Kobe Van Looveren (Dutch translation)
+
+
+If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
 
 == Installation ==
 

@@ -398,4 +398,3 @@ msgstr ""
 #: afdn_countdownTimer.php:846
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr ""
-
