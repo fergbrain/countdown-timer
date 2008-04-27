@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			
     wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
 	wp_enqueue_script('post');
+	//wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.1.2');
 	
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
@@ -154,7 +155,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			<div class="wrap" id="afdn_countdownTimer_div">
 
-				<h2><?php _e('Countdown Timer', 'afdn_countdownTimer'); ?></h2>
+				<h2>Countdown Timer</h2>
             
 				<div id="poststuff">        
                     
@@ -173,6 +174,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
                                        " />
                                 </form></td>
+                                	<?php if(__('translator_name','afdn_countdownTimer')!='translator_name') {?>
+	                                    <td>Translated by <a href="<?php _e('translator_url','afdn_countdownTimer'); ?>"><?php _e('translator_name','afdn_countdownTimer'); ?></a></td>
+                                    <?php } ?>
                                   </tr>
                                 </table>
 
@@ -450,29 +454,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
+	
 	function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>", $displayStyle = "cursor:pointer; border-bottom:1px black dashed"){
-		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_getOptions;
+		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_nonceTracker;
+		if(!isset($fergcorp_countdownTimer_nonceTracker)){
+			$fergcorp_countdownTimer_nonceTracker = array();
+		}
 		$time_left = $time - time() + $offset;
 		if(($time_left < 0)&&($timeSince==1)){
 			$fergcorp_countdownTimer_noEventsPresent = FALSE;
+			$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't
+			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
+																										"targetDate"	=> $time,
+																										);
 			if($text)
 				$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 			if($timeFormat == "")
-				$content .= fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ago".$displayFormatSuffix;
+				$content .= "<span id = '$nonceTracker'>".sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)).$displayFormatSuffix;
 			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)." ".__('ago', 'afdn_countdownTimer')."</abbr>".$displayFormatSuffix;
-			//echo $content;
+				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\"><span id = '$nonceTracker'>".sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</span></abbr>".$displayFormatSuffix;
 			return $content;
 		}
 		elseif($time_left > 0){
 			$fergcorp_countdownTimer_noEventsPresent = FALSE;
+			$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't
+			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
+																										"targetDate"	=> $time,
+																										);
 			if($text)
 				$content = $displayFormatPrefix.($link==""?$text.":":"<a href=\"$link\"><strong>".$text.":</strong></a>")."<br />\n";
 			if($timeFormat == "")
-				$content .= fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time).$displayFormatSuffix;
+				$content .= "<span id = '$nonceTracker'>".sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time)).$displayFormatSuffix;
 			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\">".__('in', 'afdn_countdownTimer')." ".fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time)."</abbr>".$displayFormatSuffix;
-				//echo $content;
+				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\"><span id = '$nonceTracker'>".sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</span></abbr>".$displayFormatSuffix;
 				return $content;
 		}
 		else{
@@ -493,9 +507,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTime){
 		global $fergcorp_countdownTimer_getOptions;
-		global $fergcorp_countdownTimer_nonceTracker;
-		if(!isset($fergcorp_countdownTimer_nonceTracker))
-			$fergcorp_countdownTimer_nonceTracker = array();
 
 		$rollover = 0;
 		$s = '';
@@ -552,7 +563,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Year
 		if($fergcorp_countdownTimer_getOptions['showYear']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantYear){
-				$s = $resultantYear.' '.($resultantYear==1?__("year", "afdn_countdownTimer"):__("years", "afdn_countdownTimer")).', ';
+				if($resultantYear==1){
+					$s = sprintf(__("%d year, ", "afdn_countdownTimer"), $resultantYear);
+				} else{
+					$s = sprintf(__("%d years, ", "afdn_countdownTimer"), $resultantYear);
+				}
 				$sigNumHit = true;
 			}
 		}
@@ -563,7 +578,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Month
 		if($fergcorp_countdownTimer_getOptions['showMonth']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMonth){
-				$s = $s.($resultantMonth + intval($rollover/2592000)).' '.($resultantMonth==1?__("month", "afdn_countdownTimer"):__("months", "afdn_countdownTimer")).', ';
+				if($resultantMonth==1){
+					$s .= sprintf(__("%d month, ", "afdn_countdownTimer"), $resultantMonth);
+				} else{
+					$s .= sprintf(__("%d months, ", "afdn_countdownTimer"), $resultantMonth);
+				}
 				$rollover = $rollover - intval($rollover/2592000)*2592000;
 				$sigNumHit = true;
 			}
@@ -575,7 +594,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
 		if($fergcorp_countdownTimer_getOptions['showWeek']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval( ($resultantDay + intval($rollover/86400) )/7)){
-				$s = $s.intval( ($resultantDay + intval($rollover/86400) )/7 ).' '.((intval( ($resultantDay + intval($rollover/86400) )/7))==1?__("week", "afdn_countdownTimer"):__("weeks", "afdn_countdownTimer")).', ';
+				if((intval( ($resultantDay + intval($rollover/86400) )/7))==1){
+					$s .= sprintf(__("%d week, ", "afdn_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)));
+				} else{
+					$s .= sprintf(__("%d weeks, ", "afdn_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)));
+				}
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$resultantDay = $resultantDay - intval( ($resultantDay + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
@@ -585,7 +608,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Day
 		if($fergcorp_countdownTimer_getOptions['showDay']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay){
-				$s = $s.($resultantDay + intval($rollover/86400)).' '.($resultantDay==1?__("day", "afdn_countdownTimer"):__("days", "afdn_countdownTimer")).', ';
+				if($resultantDay==1){
+					$s .= sprintf(__("%d day, ", "afdn_countdownTimer"), $resultantDay);
+				} else{
+					$s .= sprintf(__("%d days, ", "afdn_countdownTimer"), $resultantDay);
+				}
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$sigNumHit = true;
 			}
@@ -597,7 +624,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Hour
 		if($fergcorp_countdownTimer_getOptions['showHour']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantHour){
-				$s = $s.($resultantHour + intval($rollover/3600)).' '.($resultantHour==1?__("hour", "afdn_countdownTimer"):__("hours", "afdn_countdownTimer")).', ';
+				if($resultantHour==1){
+					$s .= sprintf(__("%d hour, ", "afdn_countdownTimer"), $resultantHour);
+				} else{
+					$s .= sprintf(__("%d hours, ", "afdn_countdownTimer"), $resultantHour);
+				}
 				$rollover = $rollover - intval($rollover/3600)*3600;
 				$sigNumHit = true;
 			}
@@ -609,7 +640,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Minute
 		if($fergcorp_countdownTimer_getOptions['showMinute']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMinute){
-				$s = $s.($resultantMinute + intval($rollover/60)).' '.($resultantMinute==1?__("minute", "afdn_countdownTimer"):__("minutes", "afdn_countdownTimer")).', ';
+				if($resultantMinute==1){
+					$s .= sprintf(__("%d minute, ", "afdn_countdownTimer"), $resultantMinute);
+				} else{
+					$s .= sprintf(__("%d minutes, ", "afdn_countdownTimer"), $resultantMinute);
+				}
 				$rollover = $rollover - intval($rollover/60)*60;
 				$sigNumHit = true;
 			}
@@ -620,16 +655,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Second
 		if($fergcorp_countdownTimer_getOptions['showSecond']){
-			$s = $s.($resultantSecond + $rollover).' '.($resultantSecond==1?__("second", "afdn_countdownTimer"):__("seconds", "afdn_countdownTimer")).', ';
+			if($resultantSecond==1){
+				$s .= sprintf(__("%d second, ", "afdn_countdownTimer"), $resultantSecond);
+			} else{
+				$s .= sprintf(__("%d seconds, ", "afdn_countdownTimer"), $resultantSecond);
+			}
 		}
 
-		$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn'
-
-		$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
-																									"targetDate"	=> $realTargetTime,
-																									);
-
-		return "<span id = '$nonceTracker'>".rtrim($s,", ")."</span>"; //...and return the result (a string)
+		return rtrim($s,", "); //...and return the result (a string)
 	}
 
 
@@ -818,20 +851,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Pass on language variables
 		echo "var fergcorp_countdownTimer_js_language = new Array();\n";
-		echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('year', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('years', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(__('month', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['months'] = '".addslashes(__('months', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['week'] = '".addslashes(__('week', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['weeks'] = '".addslashes(__('weeks', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['day'] = '".addslashes(__('day', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['days'] = '".addslashes(__('days', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hour'] = '".addslashes(__('hour', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hours'] = '".addslashes(__('hours', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minute'] = '".addslashes(__('minute', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('minutes', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('second', 'afdn_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('seconds', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('%d year, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('%d years, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(__('%d month, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['months'] = '".addslashes(__('%d months, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['week'] = '".addslashes(__('%d week, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['weeks'] = '".addslashes(__('%d weeks, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['day'] = '".addslashes(__('%d day, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['days'] = '".addslashes(__('%d days, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['hour'] = '".addslashes(__('%d hour, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['hours'] = '".addslashes(__('%d hours, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['minute'] = '".addslashes(__('%d minute, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('%d minutes, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('%d second, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('%d seconds, ', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['ago'] = '".addslashes(__('%s ago', 'afdn_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['in'] = '".addslashes(__('in %s', 'afdn_countdownTimer'))."';\n";
 
 		//Pass on details about each timer
 		echo "var fergcorp_countdownTimer_js_events = new Array();\n";
@@ -841,11 +876,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['targetDate']."\";\n";
 
 		}
+		//echo "fergcorp_countdownTimer_js();\n";
 		echo "//-->\n";
 		echo "</script>\n";
 
 		//The workhorse
+		/*add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts');
+		function fergcorp_countdownTimer_LoadUserScripts() {
+			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.1.2');
+			wp_enqueue_script('webkit_sprintf', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/webtoolkit.sprintf.js', FALSE);
+		}*/
+		echo '<script language="JavaScript" type="text/javascript" src="'.get_bloginfo('url').'/'.str_replace(ABSPATH, '', dirname(__FILE__)).'/webtoolkit.sprintf.js"></script>'."\n";
 		echo '<script language="JavaScript" type="text/javascript" src="'.get_bloginfo('url').'/'.str_replace(ABSPATH, '', dirname(__FILE__)).'/fergcorp_countdownTimer_java.js"></script>';
+
 	}
 
 	/**
