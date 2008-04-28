@@ -470,7 +470,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		$time_left = $time - time() + $offset;
 		$content = "";
-		if(($time_left < 0)&&($timeSince==1)&&(($time_left + $timeSinceTime) > 0)){
+		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){
 			$fergcorp_countdownTimer_noEventsPresent = FALSE;
 			$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't
 			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
@@ -902,19 +902,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['targetDate']."\";\n";
 
 		}
-		//echo "fergcorp_countdownTimer_js();\n";
+		echo "fergcorp_countdownTimer_js();\n";
 		echo "//-->\n";
 		echo "</script>\n";
-
-		//The workhorse
-		/*add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts');
-		function fergcorp_countdownTimer_LoadUserScripts() {
-			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.2');
-			wp_enqueue_script('webkit_sprintf', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/webtoolkit.sprintf.js', FALSE);
-		}*/
-		echo '<script type="text/javascript" src="'.get_bloginfo('url').'/'.str_replace(str_replace("\\","/",ABSPATH), '', dirname(__FILE__)).'/webtoolkit.sprintf.js"></script>'."\n";
-		echo '<script type="text/javascript" src="'.get_bloginfo('url').'/'.str_replace(str_replace("\\","/",ABSPATH), '', dirname(__FILE__)).'/fergcorp_countdownTimer_java.js"></script>';
-
 	}
 
 	/**
@@ -926,10 +916,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function afdn_countdownTimer_optionsPage(){																		//Action function for adding the configuration panel to the Management Page
 		if(function_exists('add_management_page')){
-				add_management_page('Countdown Timer', 'Countdown Timer', 10, basename(__FILE__), 'afdn_countdownTimer_myOptionsSubpanel');
+				$fergcorp_countdownTimer_add_management_page = add_management_page('Countdown Timer', 'Countdown Timer', 10, basename(__FILE__), 'afdn_countdownTimer_myOptionsSubpanel');
+				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );	
 		}
 	}
-
 
 	add_action('admin_menu', 'afdn_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
 	add_action('admin_menu', 'afdn_countdownTimer_optionsPage');
@@ -943,4 +933,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	if($fergcorp_countdownTimer_getOptions["enableJS"]) {
 		add_action('wp_footer', 'afdn_countdownTimer_js');
+	}
+
+	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
+
+	
+	function fergcorp_countdownTimer_LoadUserScripts() {
+		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
+		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
+			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.2');
+			wp_enqueue_script('webkit_sprintf', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/webtoolkit.sprintf.js', FALSE);
+		}
 	}

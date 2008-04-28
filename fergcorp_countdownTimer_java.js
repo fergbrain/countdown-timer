@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.1.2 (kept in step with fergcorp_countdownTimer.php)
+Version 2.1 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
@@ -201,5 +201,3 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	return rtrim(s); //...and return the result (a string)
 }
-
-fergcorp_countdownTimer_js();
