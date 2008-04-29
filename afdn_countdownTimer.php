@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2
+Version: 2.1.9
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -25,10 +25,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 		
-    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
-	wp_enqueue_script('post');
-	//wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.2');
-	
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
 		$moFile = dirname(__FILE__) . "/afdn_countdownTimer-" . $currentLocale . ".mo";
@@ -187,7 +183,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
    
                         <form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 
-						<!-- Installation -->
+                            <!-- Installation -->
 						<div id="advancedstuff" class="postbox closed" >
 							<h3><?php _e('Installation Notes', 'afdn_countdownTimer') ?></h3>
 								<div class="inside">
@@ -439,7 +435,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 			elseif($output == "return"){
 				$toReturn .= $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'afdn_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
-
 			}
 		}
 	}
@@ -561,7 +556,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		if($resultantDay < 0){
 			$resultantMonth--;
-			$resultantDay = $resultantDay + date("t", $targetMonth);
+			$numToMonth = array("December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+			$resultantDay = $resultantDay + date("t", strtotime($numToMonth[(int)$nowMonth]));
+			echo "Days: ". date("t", strtotime($numToMonth[(int)$nowMonth]));
 		}
 
 		if($resultantMonth < 0){
@@ -761,7 +758,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
-		update_option("fergcorp_countdownTimer_version", "2.2");
+		update_option("fergcorp_countdownTimer_version", "2.1.9");
 	}
 
 
@@ -917,7 +914,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function afdn_countdownTimer_optionsPage(){																		//Action function for adding the configuration panel to the Management Page
 		if(function_exists('add_management_page')){
 				$fergcorp_countdownTimer_add_management_page = add_management_page('Countdown Timer', 'Countdown Timer', 10, basename(__FILE__), 'afdn_countdownTimer_myOptionsSubpanel');
-				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );	
+				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );
+				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadAdminScripts' );
 		}
 	}
 
@@ -937,6 +935,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 
+	function fergcorp_countdownTimer_LoadAdminScripts() {
+	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
+		wp_enqueue_script('post');
+	}
 	
 	function fergcorp_countdownTimer_LoadUserScripts() {
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
