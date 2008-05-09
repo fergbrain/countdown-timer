@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-23 18:31-0700\n"
-"PO-Revision-Date: 2008-04-23 18:31-0700\n"
+"PO-Revision-Date: 2008-05-09 17:07-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgstr "Notes d'installation"
 
 #: afdn_countdownTimer.php:239
 msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
-msgstr "Vous êtes parvenus jusqu'ici, vous en avez presque terminé. Countdown Timer à votre sidebar, vous pouvez utiliser le Countdown Timer Widget si vous avez activés les widgets (ou si vous avez la possibilité de les activer)"
+msgstr "Vous êtes parvenus jusqu'ici, vous en avez presque terminé. Pour ajouter Countdown Timer à votre sidebar, vous pouvez utiliser le Countdown Timer Widget si vous avez activés les widgets (ou si vous avez la possibilité de les activer)"
 
 #: afdn_countdownTimer.php:240
 msgid "Alternatively, you can also use this code"
