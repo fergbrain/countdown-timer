@@ -140,13 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				}
 			}
 
-
-
-
 			</script>
-            <?php
-			//UI is based on the code from Google XML Sitemaps by Arne Brachhold
-			?>
 			
             <div id="wpbody">
 
@@ -159,20 +153,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						<div class="stuffbox">
 							<h3><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
 							<div class="inside">
-								<table width="75%" border="0" cellspacing="0" cellpadding="0">
+								<table width="90%" border="0" cellspacing="0" cellpadding="0">
                                   <tr>
                                     <td><ul><li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/" target="_blank"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="http://www.amazon.com/gp/registry/registry.html?ie=UTF8&type=wishlist&id=E7Q6VO0I8XI4" target="_blank"><?php _e('Amazon Wishlist','afdn_countdownTimer'); ?></a></li></ul></td>
-                                    <td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                    <td><ul><li><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                                        <input type="hidden" name="cmd" value="_s-xclick" />
                                        <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
                                        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
                                        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
                                        " />
-                                </form></td>
+                                </form></li></ul></td>
                                 	<?php if(__('translator_name','afdn_countdownTimer')!='translator_name') {?>
-	                                    <td>Translated by <a href="<?php _e('translator_url','afdn_countdownTimer'); ?>"><?php _e('translator_name','afdn_countdownTimer'); ?></a></td>
+	                                    <td><ul><li><?php _e('Translated by', 'afdn_countdownTimer'); ?> 
+                                        	<?php if(__('translator_url','afdn_countdownTimer')!='translator_url') {?>
+                                            	<a href="<?php _e('translator_url','afdn_countdownTimer'); ?>"><?php _e('translator_name','afdn_countdownTimer'); ?></a>
+											<?php } else { ?>
+                                            	<?php _e('translator_name','afdn_countdownTimer'); ?>
+                                             <? } ?>
+										</li></ul></td>
                                     <?php } ?>
                                   </tr>
                                 </table>
@@ -184,7 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                         <form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 
                             <!-- Installation -->
-						<div id="advancedstuff" class="postbox closed" >
+						<div id="fergcorp_countdownTimer_installation" class="postbox closed" >
 							<h3><?php _e('Installation Notes', 'afdn_countdownTimer') ?></h3>
 								<div class="inside">
 										<p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
@@ -208,7 +208,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						</div>
 
 						<!-- Basic Options -->
-						<div id="basicoptions" class="postbox">
+						<div id="fergcorp_countdownTimer_basic_options" class="postbox">
 							<h3><?php _e('One Time Events', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
@@ -220,8 +220,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													<li>next thursday</li>
 													<li>last monday</li>
 										</ul>
-										<table>
-										<tr>
+										<table border="0" cellspacing="0" cellpadding="2">
+										<tr align="center">
 											<td><strong><?php _e('Delete', 'afdn_countdownTimer'); ?></strong></td>
 											<td><?php _e('Event Date', 'afdn_countdownTimer'); ?></td>
 											<td><?php _e('Event Title', 'afdn_countdownTimer'); ?></td>
@@ -235,7 +235,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 												if($dates != ""){
 													for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
 														if($dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
-														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>">
+														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
 														<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
 														<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($dates["oneTime"][$i]["text"])); ?>" /></td>
@@ -248,7 +248,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 														@next($dates["oneTime"]);
 														}
 													}
-													?><tr>
+													?><tr align="center">
 													<td></td>
 													<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
 													<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
@@ -263,7 +263,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						</div>
 
 						<!-- Management -->
-						<div id="afdn_countdownTimer_management" class="postbox closed">
+						<div id="fergcorp_countdownTimer_management" class="postbox closed">
 							<h3><?php _e('Management', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:</p>
@@ -280,7 +280,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 						<!-- Display Options -->
-						<div id="afdn_countdownTimer_display_options" class="postbox closed">
+						<div id="fergcorp_countdownTimer_display_options" class="postbox closed">
                         	<h3><?php _e('Countdown Time Display', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<p><?php _e('This setting controls what units of time are displayed.', 'afdn_countdownTimer'); ?></p>
@@ -301,7 +301,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 						<!-- Time Format -->
-						<div id="afdn_countdownTimer_onHover_time_format" class="postbox closed">
+						<div id="fergcorp_countdownTimer_onHover_time_format" class="postbox closed">
 							<h3><?php _e('onHover Time Format', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href="http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
@@ -315,7 +315,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						</div>
 
 						<!-- Includes -->
-						<div id="afdn_countdownTimer_display_format_options" class="postbox closed">
+						<div id="fergcorp_countdownTimer_display_format_options" class="postbox closed">
                            	<h3><?php _e('Display Format Options', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'afdn_countdownTimer'); ?></p>
@@ -337,7 +337,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						</div>
 
 						<!-- Example Display -->
-						<div id="afdn_countdownTimer_example_display" class="postbox">
+						<div id="fergcorp_countdownTimer_example_display" class="postbox">
                         	<h3><?php _e('Example Display', 'afdn_countdownTimer') ?></h3>
 							<div class="inside">
 								<ul>
@@ -358,6 +358,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			</div>
             </div>
+            <script type="text/javascript">add_postbox_toggles('fergcorp_countdownTimer');</script>
 	<?php
 
 	}
@@ -558,7 +559,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$resultantMonth--;
 			$numToMonth = array("December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 			$resultantDay = $resultantDay + date("t", strtotime($numToMonth[(int)$nowMonth]));
-			echo "Days: ". date("t", strtotime($numToMonth[(int)$nowMonth]));
 		}
 
 		if($resultantMonth < 0){
@@ -937,7 +937,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	function fergcorp_countdownTimer_LoadAdminScripts() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
-		wp_enqueue_script('post');
+		//wp_enqueue_script('jquery');
+		//wp_enqueue_script('post');
 	}
 	
 	function fergcorp_countdownTimer_LoadUserScripts() {
