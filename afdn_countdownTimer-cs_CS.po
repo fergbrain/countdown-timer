@@ -2,14 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-12 22:21-0700\n"
-"PO-Revision-Date: 2008-05-12 22:21-0700\n"
+"POT-Creation-Date: 2008-05-15 17:21-0700\n"
+"PO-Revision-Date: 2008-05-15 18:23-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Bookmarks: -1,8,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: afdn_countdownTimer.php:97
@@ -40,7 +41,7 @@ msgstr ""
 #: afdn_countdownTimer.php:171
 #: afdn_countdownTimer.php:173
 msgid "translator_name"
-msgstr ""
+msgstr "singha"
 
 #: afdn_countdownTimer.php:169
 msgid "Translated by"
@@ -49,7 +50,7 @@ msgstr ""
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:171
 msgid "translator_url"
-msgstr ""
+msgstr "http://singha.cz/"
 
 #: afdn_countdownTimer.php:180
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
@@ -172,8 +173,9 @@ msgid "Countdown Time Display"
 msgstr "Zobrazení casu Odpocítávadla"
 
 #: afdn_countdownTimer.php:286
+#, fuzzy
 msgid "This setting controls what units of time are displayed."
-msgstr ""
+msgstr "Tato nastavení urcují, které casové jednotky se budou zobrazovat."
 
 #: afdn_countdownTimer.php:288
 msgid "Years:"
@@ -212,8 +214,9 @@ msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
 msgstr ""
 
 #: afdn_countdownTimer.php:298
+#, fuzzy
 msgid "Seconds: "
-msgstr ""
+msgstr "Sekundy:"
 
 #: afdn_countdownTimer.php:298
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
@@ -246,12 +249,14 @@ msgid "This setting allows you to customize how each event is styled and wrapped
 msgstr "Nastavte, jak bude která událost zobrazena (nastylována) a obalena HTML tagy."
 
 #: afdn_countdownTimer.php:322
+#, fuzzy
 msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
-msgstr ""
+msgstr "<strong>Styl zobrazení</strong> nastavuje HTML atribut STYLE pro jednotlivé casovace."
 
 #: afdn_countdownTimer.php:323
+#, fuzzy
 msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
-msgstr ""
+msgstr "<strong>Styl zobrazení</strong> nastavuje HTML atribut STYLE pro jednotlivé casovace."
 
 #: afdn_countdownTimer.php:324
 msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
@@ -263,8 +268,9 @@ msgstr "Príkladyx/Puvodní hodnoty"
 
 #: afdn_countdownTimer.php:327
 #: afdn_countdownTimer.php:332
+#, fuzzy
 msgid "Title Suffix"
-msgstr ""
+msgstr "Suffix"
 
 #: afdn_countdownTimer.php:328
 #: afdn_countdownTimer.php:333
@@ -299,98 +305,98 @@ msgstr "Nebyla nastavena žádná událost"
 #: afdn_countdownTimer.php:891
 #, php-format
 msgid "%s ago"
-msgstr ""
+msgstr "%s pred"
 
 #: afdn_countdownTimer.php:492
 #: afdn_countdownTimer.php:494
 #: afdn_countdownTimer.php:892
 #, php-format
 msgid "in %s"
-msgstr ""
+msgstr "za %s"
 
 #: afdn_countdownTimer.php:573
 #: afdn_countdownTimer.php:877
 #, php-format
 msgid "%d year, "
-msgstr ""
+msgstr "%d rok,"
 
 #: afdn_countdownTimer.php:575
 #: afdn_countdownTimer.php:878
 #, php-format
 msgid "%d years, "
-msgstr ""
+msgstr "%d roky, "
 
 #: afdn_countdownTimer.php:588
 #: afdn_countdownTimer.php:879
 #, php-format
 msgid "%d month, "
-msgstr ""
+msgstr "%d mesíc, "
 
 #: afdn_countdownTimer.php:590
 #: afdn_countdownTimer.php:880
 #, php-format
 msgid "%d months, "
-msgstr ""
+msgstr "%d mesícu, "
 
 #: afdn_countdownTimer.php:604
 #: afdn_countdownTimer.php:881
 #, php-format
 msgid "%d week, "
-msgstr ""
+msgstr "%d týden, "
 
 #: afdn_countdownTimer.php:606
 #: afdn_countdownTimer.php:882
 #, php-format
 msgid "%d weeks, "
-msgstr ""
+msgstr "%d týdnu, "
 
 #: afdn_countdownTimer.php:618
 #: afdn_countdownTimer.php:883
 #, php-format
 msgid "%d day, "
-msgstr ""
+msgstr "%d den, "
 
 #: afdn_countdownTimer.php:620
 #: afdn_countdownTimer.php:884
 #, php-format
 msgid "%d days, "
-msgstr ""
+msgstr "%d dní, "
 
 #: afdn_countdownTimer.php:634
 #: afdn_countdownTimer.php:885
 #, php-format
 msgid "%d hour, "
-msgstr ""
+msgstr "%d hodina, "
 
 #: afdn_countdownTimer.php:636
 #: afdn_countdownTimer.php:886
 #, php-format
 msgid "%d hours, "
-msgstr ""
+msgstr "%d hodin, "
 
 #: afdn_countdownTimer.php:650
 #: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d minute, "
-msgstr ""
+msgstr "%d minuta, "
 
 #: afdn_countdownTimer.php:652
 #: afdn_countdownTimer.php:888
 #, php-format
 msgid "%d minutes, "
-msgstr ""
+msgstr "%d minut, "
 
 #: afdn_countdownTimer.php:665
 #: afdn_countdownTimer.php:889
 #, php-format
 msgid "%d second, "
-msgstr ""
+msgstr "%d sekunda, "
 
 #: afdn_countdownTimer.php:667
 #: afdn_countdownTimer.php:890
 #, php-format
 msgid "%d seconds, "
-msgstr ""
+msgstr "%d sekund, "
 
 #: afdn_countdownTimer.php:800
 msgid "Widget title:"

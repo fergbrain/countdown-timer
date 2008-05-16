@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-12 22:21-0700\n"
-"PO-Revision-Date: 2008-05-12 22:21-0700\n"
+"POT-Creation-Date: 2008-05-15 17:25-0700\n"
+"PO-Revision-Date: 2008-05-15 18:23-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 #: afdn_countdownTimer.php:171
 #: afdn_countdownTimer.php:173
 msgid "translator_name"
-msgstr ""
+msgstr "Atamert Ölçgen"
 
 #: afdn_countdownTimer.php:169
 msgid "Translated by"
@@ -49,7 +49,7 @@ msgstr ""
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:171
 msgid "translator_url"
-msgstr ""
+msgstr "http://www.muhuk.com/"
 
 #: afdn_countdownTimer.php:180
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
@@ -172,8 +172,9 @@ msgid "Countdown Time Display"
 msgstr "Gerisayim Zaman Görünümü"
 
 #: afdn_countdownTimer.php:286
+#, fuzzy
 msgid "This setting controls what units of time are displayed."
-msgstr ""
+msgstr "Bu ayarlar hangi zaman birimlerinin görüntülenecegini kontrol eder."
 
 #: afdn_countdownTimer.php:288
 msgid "Years:"
@@ -212,8 +213,9 @@ msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
 msgstr ""
 
 #: afdn_countdownTimer.php:298
+#, fuzzy
 msgid "Seconds: "
-msgstr ""
+msgstr "Saniyeler:"
 
 #: afdn_countdownTimer.php:298
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
@@ -263,8 +265,9 @@ msgstr "Örnekler/Varsayilan"
 
 #: afdn_countdownTimer.php:327
 #: afdn_countdownTimer.php:332
+#, fuzzy
 msgid "Title Suffix"
-msgstr ""
+msgstr "Son ek"
 
 #: afdn_countdownTimer.php:328
 #: afdn_countdownTimer.php:333
@@ -299,7 +302,7 @@ msgstr "Olay girilmemis"
 #: afdn_countdownTimer.php:891
 #, php-format
 msgid "%s ago"
-msgstr ""
+msgstr "%s önce, "
 
 #: afdn_countdownTimer.php:492
 #: afdn_countdownTimer.php:494
@@ -312,85 +315,85 @@ msgstr ""
 #: afdn_countdownTimer.php:877
 #, php-format
 msgid "%d year, "
-msgstr ""
+msgstr "%d yil, "
 
 #: afdn_countdownTimer.php:575
 #: afdn_countdownTimer.php:878
 #, php-format
 msgid "%d years, "
-msgstr ""
+msgstr "%d yillar, "
 
 #: afdn_countdownTimer.php:588
 #: afdn_countdownTimer.php:879
 #, php-format
 msgid "%d month, "
-msgstr ""
+msgstr "%d ay, "
 
 #: afdn_countdownTimer.php:590
 #: afdn_countdownTimer.php:880
 #, php-format
 msgid "%d months, "
-msgstr ""
+msgstr "%d aylar, "
 
 #: afdn_countdownTimer.php:604
 #: afdn_countdownTimer.php:881
 #, php-format
 msgid "%d week, "
-msgstr ""
+msgstr "%d hafta, "
 
 #: afdn_countdownTimer.php:606
 #: afdn_countdownTimer.php:882
 #, php-format
 msgid "%d weeks, "
-msgstr ""
+msgstr "%d haftalar, "
 
 #: afdn_countdownTimer.php:618
 #: afdn_countdownTimer.php:883
 #, php-format
 msgid "%d day, "
-msgstr ""
+msgstr "%d gün, "
 
 #: afdn_countdownTimer.php:620
 #: afdn_countdownTimer.php:884
 #, php-format
 msgid "%d days, "
-msgstr ""
+msgstr "%d günler, "
 
 #: afdn_countdownTimer.php:634
 #: afdn_countdownTimer.php:885
 #, php-format
 msgid "%d hour, "
-msgstr ""
+msgstr "%d saat, "
 
 #: afdn_countdownTimer.php:636
 #: afdn_countdownTimer.php:886
 #, php-format
 msgid "%d hours, "
-msgstr ""
+msgstr "%d saatler, "
 
 #: afdn_countdownTimer.php:650
 #: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d minute, "
-msgstr ""
+msgstr "%d dakika, "
 
 #: afdn_countdownTimer.php:652
 #: afdn_countdownTimer.php:888
 #, php-format
 msgid "%d minutes, "
-msgstr ""
+msgstr "%d dakikalar, "
 
 #: afdn_countdownTimer.php:665
 #: afdn_countdownTimer.php:889
 #, php-format
 msgid "%d second, "
-msgstr ""
+msgstr "%d saniye, "
 
 #: afdn_countdownTimer.php:667
 #: afdn_countdownTimer.php:890
 #, php-format
 msgid "%d seconds, "
-msgstr ""
+msgstr "%d saniyeler, "
 
 #: afdn_countdownTimer.php:800
 msgid "Widget title:"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-12 22:21-0700\n"
-"PO-Revision-Date: 2008-05-12 22:21-0700\n"
+"POT-Creation-Date: 2008-05-15 18:08-0700\n"
+"PO-Revision-Date: 2008-05-15 18:23-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 #: afdn_countdownTimer.php:171
 #: afdn_countdownTimer.php:173
 msgid "translator_name"
-msgstr ""
+msgstr "Caio Oliveira"
 
 #: afdn_countdownTimer.php:169
 msgid "Translated by"
@@ -49,7 +49,7 @@ msgstr ""
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:171
 msgid "translator_url"
-msgstr ""
+msgstr "http://www.caiooliveira.com.br/"
 
 #: afdn_countdownTimer.php:180
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
@@ -172,8 +172,9 @@ msgid "Countdown Time Display"
 msgstr "Exibir Contagem de Tempo"
 
 #: afdn_countdownTimer.php:286
+#, fuzzy
 msgid "This setting controls what units of time are displayed."
-msgstr ""
+msgstr "Esta configuração controla como as unidades de tempo são exibidas."
 
 #: afdn_countdownTimer.php:288
 msgid "Years:"
@@ -213,7 +214,7 @@ msgstr ""
 
 #: afdn_countdownTimer.php:298
 msgid "Seconds: "
-msgstr ""
+msgstr "Segundos: "
 
 #: afdn_countdownTimer.php:298
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
@@ -263,8 +264,9 @@ msgstr "Exemplos/Padrões"
 
 #: afdn_countdownTimer.php:327
 #: afdn_countdownTimer.php:332
+#, fuzzy
 msgid "Title Suffix"
-msgstr ""
+msgstr "Sufixo"
 
 #: afdn_countdownTimer.php:328
 #: afdn_countdownTimer.php:333
@@ -299,98 +301,98 @@ msgstr "Nenhum data presente"
 #: afdn_countdownTimer.php:891
 #, php-format
 msgid "%s ago"
-msgstr ""
+msgstr "%s atrás, "
 
 #: afdn_countdownTimer.php:492
 #: afdn_countdownTimer.php:494
 #: afdn_countdownTimer.php:892
 #, php-format
 msgid "in %s"
-msgstr ""
+msgstr "em %s"
 
 #: afdn_countdownTimer.php:573
 #: afdn_countdownTimer.php:877
 #, php-format
 msgid "%d year, "
-msgstr ""
+msgstr "%d  ano, "
 
 #: afdn_countdownTimer.php:575
 #: afdn_countdownTimer.php:878
 #, php-format
 msgid "%d years, "
-msgstr ""
+msgstr "%d anos, "
 
 #: afdn_countdownTimer.php:588
 #: afdn_countdownTimer.php:879
 #, php-format
 msgid "%d month, "
-msgstr ""
+msgstr "%d mês, "
 
 #: afdn_countdownTimer.php:590
 #: afdn_countdownTimer.php:880
 #, php-format
 msgid "%d months, "
-msgstr ""
+msgstr "%d meses, "
 
 #: afdn_countdownTimer.php:604
 #: afdn_countdownTimer.php:881
 #, php-format
 msgid "%d week, "
-msgstr ""
+msgstr "%d semana, "
 
 #: afdn_countdownTimer.php:606
 #: afdn_countdownTimer.php:882
 #, php-format
 msgid "%d weeks, "
-msgstr ""
+msgstr "%d semanas, "
 
 #: afdn_countdownTimer.php:618
 #: afdn_countdownTimer.php:883
 #, php-format
 msgid "%d day, "
-msgstr ""
+msgstr "%d dia, "
 
 #: afdn_countdownTimer.php:620
 #: afdn_countdownTimer.php:884
 #, php-format
 msgid "%d days, "
-msgstr ""
+msgstr "%d dias, "
 
 #: afdn_countdownTimer.php:634
 #: afdn_countdownTimer.php:885
 #, php-format
 msgid "%d hour, "
-msgstr ""
+msgstr "%d hora, "
 
 #: afdn_countdownTimer.php:636
 #: afdn_countdownTimer.php:886
 #, php-format
 msgid "%d hours, "
-msgstr ""
+msgstr "%d horas, "
 
 #: afdn_countdownTimer.php:650
 #: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d minute, "
-msgstr ""
+msgstr "%d minuto, "
 
 #: afdn_countdownTimer.php:652
 #: afdn_countdownTimer.php:888
 #, php-format
 msgid "%d minutes, "
-msgstr ""
+msgstr "%d minutos, "
 
 #: afdn_countdownTimer.php:665
 #: afdn_countdownTimer.php:889
 #, php-format
 msgid "%d second, "
-msgstr ""
+msgstr "%d segundo, "
 
 #: afdn_countdownTimer.php:667
 #: afdn_countdownTimer.php:890
 #, php-format
 msgid "%d seconds, "
-msgstr ""
+msgstr "%d segundos, "
 
 #: afdn_countdownTimer.php:800
 msgid "Widget title:"
@@ -415,11 +417,11 @@ msgstr "Configure 'Máximo número de evento' para '-1' se não quiser limitar."
 #~ msgid "click-down and drag to move this box"
 #~ msgstr "clicar-segurar e arrastar para mover essa caixa"
 #~ msgid "click to %toggle% this box"
-#~ msgstr "clique para %toggle% essa caixa"
+#~ msgstr "clique para %alternar% essa caixa"
 #~ msgid "use the arrow keys to move this box"
 #~ msgstr "utilizar as teclas de setas para mover essa caixa"
 #~ msgid ", or press the enter key to %toggle% it"
-#~ msgstr "ou pressione a tecla ENTER para %toggle%(-la)"
+#~ msgstr "ou pressione a tecla ENTER para %alternar%(-la)"
 #~ msgid "Donations:"
 #~ msgstr "Doações"
 #~ msgid ""
