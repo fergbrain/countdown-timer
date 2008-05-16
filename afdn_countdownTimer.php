@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.1.9
+Version: 2.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -758,7 +758,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
-		update_option("fergcorp_countdownTimer_version", "2.1.9");
+		update_option("fergcorp_countdownTimer_version", "2.2");
 	}
 
 
@@ -935,12 +935,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 
+	/**
+	 * Loads the appropriate scripts when in the admin page
+	 *
+	 * @since 2.2
+	 * @access private
+	 * @author Andrew Ferguson
+	 */
 	function fergcorp_countdownTimer_LoadAdminScripts() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
 		//wp_enqueue_script('jquery');
 		//wp_enqueue_script('post');
 	}
 	
+	/**
+	 * Loads the appropriate scripts
+	 *
+	 * @since 2.2
+	 * @access private
+	 * @author Andrew Ferguson
+	 */
 	function fergcorp_countdownTimer_LoadUserScripts() {
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
