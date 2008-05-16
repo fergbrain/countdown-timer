@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-12 22:20-0700\n"
-"PO-Revision-Date: 2008-05-15 18:23-0700\n"
+"PO-Revision-Date: 2008-05-15 18:26-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "Temps restant jusqu'à mon anniversaire:"
 
 #: afdn_countdownTimer.php:206
 msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
-msgstr "Où <em>\"ENTER_DATE_HERE\"</em> utilise une &lt;a href='http://us2.php.net/strtotime' target='_blank'&gt; fonction PHP strtotime &lt;/a&gt; qui va traiter toute date/horaire entrée sous forme de texte. Si vous procédez ainsi, prenez soin d'activer le Compte-à-rebours à l'intérieur de la boucle&quot;"
+msgstr "Où <em>\"ENTER_DATE_HERE\"</em> utilise une <a href='http://us2.php.net/strtotime' target='_blank'> fonction PHP strtotime </a> qui va traiter toute date/horaire entrée sous forme de texte. Si vous procédez ainsi, prenez soin d'activer le Compte-à-rebours à l'intérieur de la boucle&quot;"
 
 #: afdn_countdownTimer.php:212
 msgid "One Time Events"
@@ -89,7 +89,7 @@ msgstr "Evénements n'ayant lieu qu'une fois"
 
 #: afdn_countdownTimer.php:214
 msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr "Le compte-à-rebours utilise &lt;a href='http://us2.php.net/strtotime'&gt;une fonction PHP strtotime &lt;/a&gt; qui va traiter toute date/horaire entrée sous forme de texte en anglais"
+msgstr "Le compte-à-rebours utilise <a href='http://us2.php.net/strtotime'>une fonction PHP strtotime </a> qui va traiter toute date/horaire entrée sous forme de texte en anglais"
 
 #: afdn_countdownTimer.php:215
 msgid "Examples of some (but not all) valid dates"
@@ -251,15 +251,15 @@ msgstr "Ce paramètre vous permet de customiser le style et l'habillage de chaqu
 
 #: afdn_countdownTimer.php:322
 msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
-msgstr "&lt;strong&gt;Suffixe du Titre&lt;/strong&gt; détermine le contenu qui apparaît immédiatement après le titre et avant le timer."
+msgstr "<strong>Suffixe du Titre</strong> détermine le contenu qui apparaît immédiatement après le titre et avant le timer."
 
 #: afdn_countdownTimer.php:323
 msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
-msgstr "&lt;strong&gt;Style d'affichage&lt;/strong&gt; détermine les attributs de style HTML pour chaque timer à l'aide de CSS"
+msgstr "<strong>Style d'affichage</strong> détermine les attributs de style HTML pour chaque timer à l'aide de CSS"
 
 #: afdn_countdownTimer.php:324
 msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
-msgstr "strong&gt;Préfixe/Suffixe de Format d'Affichage&lt;/strong&gt; détermine le code HTML (ou le texte) de début/fin"
+msgstr "strong>Préfixe/Suffixe de Format d'Affichage</strong> détermine le code HTML (ou le texte) de début/fin"
 
 #: afdn_countdownTimer.php:325
 msgid "Examples/Defaults"
