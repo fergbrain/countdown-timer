@@ -1,0 +1,447 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: afdn_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-15 17:21-0700\n"
+"PO-Revision-Date: 2008-05-15 18:23-0700\n"
+"Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Bookmarks: -1,8,-1,-1,-1,-1,-1,-1,-1,-1\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: afdn_countdownTimer.php:97
+msgid "Options/dates updated successfully."
+msgstr "Možnosti/data úšpešne zmeneny."
+
+#: afdn_countdownTimer.php:116
+msgid "Are you sure you wish to delete"
+msgstr "Opravdu chcete odstranit"
+
+#: afdn_countdownTimer.php:154
+msgid "Resources:"
+msgstr "Zdroje:"
+
+#: afdn_countdownTimer.php:158
+msgid "Plugin Homepage"
+msgstr "Domovská stránka pluginu"
+
+#: afdn_countdownTimer.php:159
+msgid "Support Forum"
+msgstr "Fórum technické podpory"
+
+#: afdn_countdownTimer.php:160
+msgid "Amazon Wishlist"
+msgstr ""
+
+#: afdn_countdownTimer.php:168
+#: afdn_countdownTimer.php:171
+#: afdn_countdownTimer.php:173
+msgid "translator_name"
+msgstr "singha"
+
+#: afdn_countdownTimer.php:169
+msgid "Translated by"
+msgstr ""
+
+#: afdn_countdownTimer.php:170
+#: afdn_countdownTimer.php:171
+msgid "translator_url"
+msgstr "http://singha.cz/"
+
+#: afdn_countdownTimer.php:180
+msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
+msgstr "Tvorbou pluginu trávím stále více casu. Jsem vysokoškolský student a programování delám pro radost."
+
+#: afdn_countdownTimer.php:188
+msgid "Installation Notes"
+msgstr "Instrukce k instalaci"
+
+#: afdn_countdownTimer.php:190
+msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
+msgstr "Dostali jste se až sem a máte už témer vyhráno. Pro vložení Odpocítávadla do postranní lišty (sidebar) použijte Countdown Timer Widget."
+
+#: afdn_countdownTimer.php:191
+msgid "Alternatively, you can also use this code"
+msgstr "Je také možné použít tento kód"
+
+#: afdn_countdownTimer.php:200
+msgid "If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:"
+msgstr "Chcete-li použít odpocítávadla individuálne, napríklad v príspevcích nebo na stránkách, použijte následující kód:"
+
+#: afdn_countdownTimer.php:202
+msgid "Time until my birthday:"
+msgstr "Cas zbývající do mých narozenin:"
+
+#: afdn_countdownTimer.php:206
+msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
+msgstr "Pricemž <em>\"ENTER_DATE_HERE\"</em> používá <a href='http://us2.php.net/strtotime'>PHP funkci strtotime</a>, která je schopna prevést témer jakýkoliv bežne používaný anglický zápis data. Ujistete se, že je zapnuta níže uvedená možnost \"Povolit odpocítávání v rámci Programového Cyklu\"."
+
+#: afdn_countdownTimer.php:212
+msgid "One Time Events"
+msgstr "Jednorázové události"
+
+#: afdn_countdownTimer.php:214
+msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
+msgstr "Odpocítávadlo používá <a href='http://us2.php.net/strtotime'>PHP funkci strtotime</a>, která je schopna precíst a použít témer jakýkoliv bežne používaný anglický zápis data."
+
+#: afdn_countdownTimer.php:215
+msgid "Examples of some (but not all) valid dates"
+msgstr "Príklady nekolika (zdaleka ne všech) platných zápisu data"
+
+#: afdn_countdownTimer.php:225
+msgid "Delete"
+msgstr "Odstranit"
+
+#: afdn_countdownTimer.php:226
+msgid "Event Date"
+msgstr "Datum události"
+
+#: afdn_countdownTimer.php:227
+msgid "Event Title"
+msgstr "Název události"
+
+#: afdn_countdownTimer.php:228
+msgid "Link"
+msgstr "Odkaz"
+
+#: afdn_countdownTimer.php:229
+msgid "Display \"Time since\""
+msgstr "Zobrazit \"Cas od\""
+
+#: afdn_countdownTimer.php:261
+msgid "Automatically delete 'One Time Events' after they have occured?"
+msgstr "Automaticky odstranit 'Jednorázové události' poté, co se již uskutecnily?"
+
+#: afdn_countdownTimer.php:261
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "Yes"
+msgstr "Ano"
+
+#: afdn_countdownTimer.php:261
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "No"
+msgstr "Ne"
+
+#: afdn_countdownTimer.php:267
+msgid "Management"
+msgstr "Správa"
+
+#: afdn_countdownTimer.php:269
+msgid "To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert"
+msgstr "Chcete-li vložit Odpocítávadlo a/nebo Jednorázový casovac do príspevku ci stránky, jednoduše povolte funkcnost vrámci Programového cyklu (níže) a pak použijte tento kód "
+
+#: afdn_countdownTimer.php:271
+msgid "where you want the countdown to be inserted"
+msgstr "v míste, kam chcete casovac vložit"
+
+#: afdn_countdownTimer.php:272
+msgid "You can also insert a one-off timer within a post or page by using the following code:"
+msgstr "Pro vložení Jednorázového casovace do príspevku nebo stránky je také možno použít následující kód:"
+
+#: afdn_countdownTimer.php:275
+msgid "Enable JavaScript countdown:"
+msgstr "Povolit JavaScriptové odpocítávání"
+
+#: afdn_countdownTimer.php:276
+msgid "Enable CountdownTimer within The Loop:"
+msgstr "Povolit odpocítávání vrámci Programového Cyklu:"
+
+#: afdn_countdownTimer.php:284
+msgid "Countdown Time Display"
+msgstr "Zobrazení casu Odpocítávadla"
+
+#: afdn_countdownTimer.php:286
+#, fuzzy
+msgid "This setting controls what units of time are displayed."
+msgstr "Tato nastavení urcují, které casové jednotky se budou zobrazovat."
+
+#: afdn_countdownTimer.php:288
+msgid "Years:"
+msgstr "Roky:"
+
+#: afdn_countdownTimer.php:289
+msgid "Months:"
+msgstr "Mesíce:"
+
+#: afdn_countdownTimer.php:290
+msgid "Weeks:"
+msgstr "Týdny:"
+
+#: afdn_countdownTimer.php:291
+msgid "Days:"
+msgstr "Dny:"
+
+#: afdn_countdownTimer.php:292
+msgid "Hours:"
+msgstr "Hodiny:"
+
+#: afdn_countdownTimer.php:293
+msgid "Minutes:"
+msgstr "Minuty:"
+
+#: afdn_countdownTimer.php:294
+msgid "Seconds:"
+msgstr "Sekundy:"
+
+#: afdn_countdownTimer.php:295
+msgid "Strip non-significant zeros:"
+msgstr "Odstranit nadbytecné nuly:"
+
+#: afdn_countdownTimer.php:297
+msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
+msgstr ""
+
+#: afdn_countdownTimer.php:298
+#, fuzzy
+msgid "Seconds: "
+msgstr "Sekundy:"
+
+#: afdn_countdownTimer.php:298
+msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
+msgstr ""
+
+#: afdn_countdownTimer.php:305
+#: afdn_countdownTimer.php:313
+msgid "onHover Time Format"
+msgstr "Formát casu po najetí myši (onHover)"
+
+#: afdn_countdownTimer.php:307
+msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses"
+msgstr "Pokud nastavíte \"Formát casu po najetí myši (onHover)\", zobrazí se po najetí kurzorem myši nad Odpocítávadlo datum konkrétní události ve zvoleném formátu. Tato funkce používá"
+
+#: afdn_countdownTimer.php:308
+msgid "Examples"
+msgstr "Príklady"
+
+#: afdn_countdownTimer.php:310
+#: afdn_countdownTimer.php:311
+msgid "goes to"
+msgstr "zobrazí"
+
+#: afdn_countdownTimer.php:319
+msgid "Display Format Options"
+msgstr "Možnosti formátu zobrazení"
+
+#: afdn_countdownTimer.php:321
+msgid "This setting allows you to customize how each event is styled and wrapped."
+msgstr "Nastavte, jak bude která událost zobrazena (nastylována) a obalena HTML tagy."
+
+#: afdn_countdownTimer.php:322
+#, fuzzy
+msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
+msgstr "<strong>Styl zobrazení</strong> nastavuje HTML atribut STYLE pro jednotlivé casovace."
+
+#: afdn_countdownTimer.php:323
+#, fuzzy
+msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
+msgstr "<strong>Styl zobrazení</strong> nastavuje HTML atribut STYLE pro jednotlivé casovace."
+
+#: afdn_countdownTimer.php:324
+msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
+msgstr "<strong>Prefix (resp. suffix) formátu zobrazení</strong> nastavuje HTML kód (nebo text) pred (resp. za) casovacem."
+
+#: afdn_countdownTimer.php:325
+msgid "Examples/Defaults"
+msgstr "Príkladyx/Puvodní hodnoty"
+
+#: afdn_countdownTimer.php:327
+#: afdn_countdownTimer.php:332
+#, fuzzy
+msgid "Title Suffix"
+msgstr "Suffix"
+
+#: afdn_countdownTimer.php:328
+#: afdn_countdownTimer.php:333
+msgid "Display Style"
+msgstr "Styl zobrazení"
+
+#: afdn_countdownTimer.php:329
+#: afdn_countdownTimer.php:334
+msgid "Display Format Prefix"
+msgstr "Prefix formátu zobrazení"
+
+#: afdn_countdownTimer.php:330
+#: afdn_countdownTimer.php:335
+msgid "Display Format Suffix"
+msgstr "Suffix formátu zobrazení"
+
+#: afdn_countdownTimer.php:341
+msgid "Example Display"
+msgstr "Príklad zobrazení"
+
+#: afdn_countdownTimer.php:352
+msgid "Update Events"
+msgstr "Uložit zmeny"
+
+#: afdn_countdownTimer.php:435
+#: afdn_countdownTimer.php:438
+msgid "No dates present"
+msgstr "Nebyla nastavena žádná událost"
+
+#: afdn_countdownTimer.php:478
+#: afdn_countdownTimer.php:480
+#: afdn_countdownTimer.php:891
+#, php-format
+msgid "%s ago"
+msgstr "%s pred"
+
+#: afdn_countdownTimer.php:492
+#: afdn_countdownTimer.php:494
+#: afdn_countdownTimer.php:892
+#, php-format
+msgid "in %s"
+msgstr "za %s"
+
+#: afdn_countdownTimer.php:573
+#: afdn_countdownTimer.php:877
+#, php-format
+msgid "%d year, "
+msgstr "%d rok,"
+
+#: afdn_countdownTimer.php:575
+#: afdn_countdownTimer.php:878
+#, php-format
+msgid "%d years, "
+msgstr "%d roky, "
+
+#: afdn_countdownTimer.php:588
+#: afdn_countdownTimer.php:879
+#, php-format
+msgid "%d month, "
+msgstr "%d mesíc, "
+
+#: afdn_countdownTimer.php:590
+#: afdn_countdownTimer.php:880
+#, php-format
+msgid "%d months, "
+msgstr "%d mesícu, "
+
+#: afdn_countdownTimer.php:604
+#: afdn_countdownTimer.php:881
+#, php-format
+msgid "%d week, "
+msgstr "%d týden, "
+
+#: afdn_countdownTimer.php:606
+#: afdn_countdownTimer.php:882
+#, php-format
+msgid "%d weeks, "
+msgstr "%d týdnu, "
+
+#: afdn_countdownTimer.php:618
+#: afdn_countdownTimer.php:883
+#, php-format
+msgid "%d day, "
+msgstr "%d den, "
+
+#: afdn_countdownTimer.php:620
+#: afdn_countdownTimer.php:884
+#, php-format
+msgid "%d days, "
+msgstr "%d dní, "
+
+#: afdn_countdownTimer.php:634
+#: afdn_countdownTimer.php:885
+#, php-format
+msgid "%d hour, "
+msgstr "%d hodina, "
+
+#: afdn_countdownTimer.php:636
+#: afdn_countdownTimer.php:886
+#, php-format
+msgid "%d hours, "
+msgstr "%d hodin, "
+
+#: afdn_countdownTimer.php:650
+#: afdn_countdownTimer.php:887
+#, php-format
+msgid "%d minute, "
+msgstr "%d minuta, "
+
+#: afdn_countdownTimer.php:652
+#: afdn_countdownTimer.php:888
+#, php-format
+msgid "%d minutes, "
+msgstr "%d minut, "
+
+#: afdn_countdownTimer.php:665
+#: afdn_countdownTimer.php:889
+#, php-format
+msgid "%d second, "
+msgstr "%d sekunda, "
+
+#: afdn_countdownTimer.php:667
+#: afdn_countdownTimer.php:890
+#, php-format
+msgid "%d seconds, "
+msgstr "%d sekund, "
+
+#: afdn_countdownTimer.php:800
+msgid "Widget title:"
+msgstr "Název widgetu"
+
+#: afdn_countdownTimer.php:801
+msgid "Maximum # of events to show:"
+msgstr "Maximální pocet zobrazených událostí:"
+
+#: afdn_countdownTimer.php:803
+msgid "Notes:"
+msgstr "Poznámky:"
+
+#: afdn_countdownTimer.php:803
+msgid "Set 'Maximum # of events' to '-1' if you want no limit."
+msgstr "Pro neomezený pocet událostí nastavte na hodnotu \"-1\"."
+
+#~ msgid "Countdown Timer"
+#~ msgstr "Odpocítávadlo"
+#~ msgid "open"
+#~ msgstr "otevrít"
+#~ msgid "close"
+#~ msgstr "zavrít"
+#~ msgid "click-down and drag to move this box"
+#~ msgstr "pro presun boxu kliknete a táhnete"
+#~ msgid "click to %toggle% this box"
+#~ msgstr "kliknete pro %rozbalení% boxu"
+#~ msgid "use the arrow keys to move this box"
+#~ msgstr "pro presun boxu použijte kurzorové klávesy"
+#~ msgid ", or press the enter key to %toggle% it"
+#~ msgstr "nebo stisknete klávesu Enter pro %rozbalení% boxu"
+#~ msgid "Donations:"
+#~ msgstr "Financní príspevky:"
+#~ msgid ""
+#~ "Hopefully if you <em>really</em> like my plugins (and/or me) you might "
+#~ "consider making a donation."
+#~ msgstr ""
+#~ "Pokud se vám <em>opravdu</em> líbí moje pluginy (nebo snad já), budu rád, "
+#~ "když mi poskytnete financní príspevek v jakékoliv výši."
+#~ msgid "Style"
+#~ msgstr "Styly"
+#~ msgid "Prefix"
+#~ msgstr "Prefix"
+#~ msgid "in"
+#~ msgstr "za"
+#~ msgid "day"
+#~ msgstr "den"
+
