@@ -1,0 +1,412 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: afdn_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-12 22:21-0700\n"
+"PO-Revision-Date: 2008-05-15 23:39-0700\n"
+"Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: afdn_countdownTimer.php:97
+msgid "Options/dates updated successfully."
+msgstr "选项/日期更新成功"
+
+#: afdn_countdownTimer.php:116
+msgid "Are you sure you wish to delete"
+msgstr "你确定要删除嘛"
+
+#: afdn_countdownTimer.php:154
+msgid "Resources:"
+msgstr "来源"
+
+#: afdn_countdownTimer.php:158
+msgid "Plugin Homepage"
+msgstr "主页"
+
+#: afdn_countdownTimer.php:159
+msgid "Support Forum"
+msgstr "支持"
+
+#: afdn_countdownTimer.php:160
+msgid "Amazon Wishlist"
+msgstr "Amazon 列表"
+
+#: afdn_countdownTimer.php:168
+#: afdn_countdownTimer.php:171
+#: afdn_countdownTimer.php:173
+msgid "translator_name"
+msgstr "Qiang"
+
+#: afdn_countdownTimer.php:169
+msgid "Translated by"
+msgstr "翻译"
+
+#: afdn_countdownTimer.php:170
+#: afdn_countdownTimer.php:171
+msgid "translator_url"
+msgstr "http://richile.cn"
+
+#: afdn_countdownTimer.php:180
+msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
+msgstr "我是一名大学生,出于对WP的爱好编写了这个插件"
+
+#: afdn_countdownTimer.php:188
+msgid "Installation Notes"
+msgstr "安装方法"
+
+#: afdn_countdownTimer.php:190
+msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
+msgstr "已经成功安装,你可以到后台添加相应的侧栏"
+
+#: afdn_countdownTimer.php:191
+msgid "Alternatively, you can also use this code"
+msgstr "或者,你可以使用这个代码"
+
+#: afdn_countdownTimer.php:200
+msgid "If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:"
+msgstr "如果你想随意的展示Countdown.比如在文章中或者页面中,可以使用下面的代码"
+
+#: afdn_countdownTimer.php:202
+msgid "Time until my birthday:"
+msgstr "距离我的生日还有"
+
+#: afdn_countdownTimer.php:206
+msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
+msgstr "在<em>\"ENTER_DATE_HERE\"</em>处使用了<a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> 标签而且会显示描述性的语言,如果你想这么做,启用\"Enable CountdownTimer within The Loop\"选项"
+
+#: afdn_countdownTimer.php:212
+msgid "One Time Events"
+msgstr "发生一次的时间"
+
+#: afdn_countdownTimer.php:214
+msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
+msgstr "倒计时板使用<a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> 而且会显示描述性语言"
+
+#: afdn_countdownTimer.php:215
+msgid "Examples of some (but not all) valid dates"
+msgstr "一些合法的时间例子"
+
+#: afdn_countdownTimer.php:225
+msgid "Delete"
+msgstr "删除"
+
+#: afdn_countdownTimer.php:226
+msgid "Event Date"
+msgstr "时间"
+
+#: afdn_countdownTimer.php:227
+msgid "Event Title"
+msgstr "标题"
+
+#: afdn_countdownTimer.php:228
+msgid "Link"
+msgstr "链接"
+
+#: afdn_countdownTimer.php:229
+msgid "Display \"Time since\""
+msgstr "显示\"还有时间\""
+
+#: afdn_countdownTimer.php:261
+msgid "Automatically delete 'One Time Events' after they have occured?"
+msgstr "到期后制动删除\"一次发生时间\"?"
+
+#: afdn_countdownTimer.php:261
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "Yes"
+msgstr "是"
+
+#: afdn_countdownTimer.php:261
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "No"
+msgstr "否"
+
+#: afdn_countdownTimer.php:267
+msgid "Management"
+msgstr "管理"
+
+#: afdn_countdownTimer.php:269
+msgid "To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert"
+msgstr "如果你想在文章中或者页面中加入倒计时,你可以简单的启用下面的循环函数(loop function)和插入代码"
+
+#: afdn_countdownTimer.php:271
+msgid "where you want the countdown to be inserted"
+msgstr "你想在哪里插入倒计时"
+
+#: afdn_countdownTimer.php:272
+msgid "You can also insert a one-off timer within a post or page by using the following code:"
+msgstr "使用如下代码,你还可以在文章中或页面中插入一个one-off倒计时"
+
+#: afdn_countdownTimer.php:275
+msgid "Enable JavaScript countdown:"
+msgstr "开启JavaScript倒计时"
+
+#: afdn_countdownTimer.php:276
+msgid "Enable CountdownTimer within The Loop:"
+msgstr "在Loop中启用CountdownTimer"
+
+#: afdn_countdownTimer.php:284
+msgid "Countdown Time Display"
+msgstr "显示倒计时"
+
+#: afdn_countdownTimer.php:286
+msgid "This setting controls what units of time are displayed."
+msgstr "时间显示单元"
+
+#: afdn_countdownTimer.php:288
+msgid "Years:"
+msgstr "年"
+
+#: afdn_countdownTimer.php:289
+msgid "Months:"
+msgstr "月"
+
+#: afdn_countdownTimer.php:290
+msgid "Weeks:"
+msgstr "周"
+
+#: afdn_countdownTimer.php:291
+msgid "Days:"
+msgstr "日"
+
+#: afdn_countdownTimer.php:292
+msgid "Hours:"
+msgstr "时"
+
+#: afdn_countdownTimer.php:293
+msgid "Minutes:"
+msgstr "分"
+
+#: afdn_countdownTimer.php:294
+msgid "Seconds:"
+msgstr "秒"
+
+#: afdn_countdownTimer.php:295
+msgid "Strip non-significant zeros:"
+msgstr "出去无意义的0"
+
+#: afdn_countdownTimer.php:297
+msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
+msgstr "如果\"display Time Since\"被选中,则显示还剩余时间"
+
+#: afdn_countdownTimer.php:298
+msgid "Seconds: "
+msgstr "秒"
+
+#: afdn_countdownTimer.php:298
+msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
+msgstr "0=无限;86400秒=1天;604800秒=1周"
+
+#: afdn_countdownTimer.php:305
+#: afdn_countdownTimer.php:313
+msgid "onHover Time Format"
+msgstr "时间格式"
+
+#: afdn_countdownTimer.php:307
+msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses"
+msgstr "如果你设置的时间格式,将会显示你所设定时间发生的时间"
+
+#: afdn_countdownTimer.php:308
+msgid "Examples"
+msgstr "比如"
+
+#: afdn_countdownTimer.php:310
+#: afdn_countdownTimer.php:311
+msgid "goes to"
+msgstr "到"
+
+#: afdn_countdownTimer.php:319
+msgid "Display Format Options"
+msgstr "显示格式选项"
+
+#: afdn_countdownTimer.php:321
+msgid "This setting allows you to customize how each event is styled and wrapped."
+msgstr "设置时间显示风格"
+
+#: afdn_countdownTimer.php:322
+msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
+msgstr "<strong>Title Suffix</strong>将显示在题题目后和时间前"
+
+#: afdn_countdownTimer.php:323
+msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
+msgstr "<strong>Display Style</strong>使用CSS来定制你的倒计时"
+
+#: afdn_countdownTimer.php:324
+msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
+msgstr "<strong>Display Format Prefix/Suffix</strong> HTML前缀和后缀"
+
+#: afdn_countdownTimer.php:325
+msgid "Examples/Defaults"
+msgstr "例子/默认"
+
+#: afdn_countdownTimer.php:327
+#: afdn_countdownTimer.php:332
+msgid "Title Suffix"
+msgstr "标题后缀"
+
+#: afdn_countdownTimer.php:328
+#: afdn_countdownTimer.php:333
+msgid "Display Style"
+msgstr "显示风格"
+
+#: afdn_countdownTimer.php:329
+#: afdn_countdownTimer.php:334
+msgid "Display Format Prefix"
+msgstr "显示格式前缀"
+
+#: afdn_countdownTimer.php:330
+#: afdn_countdownTimer.php:335
+msgid "Display Format Suffix"
+msgstr "显示格式后缀"
+
+#: afdn_countdownTimer.php:341
+msgid "Example Display"
+msgstr "例子"
+
+#: afdn_countdownTimer.php:352
+msgid "Update Events"
+msgstr "跟新事件"
+
+#: afdn_countdownTimer.php:435
+#: afdn_countdownTimer.php:438
+msgid "No dates present"
+msgstr "当前无日期"
+
+#: afdn_countdownTimer.php:478
+#: afdn_countdownTimer.php:480
+#: afdn_countdownTimer.php:891
+#, php-format
+msgid "%s ago"
+msgstr "%s 之前"
+
+#: afdn_countdownTimer.php:492
+#: afdn_countdownTimer.php:494
+#: afdn_countdownTimer.php:892
+#, php-format
+msgid "in %s"
+msgstr "在 %s"
+
+#: afdn_countdownTimer.php:573
+#: afdn_countdownTimer.php:877
+#, php-format
+msgid "%d year, "
+msgstr "%d 年"
+
+#: afdn_countdownTimer.php:575
+#: afdn_countdownTimer.php:878
+#, php-format
+msgid "%d years, "
+msgstr "%d 年"
+
+#: afdn_countdownTimer.php:588
+#: afdn_countdownTimer.php:879
+#, php-format
+msgid "%d month, "
+msgstr "%d 月"
+
+#: afdn_countdownTimer.php:590
+#: afdn_countdownTimer.php:880
+#, php-format
+msgid "%d months, "
+msgstr "%d 月"
+
+#: afdn_countdownTimer.php:604
+#: afdn_countdownTimer.php:881
+#, php-format
+msgid "%d week, "
+msgstr "%d 周"
+
+#: afdn_countdownTimer.php:606
+#: afdn_countdownTimer.php:882
+#, php-format
+msgid "%d weeks, "
+msgstr "%d 周"
+
+#: afdn_countdownTimer.php:618
+#: afdn_countdownTimer.php:883
+#, php-format
+msgid "%d day, "
+msgstr "%d 日"
+
+#: afdn_countdownTimer.php:620
+#: afdn_countdownTimer.php:884
+#, php-format
+msgid "%d days, "
+msgstr "%d 日 "
+
+#: afdn_countdownTimer.php:634
+#: afdn_countdownTimer.php:885
+#, php-format
+msgid "%d hour, "
+msgstr "%d 时"
+
+#: afdn_countdownTimer.php:636
+#: afdn_countdownTimer.php:886
+#, php-format
+msgid "%d hours, "
+msgstr "%d 时"
+
+#: afdn_countdownTimer.php:650
+#: afdn_countdownTimer.php:887
+#, php-format
+msgid "%d minute, "
+msgstr "%d 分"
+
+#: afdn_countdownTimer.php:652
+#: afdn_countdownTimer.php:888
+#, php-format
+msgid "%d minutes, "
+msgstr "%d 分"
+
+#: afdn_countdownTimer.php:665
+#: afdn_countdownTimer.php:889
+#, php-format
+msgid "%d second, "
+msgstr "%d 秒"
+
+#: afdn_countdownTimer.php:667
+#: afdn_countdownTimer.php:890
+#, php-format
+msgid "%d seconds, "
+msgstr "%d 秒"
+
+#: afdn_countdownTimer.php:800
+msgid "Widget title:"
+msgstr "侧栏标题"
+
+# of events to show:"
+#: afdn_countdownTimer.php:801
+msgid "Maximu"
+msgstr "显示时间数"
+
+#: afdn_countdownTimer.php:803
+msgid "Notes:"
+msgstr "说明"
+
+# of events' to '-1' if you want no limit."
+#: afdn_countdownTimer.php:803
+msgid "Set 'Maximu"
+msgstr "如果你想无限制 设置最大事件数为\"-1\""
+
