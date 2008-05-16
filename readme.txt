@@ -33,6 +33,7 @@ Special thanks to:
 * [Atamert Ölçgen](http://www.muhuk.com) (Turkish translation)
 * [singha](http://singha.cz) (Czech translation)
 * Kobe Van Looveren (Dutch translation)
+* [Qiang](http://richile.cn/) (Chinese translation)
 
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
