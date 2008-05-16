@@ -2,9 +2,9 @@
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
-Requires at least: 2.0
-Tested up to: 2.3.3
-Stable tag: 2.1.1
+Requires at least: 2.5
+Tested up to: 2.5.1
+Stable tag: 2.2
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,11 +14,14 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.1.1 includes all the great features of past versions plus:
+Version 2.2 includes all the great features of past versions plus:
 
-* New and updated UI to match native WordPress interface
-* The regular round of bug fixes
-* Better i18n support
+* Updated some phrases that missed being i18n.
+* Updated i18n to use use sprintf's to assist in proper translation.
+* Update the admin page to WordPress 2.5 Look and Feel.
+* Users are now able to define the data (text/HTML) that comes after the title and before the actual countdown.
+* Implemented a new function, fergcorp_countdownTimer_single($date), that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string.
+* Plugin output is now XHTML 1.0 Strict compliant.
 
 Special thanks to:
 
@@ -61,6 +64,19 @@ You can also create a single event by using:
 replacing "ENTER\_DATE\_HERE" with the appropriate PHP strtodate() parseable string.
 
 == Frequently Asked Questions ==
+
+= Your program is broken! The count down is of by XX days! =
+
+Well, not quite. As it turns out, determining the number of months between two dates is harder than one might think. As you know, all months don't have the same number of days. Thus, some months have 31 days, others have 30 days, and then there's February. It's pretty trivial to figure out the number of complete months between two days (if complete months exist).
+
+However, how many months exist between January 15 and February 20? There are 36 days, which is obviously more than the number of days in any given month we have, so the timer should display 1 month and how many days? Six days (30 days/month)? Five days (31 days/month)? Eight days (28 days/month since the date does end in February)?
+
+I happened to mention my problem to a friend who said that the US military decided that there were 30 days in every month and to prorate the the addition day (or less day(s)) for all the months that have more (or less) than 30 days.
+
+= Wait, so how /do/ you count months? =
+
+Using the above example of January 15 to February 20, there would be one month and five days. February 15 to March 20 would also be one month and five days. Why? January 15 to February 15 is one month. February 15 to February 20 is 5 days. Put them together and you get one month and five days.
+
 
 = Where I am supposed to set the count down time? =
 
