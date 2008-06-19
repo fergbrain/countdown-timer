@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2
+Version: 2.2.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -584,12 +584,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Month
 		if($fergcorp_countdownTimer_getOptions['showMonth']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMonth){
+				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
 				if($resultantMonth==1){
 					$s .= sprintf(__("%d month, ", "afdn_countdownTimer"), $resultantMonth);
 				} else{
 					$s .= sprintf(__("%d months, ", "afdn_countdownTimer"), $resultantMonth);
 				}
-				$rollover = $rollover - intval($rollover/2592000)*2592000;
+				$rollover = $rollover - intval($rollover/2628000)*2628000; //(12/31536000)
 				$sigNumHit = true;
 			}
 		}
@@ -600,6 +601,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
 		if($fergcorp_countdownTimer_getOptions['showWeek']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval( ($resultantDay + intval($rollover/86400) )/7)){
+				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
 				if((intval( ($resultantDay + intval($rollover/86400) )/7))==1){
 					$s .= sprintf(__("%d week, ", "afdn_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)));
 				} else{
@@ -614,6 +616,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Day
 		if($fergcorp_countdownTimer_getOptions['showDay']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay){
+				$resultantDay = $resultantDay + intval($rollover/86400);
 				if($resultantDay==1){
 					$s .= sprintf(__("%d day, ", "afdn_countdownTimer"), $resultantDay);
 				} else{
@@ -630,6 +633,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Hour
 		if($fergcorp_countdownTimer_getOptions['showHour']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantHour){
+				$resultantHour = $resultantHour + intval($rollover/3600);
 				if($resultantHour==1){
 					$s .= sprintf(__("%d hour, ", "afdn_countdownTimer"), $resultantHour);
 				} else{
@@ -646,6 +650,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Minute
 		if($fergcorp_countdownTimer_getOptions['showMinute']){
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMinute){
+				$resultantMinute = $resultantMinute + intval($rollover/60);
 				if($resultantMinute==1){
 					$s .= sprintf(__("%d minute, ", "afdn_countdownTimer"), $resultantMinute);
 				} else{
@@ -661,6 +666,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Second
 		if($fergcorp_countdownTimer_getOptions['showSecond']){
+			$resultantSecond = $resultantSecond + $rollover;
 			if($resultantSecond==1){
 				$s .= sprintf(__("%d second, ", "afdn_countdownTimer"), $resultantSecond);
 			} else{
