@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-15 17:38-0700\n"
-"PO-Revision-Date: 2008-05-15 18:23-0700\n"
+"POT-Creation-Date: 2008-06-18 20:40-0800\n"
+"PO-Revision-Date: 2008-06-18 20:40-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr "Ben je zeker dat je dit wenst te verwijderen?"
 
 #: afdn_countdownTimer.php:154
 msgid "Resources:"
-msgstr "Bronnen"
+msgstr "Bronnen:"
 
 #: afdn_countdownTimer.php:158
 msgid "Plugin Homepage"
-msgstr "Plugin homepagine"
+msgstr "Plugin homepagina"
 
 #: afdn_countdownTimer.php:159
 msgid "Support Forum"
@@ -34,7 +34,7 @@ msgstr "Forum voor ondersteuning"
 
 #: afdn_countdownTimer.php:160
 msgid "Amazon Wishlist"
-msgstr ""
+msgstr "Amazon wensenlijst"
 
 #: afdn_countdownTimer.php:168
 #: afdn_countdownTimer.php:171
@@ -44,16 +44,16 @@ msgstr "Kobe Van Looveren"
 
 #: afdn_countdownTimer.php:169
 msgid "Translated by"
-msgstr ""
+msgstr "Vertaald door"
 
 #: afdn_countdownTimer.php:170
 #: afdn_countdownTimer.php:171
 msgid "translator_url"
-msgstr ""
+msgstr "http://www.creatiefbureau.be"
 
 #: afdn_countdownTimer.php:180
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
-msgstr "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it. "
+msgstr "Ik besteed steeds meer tijd in het schrijven van plugins. Als student heb ik een grote liefde voor het programmeren en dit is dan ook enkel en alleen de reden waarom ik dit alles doe."
 
 #: afdn_countdownTimer.php:188
 msgid "Installation Notes"
@@ -73,7 +73,7 @@ msgstr "Als je individueel de timers wilt beheren, zoals in posts op pagina's, g
 
 #: afdn_countdownTimer.php:202
 msgid "Time until my birthday:"
-msgstr "Tijd to mijn verjaardag:"
+msgstr "Tijd tot mijn verjaardag:"
 
 #: afdn_countdownTimer.php:206
 msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
@@ -81,7 +81,7 @@ msgstr "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strt
 
 #: afdn_countdownTimer.php:212
 msgid "One Time Events"
-msgstr "One Time Events "
+msgstr "Eenmalige gebeurtenissen"
 
 #: afdn_countdownTimer.php:214
 msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
@@ -89,7 +89,7 @@ msgstr "De Countdown Timer gebruikt <a href='http://us2.php.net/strtotime'>PHP's
 
 #: afdn_countdownTimer.php:215
 msgid "Examples of some (but not all) valid dates"
-msgstr "Voorbeelden van enkele (maar niet alle) gevallideerde datums."
+msgstr "Voorbeelden van enkele (maar niet alle) gevalideerde datums."
 
 #: afdn_countdownTimer.php:225
 msgid "Delete"
@@ -97,11 +97,11 @@ msgstr "Verwijder"
 
 #: afdn_countdownTimer.php:226
 msgid "Event Date"
-msgstr "Datum event/ wedstrijd"
+msgstr "Datum evenement"
 
 #: afdn_countdownTimer.php:227
 msgid "Event Title"
-msgstr "Titel event/ wedstrijd"
+msgstr "Titel evenement"
 
 #: afdn_countdownTimer.php:228
 msgid "Link"
@@ -113,7 +113,7 @@ msgstr "Weergave \"Tijd sinds\" "
 
 #: afdn_countdownTimer.php:261
 msgid "Automatically delete 'One Time Events' after they have occured?"
-msgstr "Verwijder automatische 'One Time Events' nadat ze zijn verschenen?"
+msgstr "Verwijder automatisch 'eenmalige gebeurtenissen' nadat ze zijn verschenen?"
 
 #: afdn_countdownTimer.php:261
 #: afdn_countdownTimer.php:275
@@ -157,7 +157,7 @@ msgstr "Waar wil je de teller invoegen?"
 
 #: afdn_countdownTimer.php:272
 msgid "You can also insert a one-off timer within a post or page by using the following code:"
-msgstr "Je kan ook een 'one-off time' in een bericht of pagina plaatsen met volgende code:"
+msgstr "Je kan ook een 'one-off timer' in een bericht of pagina plaatsen met volgende code:"
 
 #: afdn_countdownTimer.php:275
 msgid "Enable JavaScript countdown:"
@@ -165,7 +165,7 @@ msgstr "Activeer JavaScript countdown."
 
 #: afdn_countdownTimer.php:276
 msgid "Enable CountdownTimer within The Loop:"
-msgstr "Activeer CountdownTimer binnenine 'The Loop'"
+msgstr "Activeer CountdownTimer binnenin 'The Loop'"
 
 #: afdn_countdownTimer.php:284
 msgid "Countdown Time Display"
@@ -210,7 +210,7 @@ msgstr "Verwijder niet relevante nullen"
 
 #: afdn_countdownTimer.php:297
 msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
-msgstr ""
+msgstr "Hoe lang de teller zichtbaar blijft nadat \"Weergave 'Tijd sinds'\" is ingegeven:"
 
 #: afdn_countdownTimer.php:298
 #, fuzzy
@@ -219,16 +219,16 @@ msgstr "Seconden:"
 
 #: afdn_countdownTimer.php:298
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
-msgstr ""
+msgstr "(0 = oneindig; 86400 seconden = 1 dag; 604800 seconden = 1 week)"
 
 #: afdn_countdownTimer.php:305
 #: afdn_countdownTimer.php:313
 msgid "onHover Time Format"
-msgstr "onHover Time Format "
+msgstr "onHover Tijdsweergave "
 
 #: afdn_countdownTimer.php:307
 msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses"
-msgstr "Als je 'onHover Time Format' gebruikt, wordt de datum van het event/ wedstrijd weergegeven bij een mouseOver. onHover Time Format gebruiken "
+msgstr "Als je 'onHover Tijdsweergave' gebruikt, wordt de datum van het event weergegeven bij een mouseOver. onHover Tijdsweergave gebruiken "
 
 #: afdn_countdownTimer.php:308
 msgid "Examples"
@@ -250,16 +250,16 @@ msgstr "Deze instellingen laten je toe elk event te stijlen"
 #: afdn_countdownTimer.php:322
 #, fuzzy
 msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
-msgstr "<strong>Display Style</strong> sets the HTML Style attribute for each timer. "
+msgstr "<strong>Titel achtervoegsel (suffix)</strong> zet het 'HTML Style attribute' voor elke teller. "
 
 #: afdn_countdownTimer.php:323
 #, fuzzy
 msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
-msgstr "<strong>Display Style</strong> sets the HTML Style attribute for each timer. "
+msgstr "<strong>Weergave stijl</strong> zet het 'HTML Style attribute' voor elke teller. "
 
 #: afdn_countdownTimer.php:324
 msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
-msgstr "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text). "
+msgstr "<strong>Weergave stijl voor- en achtervoegsel (Prefix/Suffix)</strong> zet een voor- of achtervoegsel als HTML (of text). "
 
 #: afdn_countdownTimer.php:325
 msgid "Examples/Defaults"
@@ -269,7 +269,7 @@ msgstr "Voorbeelden/ standaard instellingen"
 #: afdn_countdownTimer.php:332
 #, fuzzy
 msgid "Title Suffix"
-msgstr "Suffix"
+msgstr "Titel achtervoegsel (Suffix)"
 
 #: afdn_countdownTimer.php:328
 #: afdn_countdownTimer.php:333
@@ -279,12 +279,12 @@ msgstr "Weergave"
 #: afdn_countdownTimer.php:329
 #: afdn_countdownTimer.php:334
 msgid "Display Format Prefix"
-msgstr "Weergave stijl Prefix"
+msgstr "Weergave stijl voorvoegsel (Prefix)"
 
 #: afdn_countdownTimer.php:330
 #: afdn_countdownTimer.php:335
 msgid "Display Format Suffix"
-msgstr "Weergave stijl Suffix"
+msgstr "Weergave stijl achtervoegsel (Suffix)"
 
 #: afdn_countdownTimer.php:341
 msgid "Example Display"
@@ -292,129 +292,129 @@ msgstr "Voorbeeld weergave"
 
 #: afdn_countdownTimer.php:352
 msgid "Update Events"
-msgstr "Vernieuw events/ wedstrijden"
+msgstr "Vernieuw events"
 
 #: afdn_countdownTimer.php:435
 #: afdn_countdownTimer.php:438
 msgid "No dates present"
-msgstr "Geen datums "
+msgstr "Geen data beschikbaar"
 
 #: afdn_countdownTimer.php:478
 #: afdn_countdownTimer.php:480
-#: afdn_countdownTimer.php:891
+#: afdn_countdownTimer.php:897
 #, php-format
 msgid "%s ago"
 msgstr "%s geleden, "
 
 #: afdn_countdownTimer.php:492
 #: afdn_countdownTimer.php:494
-#: afdn_countdownTimer.php:892
+#: afdn_countdownTimer.php:898
 #, php-format
 msgid "in %s"
 msgstr "in %s"
 
 #: afdn_countdownTimer.php:573
-#: afdn_countdownTimer.php:877
+#: afdn_countdownTimer.php:883
 #, php-format
 msgid "%d year, "
 msgstr "%d jaar, "
 
 #: afdn_countdownTimer.php:575
-#: afdn_countdownTimer.php:878
+#: afdn_countdownTimer.php:884
 #, php-format
 msgid "%d years, "
 msgstr "%d jaren, "
 
-#: afdn_countdownTimer.php:588
-#: afdn_countdownTimer.php:879
+#: afdn_countdownTimer.php:589
+#: afdn_countdownTimer.php:885
 #, php-format
 msgid "%d month, "
 msgstr "%d maand, "
 
-#: afdn_countdownTimer.php:590
-#: afdn_countdownTimer.php:880
+#: afdn_countdownTimer.php:591
+#: afdn_countdownTimer.php:886
 #, php-format
 msgid "%d months, "
 msgstr "%d maanden, "
 
-#: afdn_countdownTimer.php:604
-#: afdn_countdownTimer.php:881
+#: afdn_countdownTimer.php:606
+#: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d week, "
 msgstr "%d week, "
 
-#: afdn_countdownTimer.php:606
-#: afdn_countdownTimer.php:882
+#: afdn_countdownTimer.php:608
+#: afdn_countdownTimer.php:888
 #, php-format
 msgid "%d weeks, "
 msgstr "%d weken, "
 
-#: afdn_countdownTimer.php:618
-#: afdn_countdownTimer.php:883
+#: afdn_countdownTimer.php:621
+#: afdn_countdownTimer.php:889
 #, php-format
 msgid "%d day, "
 msgstr "%d dag, "
 
-#: afdn_countdownTimer.php:620
-#: afdn_countdownTimer.php:884
+#: afdn_countdownTimer.php:623
+#: afdn_countdownTimer.php:890
 #, php-format
 msgid "%d days, "
 msgstr "%d dagen, "
 
-#: afdn_countdownTimer.php:634
-#: afdn_countdownTimer.php:885
+#: afdn_countdownTimer.php:638
+#: afdn_countdownTimer.php:891
 #, php-format
 msgid "%d hour, "
 msgstr "%d uur, "
 
-#: afdn_countdownTimer.php:636
-#: afdn_countdownTimer.php:886
+#: afdn_countdownTimer.php:640
+#: afdn_countdownTimer.php:892
 #, php-format
 msgid "%d hours, "
 msgstr "%d uren, "
 
-#: afdn_countdownTimer.php:650
-#: afdn_countdownTimer.php:887
+#: afdn_countdownTimer.php:655
+#: afdn_countdownTimer.php:893
 #, php-format
 msgid "%d minute, "
 msgstr "%d minuut, "
 
-#: afdn_countdownTimer.php:652
-#: afdn_countdownTimer.php:888
+#: afdn_countdownTimer.php:657
+#: afdn_countdownTimer.php:894
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minuten, "
 
-#: afdn_countdownTimer.php:665
-#: afdn_countdownTimer.php:889
+#: afdn_countdownTimer.php:671
+#: afdn_countdownTimer.php:895
 #, php-format
 msgid "%d second, "
 msgstr "%d seconde, "
 
-#: afdn_countdownTimer.php:667
-#: afdn_countdownTimer.php:890
+#: afdn_countdownTimer.php:673
+#: afdn_countdownTimer.php:896
 #, php-format
 msgid "%d seconds, "
 msgstr "%d seconden, "
 
-#: afdn_countdownTimer.php:800
+#: afdn_countdownTimer.php:806
 msgid "Widget title:"
 msgstr "Widget titel:"
 
-#: afdn_countdownTimer.php:801
+#: afdn_countdownTimer.php:807
 msgid "Maximum # of events to show:"
 msgstr "Maximum # evenementen te tonen:"
 
-#: afdn_countdownTimer.php:803
+#: afdn_countdownTimer.php:809
 msgid "Notes:"
 msgstr "Nota's:"
 
-#: afdn_countdownTimer.php:803
+#: afdn_countdownTimer.php:809
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Zet 'Maximum # evenementen' op '-1' als je geen limiet wenst."
 
 #~ msgid "Countdown Timer"
-#~ msgstr "Countdown"
+#~ msgstr "Afteller"
 #~ msgid "open"
 #~ msgstr "open"
 #~ msgid "close"
@@ -422,19 +422,18 @@ msgstr "Zet 'Maximum # evenementen' op '-1' als je geen limiet wenst."
 #~ msgid "click-down and drag to move this box"
 #~ msgstr "klik en versleep de box"
 #~ msgid "click to %toggle% this box"
-#~ msgstr "klik om deze box te %toggle%"
+#~ msgstr "klik om deze box te %togglen%"
 #~ msgid "use the arrow keys to move this box"
 #~ msgstr "Gebruik de pijltjestoetsen om deze box te verplaatsen"
 #~ msgid ", or press the enter key to %toggle% it"
-#~ msgstr ", of druk de entertoets om het te %toggle%"
+#~ msgstr ", of druk de entertoets om het te %togglen%"
 #~ msgid "Donations:"
 #~ msgstr "Schenkingen"
 #~ msgid ""
 #~ "Hopefully if you <em>really</em> like my plugins (and/or me) you might "
 #~ "consider making a donation."
 #~ msgstr ""
-#~ "Hopefully if you <em>really</em> like my plugins (and/or me) you might "
-#~ "consider making a donation. "
+#~ "Hopelijk geniet je van mijn pluginsoverweeg om een schenking te maken "
 #~ msgid "Style"
 #~ msgstr "stijl"
 #~ msgid "Prefix"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-15 17:42-0700\n"
-"PO-Revision-Date: 2008-05-15 18:23-0700\n"
+"POT-Creation-Date: 2008-06-18 20:41-0800\n"
+"PO-Revision-Date: 2008-06-18 20:41-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: WP-Support Sverige / Mattias Tengblad <info@wp-support.se>\n"
 "MIME-Version: 1.0\n"
@@ -306,115 +306,115 @@ msgstr "Inga datum angivna"
 
 #: afdn_countdownTimer.php:478
 #: afdn_countdownTimer.php:480
-#: afdn_countdownTimer.php:891
+#: afdn_countdownTimer.php:897
 #, php-format
 msgid "%s ago"
 msgstr ""
 
 #: afdn_countdownTimer.php:492
 #: afdn_countdownTimer.php:494
-#: afdn_countdownTimer.php:892
+#: afdn_countdownTimer.php:898
 #, php-format
 msgid "in %s"
 msgstr "Länk %s"
 
 #: afdn_countdownTimer.php:573
-#: afdn_countdownTimer.php:877
+#: afdn_countdownTimer.php:883
 #, php-format
 msgid "%d year, "
 msgstr "%d år, "
 
 #: afdn_countdownTimer.php:575
-#: afdn_countdownTimer.php:878
+#: afdn_countdownTimer.php:884
 #, php-format
 msgid "%d years, "
 msgstr "%d år, "
 
-#: afdn_countdownTimer.php:588
-#: afdn_countdownTimer.php:879
+#: afdn_countdownTimer.php:589
+#: afdn_countdownTimer.php:885
 #, php-format
 msgid "%d month, "
 msgstr "%d månad, "
 
-#: afdn_countdownTimer.php:590
-#: afdn_countdownTimer.php:880
+#: afdn_countdownTimer.php:591
+#: afdn_countdownTimer.php:886
 #, php-format
 msgid "%d months, "
 msgstr "%d månader, "
 
-#: afdn_countdownTimer.php:604
-#: afdn_countdownTimer.php:881
+#: afdn_countdownTimer.php:606
+#: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d week, "
 msgstr "%d vecka, "
 
-#: afdn_countdownTimer.php:606
-#: afdn_countdownTimer.php:882
+#: afdn_countdownTimer.php:608
+#: afdn_countdownTimer.php:888
 #, php-format
 msgid "%d weeks, "
 msgstr "%d veckor, "
 
-#: afdn_countdownTimer.php:618
-#: afdn_countdownTimer.php:883
+#: afdn_countdownTimer.php:621
+#: afdn_countdownTimer.php:889
 #, php-format
 msgid "%d day, "
 msgstr "%d dag, "
 
-#: afdn_countdownTimer.php:620
-#: afdn_countdownTimer.php:884
+#: afdn_countdownTimer.php:623
+#: afdn_countdownTimer.php:890
 #, php-format
 msgid "%d days, "
 msgstr "%d dagar, "
 
-#: afdn_countdownTimer.php:634
-#: afdn_countdownTimer.php:885
+#: afdn_countdownTimer.php:638
+#: afdn_countdownTimer.php:891
 #, php-format
 msgid "%d hour, "
 msgstr "%d timma, "
 
-#: afdn_countdownTimer.php:636
-#: afdn_countdownTimer.php:886
+#: afdn_countdownTimer.php:640
+#: afdn_countdownTimer.php:892
 #, php-format
 msgid "%d hours, "
 msgstr "%d timmar, "
 
-#: afdn_countdownTimer.php:650
-#: afdn_countdownTimer.php:887
+#: afdn_countdownTimer.php:655
+#: afdn_countdownTimer.php:893
 #, php-format
 msgid "%d minute, "
 msgstr "%d minut, "
 
-#: afdn_countdownTimer.php:652
-#: afdn_countdownTimer.php:888
+#: afdn_countdownTimer.php:657
+#: afdn_countdownTimer.php:894
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minuter, "
 
-#: afdn_countdownTimer.php:665
-#: afdn_countdownTimer.php:889
+#: afdn_countdownTimer.php:671
+#: afdn_countdownTimer.php:895
 #, php-format
 msgid "%d second, "
 msgstr "%d sekund, "
 
-#: afdn_countdownTimer.php:667
-#: afdn_countdownTimer.php:890
+#: afdn_countdownTimer.php:673
+#: afdn_countdownTimer.php:896
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekunder, "
 
-#: afdn_countdownTimer.php:800
+#: afdn_countdownTimer.php:806
 msgid "Widget title:"
 msgstr "Widget titel:"
 
-#: afdn_countdownTimer.php:801
+#: afdn_countdownTimer.php:807
 msgid "Maximum # of events to show:"
 msgstr "Max antal event att visa:"
 
-#: afdn_countdownTimer.php:803
+#: afdn_countdownTimer.php:809
 msgid "Notes:"
 msgstr "Noteringar:"
 
-#: afdn_countdownTimer.php:803
+#: afdn_countdownTimer.php:809
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Sätt 'Max antal event att visa' till '-1' om du inte vill ha någon gräns."
 
