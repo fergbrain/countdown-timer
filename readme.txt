@@ -4,7 +4,7 @@ Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
 Requires at least: 2.5
 Tested up to: 2.5.1
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,23 +14,24 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.2.1 includes all the great features of past versions plus:
+Version 2.2.2 includes all the great features of past versions plus:
 
+* Bug fixes.
 * Updated some phrases that missed being i18nized.
 * Updated i18n to use use sprintf's to assist in proper translation.
 * Update the admin page to WordPress 2.5 Look and Feel.
 * Users are now able to define the data (text/HTML) that comes after the title and before the actual countdown.
-* Implemented a new function, fergcorp_countdownTimer_single($date), that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string.
+* Implemented a new function, `fergcorp_countdownTimer_single($date)`, that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string.
 * Plugin output is now XHTML 1.0 Strict compliant.
 
 Special thanks to:
 
 * Mattias Tengblad (Swedish translation)
-* Joan Piqué (Spanish translation)
+* Joan Piqu&eacute; (Spanish translation)
 * Sascha Grams (German translation)
 * Serge (French translation)
 * [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brasil] translation)
-* [Atamert Ölçgen](http://www.muhuk.com) (Turkish translation)
+* [Atamert &Ouml;l&ccedil;gen](http://www.muhuk.com) (Turkish translation)
 * [singha](http://singha.cz) (Czech translation)
 * Kobe Van Looveren (Dutch translation)
 * [Qiang](http://richile.cn/) (Chinese translation)

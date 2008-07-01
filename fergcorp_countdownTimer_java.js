@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.2.1 (kept in step with fergcorp_countdownTimer.php)
+Version 2.2.2 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007-2008 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ function fergcorp_countdownTimer_js ()
 		
 		var nowDate = new Date();
 		var targetDate = new Date(fergcorp_countdownTimer_js_events[i]["targetDate"]*1000);
-		//alert(nowDate + '|' + targetDate + '|' + (nowDate-targetDate) );
+		//alert(document.getElementById(fergcorp_countdownTimer_js_events[i]["id"]).innerHTML);
 		if((targetDate - nowDate) < 0){
 			document.getElementById(fergcorp_countdownTimer_js_events[i]["id"]).innerHTML = sprintf(fergcorp_countdownTimer_js_language['ago'], fergcorp_countdownTimer_fuzzyDate(nowDate, targetDate, getOptions));			
 		}
@@ -101,9 +101,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showYear']){
 		if(sigNumHit || !getOptions['stripZero'] || resultantYear){
 			if(resultantYear==1){
-				s = sprintf(fergcorp_countdownTimer_js_language['year'], resultantYear);
+				s = sprintf(fergcorp_countdownTimer_js_language['year'], resultantYear) + ' ';
 			} else{
-				s = sprintf(fergcorp_countdownTimer_js_language['years'], resultantYear);
+				s = sprintf(fergcorp_countdownTimer_js_language['years'], resultantYear) + ' ';
 			}
 			sigNumHit = true;
 		}
@@ -117,9 +117,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		if(sigNumHit || !getOptions['stripZero'] || resultantMonth){
 			resultantMonth = resultantMonth + parseInt(rollover/2628000);
 			if(resultantMonth==1){
-				s = s + sprintf(fergcorp_countdownTimer_js_language['month'], resultantMonth);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['month'], resultantMonth) + ' ';
 			} else{
-				s = s + sprintf(fergcorp_countdownTimer_js_language['months'], resultantMonth);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['months'], resultantMonth) + ' ';
 			}
 			rollover = rollover - parseInt(rollover/2628000)*2628000;
 			sigNumHit = true;
@@ -134,9 +134,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		if(sigNumHit || !getOptions['stripZero'] || parseInt( (resultantDay + parseInt(rollover/86400) )/7)){
 			resultantDay = resultantDay + parseInt(rollover/86400);
 			if((parseInt( (resultantDay + parseInt(rollover/86400) )/7))==1){
-				s = s + sprintf(fergcorp_countdownTimer_js_language['week'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7)));
+				s = s + sprintf(fergcorp_countdownTimer_js_language['week'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7))) + ' ';
 			} else{
-				s = s + sprintf(fergcorp_countdownTimer_js_language['weeks'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7)));
+				s = s + sprintf(fergcorp_countdownTimer_js_language['weeks'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7))) + ' ';
 			}
 			rollover = rollover - parseInt(rollover/86400)*86400;
 			resultantDay = resultantDay - parseInt( (resultantDay + parseInt(rollover/86400) )/7 )*7;
@@ -149,9 +149,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		if(sigNumHit || !getOptions['stripZero'] || resultantDay){
 			resultantDay = resultantDay + parseInt(rollover/86400);
 			if(resultantDay==1){
-				s = s + sprintf(fergcorp_countdownTimer_js_language['day'], resultantDay);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['day'], resultantDay) + ' ';
 			} else{
-				s = s + sprintf(fergcorp_countdownTimer_js_language['days'], resultantDay);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['days'], resultantDay) + ' ';
 			}
 			rollover = rollover - parseInt(rollover/86400)*86400;
 			sigNumHit = true;
@@ -166,9 +166,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		if(sigNumHit || !getOptions['stripZero'] || resultantHour){
 			resultantHour = resultantHour + parseInt(rollover/3600);
 			if(resultantHour==1){
-				s = s + sprintf(fergcorp_countdownTimer_js_language['hour'], resultantHour);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['hour'], resultantHour) + ' ';
 			} else{
-				s = s + sprintf(fergcorp_countdownTimer_js_language['hours'], resultantHour);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['hours'], resultantHour) + ' ';
 			}
 			rollover = rollover - parseInt(rollover/3600)*3600;
 			sigNumHit = true;
@@ -183,9 +183,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		if(sigNumHit || !getOptions['stripZero'] || resultantMinute){
 			resultantMinute = resultantMinute + parseInt(rollover/60);
 			if(resultantMinute==1){
-				s = s + sprintf(fergcorp_countdownTimer_js_language['minute'], resultantMinute);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['minute'], resultantMinute) + ' ';
 			} else{
-				s = s + sprintf(fergcorp_countdownTimer_js_language['minutes'], resultantMinute);
+				s = s + sprintf(fergcorp_countdownTimer_js_language['minutes'], resultantMinute) + ' ';
 			}
 			rollover = rollover - parseInt(rollover/60)*60;
 			sigNumHit = true;
@@ -198,9 +198,9 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	//Second
 	if(getOptions['showSecond']){
 		if(resultantSecond==1){
-			s = s + sprintf(fergcorp_countdownTimer_js_language['second'], resultantSecond);
+			s = s + sprintf(fergcorp_countdownTimer_js_language['second'], resultantSecond) + ' ';
 		} else{
-			s = s + sprintf(fergcorp_countdownTimer_js_language['seconds'], resultantSecond);
+			s = s + sprintf(fergcorp_countdownTimer_js_language['seconds'], resultantSecond) + ' ';
 		}
 	}
 	
