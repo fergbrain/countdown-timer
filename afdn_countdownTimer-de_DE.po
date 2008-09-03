@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-08 17:48-0800\n"
-"PO-Revision-Date: 2008-07-08 17:48-0800\n"
+"PO-Revision-Date: 2008-09-03 16:16-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Wochen:"
 
 #: afdn_countdownTimer.php:291
 msgid "Days:"
-msgstr "Tage:"
+msgstr "Tagen:"
 
 #: afdn_countdownTimer.php:292
 msgid "Hours:"
@@ -330,7 +330,7 @@ msgstr "%d Monat,"
 #: afdn_countdownTimer.php:887
 #, php-format
 msgid "%d months, "
-msgstr "%d Monate,"
+msgstr "%d Monaten,"
 
 #: afdn_countdownTimer.php:606
 #: afdn_countdownTimer.php:888
@@ -354,7 +354,7 @@ msgstr "%d Tag,"
 #: afdn_countdownTimer.php:891
 #, php-format
 msgid "%d days, "
-msgstr "%d Tage,"
+msgstr "%d Tagen,"
 
 #: afdn_countdownTimer.php:638
 #: afdn_countdownTimer.php:892
