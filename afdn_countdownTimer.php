@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.3
+Version: 2.2.4
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -101,7 +101,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB to make sure a fresh copy is being used
 
 		/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
-		if($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"] && (count($dates["oneTime"][0])!=0) ){
+		$fergcorp_oneTimeDates=$dates["oneTime"];
+		if($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"] && (count($fergcorp_oneTimeDates[0])!=0) ){
 			foreach($dates["oneTime"] as $key => $value){
 				if(($value["date"]<=time())&&($value["timeSince"]=="")){
 				$dates["oneTime"][$key]["text"]=NULL;
@@ -765,7 +766,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
-		update_option("fergcorp_countdownTimer_version", "2.2.3");
+		update_option("fergcorp_countdownTimer_version", "2.2.4");
 	}
 
 
@@ -965,7 +966,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer_LoadUserScripts() {
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.2.3');
+			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.2.4');
 			wp_enqueue_script('webkit_sprintf', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/webtoolkit.sprintf.js', FALSE);
 		}
 	}
