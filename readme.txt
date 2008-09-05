@@ -4,7 +4,7 @@ Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
 Requires at least: 2.5
 Tested up to: 2.6.1
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,15 +14,13 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.2.3 includes all the great features of past versions plus:
+Version 2.2.4 includes all the great features of past versions plus:
 
-* Bug fixes.
-* Updated some phrases that missed being i18nized.
-* Updated i18n to use use sprintf's to assist in proper translation.
-* Update the admin page to WordPress 2.5 Look and Feel.
-* Users are now able to define the data (text/HTML) that comes after the title and before the actual countdown.
-* Implemented a new function, `fergcorp_countdownTimer_single($date)`, that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string.
-* Plugin output is now XHTML 1.0 Strict compliant.
+* Added Bosnian language translation
+* Fixed mistranslations in German language
+* Output of displayFormatPrefix/displayFormatSuffix are now escaped
+* Fixed a fatal error that was sometimes caused when there were no dates to countdown to
+* Updated the FAQ
 
 Special thanks to:
 
@@ -37,6 +35,7 @@ Special thanks to:
 * [Qiang](http://richile.cn/) (Chinese translation)
 * macryba (Polish translation)
 * [Mick](http://www.gaspriz.it) (Italian translation)
+* [Adem Omerovi&cacute;](http://www.tehnopedija.net) (Bosnian translation)
 
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
@@ -99,6 +98,25 @@ with
 where ## is the maximum number of events you wish to be displayed.
 
 Events are automatically sorted by date of occurrence.
+
+= How do I use the language files? =
+
+You'll need to modify your `wp-config.php` file. Open it up and look for the line: `define ('WPLANG', '');`
+
+You'll want to modify it to say: `define ('WPLANG', 'de_DE');`
+
+Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation.
+
+= There's a foreign (non-english) word that's wrong, what do I do? =
+
+There are two ways to fix this. First, you can always contact me via email, blog comment, support forum, etc and let me know about the error. I don't usually issue bug fix updates just for language errors, but it will make it into the next update cycle.
+
+Second, if you're handy with poEdit or something of the like, you can make the changes yourself and email me the .po and .mo files (although I really only need the .po file).
+
+= How come there are long periods of time when you don't respond or update the plugin? =
+
+I'm in college and I do this for fun. That means school work must come first.
+
 
 == Screenshots ==
 1. Administration Interface
