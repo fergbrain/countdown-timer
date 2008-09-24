@@ -4,7 +4,7 @@ Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
 Requires at least: 2.5
 Tested up to: 2.6.1
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,13 +14,10 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.2.4 includes all the great features of past versions plus:
+Version 2.2.5 includes all the great features of past versions plus:
 
-* Added Bosnian language translation
-* Fixed mistranslations in German language
-* Output of displayFormatPrefix/displayFormatSuffix are now escaped
-* Fixed a fatal error that was sometimes caused when there were no dates to countdown to
-* Updated the FAQ
+* Added Hungarian and Norwegian translations
+* Fixed small bug on line 426 regarding stripslashes
 
 Special thanks to:
 
@@ -35,10 +32,13 @@ Special thanks to:
 * [Qiang](http://richile.cn/) (Chinese translation)
 * macryba (Polish translation)
 * [Mick](http://www.gaspriz.it) (Italian translation)
-* [Adem Omerovi&cacute;](http://www.tehnopedija.net) (Bosnian translation)
+* [Adem Omerovi&#263;](http://www.tehnopedija.net) (Bosnian translation)
+* [masnapos](http://www.masnapos.eu) (Hungarian translation)
+* [Anders Ruen](http://www.gullungen.com) (Norwegian translation)
 
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
+Note: translator_name is for your name and translator_url is for the address to your website.
 
 == Installation ==
 
