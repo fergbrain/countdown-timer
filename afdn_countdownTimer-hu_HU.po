@@ -1,0 +1,410 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: afdn_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-12 22:21-0700\n"
+"PO-Revision-Date: 2008-09-23 22:05-0700\n"
+"Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: afdn_countdownTimer.php:97
+msgid "Options/dates updated successfully."
+msgstr "Beállítások/dátumok frissítve."
+
+#: afdn_countdownTimer.php:11"
+msgid "Are you sure you wish to delete"
+msgstr "Biztosan törölni akarod"
+
+#: afdn_countdownTimer.php:15"
+msgid "Resources:"
+msgstr "Források:"
+
+#: afdn_countdownTimer.php:15"
+msgid "Plugin Homepage"
+msgstr "Plugin honlapja"
+
+#: afdn_countdownTimer.php:15"
+msgid "Support Forum"
+msgstr "Támogató fórum"
+
+#: afdn_countdownTimer.php:16"
+msgid "Amazon Wishlist"
+msgstr "Amazon Kívánságlista"
+
+#: afdn_countdownTimer.php:16"
+#: afdn_countdownTimer.php:171
+#: afdn_countdownTimer.php:173
+msgid "translator_name"
+msgstr "fordito_neve"
+
+#: afdn_countdownTimer.php:16"
+msgid "Translated by"
+msgstr "Fordította"
+
+#: afdn_countdownTimer.php:17"
+#: afdn_countdownTimer.php:171
+msgid "translator_url"
+msgstr "http://www.masnapos.eu"
+
+#: afdn_countdownTimer.php:18"
+msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
+msgstr "Egyre több idõt töltök pluginok írásával és támogatásával. Egyetemi hallgató vagyok, és ezt a programozósdit úgy mellékesen, csak önmagáért csinálom."
+
+#: afdn_countdownTimer.php:18"
+msgid "Installation Notes"
+msgstr "Telepítési jegyzetek"
+
+#: afdn_countdownTimer.php:19"
+msgid "You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets)."
+msgstr "Eddig eljutottál. A Visszaszámláló sidebarba illesztéséhez használhatod a Visszaszámláló Widgetet, ha a widgetek engedélyezve vannak (vagy engedélyezhetõek)."
+
+#: afdn_countdownTimer.php:19"
+msgid "Alternatively, you can also use this code"
+msgstr "Máskülönben ezt a kódot is használhatod"
+
+#: afdn_countdownTimer.php:20"
+msgid "If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:"
+msgstr "Ha egyenként akarod a visszaszámlálókat beállítani, úgy mint postokban vagy oldalakon, használhatod ezt a kódot:"
+
+#: afdn_countdownTimer.php:20"
+msgid "Time until my birthday:"
+msgstr "A születésnapomig fennmaradt idõ:"
+
+#: afdn_countdownTimer.php:20"
+msgid "Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below."
+msgstr "Ahol az <em>\"IRD_IDE_A_DATUMOT\"</em> a <a href='http://us2.php.net/strtotime' target='_blank'>PHP strtotime függvényét</a> használja, és fogad szinte bármilyen angol dátumformátumot. Ha így teszel, aktiváld az alábbi \"Engedélyezd a Visszaszámlálót a Ciklusban (Loop)\""
+
+#: afdn_countdownTimer.php:21"
+msgid "One Time Events"
+msgstr "Egy-Idõ Események"
+
+#: afdn_countdownTimer.php:21"
+msgid "Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description."
+msgstr "A Visszaszámláló a <a href='http://us2.php.net/strtotime'>PHP strtotime függvényét</a> használja, és majdnem bármilyen angol dátumformátumot fogad."
+
+#: afdn_countdownTimer.php:21"
+msgid "Examples of some (but not all) valid dates"
+msgstr "Néhány (nem az összes) helyes példa"
+
+#: afdn_countdownTimer.php:22"
+msgid "Delete"
+msgstr "Törlés"
+
+#: afdn_countdownTimer.php:22"
+msgid "Event Date"
+msgstr "Esemény dátuma"
+
+#: afdn_countdownTimer.php:22"
+msgid "Event Title"
+msgstr "Esemény címe"
+
+#: afdn_countdownTimer.php:22"
+msgid "Link"
+msgstr "Link"
+
+#: afdn_countdownTimer.php:22"
+msgid "Display \"Time since\""
+msgstr "\"Eltelt idõ\" megjelenítése"
+
+#: afdn_countdownTimer.php:26"
+msgid "Automatically delete 'One Time Events' after they have occured?"
+msgstr "Kívánja az Egy-Idõ Eseményeket automatikusan törölni, miután azok megtörténtek?"
+
+#: afdn_countdownTimer.php:26"
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "Yes"
+msgstr "Igen"
+
+#: afdn_countdownTimer.php:26"
+#: afdn_countdownTimer.php:275
+#: afdn_countdownTimer.php:276
+#: afdn_countdownTimer.php:288
+#: afdn_countdownTimer.php:289
+#: afdn_countdownTimer.php:290
+#: afdn_countdownTimer.php:291
+#: afdn_countdownTimer.php:292
+#: afdn_countdownTimer.php:293
+#: afdn_countdownTimer.php:294
+#: afdn_countdownTimer.php:295
+msgid "No"
+msgstr "Nem"
+
+#: afdn_countdownTimer.php:26"
+msgid "Management"
+msgstr "Beállítások"
+
+#: afdn_countdownTimer.php:26"
+msgid "To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert"
+msgstr "A Visszaszámláló(k) és/vagy a One-off számláló postba vagy oldalba illesztéséhez engedélyezd az alábbi ciklust, és illeszd be ezt"
+
+#: afdn_countdownTimer.php:27"
+msgid "where you want the countdown to be inserted"
+msgstr "oda, ahova a számlálót helyeznéd."
+
+#: afdn_countdownTimer.php:27"
+msgid "You can also insert a one-off timer within a post or page by using the following code:"
+msgstr "One-off számlálót az alábbi kóddal is beilleszthetsz egy postba, oldalba:"
+
+#: afdn_countdownTimer.php:27"
+msgid "Enable JavaScript countdown:"
+msgstr "JavaScript-visszaszámlálás engedélyezése:"
+
+#: afdn_countdownTimer.php:27"
+msgid "Enable CountdownTimer within The Loop:"
+msgstr "A Visszaszámláló Ciklusban való aktiválása:"
+
+#: afdn_countdownTimer.php:28"
+msgid "Countdown Time Display"
+msgstr "Visszaszámlált idõ megjelenítése"
+
+#: afdn_countdownTimer.php:28"
+msgid "This setting controls what units of time are displayed."
+msgstr "Ez a beállítás határozza meg, hogy mely elemek jelenjenek meg."
+
+#: afdn_countdownTimer.php:28"
+msgid "Years:"
+msgstr "Évek:"
+
+#: afdn_countdownTimer.php:28"
+msgid "Months:"
+msgstr "Hónapok:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Weeks:"
+msgstr "Hetek:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Days:"
+msgstr "Napok:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Hours:"
+msgstr "Órák:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Minutes:"
+msgstr "Percek:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Seconds:"
+msgstr "Másodpercek:"
+
+#: afdn_countdownTimer.php:29"
+msgid "Strip non-significant zeros:"
+msgstr "Non-szignifikáns nullák eltávolítása:"
+
+#: afdn_countdownTimer.php:29"
+msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
+msgstr "Mennyi ideig maradjon a számláló látható, ha a \"'Eltelt idõ' megjelenítése\" megtörtént: "
+
+#: afdn_countdownTimer.php:29"
+msgid "Seconds: "
+msgstr "Másodpercek:"
+
+#: afdn_countdownTimer.php:29"
+msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
+msgstr "(0 = végtelen; 86400 másodperc = 1 nap; 604800 másodperc = 1 hét)"
+
+#: afdn_countdownTimer.php:30"
+#: afdn_countdownTimer.php:313
+msgid "onHover Time Format"
+msgstr "onHover idõformátum"
+
+#: afdn_countdownTimer.php:30"
+msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses"
+msgstr "Ha beállítod az 'onHover idõformátum'-ot, az számláló fölött egerészve a felhasználó láthatja az esemény dátumát. Az onHover idõformátum ezt használja"
+
+#: afdn_countdownTimer.php:30"
+msgid "Examples"
+msgstr "Példák"
+
+#: afdn_countdownTimer.php:31"
+#: afdn_countdownTimer.php:311
+msgid "goes to"
+msgstr "megy"
+
+#: afdn_countdownTimer.php:31"
+msgid "Display Format Options"
+msgstr "Megjelenítési beállítások"
+
+#: afdn_countdownTimer.php:32"
+msgid "This setting allows you to customize how each event is styled and wrapped."
+msgstr "Ez a beállítás segít egyedivé tenni az egyes eseményeket."
+
+#: afdn_countdownTimer.php:32"
+msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
+msgstr "A <strong>cím szuffixum</strong> állítja be azt a tartalmat, amely a cím után, de az számláló elõtt van. "
+
+#: afdn_countdownTimer.php:32"
+msgid "<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS."
+msgstr "A <strong>megjelenítés stílusa</strong> a számláló HTML-tulajdonságait állítja CSS segítségével."
+
+#: afdn_countdownTimer.php:32"
+msgid "<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text)."
+msgstr "A <strong>megjelenítési formátum prefixuma/szuffixuma</strong> kezdõ vagy záró HTML-t vagy szöveget tartalmazhat. "
+
+#: afdn_countdownTimer.php:32"
+msgid "Examples/Defaults"
+msgstr "Példák/Alapbeállítások"
+
+#: afdn_countdownTimer.php:32"
+#: afdn_countdownTimer.php:332
+msgid "Title Suffix"
+msgstr "Cím szuffixum"
+
+#: afdn_countdownTimer.php:32"
+#: afdn_countdownTimer.php:333
+msgid "Display Style"
+msgstr "Megjelenítési stílus"
+
+#: afdn_countdownTimer.php:32"
+#: afdn_countdownTimer.php:334
+msgid "Display Format Prefix"
+msgstr "A megjelenítési formátum prefixuma"
+
+#: afdn_countdownTimer.php:33"
+#: afdn_countdownTimer.php:335
+msgid "Display Format Suffix"
+msgstr "A megjelenítési formátum szuffixuma"
+
+#: afdn_countdownTimer.php:34"
+msgid "Example Display"
+msgstr "Megjelenítési példa"
+
+#: afdn_countdownTimer.php:35"
+msgid "Update Events"
+msgstr "Események frissítése"
+
+#: afdn_countdownTimer.php:43"
+#: afdn_countdownTimer.php:438
+msgid "No dates present"
+msgstr "Nincsenek dátumok"
+
+#: afdn_countdownTimer.php:47"
+#: afdn_countdownTimer.php:480
+#: afdn_countdownTimer.php:891
+#, php-format
+msgid "%s ago"
+msgstr "%s ezelõtt "
+
+#: afdn_countdownTimer.php:49"
+#: afdn_countdownTimer.php:494
+#: afdn_countdownTimer.php:892
+#, php-format
+msgid "in %s"
+msgstr "%s-kor"
+
+#: afdn_countdownTimer.php:57"
+#: afdn_countdownTimer.php:877
+#, php-format
+msgid "%d year, "
+msgstr "%d év,"
+
+#: afdn_countdownTimer.php:57"
+#: afdn_countdownTimer.php:878
+#, php-format
+msgid "%d years, "
+msgstr "%d év,"
+
+#: afdn_countdownTimer.php:58"
+#: afdn_countdownTimer.php:879
+#, php-format
+msgid "%d month, "
+msgstr "%d hónap,"
+
+#: afdn_countdownTimer.php:59"
+#: afdn_countdownTimer.php:880
+#, php-format
+msgid "%d months, "
+msgstr "%d hónap,"
+
+#: afdn_countdownTimer.php:60"
+#: afdn_countdownTimer.php:881
+#, php-format
+msgid "%d week, "
+msgstr "%d hét,"
+
+#: afdn_countdownTimer.php:60"
+#: afdn_countdownTimer.php:882
+#, php-format
+msgid "%d weeks, "
+msgstr "%d hét,"
+
+#: afdn_countdownTimer.php:61"
+#: afdn_countdownTimer.php:883
+#, php-format
+msgid "%d day, "
+msgstr "%d nap,"
+
+#: afdn_countdownTimer.php:62"
+#: afdn_countdownTimer.php:884
+#, php-format
+msgid "%d days, "
+msgstr "%d nap,"
+
+#: afdn_countdownTimer.php:63"
+#: afdn_countdownTimer.php:885
+#, php-format
+msgid "%d hour, "
+msgstr "%d óra,"
+
+#: afdn_countdownTimer.php:63"
+#: afdn_countdownTimer.php:886
+#, php-format
+msgid "%d hours, "
+msgstr "%d óra,"
+
+#: afdn_countdownTimer.php:65"
+#: afdn_countdownTimer.php:887
+#, php-format
+msgid "%d minute, "
+msgstr "%d perc,"
+
+#: afdn_countdownTimer.php:65"
+#: afdn_countdownTimer.php:888
+#, php-format
+msgid "%d minutes, "
+msgstr "%d perc,"
+
+#: afdn_countdownTimer.php:66"
+#: afdn_countdownTimer.php:889
+#, php-format
+msgid "%d second, "
+msgstr "%d másodperc,"
+
+#: afdn_countdownTimer.php:66"
+#: afdn_countdownTimer.php:890
+#, php-format
+msgid "%d seconds, "
+msgstr "%d másodperc,"
+
+#: afdn_countdownTimer.php:80"
+msgid "Widget title:"
+msgstr "Widget címe"
+
+#: afdn_countdownTimer.php:80"
+msgid "Maximum # of events to show:"
+msgstr "Maximum # esemény megjelenítése:"
+
+#: afdn_countdownTimer.php:80"
+msgid "Notes:"
+msgstr "Megjegyzések:"
+
+#: afdn_countdownTimer.php:80"
+msgid "Set 'Maximum # of events' to '-1' if you want no limit."
+msgstr "A 'Maximum # esemény' -1 esetén korlátlant jelent."
+
