@@ -111,6 +111,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		?>
 
 			<script type="text/javascript">
+			
+			jQuery(document).ready( function() {
+				// close postboxes that should be closed
+				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+			});
 
 			function clearField(eventType, fieldNum){ //For deleting events without reloading
 				var agree=confirm('<?php _e('Are you sure you wish to delete', 'afdn_countdownTimer'); ?> '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
@@ -150,21 +155,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             
 				<div id="poststuff">        
                     
-						<div class="stuffbox">
-							<h3><?php _e('Resources:','afdn_countdownTimer'); ?></h3>
-							<div class="inside">
-								<table width="90%" border="0" cellspacing="0" cellpadding="0">
+				<?php
+				
+                		function fergcorp_countdownTimer_resources_meta_box(){
+							?>
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
                                   <tr>
                                     <td><ul><li><a href="http://andrewferguson.net/wordpress-plugins/countdown-timer/" target="_blank"><?php _e('Plugin Homepage','afdn_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','afdn_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="http://www.amazon.com/gp/registry/registry.html?ie=UTF8&type=wishlist&id=E7Q6VO0I8XI4" target="_blank"><?php _e('Amazon Wishlist','afdn_countdownTimer'); ?></a></li></ul></td>
-                                    <td><ul><li><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                       <input type="hidden" name="cmd" value="_s-xclick" />
-                                       <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
-                                       <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-                                       <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-                                       " />
-                                </form></li></ul></td>
+                                    <td><ul><li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=38923"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" /></a></li></ul></td>
                                 	<?php if(__('translator_name','afdn_countdownTimer')!='translator_name') {?>
 	                                    <td><ul><li><?php _e('Translated by', 'afdn_countdownTimer'); ?> 
                                         	<?php if(__('translator_url','afdn_countdownTimer')!='translator_url') {?>
@@ -178,12 +178,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                 </table>
 
 								<p><?php _e("I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it.", 'afdn_countdownTimer'); ?></p>
-							</div>
-						</div>
+                            
+                            
+							<?php
+						}
+						add_meta_box("fergcorp_countdownTimer_resources", __('Resources'), "fergcorp_countdownTimer_resources_meta_box", "fergcorp-countdown-timer");
+						
+                        ?>
    
                         <form method="post" name="afdn_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+                        
+							<?php echo '<input type="hidden" name="fergcorp_countdownTimer_noncename" id="fergcorp_countdownTimer_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ) . '" />'; ?>
+                            <?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 
-						<!-- Installation -->
                             <?php
                             
 							function fergcorp_countdownTimer_installation_meta_box(){
@@ -207,7 +214,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>                     
                             <?php		
 							}
-                           
+                        	add_meta_box("fergcorp_countdownTimer_installation", __('Installation Notes'), "fergcorp_countdownTimer_installation_meta_box", "fergcorp-countdown-timer");
+
 							function fergcorp_countdownTimer_events_meta_box(){
 							global $fergcorp_countdownTimer_dates, $oneTimeEvent_count, $oneTimeEvent_entriesCount;
 							?>
@@ -260,8 +268,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'afdn_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></p>
                                <?php
-                               }
-						   
+                            }
+						   	add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "fergcorp_countdownTimer_events_meta_box", "fergcorp-countdown-timer");
+
 							function fergcorp_countdownTimer_management_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
 								?>
@@ -276,7 +285,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								</ul>
 								<?php
 							}
-							
+							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'afdn_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
+
 							function fergcorp_countdownTimer_display_options_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
 								?>
@@ -295,6 +305,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'afdn_countdownTimer'); ?><input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeSinceTime"]))); ?>" name="timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "afdn_countdownTimer"); ?></p>
 								<?php
 							}
+							add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "fergcorp_countdownTimer_display_options_meta_box", "fergcorp-countdown-timer");
 							
 							function fergcorp_countdownTimer_onHover_time_format_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
@@ -308,6 +319,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<p><?php _e('onHover Time Format', 'afdn_countdownTimer'); ?> <input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]))); ?>" name="timeOffset" /></p>
 								<?php
 							}
+							add_meta_box("fergcorp_countdownTimer_onHover_time_format", __('onHover Time Format'), "fergcorp_countdownTimer_onHover_time_format_meta_box", "fergcorp-countdown-timer");
 							
 							function fergcorp_countdownTimer_display_format_options_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
@@ -329,24 +341,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                    <p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
 								<?php
 							}
-							
+							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
+
 							function fergcorp_countdownTimer_example_display_meta_box(){
 								afdn_countdownTimer();
                                 afdn_countdownTimer_js();
 							}
+							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
 							
-							add_meta_box("fergcorp_countdownTimer_installation", __('Installation Notes'), "fergcorp_countdownTimer_installation_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "fergcorp_countdownTimer_events_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'afdn_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "fergcorp_countdownTimer_display_options_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_onHover_time_format", __('onHover Time Format'), "fergcorp_countdownTimer_onHover_time_format_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp_countdownTimer");
-							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp_countdownTimer");
-							
-							
-							do_meta_boxes('fergcorp_countdownTimer','advanced',null);                           
+							do_meta_boxes('fergcorp-countdown-timer','advanced',null);                           
 							   
-							   ?>
+						?>
 
 						<div>
 							<p class="submit">
@@ -359,7 +364,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			</div>
             </div>
-            <script type="text/javascript">add_postbox_toggles('fergcorp_countdownTimer');</script>
+            <script type="text/javascript">add_postbox_toggles('fergcorp-countdown-timer');</script>
 	<?php
 
 	}
