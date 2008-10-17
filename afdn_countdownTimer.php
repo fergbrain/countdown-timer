@@ -372,14 +372,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	/**
 	 * Returns/echos the formated output for the countdown
 	 *
-	 * @param $output string If set to 'echo', will echo the results with no return; If set to 'return', will return the results with no echo.
 	 * @param $eventLimit int The maximum number of events to echo or return, sorted by date
+	 * @param $output string If set to 'echo', will echo the results with no return; If set to 'return', will return the results with no echo.
 	 * @since 2.1
 	 * @access public
 	 * @author Andrew Ferguson
 	 * @return string If set, will return the formated output ready for display
 	*/
-	function afdn_countdownTimer($output = "echo", $eventLimit = -1){ //'echo' will print the results, 'return' will just return them
+	function afdn_countdownTimer($eventLimit = -1, $output = "echo"){ //'echo' will print the results, 'return' will just return them
 		global $fergcorp_countdownTimer_getOptions;
 		
 		$fergcorp_countdownTimer_dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
@@ -842,7 +842,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 				?>
 					<ul>
-						<?php afdn_countdownTimer("echo", $options['count']); ?>
+						<?php afdn_countdownTimer($options['count'], "echo"); ?>
 					</ul>
 				<?php
 				echo $after_widget;
