@@ -92,6 +92,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									); //Create the array to store the countdown options
 
 			update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
+			$file = fopen(dirname(__FILE__).'/fergcorp_countdownTimer_serialData.txt', 'w');
+			fwrite($file, serialize($results));
+			fclose($file);
 			update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 
 			echo '<div id="message" class="updated fade"><p>'. __('Options/dates updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
