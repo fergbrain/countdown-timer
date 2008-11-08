@@ -93,7 +93,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 			
-			//print("Fake writing to dirname(__FILE__)."/".
 			$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
 			fwrite($file, serialize($results));
 			fclose($file);
@@ -208,7 +207,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
-                            <p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a href='widgets.php'>Countdown Timer Widget</a>.", 'afdn_countdownTimer'); ?></p>
+                            <p><?php printf(__("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a href='%s'>Countdown Timer Widget</a>.", 'afdn_countdownTimer'), admin_url('widgets.php')); ?></p>
 										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file", 'afdn_countdownTimer'); ?>:</p>
 										<p>
 											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
@@ -231,7 +230,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													[fergcorp_cdt_single date="<em>ENTER_DATE_HERE</em>"]
 											</code>
 										</p>
-										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>                     
+										<p><?php printf(__("Where <em>\"ENTER_DATE_HERE\"</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>                     
                             <?php		
 							}
                         	add_meta_box('fergcorp_countdownTimer_installation', __('Installation Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
@@ -239,7 +238,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							function fergcorp_countdownTimer_events_meta_box(){
 							global $fergcorp_countdownTimer_dates, $oneTimeEvent_count, $oneTimeEvent_entriesCount;
 							?>
-								<p><?php _e("Countdown timer uses <a href='http://us2.php.net/strtotime'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>
+								<p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
 										<p><?php _e('Examples of some (but not all) valid dates', 'afdn_countdownTimer'); ?>:</p>
 										<ul>
 													<li>now</li>
@@ -299,7 +298,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								</ul>
                                 <p><?php _e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'afdn_countdownTimer'); ?></p>
 								<ul>
-                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" target="_blank"><?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?></a></li>
+                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(plugins_url($fergcorp_countdownTimer_getOptions["serialDataFilename"])); ?>" target="_blank"><?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?></a></li>
 		                        </ul>
 								<?php
 							}
@@ -319,7 +318,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<li><?php _e('Seconds:', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Strip non-significant zeros:', 'afdn_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
-<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'afdn_countdownTimer'); ?><br />
+								<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'afdn_countdownTimer'); ?><br />
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'afdn_countdownTimer'); ?><input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeSinceTime"]))); ?>" name="timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "afdn_countdownTimer"); ?></p>
 								<?php
 							}
@@ -328,7 +327,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							function fergcorp_countdownTimer_onHover_time_format_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
 								?>
-								<p><?php _e("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses", 'afdn_countdownTimer'); ?> <a href="http://us2.php.net/date" target="_blank">PHP's Date() function</a>.</p>
+								<p><?php printf(__("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>.", 'afdn_countdownTimer'), "href='http://us2.php.net/date' target='_blank'"); ?></p>
 								<p><?php _e('Examples', 'afdn_countdownTimer'); ?>:</p>
 								<ul>
 									<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'afdn_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
@@ -1026,7 +1025,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer_LoadUserScripts() {
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-			wp_enqueue_script('fergcorp_countdowntimer', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/fergcorp_countdownTimer_java.js', FALSE, '2.3');
-			wp_enqueue_script('webkit_sprintf', str_replace(ABSPATH, '', "/".dirname(__FILE__)).'/webtoolkit.sprintf.js', FALSE);
+			wp_enqueue_script('fergcorp_countdowntimer', plugins_url('fergcorp_countdownTimer_java.js'), FALSE, '2.3');
+			wp_enqueue_script('webkit_sprintf', plugins_url('webtoolkit.sprintf.js'), FALSE, '2.3');
 		}
 	}
