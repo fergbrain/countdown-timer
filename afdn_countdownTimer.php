@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9
+Version: 2.2.9.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -115,11 +115,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			<script type="text/javascript">
 			
-			jQuery(document).ready( function() {
+			//jQuery(document).ready( function() {
+			jQuery(document).ready( function($) {
 				// close postboxes that should be closed
 				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+				
+				// postboxes
+				postboxes.add_postbox_toggles('fergcorp-countdown-timer');
 			});
 
+			
+			
+			
 			function clearField(eventType, fieldNum){ //For deleting events without reloading
 				var agree=confirm('<?php _e('Are you sure you wish to delete', 'afdn_countdownTimer'); ?> '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
 				if(agree){
@@ -217,8 +224,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>                     
                             <?php		
 							}
-                        	add_meta_box("fergcorp_countdownTimer_installation", __('Installation Notes'), "fergcorp_countdownTimer_installation_meta_box", "fergcorp-countdown-timer");
-
+                        	add_meta_box('fergcorp_countdownTimer_installation', __('Installation Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
+										
 							function fergcorp_countdownTimer_events_meta_box(){
 							global $fergcorp_countdownTimer_dates, $oneTimeEvent_count, $oneTimeEvent_entriesCount;
 							?>
@@ -367,7 +374,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			</div>
             </div>
-            <script type="text/javascript">add_postbox_toggles('fergcorp-countdown-timer');</script>
+            <script type="text/javascript">//add_postbox_toggles('fergcorp-countdown-timer');</script>
 	<?php
 
 	}
@@ -961,8 +968,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_LoadAdminScripts() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
+		//wp_enqueue_script('post'); 
+		//wp_enqueue_script('dashboard');
 		//wp_enqueue_script('jquery');
-		//wp_enqueue_script('post');
 	}
 	
 	/**
