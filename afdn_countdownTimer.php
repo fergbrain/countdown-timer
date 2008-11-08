@@ -88,13 +88,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									"stripZero" 			=> $_POST['stripZero'],
 									"enableJS"				=> $_POST['enableJS'],
 									"timeSinceTime"			=> (int)$_POST['timeSinceTime'],
-									"titleSuffix"			=> $_POST['titleSuffix'],									
+									"titleSuffix"			=> $_POST['titleSuffix'],
+									"serialDataFilename"	=> $_POST['serialDataFilename'],									
 									); //Create the array to store the countdown options
 
 			update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
-			$file = fopen(dirname(__FILE__).'/fergcorp_countdownTimer_serialData.txt', 'w');
+			
+			//print("Fake writing to dirname(__FILE__)."/".
+			$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
 			fwrite($file, serialize($results));
 			fclose($file);
+			
 			update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 
 			echo '<div id="message" class="updated fade"><p>'. __('Options/dates updated successfully.', 'afdn_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
@@ -286,13 +290,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								?>
 								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:</p>
 								<code>&lt;!--afdn_countdownTimer--&gt;</code>
-								<p><?php _e('where you want the countdown to be inserted', 'afdn_countdownTimer'); ?></p>
+								<p><?php _e('where you want the countdown to be inserted.', 'afdn_countdownTimer'); ?></p>
 								<p><?php _e('You can also insert a one-off timer within a post or page by using the following code:', 'afdn_countdownTimer'); ?></p>
 								<code>&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
 								<ul>
 									<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Enable CountdownTimer within The Loop:', 'afdn_countdownTimer'); ?> <input name="enableTheLoop" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
+                                <p><?php _e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'afdn_countdownTimer'); ?></p>
+								<ul>
+                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" target="_blank"><?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?></a></li>
+		                        </ul>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'afdn_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
@@ -303,7 +311,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<p><?php _e('This setting controls what units of time are displayed.', 'afdn_countdownTimer'); ?></p>
 								<ul>
 									<li><?php _e('Years:', 'afdn_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
-									<li><?php _e('Months:', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
+								  <li><?php _e('Months:', 'afdn_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Weeks:', 'afdn_countdownTimer'); ?> <input name="showWeek" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showWeek" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Days:', 'afdn_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Hours:', 'afdn_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
@@ -311,7 +319,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<li><?php _e('Seconds:', 'afdn_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 									<li><?php _e('Strip non-significant zeros:', 'afdn_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
-                                <p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'afdn_countdownTimer'); ?><br />
+<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'afdn_countdownTimer'); ?><br />
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'afdn_countdownTimer'); ?><input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeSinceTime"]))); ?>" name="timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "afdn_countdownTimer"); ?></p>
 								<?php
 							}
@@ -768,7 +776,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								"enableJS"				=> "1",
 								"timeSinceTime"			=> "0",
 								"titleSuffix"			=> ":<br />",
-								"serialDataFileName"	=> "fergcorp_countdownTimer_serialData_".wp_generate_password(8,false).".txt",
+								"serialDataFilename"	=> "fergcorp_countdownTimer_serialData_".wp_generate_password(8,false).".txt",
 							);
 
 		//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
@@ -839,7 +847,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			function widget_fergcorp_countdown($args) {
 
 				$options = get_option('widget_fergcorp_countdown');
-
 
 				// $args is an array of strings that help widgets to conform to
 				// the active theme: before_widget, before_title, after_widget,
