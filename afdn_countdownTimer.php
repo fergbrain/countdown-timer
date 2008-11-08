@@ -74,7 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$afdnOptions = array(	"deleteOneTimeEvents" 	=> $_POST['deleteOneTimeEvents'],
 									"checkUpdate" 			=> $_POST['checkUpdate'],
 									"timeOffset"			=> $_POST['timeOffset'],
-									"enableTheLoop"		 	=> $_POST['enableTheLoop'],
 									"displayFormatPrefix" 	=> $_POST['displayFormatPrefix'],
 									"displayFormatSuffix" 	=> $_POST['displayFormatSuffix'],
 									"displayStyle" 			=> $_POST['displayStyle'],
@@ -288,14 +287,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							function fergcorp_countdownTimer_management_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
 								?>
-								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply enable The Loop function below and then insert', 'afdn_countdownTimer'); ?>:</p>
+								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply insert', 'afdn_countdownTimer'); ?>:</p>
 								<code>&lt;!--afdn_countdownTimer--&gt;</code>
 								<p><?php _e('where you want the countdown to be inserted.', 'afdn_countdownTimer'); ?></p>
 								<p><?php _e('You can also insert a one-off timer within a post or page by using the following code:', 'afdn_countdownTimer'); ?></p>
 								<code>&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
 								<ul>
 									<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
-									<li><?php _e('Enable CountdownTimer within The Loop:', 'afdn_countdownTimer'); ?> <input name="enableTheLoop" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableTheLoop" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableTheLoop"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
                                 <p><?php _e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'afdn_countdownTimer'); ?></p>
 								<ul>
@@ -716,10 +714,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		global $fergcorp_countdownTimer_getOptions;
 																						//Filter function for including the countdown with The Loop
 		if(preg_match("<!--afdn_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
-			$theContent = preg_replace("/<!--afdn_countdownTimer(\(([0-9]+)\))?-->/e", "afdn_countdownTimer('return', $2)", $theContent);	//The actual replacement of the string with the timer
+			$theContent = preg_replace("/<!--afdn_countdownTimer(\(([0-9]+)\))?-->/e", "afdn_countdownTimer($2, 'return')", $theContent);	//The actual replacement of the string with the timer
 		}
 		elseif(preg_match("<!--afdn_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
-			$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('return', -1)", $theContent);				//The actual replacement of the string with the timer
+			$theContent = preg_replace("/<!--afdn_countdownTimer-->/e", "afdn_countdownTimer('-1', 'return')", $theContent);				//The actual replacement of the string with the timer
 		}
 
 		if(preg_match("<!--afdn_countdownTimer_single\((.*?)\)-->", $theContent)){
@@ -728,6 +726,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		return $theContent;																													//Return theContent
 	}
+	add_filter('the_content', 'afdn_countdownTimer_loop', 1);
+	
+	/**
+	 * Processes shortcodes
+	 *
+	 * @param $atts array Attributes of the shortcode
+	 * @since 2.3
+	 * @access public
+	 * @author Andrew Ferguson
+	 * @return string The content of the post with the appropriate dates inserted (if any)
+	*/	
+	// [fergcorp_cdt max=##]
+	function fergcorp_cdt_function($atts) {
+		extract(shortcode_atts(array(
+			'max' => '-1',
+		), $atts));
+	
+		return afdn_countdownTimer($max, 'return');
+	}
+	add_shortcode('fergcorp_cdt', 'fergcorp_cdt_function');
 
 	/**
 	 * Creates a PHP-based one-off time for use outside the loop
@@ -761,7 +779,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$afdnOptions = array(	"deleteOneTimeEvents"	=> "0",
 								"checkUpdate"			=> "1",
 								"timeOffset"			=> "F jS, Y, g:i a",
-								"enableTheLoop"			=> "0",
 								"displayFormatPrefix"	=> "<li>",
 								"displayFormatSuffix"	=> "</li>",
 								"displayStyle"			=> "cursor:pointer; border-bottom:1px black dashed",
@@ -956,12 +973,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	register_activation_hook( __FILE__, 'afdn_countdownTimer_install');
 
 	$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
-
-	if($fergcorp_countdownTimer_getOptions["enableTheLoop"]){								//If the timer is to be allowed in The Loop, run this
-		add_filter('the_content', 'afdn_countdownTimer_loop', 1);
-	}
-
-
+	
 	if($fergcorp_countdownTimer_getOptions["enableJS"]) {
 		add_action('wp_footer', 'afdn_countdownTimer_js');
 	}
