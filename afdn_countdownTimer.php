@@ -208,8 +208,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
-                            <p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the Countdown Timer Widget if you have widgets enabled (or have the ability to enable widgets).", 'afdn_countdownTimer'); ?></p>
-										<p><?php _e("Alternatively, you can also use this code", 'afdn_countdownTimer'); ?>:</p>
+                            <p><?php _e("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a href='widgets.php'>Countdown Timer Widget</a>.", 'afdn_countdownTimer'); ?></p>
+										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file", 'afdn_countdownTimer'); ?>:</p>
 										<p>
 											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
 												&lt;ul&gt;<br />
@@ -218,13 +218,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 												&lt;/li&gt;
 											</code>
 										</p>
-											<p><?php _e("If you want to individually manage countdown timers, such as in posts or on pages, you can use the following code:", 'afdn_countdownTimer'); ?></p>
-											<p>
+                                        
+                                        <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'afdn_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'afdn_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
+                                   			<code>
+													[fergcorp_cdt]<br />
+                                                    [fergcorp_cdt max=##]
+											</code>
+                                        <p><?php _e("Where <em>##</em> is maximum number of results to be displayed - ordered by date", 'afdn_countdownTimer'); ?></p>   
+										<p><?php _e("If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:", 'afdn_countdownTimer'); ?></p>
+										<p>
 											<code><?php _e("Time until my birthday:", 'afdn_countdownTimer'); ?><br />
-													&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;
+													[fergcorp_cdt_single date="<em>ENTER_DATE_HERE</em>"]
 											</code>
 										</p>
-										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description. If you do this, be sure to enable the \"Enable CountdownTimer within The Loop\" option below.", 'afdn_countdownTimer'); ?></p>                     
+										<p><?php _e("Where <em>\"ENTER_DATE_HERE\"</em> uses <a href='http://us2.php.net/strtotime' target='_blank'>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'afdn_countdownTimer'); ?></p>                     
                             <?php		
 							}
                         	add_meta_box('fergcorp_countdownTimer_installation', __('Installation Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
@@ -287,11 +294,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							function fergcorp_countdownTimer_management_meta_box(){
 								global $fergcorp_countdownTimer_getOptions;
 								?>
-								<p><?php _e('To include Countdown Timer(s) and/or One-off Timer(s) within a post or page, simply insert', 'afdn_countdownTimer'); ?>:</p>
-								<code>&lt;!--afdn_countdownTimer--&gt;</code>
-								<p><?php _e('where you want the countdown to be inserted.', 'afdn_countdownTimer'); ?></p>
-								<p><?php _e('You can also insert a one-off timer within a post or page by using the following code:', 'afdn_countdownTimer'); ?></p>
-								<code>&lt;!--afdn_countdownTimer_single("<em>ENTER_DATE_HERE</em>")--&gt;</code>
 								<ul>
 									<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
@@ -380,7 +382,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			</div>
             </div>
-            <script type="text/javascript">//add_postbox_toggles('fergcorp-countdown-timer');</script>
 	<?php
 
 	}
@@ -735,7 +736,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @since 2.3
 	 * @access public
 	 * @author Andrew Ferguson
-	 * @return string The content of the post with the appropriate dates inserted (if any)
+	 * @return string countdown timer(s)
 	*/	
 	// [fergcorp_cdt max=##]
 	function fergcorp_cdt_function($atts) {
@@ -746,6 +747,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		return afdn_countdownTimer($max, 'return');
 	}
 	add_shortcode('fergcorp_cdt', 'fergcorp_cdt_function');
+	
+	
+	/**
+	 * Processes shortcodes
+	 *
+	 * @param $atts array Attributes of the shortcode
+	 * @since 2.3
+	 * @access public
+	 * @author Andrew Ferguson
+	 * @return string countdown timer
+	*/	
+	// [fergcorp_cdt max=##]
+	function fergcorp_cdt_single_function($atts) {
+		extract(shortcode_atts(array(
+			'date' => '-1',
+		), $atts));
+	
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset'], '', '', '');
+	}
+	add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
+	
+	
 
 	/**
 	 * Creates a PHP-based one-off time for use outside the loop
