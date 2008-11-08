@@ -115,7 +115,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			<script type="text/javascript">
 			
-			//jQuery(document).ready( function() {
 			jQuery(document).ready( function($) {
 				// close postboxes that should be closed
 				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
@@ -200,6 +199,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                         
 							<?php echo '<input type="hidden" name="fergcorp_countdownTimer_noncename" id="fergcorp_countdownTimer_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ) . '" />'; ?>
                             <?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+                            <?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
                             <?php
                             
@@ -768,6 +768,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								"enableJS"				=> "1",
 								"timeSinceTime"			=> "0",
 								"titleSuffix"			=> ":<br />",
+								"serialDataFileName"	=> "fergcorp_countdownTimer_serialData_".wp_generate_password(8,false).".txt",
 							);
 
 		//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
@@ -838,6 +839,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			function widget_fergcorp_countdown($args) {
 
 				$options = get_option('widget_fergcorp_countdown');
+
 
 				// $args is an array of strings that help widgets to conform to
 				// the active theme: before_widget, before_title, after_widget,
@@ -968,9 +970,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_LoadAdminScripts() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
-		//wp_enqueue_script('post'); 
-		//wp_enqueue_script('dashboard');
-		//wp_enqueue_script('jquery');
+		//wp_enqueue_script('post'); //Don't call this...
+		//wp_enqueue_script('dashboard'); //...or this. I've stripped out the required JS and place in at line 118
 	}
 	
 	/**
