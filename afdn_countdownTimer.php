@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9.1
+Version: 2.2.9.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -207,8 +207,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
-                            <p><?php printf(__("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a href='%s'>Countdown Timer Widget</a>.", 'afdn_countdownTimer'), admin_url('widgets.php')); ?></p>
-										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file", 'afdn_countdownTimer'); ?>:</p>
+                            <p><?php printf(__("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'afdn_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
+										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file:", 'afdn_countdownTimer'); ?></p>
 										<p>
 											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
 												&lt;ul&gt;<br />
@@ -908,8 +908,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			// This registers our widget so it appears with the other available
 			// widgets and can be dragged and dropped into any active sidebars.
-			register_sidebar_widget(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown');
-			register_widget_control(array('Countdown Widget', 'widgets'), 'widget_fergcorp_countdown_control');
+			$widget_ops = array('description' => __('Adds the Countdown Timer', 'afdn_countdownTimer'));
+			wp_register_sidebar_widget('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown', $widget_ops);
+			wp_register_widget_control('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown_control');
 
 		}
 
