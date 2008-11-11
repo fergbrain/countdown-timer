@@ -397,11 +397,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string If set, will return the formated output ready for display
 	*/
 	function afdn_countdownTimer($eventLimit = -1, $output = "echo"){ //'echo' will print the results, 'return' will just return them
-		global $fergcorp_countdownTimer_getOptions;
+		global $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_noEventsPresent;
+		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		
 		$fergcorp_countdownTimer_dates = get_option("afdn_countdowntracker");//Get our text, times, and settings from the database
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");//Get the options from the WPDB
-
+		
 		//Remove events that shouldn't be displayed because the time elapsed and the Time Since option isn't ticked
 		if($fergcorp_countdownTimer_dates!=''){
 			if(count($fergcorp_countdownTimer_dates["oneTime"][0])!=0){
@@ -412,11 +413,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				}
 			}
 			else{
-				return NULL; //because there are no dates at all!
+				$fergcorp_countdownTimer_noEventsPresent = TRUE;//because there are no dates at all!
 			}
 		}
 		else{
-			return NULL; //because there are no dates at all!
+				$fergcorp_countdownTimer_noEventsPresent = TRUE;//because there are no dates at all!
 		}
 
 		/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
@@ -438,23 +439,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($eventLimit != -1)	//If the eventLimit is set
 			$eventCount = $eventLimit;
 
-		global $fergcorp_countdownTimer_noEventsPresent;
-		$fergcorp_countdownTimer_noEventsPresent = TRUE;
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
-		for($i = 0; $i < $eventCount; $i++){
-			if($output == "echo")
-				echo fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), $fergcorp_countdownTimer_getOptions["timeOffset"], stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
-			elseif($output == "return"){
-				$toReturn .= fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
-			}
-			if(($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]==NULL) && (isset($fergcorp_countdownTimer_dates["oneTime"][$i]))){
-				$eventCount++;
+		if($fergcorp_countdownTimer_noEventsPresent == FALSE){
+			$fergcorp_countdownTimer_noEventsPresent = TRUE; //Reset the test
+			for($i = 0; $i < $eventCount; $i++){
+				if($output == "echo")
+					echo fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), $fergcorp_countdownTimer_getOptions["timeOffset"], stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
+				elseif($output == "return"){
+					$toReturn .= fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
+				}
+				if(($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]==NULL) && (isset($fergcorp_countdownTimer_dates["oneTime"][$i]))){
+					$eventCount++;
+				}
 			}
 		}
-		if($output == "return")
-				return $toReturn;
-
-		if($fergcorp_countdownTimer_noEventsPresent == TRUE){
+		if($fergcorp_countdownTimer_noEventsPresent){
 			if($output == "echo"){
 				echo $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'afdn_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
 			}
@@ -462,6 +461,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$toReturn .= $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'afdn_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
 			}
 		}
+
+		
+		if($output == "return")
+				return $toReturn;
+
 	}
 
 	/**
@@ -697,6 +701,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 		
+		//Catch blank statements
+		if($s==""){
+			if($fergcorp_countdownTimer_getOptions['showSecond']){
+				$s = sprintf(__("%d seconds, ", "afdn_countdownTimer"), "0");
+			}
+			elseif($fergcorp_countdownTimer_getOptions['showMinute']){
+				$s = sprintf(__("%d minutes, ", "afdn_countdownTimer"), "0");
+			}
+			elseif($fergcorp_countdownTimer_getOptions['showHour']){
+				$s = sprintf(__("%d hours, ", "afdn_countdownTimer"), "0");
+			}	
+			elseif($fergcorp_countdownTimer_getOptions['showDay']){
+				$s = sprintf(__("%d days, ", "afdn_countdownTimer"), "0");
+			}
+			elseif($fergcorp_countdownTimer_getOptions['showWeek']){
+				$s = sprintf(__("%d weeks, ", "afdn_countdownTimer"), "0");
+			}
+			elseif($fergcorp_countdownTimer_getOptions['showMonth']){
+				$s = sprintf(__("%d months, ", "afdn_countdownTimer"), "0");
+			}
+			else{
+				$s = sprintf(__("%d years, ", "afdn_countdownTimer"), "0");
+			}
+		}
+		
 		return preg_replace("/(,? *)$/is", "", $s);
 
 	}
@@ -848,7 +877,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			// Check for the required plugin functions. This will prevent fatal
 			// errors occurring when you deactivate the dynamic-sidebar plugin.
-			if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
+			if ( !function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control') )
 				return;
 
 			/**
