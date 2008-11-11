@@ -93,9 +93,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 			update_option("afdn_countdowntracker", $results); //Update the WPDB for the data
 			
-			$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
-			fwrite($file, serialize($results));
-			fclose($file);
+			//Leaving this out of 2.3 release
+			//$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
+			//fwrite($file, serialize($results));
+			//fclose($file);
 			
 			update_option("afdn_countdownOptions", $afdnOptions);//Update the WPDB for the options
 
@@ -792,6 +793,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function afdn_countdownTimer_install(){
+		$plugin_data = get_plugin_data(__FILE__);
 		$theOptions = get_option("afdn_countdownOptions");
 
 		if(get_option("widget_fergcorp_countdown") == NULL){	//Create default details for the widget if needed
@@ -829,7 +831,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		update_option("afdn_countdownOptions", $newOptionsArray); //Update the WPDB for the options
-		update_option("fergcorp_countdownTimer_version", "2.3");
+		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
 
 
@@ -1025,8 +1027,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_LoadUserScripts() {
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
+		$fergcorp_countdownTimer_getVersion = get_option("fergcorp_countdownTimer_version");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-			wp_enqueue_script('fergcorp_countdowntimer', plugins_url('fergcorp_countdownTimer_java.js'), FALSE, '2.3');
-			wp_enqueue_script('webkit_sprintf', plugins_url('webtoolkit.sprintf.js'), FALSE, '2.3');
+			wp_enqueue_script('fergcorp_countdowntimer', plugins_url('fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
+			wp_enqueue_script('webkit_sprintf', plugins_url('webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
 		}
 	}
