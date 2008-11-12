@@ -371,11 +371,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
 
 							function fergcorp_countdownTimer_example_display_meta_box(){
+								echo "<ul>";
 								fergcorp_countdownTimer();
+								echo "</ul>";
                                 afdn_countdownTimer_js();
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
 							
+
 							do_meta_boxes('fergcorp-countdown-timer','advanced',null);                           
 							   
 						?>
