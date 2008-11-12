@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9.3
+Version: 2.2.9.4
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -214,7 +214,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             <?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
                             <?php
-                            
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
                             <p><?php printf(__("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'afdn_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
@@ -222,7 +221,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										<p>
 											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
 												&lt;ul&gt;<br />
-												&lt;?php afdn_countdownTimer(); ?&gt;<br />
+												&lt;?php function_exists('fergcorp_countdownTimer')?fergcorp_countdownTimer():NULL; ?&gt;<br />
 												&lt;/ul&gt;<br />
 												&lt;/li&gt;
 											</code>
@@ -372,7 +371,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
 
 							function fergcorp_countdownTimer_example_display_meta_box(){
-								afdn_countdownTimer();
+								fergcorp_countdownTimer();
                                 afdn_countdownTimer_js();
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
@@ -394,6 +393,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             </div>
 	<?php
 
+	}
+	/**
+	 * afdn_countdownTimer helper function
+	 *
+	 * @param $eventLimit int The maximum number of events to echo or return, sorted by date
+	 * @param $output string If set to 'echo', will echo the results with no return; If set to 'return', will return the results with no echo.
+	 * @since 2.3
+	 * @access public
+	 * @author Andrew Ferguson
+	 * @return string If set, will return the formated output ready for display
+	*/
+	function fergcorp_countdownTimer($eventLimit = -1, $output = "echo"){
+		afdn_countdownTimer($eventLimit, $output);
 	}
 
 	/**
