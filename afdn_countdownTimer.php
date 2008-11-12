@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9.2
+Version: 2.2.9.3
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -123,7 +123,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
 				
 				// postboxes
-				postboxes.add_postbox_toggles('fergcorp-countdown-timer');
+				<?php
+				global $wp_version;
+				if(version_compare($wp_version,"2.7-alpha", "<")){
+					echo "add_postbox_toggles('fergcorp-countdown-timer');"; //For WP2.6 and below
+				}
+				else{
+					echo "postboxes.add_postbox_toggles('fergcorp-countdown-timer');"; //For WP2.7 and above
+				}
+				?>
+			
 			});
 
 			
@@ -297,10 +306,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<ul>
 									<li><?php _e('Enable JavaScript countdown:', 'afdn_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'afdn_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'afdn_countdownTimer'); ?></li>
 								</ul>
-                                <p><?php _e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'afdn_countdownTimer'); ?></p>
+                                <?php /*<p><?php //_e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'afdn_countdownTimer'); ?></p>
 								<ul>
-                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(plugins_url($fergcorp_countdownTimer_getOptions["serialDataFilename"])); ?>" target="_blank"><?php print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?></a></li>
+                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(plugins_url("countdown-timer/".$fergcorp_countdownTimer_getOptions["serialDataFilename"])); ?>" target="_blank"><?php //print(get_bloginfo('wpurl').str_replace(ABSPATH, '', "/".dirname(__FILE__))."/".$fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?></a></li>
 		                        </ul>
+								*/ ?>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'afdn_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
@@ -1058,7 +1068,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
 		$fergcorp_countdownTimer_getVersion = get_option("fergcorp_countdownTimer_version");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-			wp_enqueue_script('fergcorp_countdowntimer', plugins_url('fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
-			wp_enqueue_script('webkit_sprintf', plugins_url('webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
+			wp_enqueue_script('fergcorp_countdowntimer', plugins_url('countdown-timer/' . 'fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
+			wp_enqueue_script('webkit_sprintf', plugins_url('countdown-timer/' . 'webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
 		}
 	}
