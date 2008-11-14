@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.2.5 (kept in step with fergcorp_countdownTimer.php)
+Version 2.2.9.5 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007-2008 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
@@ -203,6 +203,33 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 			s = s + sprintf(fergcorp_countdownTimer_js_language['seconds'], resultantSecond) + ' ';
 		}
 	}
+	
+	
+	//Catch blank statements
+	if(s==''){
+		if(getOptions['showSecond']){
+			s = sprintf(fergcorp_countdownTimer_js_language['seconds'], 0);
+		}
+		else if(getOptions['showMinute']){
+			s = sprintf(fergcorp_countdownTimer_js_language['minutes'], 0);
+		}
+		else if(getOptions['showHour']){
+			s = sprintf(fergcorp_countdownTimer_js_language['hours'], 0);
+		}	
+		else if(getOptions['showDay']){
+			s = sprintf(fergcorp_countdownTimer_js_language['days'], 0);
+		}
+		else if(getOptions['showWeek']){
+			s = sprintf(fergcorp_countdownTimer_js_language['weeks'], 0);
+		}
+		else if(getOptions['showMonth']){
+			s = sprintf(fergcorp_countdownTimer_js_language['months'], 0);
+		}
+		else{
+			s = sprintf(fergcorp_countdownTimer_js_language['years'], 0);
+		}
+	}
+
 	
 	return s.replace(/(,? *)$/, ""); //...and return the result (a string)
 }
