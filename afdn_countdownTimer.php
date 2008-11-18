@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9.6
+Version: 2.2.9.7
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -550,6 +550,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			return NULL;
 		}
 	}
+	
+	if(!function_exists("cal_days_in_month")){
+		/**
+		 * Returns the number of days in a given month and year, taking into account leap years.
+		 * The is a replacement function should cal_days_in_month not be availible
+		 *
+		 * @param $calendar int ignored
+	 	 * @param $month int month (integers 1-12) 
+		 * @param $year int year (any integer)
+		 * @since 2.3
+		 * @access private
+		 * @author David Bindel (dbindel at austin dot rr dot com) (http://us.php.net/manual/en/function.cal-days-in-month.php#38666)
+		 * @author ben at sparkyb dot net
+		 * @return int The content of the post with the appropriate dates inserted (if any)
+		*/
+		function cal_days_in_month($calendar, $month, $year){
+			// calculate number of days in a month 
+			return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+		}
+	}
 
 	/**
 	 * Returns the numerical part of a single countdown element
@@ -609,6 +629,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($resultantDay < 0){
 			$resultantMonth--;
 			$resultantDay = $resultantDay + cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear); //Holy crap! When did they introduce this function and why haven't I heard about it??
+			echo "a: ".cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear)." b: ".days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear);
 		}
 
 		if($resultantMonth < 0){
