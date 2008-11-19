@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.2.9.7
+Version: 2.3
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -229,7 +229,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                         
                                         <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'afdn_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'afdn_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
                                    			<code>
-													[fergcorp_cdt]<br />
+													[fergcorp_cdt]<br /><br />
                                                     [fergcorp_cdt max=##]
 											</code>
                                         <p><?php _e("Where <em>##</em> is maximum number of results to be displayed - ordered by date.", 'afdn_countdownTimer'); ?></p>   
@@ -276,6 +276,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($fergcorp_countdownTimer_dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
 														<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"])); ?>" /></td>
 														<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $fergcorp_countdownTimer_dates["oneTime"][$i]["link"]; ?>" /></td>
+
 														<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
 														</tr>
 														<?php

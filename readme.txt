@@ -2,9 +2,9 @@
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
-Requires at least: 2.5
-Tested up to: 2.6.1
-Stable tag: 2.2.5
+Requires at least: 2.6
+Tested up to: 2.7
+Stable tag: 2.3
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,10 +14,30 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.2.5 includes all the great features of past versions plus:
+Version 2.3 includes all the great features of past versions plus the following updates:
 
-* Added Hungarian and Norwegian translations
-* Fixed small bug on line 426 regarding stripslashes
+* Made meta boxes into WP-based functions with AJAX support
+* Renamed $dates to $fergcorp_countdownTimer_dates and made it global
+* Reversed order of afdn_countdownTimer parameters. See documentation for usage
+* Updated meta boxes to work in WP 2.7
+* Removed the option to disable enableTheLoop (i.e. always enabled now)
+* Added shortcodes. See documentation for usage
+* Updated some of the text so that links are not part of the translation. Not that this has been an issue, but it assures that links aren't tampered with in language translations
+* Updated the widget to use the latest WP functions
+* Widget now has a description
+* Internal versioning is now done automatically
+* Fixed a bug where "No Dates Present" would not display, even though there were no dates present
+* Fixed a bug where an empty array would cause plugin to crash
+* Fixed a problem that caused the timer to only display "in " if "strip zeros" is enabled
+* Updated a couple function checks to check for the functions that we're actually using
+* Updated the plugins_dir function call to properly reference the countdown-timer directory (this fixes issues with IIS and Windows)
+* Added a helper function for afdn_countdownTimer so that users can use fergcorp_countdownTimer instead
+* Fixed a potential bug (aka The Furton Fix) for systems running Windows where PHP may barf and give a warning:
+Warning: date() [function.date]: Windows does not support dates prior to midnight (00:00:00), January 1, 1970 in afdn_countdownTimer.php on line 612
+* Various bug and security fixes
+* Paypal link doesn't use a form anymore
+* Added a test to ensure cal_days_in_month function exists. If not, use a drop in replacement.
+
 
 Special thanks to:
 
@@ -50,21 +70,22 @@ Activate the timer and add the widget or add the following code into your sideba
 
 `<li id='countdown'><h2>Countdown:</h2>
 <ul>
-<?php afdn_countdownTimer(); ?>
+<?php function_exists('fergcorp_countdownTimer')?fergcorp_countdownTimer():NULL; ?>
 </ul>
 </li>`
 
-If you want to call the timer from within the WordPress Loop, make sure The Loop function is enabled in the plugin configuration and then insert:
+If you want to insert the Countdown Timer into a page or post, you can use the following shortcodes to return all or a limited number of Countdown Timers, respectively:
+[fergcorp_cdt]
+[fergcorp_cdt max=##]
 
-`<!--afdn_countdownTimer-->`
+Where ## is maximum number of results to be displayed - ordered by date
 
-where you want the timer(s) displayed.
+If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:
 
-You can also create a single event by using:
+Time until my birthday:
+[fergcorp_cdt_single date="ENTER_DATE_HERE"]
 
-`<!--afdn_countdownTimer_single("ENTER_DATE_HERE")-->`
-
-replacing "ENTER\_DATE\_HERE" with the appropriate PHP strtodate() parseable string.
+Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual datetime description.
 
 == Frequently Asked Questions ==
 
@@ -83,17 +104,17 @@ Using the above example of January 15 to February 20, there would be one month a
 
 = Where I am supposed to set the count down time? =
 
-Log into your WordPress Dashboard. Click on Manage, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
+Log into your WordPress Dashboard. Expand the Tools menu, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
 
 = How do I limit the number of countdown timers displayed? =
 
 If you're using the widget, there is an option to set the maximum number of timers shown. If you are not using the widget, replace
 
-`afdn_countdownTimer()`
+`fergcorp_countdownTimer()`
 
 with
 
-`afdn_countdownTimer(##)`
+`fergcorp_countdownTimer(##)`
 
 where ## is the maximum number of events you wish to be displayed.
 
