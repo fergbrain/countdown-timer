@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.3
+Version: 2.3.1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -630,7 +630,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($resultantDay < 0){
 			$resultantMonth--;
 			$resultantDay = $resultantDay + cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear); //Holy crap! When did they introduce this function and why haven't I heard about it??
-			echo "a: ".cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear)." b: ".days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear);
 		}
 
 		if($resultantMonth < 0){
