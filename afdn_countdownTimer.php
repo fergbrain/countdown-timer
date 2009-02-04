@@ -662,20 +662,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 		else{
+			
+			//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)
+						
 			$rollover = $rollover + $resultantMonth*2592000;
 			
 			$totalTime = $targetTime - $nowTime;
+			
+			//If we showed years, but not months, we need to account for those.
 			if($fergcorp_countdownTimer_getOptions['showYear']){
 				$totalTime = $totalTime - $resultantYear*31536000;
 			}
 			
+			//Clear the other units of time because we've absorbed their time into the rollover number.
 			$resultantDay = 0;
 			$resultantHour = 0;
 			$resultantMinute = 0;
 			$resultantSecond = 0;
-							
+			
+			//Set the new rollover time				
 			$rollover = $totalTime;
 			
+			//Triger the signumber if we have more than a day left
 			if($rollover > 86400){
 				$sigNumHit = true;
 			}
