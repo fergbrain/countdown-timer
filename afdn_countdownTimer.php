@@ -666,61 +666,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			
 			$totalTime = $targetTime - $nowTime;
 			if($fergcorp_countdownTimer_getOptions['showYear']){
-				//$totalTime = $totalTime - $resultantYear*31536000;
+				$totalTime = $totalTime - $resultantYear*31536000;
 			}
 			
-			//echo "nowMonth: $nowMonth - nowYear: $nowYear\n";
+			$resultantDay = 0;
+			$resultantHour = 0;
+			$resultantMinute = 0;
+			$resultantSecond = 0;
+							
+			$rollover = $totalTime;
 			
-			
-			$daysLeftInNowMonth = cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear) - $nowDay - 1; //Really just whole days
-			//echo "Days left in now month: $daysLeftInNowMonth\n";
-			$totalDays = $daysLeftInNowMonth;
-			echo "Total days: $totalDays\n\n";
-			
-			for($i = $nowYear; $i <= $targetYear; $i++){
-
-
-				if($nowYear == $targetYear){
-					$countToMonth = $targetMonth;
-					$countFromMonth = $nowMonth;
-					//echo "a";					
-				}
-				elseif($i != $targetYear){
-					$countToMonth = 13;
-					$countFromMonth = $nowMonth;
-					//echo "b";
-				}
-				elseif($i == $targetYear){
-					$countToMonth = $targetMonth;
-					$countFromMonth = 0;
-					//echo "c";					
-				}
-				
-				//echo "B - nowMonth: $nowMonth - nowYear: $nowYear - i: $i - j: $j - countToMonth: $countToMonth\n";
-				for($j = $countFromMonth + 1; $j < $countToMonth; $j++){
-					$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $j, $i);
-					echo "Add month - Y:$i M:$j\n";
-					//echo "Add days: ".$daysInMonth;
-					$totalDays += $daysInMonth;
-					echo "Total days: $totalDays\n\n";
-				}
-				//echo "A - nowMonth: $nowMonth - nowYear: $nowYear - i: $i - j: $j - countToMonth: $countToMonth\n";
+			if($rollover > 86400){
+				$sigNumHit = true;
 			}
-			
-			$daysInTargetMonth = $targetDay; //Really just whole days
-			$totalDays += $daysInTargetMonth;
-			echo "Total days: $totalDays\n\n";
-			echo "ResultantDays: $resultantDay\n";
-			
-			//$rollover = $totalDays * 84600;
-			$rollover = 0;
-			$resultantDay = $totalDays;
-
-								
-			//$rollover = $totalTime - ($resultantDay*84600); 
-			//echo "totalTime:". $rollover;
-			
-			
 		}
 
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
@@ -741,7 +699,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Day
 		if($fergcorp_countdownTimer_getOptions['showDay']){
 			echo "$sigNumHit - ".$fergcorp_countdownTimer_getOptions['stripZero']." - $resultantDay";
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay || true){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay){
 				$resultantDay = $resultantDay + intval($rollover/86400);
 				if($resultantDay==1){
 					$s .= sprintf(__("%d day, ", "afdn_countdownTimer"), $resultantDay)." ";
