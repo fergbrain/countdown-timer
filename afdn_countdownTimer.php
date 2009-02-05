@@ -3,12 +3,12 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.3.2 Alpha
+Version: 2.4 Alpha
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
 Countdown Timer - Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Copyright (c) 2005-2008 Andrew Ferguson
+Copyright (c) 2005-2009 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -674,19 +674,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$totalTime = $totalTime - $resultantYear*31536000;
 			}
 			
-			//Clear the other units of time because we've absorbed their time into the rollover number.
-			$resultantDay = 0;
-			$resultantHour = 0;
-			$resultantMinute = 0;
-			$resultantSecond = 0;
+			//Re calculate the resultant times
+			$resultantWeek = intval( $totalTime/(86400*7) );
+			 
+			$resultantDay = intval( $totalTime/86400 );
 			
-			//Set the new rollover time				
-			$rollover = $totalTime;
+			$resultantHour = intval( ($totalTime - $resultantDay*86400)/3600 );
 			
-			//Triger the signumber if we have more than a day left
-			if($rollover > 86400){
-				$sigNumHit = true;
-			}
+			$resultantMinute = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600)/60 );
+			
+			$resultantSecond = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600 - $resultantMinute*60) );
+			
+			//and clear any rollover time
+			$rollover = 0;
 		}
 
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
@@ -706,7 +706,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Day
 		if($fergcorp_countdownTimer_getOptions['showDay']){
-			echo "$sigNumHit - ".$fergcorp_countdownTimer_getOptions['stripZero']." - $resultantDay";
 			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay){
 				$resultantDay = $resultantDay + intval($rollover/86400);
 				if($resultantDay==1){
