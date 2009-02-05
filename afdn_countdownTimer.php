@@ -650,7 +650,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Month
 		if($fergcorp_countdownTimer_getOptions['showMonth']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMonth){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval($resultantMonth + ($rollover/2628000)) ){
 				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
 				if($resultantMonth==1){
 					$s .= sprintf(__("%d month, ", "afdn_countdownTimer"), $resultantMonth)." ";
@@ -691,7 +691,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
 		if($fergcorp_countdownTimer_getOptions['showWeek']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval( ($resultantDay + intval($rollover/86400) )/7)){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ( ($resultantDay + intval($rollover/86400) )/7)){
 				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
 				if((intval( ($resultantDay + intval($rollover/86400) )/7))==1){
 					$s .= sprintf(__("%d week, ", "afdn_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))." ";
@@ -706,7 +706,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Day
 		if($fergcorp_countdownTimer_getOptions['showDay']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantDay){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantDay + intval($rollover/86400)) ){
 				$resultantDay = $resultantDay + intval($rollover/86400);
 				if($resultantDay==1){
 					$s .= sprintf(__("%d day, ", "afdn_countdownTimer"), $resultantDay)." ";
@@ -723,7 +723,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Hour
 		if($fergcorp_countdownTimer_getOptions['showHour']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantHour){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantHour + intval($rollover/3600)) ){
 				$resultantHour = $resultantHour + intval($rollover/3600);
 				if($resultantHour==1){
 					$s .= sprintf(__("%d hour, ", "afdn_countdownTimer"), $resultantHour)." ";
@@ -740,7 +740,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Minute
 		if($fergcorp_countdownTimer_getOptions['showMinute']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantMinute){
+			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantMinute + intval($rollover/60)) ){
 				$resultantMinute = $resultantMinute + intval($rollover/60);
 				if($resultantMinute==1){
 					$s .= sprintf(__("%d minute, ", "afdn_countdownTimer"), $resultantMinute)." ";

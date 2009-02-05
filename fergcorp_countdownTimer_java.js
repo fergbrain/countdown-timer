@@ -1,7 +1,7 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.3.1 (kept in step with fergcorp_countdownTimer.php)
-Copyright (c) 2007-2008 Andrew Ferguson
+Version 2.4 Alpha (kept in step with fergcorp_countdownTimer.php)
+Copyright (c) 2007-2009 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -43,6 +43,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	var rollover = 0;
 	var vars = '';
 	var sigNumHit = false;
+	var totalTime = 0;
 
 	var nowDate = nowTime;
 	var targetDate = targetTime;
@@ -114,7 +115,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 
 	//Month	
 	if(getOptions['showMonth']){
-		if(sigNumHit || !getOptions['stripZero'] || resultantMonth){
+		if(sigNumHit || !getOptions['stripZero'] || (resultantMonth + parseInt(rollover/2628000)) ){
 			resultantMonth = resultantMonth + parseInt(rollover/2628000);
 			if(resultantMonth==1){
 				s = s + sprintf(fergcorp_countdownTimer_js_language['month'], resultantMonth) + ' ';
@@ -126,7 +127,28 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 		}
 	}
 	else{
-		rollover = rollover + resultantMonth*2592000;
+		//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)		
+		totalTime = parseInt(targetTime.getTime() - nowTime.getTime())/1000;
+		
+		//If we showed years, but not months, we need to account for those.
+		if(getOptions['showYear']){
+			totalTime = totalTime - resultantYear*31536000;
+		}
+			
+		//Re calculate the resultant times
+		resultantWeek = 0;//parseInt( totalTime/(86400*7) );
+ 
+		resultantDay = parseInt( totalTime/86400 );
+
+		resultantHour = parseInt( (totalTime - resultantDay*86400)/3600 );
+		
+		resultantMinute = parseInt( (totalTime - resultantDay*86400 - resultantHour*3600)/60 );
+		
+		resultantSecond = parseInt( (totalTime - resultantDay*86400 - resultantHour*3600 - resultantMinute*60) );
+		
+		//and clear any rollover time
+		rollover = 0;
+
 	}
 	
 	//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
@@ -146,7 +168,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 
 	//Day
 	if(getOptions['showDay']){
-		if(sigNumHit || !getOptions['stripZero'] || resultantDay){
+		if(sigNumHit || !getOptions['stripZero'] || (resultantDay + parseInt(rollover/86400)) ){
 			resultantDay = resultantDay + parseInt(rollover/86400);
 			if(resultantDay==1){
 				s = s + sprintf(fergcorp_countdownTimer_js_language['day'], resultantDay) + ' ';
@@ -163,7 +185,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	//Hour
 	if(getOptions['showHour']){
-		if(sigNumHit || !getOptions['stripZero'] || resultantHour){
+		if(sigNumHit || !getOptions['stripZero'] || (resultantHour + parseInt(rollover/3600)) ){
 			resultantHour = resultantHour + parseInt(rollover/3600);
 			if(resultantHour==1){
 				s = s + sprintf(fergcorp_countdownTimer_js_language['hour'], resultantHour) + ' ';
@@ -180,7 +202,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	//Minute
 	if(getOptions['showMinute']){
-		if(sigNumHit || !getOptions['stripZero'] || resultantMinute){
+		if(sigNumHit || !getOptions['stripZero'] || (resultantMinute + parseInt(rollover/60)) ){
 			resultantMinute = resultantMinute + parseInt(rollover/60);
 			if(resultantMinute==1){
 				s = s + sprintf(fergcorp_countdownTimer_js_language['minute'], resultantMinute) + ' ';
