@@ -1,10 +1,10 @@
 === Countdown Timer ===
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
-Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n
+Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
 Requires at least: 2.6
-Tested up to: 2.7
-Stable tag: 2.3.1
+Tested up to: 2.7.1
+Stable tag: 2.3.5
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,51 +14,47 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
-Version 2.3.1 includes all the great features of past versions plus the following updates:
+Version 2.3.5 includes all the great features of past versions plus the following updates:
+* Updated calculation routine to ensure that dates are accurate when "Months" are not displayed.
+* Updated languages and added Latvian, Romanian, Russian, Danish, Lithuanian, and Serbian.
+* Updated readme.txt file
 
-* Made meta boxes into WP-based functions with AJAX support
-* Renamed $dates to $fergcorp_countdownTimer_dates and made it global
-* Reversed order of afdn_countdownTimer parameters. See documentation for usage
-* Updated meta boxes to work in WP 2.7
-* Removed the option to disable enableTheLoop (i.e. always enabled now)
-* Added shortcodes. See documentation for usage
-* Updated some of the text so that links are not part of the translation. Not that this has been an issue, but it assures that links aren't tampered with in language translations
-* Updated the widget to use the latest WP functions
-* Widget now has a description
-* Internal versioning is now done automatically
-* Fixed a bug where "No Dates Present" would not display, even though there were no dates present
-* Fixed a bug where an empty array would cause plugin to crash
-* Fixed a problem that caused the timer to only display "in " if "strip zeros" is enabled
-* Updated a couple function checks to check for the functions that we're actually using
-* Updated the plugins_dir function call to properly reference the countdown-timer directory (this fixes issues with IIS and Windows)
-* Added a helper function for afdn_countdownTimer so that users can use fergcorp_countdownTimer instead
-* Fixed a potential bug (aka The Furton Fix) for systems running Windows where PHP may barf and give a warning:
-Warning: date() [function.date]: Windows does not support dates prior to midnight (00:00:00), January 1, 1970 in afdn_countdownTimer.php on line 612
-* Various bug and security fixes
-* Paypal link doesn't use a form anymore
-* Added a test to ensure cal_days_in_month function exists. If not, use a drop in replacement.
+== Translations ==
 
+= Using another language =
 
-Special thanks to:
+You'll need to modify your `wp-config.php` file. Open it up and look for the line: `define ('WPLANG', '');`
 
-* Mattias Tengblad (Swedish translation)
-* Joan Piqu&eacute; (Spanish translation)
-* Sascha Grams (German translation)
-* Serge (French translation)
-* [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brasil] translation)
-* [Atamert &Ouml;l&ccedil;gen](http://www.muhuk.com) (Turkish translation)
-* [singha](http://singha.cz) (Czech translation)
-* Kobe Van Looveren (Dutch translation)
-* [Qiang](http://richile.cn/) (Chinese translation)
-* macryba (Polish translation)
-* [Mick](http://www.gaspriz.it) (Italian translation)
-* [Adem Omerovi&#263;](http://www.tehnopedija.net) (Bosnian translation)
-* [masnapos](http://www.masnapos.eu) (Hungarian translation)
-* [Anders Ruen](http://www.gullungen.com) (Norwegian translation)
+You'll want to modify it to say: `define ('WPLANG', 'de_DE');`
+
+Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation.
+
+= Special thanks to: =
+
+* Mattias Tengblad (Swedish translation): sv_SE
+* Joan Piqu&eacute; (Spanish translation): es_ES
+* Sascha Grams (German translation): de_DE
+* Serge (French translation): fr_FR
+* [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brazil] translation): pr_BR
+* [Atamert &Ouml;l&ccedil;gen](http://www.muhuk.com) (Turkish translation): tr_TR
+* [singha](http://singha.cz) (Czech translation): cs_CZ
+* Kobe Van Looveren (Dutch translation): nl_NL
+* [Qiang](http://richile.cn/) (Chinese translation): zh_CN
+* macryba (Polish translation): pl_PL
+* [Mick](http://www.gaspriz.it) (Italian translation): it_IT
+* [Adem Omerovi&#263;](http://www.tehnopedija.net) (Bosnian translation): bs_BA
+* [masnapos](http://www.masnapos.eu) (Hungarian translation): hu_HU
+* [Anders Ruen](http://www.gullungen.com) (Norwegian translation): nb_NO
+* [Jans Pavlovs](http://www.btserv.org) (Latvian translation): lv_LV
+* [Dragos Nicolae of Free Software Downloads](http://www.FreeSoftwareWorkshop.com) (Romanian translation): ro_RO
+* [Oleg Shalomanov](http://coolidea.ru/) (Russian translation): ru_RU
+* Steen Manniche (Danish translation): da_DK
+* Darius Žitkevicius (Lithuanian translation): lt_LT
+* [Ljev Rjadcenko](http://www.rjadcenko.com) (Serbian [Cyrilic] translation): sr_RS
 
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
-Note: translator_name is for your name and translator_url is for the address to your website.
+Note: translator\_name is for your name (i.e. John Doe) and translator\_url is for the address to your website (i.e. http://google.com).
 
 == Installation ==
 
@@ -66,7 +62,9 @@ Delete any previous version of Countdown Timer and associated files.
 
 Download and install the timer into your plugins directory.
 
-Activate the timer and add the widget or add the following code into your sidebar.php file:
+Activate the timer and add the widget.
+
+If you don't want to use the widget, you can also add the following code into your sidebar.php file:
 
 `<li id='countdown'><h2>Countdown:</h2>
 <ul>
@@ -74,22 +72,38 @@ Activate the timer and add the widget or add the following code into your sideba
 </ul>
 </li>`
 
+= Inserting countdown timers into a page or post =
+
 If you want to insert the Countdown Timer into a page or post, you can use the following shortcodes to return all or a limited number of Countdown Timers, respectively:
-[fergcorp_cdt]
-[fergcorp_cdt max=##]
+[fergcorp\_cdt]
+[fergcorp\_cdt max=##]
 
 Where ## is maximum number of results to be displayed - ordered by date
 
 If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:
 
 Time until my birthday:
-[fergcorp_cdt_single date="ENTER_DATE_HERE"]
+[fergcorp_cdt_single date="ENTER\_DATE\_HERE"]
 
 Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual datetime description.
 
+= Limiting the number of countdown timers displayed =
+
+If you're using the widget, there is an option to set the maximum number of timers shown. If you are using the PHP code, replace
+
+`fergcorp_countdownTimer()`
+
+with
+
+`fergcorp_countdownTimer(##)`
+
+where ## is the maximum number of events you wish to be displayed.
+
+Events are automatically sorted by date of occurrence.
+
 == Frequently Asked Questions ==
 
-= Your program is broken! The count down is of by XX days! =
+= Your program is broken! The count down is off by XX days! =
 
 Well, not quite. As it turns out, determining the number of months between two dates is harder than one might think. As you know, all months don't have the same number of days. Thus, some months have 31 days, others have 30 days, and then there's February. It's pretty trivial to figure out the number of complete months between two days (if complete months exist).
 
@@ -106,29 +120,7 @@ Using the above example of January 15 to February 20, there would be one month a
 
 Log into your WordPress Dashboard. Expand the Tools menu, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
 
-= How do I limit the number of countdown timers displayed? =
-
-If you're using the widget, there is an option to set the maximum number of timers shown. If you are not using the widget, replace
-
-`fergcorp_countdownTimer()`
-
-with
-
-`fergcorp_countdownTimer(##)`
-
-where ## is the maximum number of events you wish to be displayed.
-
-Events are automatically sorted by date of occurrence.
-
-= How do I use the language files? =
-
-You'll need to modify your `wp-config.php` file. Open it up and look for the line: `define ('WPLANG', '');`
-
-You'll want to modify it to say: `define ('WPLANG', 'de_DE');`
-
-Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation.
-
-= There's a foreign (non-english) word that's wrong, what do I do? =
+= There's a foreign (non-English) word that's wrong, what do I do? =
 
 There are two ways to fix this. First, you can always contact me via email, blog comment, support forum, etc and let me know about the error. I don't usually issue bug fix updates just for language errors, but it will make it into the next update cycle.
 

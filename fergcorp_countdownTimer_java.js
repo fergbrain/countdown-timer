@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.3.5 Alpha (kept in step with fergcorp_countdownTimer.php)
+Version 2.3.5 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007-2009 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
