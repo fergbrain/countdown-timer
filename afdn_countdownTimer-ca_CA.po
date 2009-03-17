@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-17 17:06-0700\n"
-"PO-Revision-Date: 2009-03-17 17:11-0700\n"
+"PO-Revision-Date: 2009-03-17 17:12-0700\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Traduït per"
 #: afdn_countdownTimer.php:189
 #: afdn_countdownTimer.php:190
 msgid "translator_url"
-msgstr "www.softcatala.org"
+msgstr "http://www.softcatala.org"
 
 #: afdn_countdownTimer.php:199
 msgid "I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it."
