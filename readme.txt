@@ -15,6 +15,7 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
 
 Version 2.3.5 includes all the great features of past versions plus the following updates:
+
 * Updated calculation routine to ensure that dates are accurate when "Months" are not displayed.
 * Updated languages and added Latvian, Romanian, Russian, Danish, Lithuanian, and Serbian.
 * Updated readme.txt file
@@ -49,8 +50,9 @@ Of course, you'll replace de_DE with the language extension that you want to use
 * [Dragos Nicolae of Free Software Downloads](http://www.FreeSoftwareWorkshop.com) (Romanian translation): ro_RO
 * [Oleg Shalomanov](http://coolidea.ru/) (Russian translation): ru_RU
 * Steen Manniche (Danish translation): da_DK
-* Darius Žitkevicius (Lithuanian translation): lt_LT
+* Darius &#142;itkevicius (Lithuanian translation): lt_LT
 * [Ljev Rjadcenko](http://www.rjadcenko.com) (Serbian [Cyrilic] translation): sr_RS
+* [Robert Buj](http://www.softcatala.org) (Catalan translation): ca_CA
 
 
 If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
