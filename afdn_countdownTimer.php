@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.3.5
+Version: 2.4 Alpha
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
-		$moFile = dirname(__FILE__) . "/afdn_countdownTimer-" . $currentLocale . ".mo";
+		$moFile = dirname(__FILE__) . "/lang/afdn_countdownTimer-" . $currentLocale . ".mo";
 		if(@file_exists($moFile) && is_readable($moFile)) load_textdomain('afdn_countdownTimer', $moFile);
 	}
 
@@ -1122,7 +1122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$fergcorp_countdownTimer_getOptions = get_option("afdn_countdownOptions");
 		$fergcorp_countdownTimer_getVersion = get_option("fergcorp_countdownTimer_version");
 		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
-			wp_enqueue_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/". 'fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
-			wp_enqueue_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/" . 'webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
+			wp_enqueue_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
+			wp_enqueue_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
 		}
 	}
