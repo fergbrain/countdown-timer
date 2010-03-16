@@ -3,7 +3,7 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
 Requires at least: 2.6
-Tested up to: 2.7.1
+Tested up to: 2.9.2
 Stable tag: 2.3.5
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
@@ -52,9 +52,6 @@ Of course, you'll replace de_DE with the language extension that you want to use
 * Darius Žitkevicius (Lithuanian translation): lt_LT
 * [Ljev Rjadcenko](http://www.rjadcenko.com) (Serbian [Cyrilic] translation): sr_RS
 
-
-If you'd like to translate Countdown Timer in to your language, please visit: [http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po](http://fergcorp.com/project/phPo/phPo.php?poFileName=afdn_countdownTimer.po)
-Note: translator\_name is for your name (i.e. John Doe) and translator\_url is for the address to your website (i.e. http://google.com).
 
 == Installation ==
 
