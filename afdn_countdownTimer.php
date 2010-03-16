@@ -376,6 +376,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                 afdn_countdownTimer_js();
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
+
 							
 
 							do_meta_boxes('fergcorp-countdown-timer','advanced',null);                           
@@ -509,7 +510,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	
-	function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li>", $displayFormatSuffix = "</li>", $displayStyle = "cursor:pointer; border-bottom:1px black dashed"){
+	function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li class = 'fergcorp_countdownTimer_event_li'>", $displayFormatSuffix = "</li>", $displayStyle = "cursor:pointer; border-bottom:1px black dashed"){
 		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_nonceTracker;
 		if(!isset($fergcorp_countdownTimer_nonceTracker)){
 			$fergcorp_countdownTimer_nonceTracker = array();
@@ -518,12 +519,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$content = "";
 		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){
 			$fergcorp_countdownTimer_noEventsPresent = FALSE;
-			$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't
+			$nonceTracker = "x".md5($text.$time); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't, made this a predictable
 			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
 																										"targetDate"	=> $time,
 																										);
 			if($text)
-				$content = $displayFormatPrefix.($link==""?$text:"<a href=\"$link\"><strong>".$text."</strong></a>").$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
+				$content = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$text:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$text."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
 			if($timeFormat == "")
 				$content .= "<span id = '$nonceTracker'>".sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</span>".$displayFormatSuffix;
 			else
@@ -537,7 +538,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 																										"targetDate"	=> $time,
 																										);
 			if($text)
-				$content = $displayFormatPrefix.($link==""?$text:"<a href=\"$link\"><strong>".$text."</strong></a>").$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
+				$content = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$text:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$text."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
 			if($timeFormat == "")
 				$content .= "<span id = '$nonceTracker'>".sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</span>".$displayFormatSuffix;
 			else
@@ -992,7 +993,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 				// These lines generate our output. Widgets can be very complex
 				// but as you can see here, they can also be very, very simple.
-				echo $before_widget . $before_title . $title . $after_title;
+				echo $before_widget . $before_title . "<span class = 'fergcorp_countdownTimer_widgetTitle' >". $title . "</span>" . $after_title;
 
 				?>
 					<ul>
