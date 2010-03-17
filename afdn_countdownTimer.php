@@ -467,9 +467,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$fergcorp_countdownTimer_noEventsPresent = TRUE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
 				if($output == "echo")
-					echo fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), $fergcorp_countdownTimer_getOptions["timeOffset"], stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
+					echo fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), $fergcorp_countdownTimer_getOptions["timeOffset"]);
 				elseif($output == "return"){
-					$toReturn .= fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"]), stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"]));
+					$toReturn .= fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]) );
 				}
 				if(($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]==NULL) && (isset($fergcorp_countdownTimer_dates["oneTime"][$i]))){
 					$eventCount++;
@@ -501,49 +501,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @param $timeSinceTime int If $timeSince is set, how long should it be displayed for in seconds
 	 * @param $link string Link associated with the countdown event
 	 * @param $timeFormat string Forming of the onHover time display
-	 * @param $displayFormatPrefix string HTML tags to prefix the event element
-	 * @param $displayFormatSuffix string HTML tags to suffix the event element
-	 * @param $displayStyle string CSS styles to apply to the event element
 	 * @since 2.1
 	 * @access private
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	
-	function fergcorp_countdownTimer_format($text, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $displayFormatPrefix = "<li class = 'fergcorp_countdownTimer_event_li'>", $displayFormatSuffix = "</li>", $displayStyle = "cursor:pointer; border-bottom:1px black dashed"){
+	function fergcorp_countdownTimer_format($eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s"){
 		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_nonceTracker;
 		if(!isset($fergcorp_countdownTimer_nonceTracker)){
 			$fergcorp_countdownTimer_nonceTracker = array();
 		}
 		$time_left = $time - time() + $offset;
-		$content = "";
-		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){
-			$fergcorp_countdownTimer_noEventsPresent = FALSE;
-			$nonceTracker = "x".md5($text.$time); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't, made this a predictable
+		$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
+		$nonceTracker = "x".md5($eventText.$time); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't, made this a predictable		
+		$eventTitle = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
+		$timePrefix = "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
+		
+		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
+			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
 																										"targetDate"	=> $time,
-																										);
-			if($text)
-				$content = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$text:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$text."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
-			if($timeFormat == "")
-				$content .= "<span id = '$nonceTracker'>".sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</span>".$displayFormatSuffix;
-			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\"><span id = '$nonceTracker'>".sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</span></abbr>".$displayFormatSuffix;
+																										);	//Don't want to actually keep track of it until now
+			if($eventText){
+				$content .= $eventTitle;
+			}
+			$content .= $timePrefix.sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</abbr></li>";
 			return $content;
 		}
-		elseif($time_left > 0){
-			$fergcorp_countdownTimer_noEventsPresent = FALSE;
-			$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't
+		elseif($time_left > 0){ //If the event has not yet happened yet
+			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
 																										"targetDate"	=> $time,
-																										);
-			if($text)
-				$content = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$text:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$text."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
-			if($timeFormat == "")
-				$content .= "<span id = '$nonceTracker'>".sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</span>".$displayFormatSuffix;
-			else
-				$content .= "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" style=\"". $displayStyle ."\"><span id = '$nonceTracker'>".sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</span></abbr>".$displayFormatSuffix;
-				return $content;
+																										);	//Don't want to actually keep track of it until now
+			if($eventText){
+				$content .= $eventTitle;
+			}
+			$content .= $timePrefix.sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</abbr></li>";
+			return $content;
 		}
 		else{
 			return NULL;
@@ -817,7 +812,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		if(preg_match("<!--afdn_countdownTimer_single\((.*?)\)-->", $theContent)){
-			$theContent = preg_replace("/<!--afdn_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".$fergcorp_countdownTimer_getOptions['timeOffset']."', '', '', '')", $theContent);
+			$theContent = preg_replace("/<!--afdn_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".$fergcorp_countdownTimer_getOptions['timeOffset']."')", $theContent);
 		}
 
 		return $theContent;																													//Return theContent
@@ -859,7 +854,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			'date' => '-1',
 		), $atts));
 	
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset'], '', '', '');
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset']);
 	}
 	add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
 	
@@ -875,7 +870,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	function fergcorp_countdownTimer_single($date){
 		global $fergcorp_countdownTimer_getOptions;
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset'], '', '', '');
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset']);
 	
 	}
 
