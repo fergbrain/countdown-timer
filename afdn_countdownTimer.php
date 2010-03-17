@@ -515,7 +515,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$time_left = $time - time() + $offset;
 		$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
 		$nonceTracker = "x".md5($eventText.$time); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't, made this a predictable		
-		$eventTitle = $displayFormatPrefix."<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
+		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
 		$timePrefix = "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
 		
 		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
@@ -526,7 +526,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			if($eventText){
 				$content .= $eventTitle;
 			}
-			$content .= $timePrefix.sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</abbr></li>";
+			$content .= $timePrefix.sprintf(__("%s ago", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</abbr></li>\r\n";
 			return $content;
 		}
 		elseif($time_left > 0){ //If the event has not yet happened yet
@@ -537,7 +537,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			if($eventText){
 				$content .= $eventTitle;
 			}
-			$content .= $timePrefix.sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</abbr></li>";
+			$content .= $timePrefix.sprintf(__("in %s", 'afdn_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</abbr></li>\r\n";
 			return $content;
 		}
 		else{
