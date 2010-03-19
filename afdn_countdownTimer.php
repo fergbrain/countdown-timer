@@ -74,9 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$afdnOptions = array(	"deleteOneTimeEvents" 	=> $_POST['deleteOneTimeEvents'],
 									"checkUpdate" 			=> $_POST['checkUpdate'],
 									"timeOffset"			=> $_POST['timeOffset'],
-									"displayFormatPrefix" 	=> $_POST['displayFormatPrefix'],
-									"displayFormatSuffix" 	=> $_POST['displayFormatSuffix'],
-									"displayStyle" 			=> $_POST['displayStyle'],
 									"showYear" 				=> $_POST['showYear'],
 									"showMonth" 			=> $_POST['showMonth'],
 									"showWeek" 				=> $_POST['showWeek'],
@@ -352,19 +349,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								?>
 								<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'afdn_countdownTimer'); ?></p>
 								<p><?php _e('<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer.', 'afdn_countdownTimer'); ?></p>
-								<p><?php _e('<strong>Display Style</strong> sets the HTML Style attribute for each timer using CSS.', 'afdn_countdownTimer'); ?></p>
-								<p><?php _e('<strong>Display Format Prefix/Suffix</strong> sets any leading or trailing HTML (or text).', 'afdn_countdownTimer'); ?></p>
 								<p><?php _e('Examples/Defaults', 'afdn_countdownTimer'); ?>:</p>
 								<ul>
                                        <li><em><?php _e('Title Suffix', 'afdn_countdownTimer'); ?>:</em> <code>:&lt;br /&gt;</code></li>
-                                       <li><em><?php _e('Display Style', 'afdn_countdownTimer'); ?>:</em> <code>cursor:pointer; border-bottom:1px black dashed</code></li>
-                                       <li><em><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;li&gt;</code></li>
-                                       <li><em><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?>:</em> <code>&lt;/li&gt;</code></li>
                                    </ul>
                                    <p><?php _e('Title Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["titleSuffix"])); ?>" name="titleSuffix" /></p>
-                                   <p><?php _e('Display Style', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayStyle"])); ?>" name="displayStyle" /></p>
-                                   <p><?php _e('Display Format Prefix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatPrefix"])); ?>" name="displayFormatPrefix" /></p>
-                                   <p><?php _e('Display Format Suffix', 'afdn_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["displayFormatSuffix"])); ?>" name="displayFormatSuffix" /></p>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
@@ -376,7 +365,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                 afdn_countdownTimer_js();
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
-
 							
 
 							do_meta_boxes('fergcorp-countdown-timer','advanced',null);                           
@@ -893,9 +881,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$afdnOptions = array(	"deleteOneTimeEvents"	=> "0",
 								"checkUpdate"			=> "1",
 								"timeOffset"			=> "F jS, Y, g:i a",
-								"displayFormatPrefix"	=> "<li>",
-								"displayFormatSuffix"	=> "</li>",
-								"displayStyle"			=> "cursor:pointer; border-bottom:1px black dashed",
 								"showYear"				=> "1",
 								"showMonth"				=> "1",
 								"showWeek"				=> "0",
@@ -1019,6 +1004,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function afdn_countdownTimer_js(){
+
 		global $fergcorp_countdownTimer_nonceTracker;
 		global $fergcorp_countdownTimer_getOptions;
 
