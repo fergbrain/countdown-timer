@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$oneTimeEvent_count = $_POST['oneTimeEvent_count']; 												//Figure out how many fields there are
 			$j=0;																								//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
 			for($i=0; $i<$oneTimeEvent_count; $i++){
-				if($_POST["oneTimeEvent_text$i"]=="" || $_POST["oneTimeEvent_date$i"]==""){						//If the text or date field is empty, ignore the entry
+				if($_POST["oneTimeEvent_date$i"]==""){						//If the date field is empty, ignore the entry
 				}
 				else{																							//If not, add it to an array so the data can be updated
 					$results["oneTime"][$j] = array(	"date" => strtotime($_POST["oneTimeEvent_date$i"]),		//Date of the event converted to UNIX time
@@ -107,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"] && (count($fergcorp_oneTimeDates[0])!=0) ){
 			foreach($fergcorp_countdownTimer_dates["oneTime"] as $key => $value){
 				if(($value["date"]<=time())&&($value["timeSince"]=="")){
-				$fergcorp_countdownTimer_dates["oneTime"][$key]["text"]=NULL;
+				$fergcorp_countdownTimer_dates["oneTime"][$key]["date"]=NULL;
 				}
 			}
 		}
@@ -257,7 +257,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 												$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_dates["oneTime"]);
 												if($fergcorp_countdownTimer_dates != ""){
 													for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
-														if($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]!=''){ //If the text is NULL, skip over it?>
+														if($fergcorp_countdownTimer_dates["oneTime"][$i]["date"]!=''){ //If the text is NULL, skip over it?>
 														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
 														<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($fergcorp_countdownTimer_dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
