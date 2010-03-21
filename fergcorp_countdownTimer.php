@@ -1039,9 +1039,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @access public
 	 * @author Andrew Ferguson
 	 */
-	function fergcorp_countdownTimer_optionsPage(){																		//Action function for adding the configuration panel to the Management Page
-		if(function_exists('add_management_page')){
-				$fergcorp_countdownTimer_add_management_page = add_management_page('Countdown Timer', 'Countdown Timer', 3, basename(__FILE__), 'fergcorp_countdownTimer_myOptionsSubpanel');
+	function fergcorp_countdownTimer_optionsPage(){		//Action function for adding the configuration panel to the Management Page
+		if(function_exists('add_options_page')){
+				$fergcorp_countdownTimer_add_management_page = add_options_page('Countdown Timer', 'Countdown Timer', 3, basename(__FILE__), 'fergcorp_countdownTimer_myOptionsSubpanel');
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadAdminScripts' );
 		}
