@@ -2,8 +2,8 @@
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
-Requires at least: 2.6
-Tested up to: 2.9.2
+Requires at least: 2.7
+Tested up to: 3.0
 Stable tag: 2.3.5
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
@@ -13,12 +13,6 @@ This plugin allows you to setup a series of dates to count to or from in terms o
 Countdown Timer allows you to setup one or more dates to count down to or away from.
 
 Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
-
-Version 2.3.5 includes all the great features of past versions plus the following updates:
-
-* Updated calculation routine to ensure that dates are accurate when "Months" are not displayed.
-* Updated languages and added Latvian, Romanian, Russian, Danish, Lithuanian, and Serbian.
-* Updated readme.txt file
 
 == Translations ==
 
@@ -32,27 +26,27 @@ Of course, you'll replace de_DE with the language extension that you want to use
 
 = Special thanks to: =
 
-* Mattias Tengblad (Swedish translation): sv_SE
-* Joan Piqu&eacute; (Spanish translation): es_ES
-* Sascha Grams (German translation): de_DE
-* Serge (French translation): fr_FR
-* [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brazil] translation): pr_BR
-* [Atamert &Ouml;l&ccedil;gen](http://www.muhuk.com) (Turkish translation): tr_TR
-* [singha](http://singha.cz) (Czech translation): cs_CZ
-* Kobe Van Looveren (Dutch translation): nl_NL
-* [Qiang](http://richile.cn/) (Chinese translation): zh_CN
-* macryba (Polish translation): pl_PL
-* [Mick](http://www.gaspriz.it) (Italian translation): it_IT
-* [Adem Omerovi&#263;](http://www.tehnopedija.net) (Bosnian translation): bs_BA
-* [masnapos](http://www.masnapos.eu) (Hungarian translation): hu_HU
-* [Anders Ruen](http://www.gullungen.com) (Norwegian translation): nb_NO
-* [Jans Pavlovs](http://www.btserv.org) (Latvian translation): lv_LV
-* [Dragos Nicolae of Free Software Downloads](http://www.FreeSoftwareWorkshop.com) (Romanian translation): ro_RO
-* [Oleg Shalomanov](http://coolidea.ru/) (Russian translation): ru_RU
-* Steen Manniche (Danish translation): da_DK
-* Darius &#142;itkevicius (Lithuanian translation): lt_LT
-* [Ljev Rjadcenko](http://www.rjadcenko.com) (Serbian [Cyrilic] translation): sr_RS
-* [Robert Buj](http://www.softcatala.org) (Catalan translation): ca_CA
+ * Mattias Tengblad (Swedish translation): sv_SE
+ * Joan Piqu&eacute; (Spanish translation): es_ES
+ * Sascha Grams (German translation): de_DE
+ * Serge (French translation): fr_FR
+ * [Caio Oliveira](http://www.caiooliveira.com.br/) (Portuguese [Brazil] translation): pr_BR
+ * [Atamert &Ouml;l&ccedil;gen](http://www.muhuk.com) (Turkish translation): tr_TR
+ * [singha](http://singha.cz) (Czech translation): cs_CZ
+ * Kobe Van Looveren (Dutch translation): nl_NL
+ * [Qiang](http://richile.cn/) (Chinese translation): zh_CN
+ * macryba (Polish translation): pl_PL
+ * [Mick](http://www.gaspriz.it) (Italian translation): it_IT
+ * [Adem Omerovi&#263;](http://www.tehnopedija.net) (Bosnian translation): bs_BA
+ * [masnapos](http://www.masnapos.eu) (Hungarian translation): hu_HU
+ * [Anders Ruen](http://www.gullungen.com) (Norwegian translation): nb_NO
+ * [Jans Pavlovs](http://www.btserv.org) (Latvian translation): lv_LV
+ * [Dragos Nicolae of Free Software Downloads](http://www.FreeSoftwareWorkshop.com) (Romanian translation): ro_RO
+ * [Oleg Shalomanov](http://coolidea.ru/) (Russian translation): ru_RU
+ * Steen Manniche (Danish translation): da_DK
+ * Darius &#142;itkevicius (Lithuanian translation): lt_LT
+ * [Ljev Rjadcenko](http://www.rjadcenko.com) (Serbian [Cyrilic] translation): sr_RS
+ * [Robert Buj](http://www.softcatala.org) (Catalan translation): ca_CA
 
 
 == Installation ==
@@ -133,3 +127,221 @@ I'm in college and I do this for fun. That means school work must come first.
 == Screenshots ==
 1. Administration Interface
 2. Example on Blog
+
+== Changelog ==
+
+= 2.3.5 =
+Release Date: 2/17/2009
+ * Updated calculation routine to ensure that dates are accurate when “Months” are not displayed.
+ * Updated languages and added Latvian, Romanian, Russian, Danish, Lithuanian, and Serbian.
+ * Updated readme.txt file
+ * Fixed small display issue in the administration menu
+
+ = 2.3.1 =
+Release Date: 11/20/2008
+ * Fixes a bug. Sorry to everyone who has to redownload.
+
+ = 2.3 =
+Release Date: 11/19/2008
+ * Made meta boxes into WP-based functions with AJAX support
+ * Renamed $dates to $fergcorp_countdownTimer_dates and made it global
+ * Reversed order of afdn_countdownTimer parameters. See documentation for usage
+ * Updated meta boxes to work in WP 2.7
+ * Removed the option to disable enableTheLoop (i.e. always enabled now)
+ * Added shortcodes. See documentation for usage
+ * Updated some of the text so that links are not part of the translation. Not that this has been an issue, but it assures that links aren’t tampered with in language translations
+ * Updated the widget to use the latest WP functions
+ * Widget now has a description
+ * Internal versioning is now done automatically
+ * Fixed a bug where “No Dates Present” would not display, even though there were no dates present
+ * Fixed a bug where an empty array would cause plugin to crash
+ * Fixed a problem that caused the timer to only display “in ” if “strip zeros” is enabled
+ * Updated a couple function checks to check for the functions that we’re actually using
+ * Updated the plugins_dir function call to properly reference the countdown-timer directory (this fixes issues with IIS and Windows)
+ * Added a helper function for afdn_countdownTimer so that users can use fergcorp_countdownTimer instead
+ * Fixed a potential bug (aka The Furton Fix) for systems running Windows where PHP may barf and give a warning:
+Warning: date() [function.date]: Windows does not support dates prior to midnight (00:00:00), January 1, 1970 in afdn_countdownTimer.php on line 612
+ * Various bug and security fixes
+ * Paypal link doesn’t use a form anymore
+ * Added a test to ensure cal_days_in_month function exists. If not, use a drop in replacement.
+
+ = 2.2.5 =
+Release Date: 9/23/2008
+ * Added Hungarian and Norwegian translations
+ * Fixed small bug on line 426 regarding stripslashes
+
+= 2.2.4 =
+Release Date: 9/4/2008
+ * Added Bosnian language translation
+ * Fixed mistranslations in German language
+ * Output of displayFormatPrefix/displayFormatSuffix are now escaped
+ * Fixed a fatal error that was sometimes caused when there were no dates to countdown to
+ * Updated the FAQ
+
+= 2.2.3 =
+Release Date: 7/9/2008
+ * Fixes language issue with commas
+ * Updated internal rev version number
+
+= 2.2.2 =
+Release Date: 6/30/2008
+ * Resolves #876 which had <? instead of <?php
+ * Resolves #879 which was an incorrectly passed fergcorp_countdownTimer_fuzzyDate function
+ * Globalized $fergcorp_countdownTimer_getOptions in the afdn_countdownTimer function
+ * Added spaces to the end of all units of time
+
+= 2.2.1 =
+Release Date: 6/18/2008
+ * Fixed bug where Countdown Time Display didn’t function properly
+ * Added Italian and Polish translations, updated others
+
+= 2.2 =
+Release Date: 5/15/2008
+ * Updated some phrases that missed being i18n
+ * Updated i18n to use use sprintf’s to assist in proper translation
+ * Update the admin page to WordPress 2.5 Look and Feel
+ * Users are now able to define the data (text/HTML) that comes after the title and before the actual countdown
+ * Implemented a new function, fergcorp_countdownTimer_single($date), that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string
+ * Plugin output is now XHTML 1.0 Strict compliant
+ * Scripts are now loaded using wp_enqueue_script
+ * Added a new JS file, webtoolkit.sprintf.js, because JS doesn’t have native sprintf support
+ * Translators names (and URL, if available) are now displayed/credited within the plugin
+ * Tweaked the table for the “Resources” area
+ * Tweaked the table for the “One Time Events” area
+ * The usual bug fixes
+
+= 2.1.1 =
+Release Date: 2/20/2008
+ * Fixed i18n translation issues where mo file would sometimes not be loaded
+ * Updated UI (note: Based on UI code from Google XML Sitemaps)
+ * Removed code dealing with recurring events (which has not been included for a few versions now)
+ * Added js countdown ability to admin example (which doesn’t have wp_footer hook?)
+ * Updated the link to the JS file to make it dynamic in case a folder gets renamed
+ * Fixed a bug in the JS file that caused dates to be calculated incorrectly
+ * Append a letter to the beginning of the unique id (as per XHTML requirement)…who knew?
+ * Added two language files: Swedish (thanks to Mattias Tengblad) and Spanish (thanks to Google Translator)
+ * Released as 2.1.1 instead of 2.1 due to a technical glitch in the way WordPress recognizes version numbers.
+
+= 2.0.1 =
+Release Date: 12/29/2007
+ * Bug in the initial 2.0 version that required the plugin to have PHP5 or greater. This has now been fixed and it works with PHP4 and PHP5. Thanks to Jim Lynch for the bug report.
+
+= 2.0 =
+Release Date: 12/29/2007
+ * Updated plugin description line
+ * Rearranged text in the installation notes to emphasize using the widget rather then the code
+ * Fixed a bug that crashed the plugin if no dates were present (a PHP 5 problem??)
+ * Implemented the ‘register_activation_hook’ function rather then the old way
+ * Changed the way DB updates are handeled. Instead of having a specific update regimine for each version, the plugin will only update an option field if it doesn’t exist (if it exists, but is blank, it will NOT update…as it shouldn’t).
+ * Updated fergcorp_countdownTimer_fuzzyDate with another variable so that the real target date is always known.
+ * Removed code dealing with updates since WP 2.3 now does this automatically
+ * Bug fix. Widget title isn’t saveable due to a programming error. Thanks to Michael Small for the catch.
+ * Renamed some functions from afdn to fergcorp
+ * Added JavaScript function for JS countdown
+ * Tabbed $afdnOptions array to make it more readable
+ * Fixed strtotime typo
+ * Brought time display inline with current WordPress practice. This fixes the dreaded timezone glitch.
+ * Strip non-sig zeros option added
+ * Fixed bug where “No dates present” would _not_ show if the data was returned instead of echo’d
+ * Renamed to $getOptions to $fergcorp_countdownTimer_getOptions to avoid clashing
+
+= 1.91 =
+Release Date: 12/4/2007
+Fixed error where the widget wasn’t updated correctly.
+
+= 1.9 =
+Release Date: 8/7/2007
+One-off countdown timers (i.e. standalone timers for posts, etc)
+Ability to customize timer style
+Added “week” as a unit of time
+Even more bug fixes including the one where if the plugin was in a directory other then the plugin directory, it really wouldn’t work.
+
+= 1.8 =
+Release Date: 5/7/2007
+Note to Existing users: Version 1.8 sees the demise of recurring events.
+Built in widget! No need to download and activate another plugin!
+Ability to select any combination of years, days, hours, minutes, and seconds to display
+Internationalization support
+Default settings automatically set on activation
+More accurate countdown mechanism (you wouldn’t think counting could be so hard)
+Numerous bug fixes
+Reorganized management page
+
+= 1.7.3 =
+Release Date: 4/29/2007
+Fixed missing tag
+Fixed form not submitting in IE, Safari, et all
+Fixed “pressing return key doesn’t submit form” bug
+
+= 1.7.1 =
+Release Date: 3/9/2007
+“No Dates Present” bug fix
+Updated Plugin URI to be correct
+If updates are checked for, a link to the latest tag is given instead of the trunk (guaranteed to be stable)
+Added Widget plugin
+foreach error fixed (Thanks to Johnathan)
+
+= 1.7 =
+Release Date: 3/9/2007
+Note: You may “lose” your date when you upgrade, so you might want to write them down. If you forget to write them down, just downgrade to 1.6.1 and write them down, then upgrade again.
+On update, color bar is displayed at top
+Fixed a bug where HTML characters were not escaped
+Prefixing and Suffixing of the event
+Added more information on usage on the plugin page
+
+= 1.6.1 =
+Fixed the famed unserialze bug!
+
+= 1.4 =
+Release date: 03/16/2006
+This is the first release using the WordPress SVN. It’s kind of been cool using the SVN because it is easier to see what changes have been made from version to version. In any event, this release has a couple of updates. First, there is an option to include the timer from within the WP Loop, that is you can now display the timer from within a post or page (see instructions for the specifics). The idea came from Ronny a mere four days ago, just to give you an idea of the turn around time on suggestions to release. Because of the way the plugin is implemented, I also had to modify the main function that gets the ball rolling on displaying the timer. It’s designed to be backwards compatible, so you shouldn’t have any problems. I also had to rewrite parts of the version check system to work with the SVN. The format is actually much better and just calls one text file which lists the latest version (i.e. “1.4?). It compares that to the current version and let’s you know if there’s a new version. Simple! As always, you can turn the feature off.
+
+= 1.3 =
+Release date: 03/16/2006
+I’ve already received some preliminary feedback on 1.2 (thanks Dave), so I’ve made a couple of updates. First, there are actually instructions for configuring the onHover Time Format option. Second, if you leave onHover Time Format blank, it will remove the dashed underline on the timer so no one is confused. I also fixed a really stupid bug, I never but a stripslashes in. So if you tried using something that needed escaping (such as an apostrophe), you would get a slash. That doesn’t happen anymore. Enjoy!
+
+= 1.2 =
+Release date: 03/13/2006
+Development has been slow. Not really a lot to do. But version 1.2 offers some great things, including a bug fix! Deleting two or more events doesn’t make the plugin freak out anymore (the bug fix). You can also customize how the onHover time is displayed, including not displaying it at all (just leave it blank). Because you can leave it blank, there is no default; but you can use and PHP “date()” format. I recommend “j M Y, G:i:s”. I also added a six month delay before the date on recurring events is reset…although as I’m writing this, I realize there’s a slight bug there, nothing critical though. I welcome any new ideas, just leave a comment down below!
+
+= 1.1 =
+Release date: 11/28/2005
+NOTICE: Copyright format changed from MIT to GNU GPL as of version 1.1
+Not a whole lot of major thing. Thanks to Benoit Kechid for catching a calculation and syntax error. There was a request for making things linkable, so you can now add a link an event. The time is also has a dashed underlined and if you roll over it with your mouse, the date and time of the event are displayed.
+I don’t have anymore ideas for this plugin, so unless I you email me with something that you would like, there probably won’t be any more updates.
+
+= 1.0 =
+Release date: 10/05/2005
+You can now set recurring dates, sort of. The plugin can currently handle things that happen on a given day of a given month every year (such as a birthday). The plugin will also now check for updates whenever you are in the admin panel. Download and copy to your plugins directory, then rename it to .php
+
+= 0.95 =
+Release date: 09/26/2005
+Fixed a Warning message (thanks to cordney* for the heads up). Also changed a few things: If you have “Automatically delete ‘One Time Events’ on, only events that that do NOT have “Display ‘Time since’” will be deleted. Also, the file is now a PHPS file, not zip file. Download and copy to your plugins directory, then rename it to .php
+
+= 0.92 =
+Release date: 09/23/2005
+This version adds the option to automatically delete One Time Events that have all ready occured. If you don’t choose to automatically delete the events, they will be displayed as “Time since” after the event occurs. Small issue I’m still working on: events are only erased when you update timer options.
+
+= 0.8 =
+Release date: 07/23/2005
+This is a backend change. The dates.txt file has been replaced with an entry in the WordPress Database. Unfortantly, you’ll have to manually transfer your events into the new form. Once they are in the form, they are automatically sorted, with events ending soonest on the top.
+
+= 0.7.1 =
+Release date: 05/23/2005
+Changed an internal function name reference due to a potential conflict with another plugin (Thanks Robert)
+
+= 0.7 =
+Release date: 05/20/2005
+Added Admin menu. Allows user to update information via web-interface now.
+
+= 0.6.1 =
+Release date: 05/16/2005
+Fixed small math error in cdt_format() on line 47.
+
+= 0.6 =
+Release date: 05/15/2005
+Initial public release
+
+== Upgrade Notice ==
+= 2.4 =
+General updates to increase stability and user experience.
