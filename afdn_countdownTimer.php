@@ -119,17 +119,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				// close postboxes that should be closed
 				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
 				
-				// postboxes
-				<?php
-				global $wp_version;
-				if(version_compare($wp_version,"2.7-alpha", "<")){
-					echo "add_postbox_toggles('fergcorp-countdown-timer');"; //For WP2.6 and below
-				}
-				else{
-					echo "postboxes.add_postbox_toggles('fergcorp-countdown-timer');"; //For WP2.7 and above
-				}
-				?>
-			
+				// postboxes setup
+				postboxes.add_postbox_toggles('fergcorp-countdown-timer'); //For WP2.7 and above
+	
 			});
 
 			
@@ -502,7 +494,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		$time_left = $time - time() + $offset;
 		$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
-		$nonceTracker = "x".md5($eventText.$time); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't, made this a predictable		
+		$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't start with numeric	
 		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
 		$timePrefix = "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
 		
@@ -1004,7 +996,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function afdn_countdownTimer_js(){
-
 		global $fergcorp_countdownTimer_nonceTracker;
 		global $fergcorp_countdownTimer_getOptions;
 
