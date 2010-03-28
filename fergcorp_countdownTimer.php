@@ -56,14 +56,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			
 			
 			function clearField(eventType, fieldNum){ //For deleting events without reloading
-				var agree=confirm('<?php _e('Are you sure you wish to delete', 'fergcorp_countdownTimer'); ?> '+document.getElementsByName(eventType+'_text'+fieldNum).item(0).value+'?');
+				var agree=confirm('<?php _e('Are you sure you wish to delete', 'fergcorp_countdownTimer'); ?> '+document.getElementsByName(eventType+'[text'+fieldNum+']').item(0).value+'?');
 				if(agree){
 					var inputID = eventType + '_table' + fieldNum;
 					document.getElementById(inputID).style.display = 'none';
-					document.getElementsByName(eventType+'_date'+fieldNum).item(0).value = '';
-					document.getElementsByName(eventType+'_text'+fieldNum).item(0).value = '';
-					document.getElementsByName(eventType+'_link'+fieldNum).item(0).value = '';
-					document.getElementsByName(eventType+'_timeSince'+fieldNum).item(0).value = '';
+					document.getElementsByName(eventType+'[date'+fieldNum+']').item(0).value = '';
+					document.getElementsByName(eventType+'[text'+fieldNum+']').item(0).value = '';
+					document.getElementsByName(eventType+'[link'+fieldNum+']').item(0).value = '';
+					document.getElementsByName(eventType+'[timeSince'+fieldNum+']').item(0).value = '';
 					}
 				else
 					return false;
@@ -122,13 +122,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						
                         ?>
    
-                        <form method="post" name="fergcorp_countdownTimer" action="options.php">
+                        <form method="post" action="options.php">
                         
 							<?php echo '<input type="hidden" name="fergcorp_countdownTimer_noncename" id="fergcorp_countdownTimer_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ) . '" />'; ?>
                             <?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
                             <?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 							<?php settings_fields('fergcorp_countdownTimer_options'); ?>
-                            <?php settings_fields('fergcorp_countdownTimer_oneTimeEvents'); ?>
+
                             <?php
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
@@ -195,8 +195,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 												if($fergcorp_countdownTimer_oneTimeEvent != ""){
 													for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
 														if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]!=''){ //If the text is NULL, skip over it?>
-														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
-														<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
+														<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
+														<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
 														<td><input type="text" size="30" name="fergcorp_countdownTimer_oneTimeEvent[date<?php echo $oneTimeEvent_count; ?>]" value="<?php if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
 														<td><input type="text" size="20" name="fergcorp_countdownTimer_oneTimeEvent[text<?php echo $oneTimeEvent_count; ?>]" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["text"])); ?>" /></td>
 														<td><input type="text" size="15" name="fergcorp_countdownTimer_oneTimeEvent[link<?php echo $oneTimeEvent_count; ?>]" value="<?php echo $fergcorp_countdownTimer_oneTimeEvent[$i]["link"]; ?>" /></td>
@@ -300,7 +300,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 						<div>
 							<p class="submit">
-								<input type="submit" name="fergcorp_countdownTimer_update" value="<?php _e('Update Events', 'fergcorp_countdownTimer'); ?>&raquo;" />
+								<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'fergcorp_countdownTimer'); ?>&raquo;" />
 							</p>
 						</div>
 						</form>
@@ -603,7 +603,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Day
-
 		if(get_option('fergcorp_countdownTimer_showDay')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantDay + intval($rollover/86400)) ){
 				$resultantDay = $resultantDay + intval($rollover/86400);
@@ -1015,7 +1014,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
 		
-		//register_setting('fergcorp_countdownTimer_oneTimeEvents', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
 	}
 
 	add_action('admin_menu', 'fergcorp_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
