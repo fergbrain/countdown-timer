@@ -40,9 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_myOptionsSubpanel(){
 			?>
-
-			<script type="text/javascript">
-			
+			<script type="text/javascript">			
 			jQuery(document).ready( function($) {
 				// close postboxes that should be closed
 				jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
@@ -52,9 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	
 			});
 
-			
-			
-			
 			function clearField(eventType, fieldNum){ //For deleting events without reloading
 				var agree=confirm('<?php _e('Are you sure you wish to delete', 'fergcorp_countdownTimer'); ?> '+document.getElementsByName(eventType+'[text'+fieldNum+']').item(0).value+'?');
 				if(agree){
@@ -92,7 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				<div id="poststuff">        
                     
 				<?php
-				
                 		function fergcorp_countdownTimer_resources_meta_box(){
 							?>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -292,9 +286,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								}
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
-							
-
-							do_meta_boxes('fergcorp-countdown-timer','advanced',null);                           
+							do_meta_boxes('fergcorp-countdown-timer','advanced',null);
 							   
 						?>
 
@@ -308,7 +300,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
        
             </div>
 	<?php
-
 	}
 
 	/**
@@ -324,7 +315,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer($eventLimit = -1, $output = "echo"){ //'echo' will print the results, 'return' will just return them
 		global $fergcorp_countdownTimer_noEventsPresent;
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
-		
 
 		$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 		if($fergcorp_countdownTimer_oneTimeEvent!=''){
@@ -387,7 +377,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 
-		
 		if($output == "return")
 				return $toReturn;
 
@@ -410,9 +399,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	
 	function fergcorp_countdownTimer_format($eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s"){
-		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_nonceTracker;
-		if(!isset($fergcorp_countdownTimer_nonceTracker)){
-			$fergcorp_countdownTimer_nonceTracker = array();
+		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_jsUID;
+		if(!isset($fergcorp_countdownTimer_jsUID)){
+			$fergcorp_countdownTimer_jsUID = array();
 		}
 		$time_left = $time - time() + $offset;
 		$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
@@ -422,7 +411,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		
 		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
-			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
+			$fergcorp_countdownTimer_jsUID[count($fergcorp_countdownTimer_jsUID)] = array("id"			=> $nonceTracker,
 																										"targetDate"	=> $time,
 																										);	//Don't want to actually keep track of it until now
 			if($eventText){
@@ -433,7 +422,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		elseif($time_left > 0){ //If the event has not yet happened yet
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
-			$fergcorp_countdownTimer_nonceTracker[count($fergcorp_countdownTimer_nonceTracker)] = array("id"			=> $nonceTracker,
+			$fergcorp_countdownTimer_jsUID[count($fergcorp_countdownTimer_jsUID)] = array("id"			=> $nonceTracker,
 																										"targetDate"	=> $time,
 																										);	//Don't want to actually keep track of it until now
 			if($eventText){
@@ -560,11 +549,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 		else{
-			
 			//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)
-						
 			$rollover = $rollover + $resultantMonth*2592000;
-			
 			$totalTime = $targetTime - $nowTime;
 			
 			//If we showed years, but not months, we need to account for those.
@@ -573,14 +559,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 			
 			//Re calculate the resultant times
-			$resultantWeek = intval( $totalTime/(86400*7) );
-			 
+			$resultantWeek = intval( $totalTime/(86400*7) ); 
 			$resultantDay = intval( $totalTime/86400 );
-			
 			$resultantHour = intval( ($totalTime - $resultantDay*86400)/3600 );
-			
 			$resultantMinute = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600)/60 );
-			
 			$resultantSecond = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600 - $resultantMinute*60) );
 			
 			//and clear any rollover time
@@ -692,7 +674,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	}
 
-
 	/**
 	 * Returns the content of the post with dates inserted (if any)
 	 *
@@ -710,6 +691,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		elseif(preg_match("<!--fergcorp_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
 			$theContent = preg_replace("/<!--fergcorp_countdownTimer-->/e", "fergcorp_countdownTimer('-1', 'return')", $theContent);				//The actual replacement of the string with the timer
 		}
+
 
 		if(preg_match("<!--fergcorp_countdownTimer_single\((.*?)\)-->", $theContent)){
 			$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."')", $theContent);
@@ -738,7 +720,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	}
 	add_shortcode('fergcorp_cdt', 'fergcorp_cdt_function');
 	
-	
 	/**
 	 * Processes shortcodes
 	 *
@@ -757,8 +738,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
 	add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
-	
-	
 
 	/**
 	 * Creates a PHP-based one-off time for use outside the loop
@@ -771,7 +750,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer_single($date){
 		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
-
 
 	/**
 	 * Sets the defaults for the timer
@@ -832,7 +810,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
 
-
 	if(!function_exists('widget_fergcorp_countdown_init')){
 
 		/**
@@ -887,15 +864,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 				$options = get_option('widget_fergcorp_countdown');
 
-				// $args is an array of strings that help widgets to conform to
-				// the active theme: before_widget, before_title, after_widget,
-				// and after_title are the array keys. Default tags: li and h2.
+				// $args is an array of strings that help widgets to conform to the active theme: before_widget, before_title, after_widget, and after_title are the array keys. Default tags: li and h2.
 				extract($args);
 
 				$title = $options['title'];
 
-				// These lines generate our output. Widgets can be very complex
-				// but as you can see here, they can also be very, very simple.
+				// These lines generate our output. Widgets can be very complex but as you can see here, they can also be very, very simple.
 				echo $before_widget . $before_title . "<span class = 'fergcorp_countdownTimer_widgetTitle' >". $title . "</span>" . $after_title;
 
 				?>
@@ -906,12 +880,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				echo $after_widget;
 			}
 
-			// This registers our widget so it appears with the other available
-			// widgets and can be dragged and dropped into any active sidebars.
+			// This registers our widget so it appears with the other available widgets and can be dragged and dropped into any active sidebars.
 			$widget_ops = array('description' => __('Adds the Countdown Timer', 'fergcorp_countdownTimer'));
 			wp_register_sidebar_widget('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown', $widget_ops);
 			wp_register_widget_control('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown_control');
-
 		}
 
 	// Run our code later in case this loads prior to any required plugins.
@@ -927,7 +899,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function fergcorp_countdownTimer_js(){
-		global $fergcorp_countdownTimer_nonceTracker;
+		global $fergcorp_countdownTimer_jsUID;
 
 		echo "<script type=\"text/javascript\">\n";
 		echo "<!--\n";
@@ -964,10 +936,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Pass on details about each timer
 		echo "var fergcorp_countdownTimer_js_events = new Array();\n";
-		for($i=0; $i < count($fergcorp_countdownTimer_nonceTracker); $i++){
+		for($i=0; $i < count($fergcorp_countdownTimer_jsUID); $i++){
 				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_nonceTracker[$i]['id']."\";\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_nonceTracker[$i]['targetDate']."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_jsUID[$i]['id']."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_jsUID[$i]['targetDate']."\";\n";
 
 		}
 		echo "fergcorp_countdownTimer_js();\n";
@@ -990,13 +962,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	
 	/**
 	 * Initialized the options
-
 	 *
 	 * @since 2.4
 	 * @access private
 	 * @author Andrew Ferguson
 	 */
-	
 	function fergcorp_countdownTimer_init(){	// Init plugin options to white list our options
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_deleteOneTimeEvents');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_checkUpdate');
@@ -1077,8 +1047,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_LoadAdminScripts() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
-		//wp_enqueue_script('post'); //Don't call this...
-		//wp_enqueue_script('dashboard'); //...or this. I've stripped out the required JS and place in at line 118
 	}
 	
 	/**
