@@ -8,7 +8,7 @@ Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
 Countdown Timer - Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Copyright (c) 2005-2009 Andrew Ferguson
+Copyright (c) 2005-2010 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -40,13 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_myOptionsSubpanel(){
 
-		if (isset($_POST['fergcorp_countdownTimer_update']))														//If the user has submitted the form, do the following
+		if (isset($_POST['fergcorp_countdownTimer_update']))	//If the user has submitted the form, do the following
 		{
 			/*Begin One Time Events*/
-			$oneTimeEvent_count = $_POST['oneTimeEvent_count']; 												//Figure out how many fields there are
-			$j=0;																								//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
+			$oneTimeEvent_count = $_POST['oneTimeEvent_count'];	//Figure out how many fields there are
+			$j=0;												//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
 			for($i=0; $i<$oneTimeEvent_count; $i++){
-				if($_POST["oneTimeEvent_date$i"]==""){						//If the date field is empty, ignore the entry
+				if($_POST["oneTimeEvent_date$i"]==""){			//If the date field is empty, ignore the entry
 				}
 				else{																							//If not, add it to an array so the data can be updated
 					$results["oneTime"][$j] = array(	"date" => strtotime($_POST["oneTimeEvent_date$i"]),		//Date of the event converted to UNIX time
@@ -72,21 +72,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			/*End sorting events by time*/
 
 			$fergcorpOptions = array(	"deleteOneTimeEvents" 	=> $_POST['deleteOneTimeEvents'],
-									"checkUpdate" 			=> $_POST['checkUpdate'],
-									"timeOffset"			=> $_POST['timeOffset'],
-									"showYear" 				=> $_POST['showYear'],
-									"showMonth" 			=> $_POST['showMonth'],
-									"showWeek" 				=> $_POST['showWeek'],
-									"showDay" 				=> $_POST['showDay'],
-									"showHour" 				=> $_POST['showHour'],
-									"showMinute" 			=> $_POST['showMinute'],
-									"showSecond" 			=> $_POST['showSecond'],
-									"stripZero" 			=> $_POST['stripZero'],
-									"enableJS"				=> $_POST['enableJS'],
-									"timeSinceTime"			=> (int)$_POST['timeSinceTime'],
-									"titleSuffix"			=> $_POST['titleSuffix'],
-									"serialDataFilename"	=> $_POST['serialDataFilename'],									
-									); //Create the array to store the countdown options
+										"checkUpdate" 			=> $_POST['checkUpdate'],
+										"timeOffset"			=> $_POST['timeOffset'],
+										"showYear" 				=> $_POST['showYear'],
+										"showMonth" 			=> $_POST['showMonth'],
+										"showWeek" 				=> $_POST['showWeek'],
+										"showDay" 				=> $_POST['showDay'],
+										"showHour" 				=> $_POST['showHour'],
+										"showMinute" 			=> $_POST['showMinute'],
+										"showSecond" 			=> $_POST['showSecond'],
+										"stripZero" 			=> $_POST['stripZero'],
+										"enableJS"				=> $_POST['enableJS'],
+										"timeSinceTime"			=> (int)$_POST['timeSinceTime'],
+										"titleSuffix"			=> $_POST['titleSuffix'],
+										"serialDataFilename"	=> $_POST['serialDataFilename'],									
+										); //Create the array to store the countdown options
 
 			update_option("fergcorp_countdowntracker", $results); //Update the WPDB for the data
 			
@@ -1040,11 +1040,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 */
 	function fergcorp_countdownTimer_optionsPage(){		//Action function for adding the configuration panel to the Management Page
-		if(function_exists('add_options_page')){
-				$fergcorp_countdownTimer_add_management_page = add_options_page('Countdown Timer', 'Countdown Timer', 3, basename(__FILE__), 'fergcorp_countdownTimer_myOptionsSubpanel');
+				$fergcorp_countdownTimer_add_management_page = add_options_page('Countdown Timer', 'Countdown Timer', 'manage_options', basename(__FILE__), 'fergcorp_countdownTimer_myOptionsSubpanel');
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadAdminScripts' );
-		}
 	}
 
 	add_action('admin_menu', 'fergcorp_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
