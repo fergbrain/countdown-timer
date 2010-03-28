@@ -39,79 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 */
 	function fergcorp_countdownTimer_myOptionsSubpanel(){
-
-		if (isset($_POST['fergcorp_countdownTimer_update']))	//If the user has submitted the form, do the following
-		{
-			/*Begin One Time Events*/
-			$oneTimeEvent_count = $_POST['oneTimeEvent_count'];	//Figure out how many fields there are
-			$j=0;												//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
-			for($i=0; $i<$oneTimeEvent_count; $i++){
-				if($_POST["oneTimeEvent_date$i"]==""){			//If the date field is empty, ignore the entry
-				}
-				else{																							//If not, add it to an array so the data can be updated
-					$results["oneTime"][$j] = array(	"date" => strtotime($_POST["oneTimeEvent_date$i"]),		//Date of the event converted to UNIX time
-														"text" => $_POST["oneTimeEvent_text$i"],				//Text associated with the event (i.e. event label)
-														"timeSince" => $_POST["oneTimeEvent_timeSince$i"],		//After the event has occured, should "Time Since" be displayed? Boolean value (0 0 for no or 1 for yes)
-														"link" => $_POST["oneTimeEvent_link$i"],				//Where should the text link to (this can be null)
-													); 															//For every field, create an array. Then stick that array into the master array
-					$j++;
-				}
-			}
-			/*End One Time Events*/
-
-			/*Begin sorting events by time*/
-			for($x=0; $x<$oneTimeEvent_count; $x++){
-				for($z=0; $z<$oneTimeEvent_count-1; $z++){
-					if(($results["oneTime"][$z+1]["date"] < $results["oneTime"][$z]["date"]) && (array_key_exists($z+1, $results["oneTime"]))){
-						$temp = $results["oneTime"][$z];
-						$results["oneTime"][$z] = $results["oneTime"][$z+1];
-						$results["oneTime"][$z+1] = $temp;
-					}
-				}
-			}
-			/*End sorting events by time*/
-
-			$fergcorpOptions = array(	"deleteOneTimeEvents" 	=> $_POST['deleteOneTimeEvents'],
-										"checkUpdate" 			=> $_POST['checkUpdate'],
-										"timeOffset"			=> $_POST['timeOffset'],
-										"showYear" 				=> $_POST['showYear'],
-										"showMonth" 			=> $_POST['showMonth'],
-										"showWeek" 				=> $_POST['showWeek'],
-										"showDay" 				=> $_POST['showDay'],
-										"showHour" 				=> $_POST['showHour'],
-										"showMinute" 			=> $_POST['showMinute'],
-										"showSecond" 			=> $_POST['showSecond'],
-										"stripZero" 			=> $_POST['stripZero'],
-										"enableJS"				=> $_POST['enableJS'],
-										"timeSinceTime"			=> (int)$_POST['timeSinceTime'],
-										"titleSuffix"			=> $_POST['titleSuffix'],
-										"serialDataFilename"	=> $_POST['serialDataFilename'],									
-										); //Create the array to store the countdown options
-
-			update_option("fergcorp_countdowntracker", $results); //Update the WPDB for the data
-			
-			//Leaving this out of 2.3 release
-			//$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
-			//fwrite($file, serialize($results));
-			//fclose($file);
-			
-			update_option("fergcorp_countdownOptions", $fergcorpOptions);//Update the WPDB for the options
-
-			echo '<div id="message" class="updated fade"><p>'. __('Options/dates updated successfully.', 'fergcorp_countdownTimer') .'</p></div>';					//Report to the user that the data has been updated successfully
-		}
-		global $fergcorp_countdownTimer_dates, $fergcorp_countdownTimer_getOptions;
-		$fergcorp_countdownTimer_dates = get_option("fergcorp_countdowntracker"); //Get the events from the WPDB to make sure a fresh copy is being used
-		$fergcorp_countdownTimer_getOptions = get_option("fergcorp_countdownOptions");//Get the options from the WPDB to make sure a fresh copy is being used
-		/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
-		$fergcorp_oneTimeDates=$fergcorp_countdownTimer_dates["oneTime"];
-		if($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"] && (count($fergcorp_oneTimeDates[0])!=0) ){
-			foreach($fergcorp_countdownTimer_dates["oneTime"] as $key => $value){
-				if(($value["date"]<=time())&&($value["timeSince"]=="")){
-				$fergcorp_countdownTimer_dates["oneTime"][$key]["date"]=NULL;
-				}
-			}
-		}
-		?>
+			?>
 
 			<script type="text/javascript">
 			
@@ -194,12 +122,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 						
                         ?>
    
-                        <form method="post" name="fergcorp_countdownTimer" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+                        <form method="post" name="fergcorp_countdownTimer" action="options.php">
                         
 							<?php echo '<input type="hidden" name="fergcorp_countdownTimer_noncename" id="fergcorp_countdownTimer_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ) . '" />'; ?>
                             <?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
                             <?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-
+							<?php settings_fields('fergcorp_countdownTimer_options'); ?>
+                            <?php settings_fields('fergcorp_countdownTimer_oneTimeEvents'); ?>
                             <?php
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
@@ -232,7 +161,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                         	add_meta_box('fergcorp_countdownTimer_installation', __('Installation Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
 										
 							function fergcorp_countdownTimer_events_meta_box(){
-							global $fergcorp_countdownTimer_dates, $oneTimeEvent_count, $oneTimeEvent_entriesCount;
+
+								$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+								/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
+								if(get_option('fergcorp_countdownTimer_deleteOneTimeEvents') && (count($fergcorp_countdownTimer_oneTimeEvent[0])!=0) ){
+									foreach($fergcorp_countdownTimer_oneTimeEvent as $key => $value){
+										if(($value["date"]<=time())&&($value["timeSince"]=="")){
+										$fergcorp_countdownTimer_oneTimeEvent[$key]["date"]=NULL;
+										}
+									}
+								}
 							?>
 								<p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
 										<p><?php _e('Examples of some (but not all) valid dates', 'fergcorp_countdownTimer'); ?>:</p>
@@ -252,50 +190,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 											<td><?php _e('Display "Time since"', 'fergcorp_countdownTimer'); ?></td>
 										</tr>
 											<?php
-												//global $count;
 												$oneTimeEvent_count = 0;
-												$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_dates["oneTime"]);
-												if($fergcorp_countdownTimer_dates != ""){
+												$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_oneTimeEvent);
+												if($fergcorp_countdownTimer_oneTimeEvent != ""){
 													for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
-														if($fergcorp_countdownTimer_dates["oneTime"][$i]["date"]!=''){ //If the text is NULL, skip over it?>
+														if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]!=''){ //If the text is NULL, skip over it?>
 														<tr id="oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
 														<td><a href="javascript:void(0);" onclick="javascript:clearField('oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
-														<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" value="<?php if($fergcorp_countdownTimer_dates["oneTime"][$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_dates["oneTime"][$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
-														<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"])); ?>" /></td>
-														<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" value="<?php echo $fergcorp_countdownTimer_dates["oneTime"][$i]["link"]; ?>" /></td>
+														<td><input type="text" size="30" name="fergcorp_countdownTimer_oneTimeEvent[date<?php echo $oneTimeEvent_count; ?>]" value="<?php if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
+														<td><input type="text" size="20" name="fergcorp_countdownTimer_oneTimeEvent[text<?php echo $oneTimeEvent_count; ?>]" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["text"])); ?>" /></td>
+														<td><input type="text" size="15" name="fergcorp_countdownTimer_oneTimeEvent[link<?php echo $oneTimeEvent_count; ?>]" value="<?php echo $fergcorp_countdownTimer_oneTimeEvent[$i]["link"]; ?>" /></td>
 
-														<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" value="1" <?php print($fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
+														<td><input type="checkbox" name="fergcorp_countdownTimer_oneTimeEvent[timeSince<?php echo $oneTimeEvent_count; ?>]" value="1" <?php print($fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"]==1?"checked='checked'":NULL)?>/></td>
 														</tr>
 														<?php
 														$oneTimeEvent_count++;
 														 }
-														@next($fergcorp_countdownTimer_dates["oneTime"]);
+														@next($fergcorp_countdownTimer_oneTimeEvent);
 														}
 													}
 													?><tr align="center">
 													<td></td>
-													<td><input type="text" size="30" name="oneTimeEvent_date<?php echo $oneTimeEvent_count; ?>" /></td>
-													<td><input type="text" size="20" name="oneTimeEvent_text<?php echo $oneTimeEvent_count; ?>" /></td>
-													<td><input type="text" size="15" name="oneTimeEvent_link<?php echo $oneTimeEvent_count; ?>" /></td>
-													<td><input type="checkbox" name="oneTimeEvent_timeSince<?php echo $oneTimeEvent_count; ?>" /></td>
+													<td><input type="text" size="30" name="fergcorp_countdownTimer_oneTimeEvent[date<?php echo $oneTimeEvent_count; ?>]" /></td>
+													<td><input type="text" size="20" name="fergcorp_countdownTimer_oneTimeEvent[text<?php echo $oneTimeEvent_count; ?>]" /></td>
+													<td><input type="text" size="15" name="fergcorp_countdownTimer_oneTimeEvent[link<?php echo $oneTimeEvent_count; ?>]" /></td>
+													<td><input type="checkbox" name="fergcorp_countdownTimer_oneTimeEvent[timeSince<?php echo $oneTimeEvent_count; ?>]" /></td>
 													</tr>
 										</table>
 										<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 
-										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["deleteOneTimeEvents"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
+										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==0?"checked='checked'":NULL)?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
                                <?php
                             }
 						   	add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "fergcorp_countdownTimer_events_meta_box", "fergcorp-countdown-timer");
 
 							function fergcorp_countdownTimer_management_meta_box(){
-								global $fergcorp_countdownTimer_getOptions;
 								?>
 								<ul>
-									<li><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer'); ?> <input name="enableJS" type="radio" value="1" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="enableJS" type="radio" value="0" <?php print($fergcorp_countdownTimer_getOptions["enableJS"]==0?"checked='checked'":NULL)?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_enableJS" type="radio" value="1" <?php checked('1', get_option('fergcorp_countdownTimer_enableJS')); ?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_enableJS" type="radio" value="0" <?php checked('0', get_option('fergcorp_countdownTimer_enableJS'));?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 								</ul>
                                 <?php /*<p><?php //_e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'fergcorp_countdownTimer'); ?></p>
 								<ul>
-                                	<li><input name="serialDataFilename" type="hidden" value="<?php print($fergcorp_countdownTimer_getOptions["serialDataFilename"]); ?>" size="50"/> <a href="<?php print(plugins_url(dirname(plugin_basename(__FILE__)) . "/" . $fergcorp_countdownTimer_getOptions["serialDataFilename"])); ?>" target="_blank"><?php //print(plugins_url(dirname(plugin_basename(__FILE__)) . "/". $fergcorp_countdownTimer_getOptions["serialDataFilename"])); ?></a></li>
+                                	<li><input name="serialDataFilename" type="hidden" value="<?php print(get_option('fergcorp_countdownTimer_serialDataFilename')); ?>" size="50"/> <a href="<?php print(plugins_url(dirname(plugin_basename(__FILE__)) . "/" . get_option('fergcorp_countdownTimer_serialDataFilename'))); ?>" target="_blank"><?php //print(plugins_url(dirname(plugin_basename(__FILE__)) . "/". get_option('fergcorp_countdownTimer_serialDataFilename'))); ?></a></li>
 		                        </ul>
 								*/ ?>
 								<?php
@@ -303,27 +239,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'fergcorp_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
 
 							function fergcorp_countdownTimer_display_options_meta_box(){
-								global $fergcorp_countdownTimer_getOptions;
 								?>
 								<p><?php _e('This setting controls what units of time are displayed.', 'fergcorp_countdownTimer'); ?></p>
 								<ul>
-									<li><?php _e('Years:', 'fergcorp_countdownTimer'); ?> <input name="showYear" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showYear" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showYear"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-								  <li><?php _e('Months:', 'fergcorp_countdownTimer'); ?> <input name="showMonth" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showMonth" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMonth"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Weeks:', 'fergcorp_countdownTimer'); ?> <input name="showWeek" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showWeek" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showWeek"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Days:', 'fergcorp_countdownTimer'); ?> <input name="showDay" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showDay" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showDay"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Hours:', 'fergcorp_countdownTimer'); ?> <input name="showHour" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showHour" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showHour"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Minutes:', 'fergcorp_countdownTimer'); ?> <input name="showMinute" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showMinute" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showMinute"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Seconds:', 'fergcorp_countdownTimer'); ?> <input name="showSecond" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="showSecond" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["showSecond"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Strip non-significant zeros:', 'fergcorp_countdownTimer'); ?> <input name="stripZero" type = "radio" value = "1" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==1?"checked='checked'":NULL) ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="stripZero" type = "radio" value = "0" <?php print($fergcorp_countdownTimer_getOptions["stripZero"]==0?"checked='checked'":NULL) ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Years:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showYear" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showYear')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showYear" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showYear')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+								  <li><?php _e('Months:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showMonth" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showMonth')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showMonth" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showMonth')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Weeks:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showWeek" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showWeek')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showWeek" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showWeek')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Days:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showDay" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showDay')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showDay" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showDay')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Hours:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showHour" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showHour')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showHour" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showHour')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Minutes:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showMinute" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showMinute')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showMinute" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showMinute')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Seconds:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Strip non-significant zeros:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 								</ul>
 								<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer'); ?><input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeSinceTime"]))); ?>" name="timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer'); ?><input type="text" value="<?php echo get_option('fergcorp_countdownTimer_timeSinceTime'); ?>" name="fergcorp_countdownTimer_timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "fergcorp_countdownTimer_display_options_meta_box", "fergcorp-countdown-timer");
 							
 							function fergcorp_countdownTimer_onHover_time_format_meta_box(){
-								global $fergcorp_countdownTimer_getOptions;
 								?>
 								<p><?php printf(__("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/date' target='_blank'"); ?></p>
 								<p><?php _e('Examples', 'fergcorp_countdownTimer'); ?>:</p>
@@ -331,13 +265,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
 									<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
 								</ul>
-								<p><?php _e('onHover Time Format', 'fergcorp_countdownTimer'); ?> <input type="text" value="<?php print(htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]))); ?>" name="timeOffset" /></p>
+								<p><?php _e('onHover Time Format', 'fergcorp_countdownTimer'); ?> <input type="text" value="<?php echo get_option('fergcorp_countdownTimer_timeOffset'); ?>" name="fergcorp_countdownTimer_timeOffset" /></p>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_onHover_time_format", __('onHover Time Format'), "fergcorp_countdownTimer_onHover_time_format_meta_box", "fergcorp-countdown-timer");
 							
 							function fergcorp_countdownTimer_display_format_options_meta_box(){
-								global $fergcorp_countdownTimer_getOptions;
 								?>
 								<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'fergcorp_countdownTimer'); ?></p>
 								<p><?php _e('<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer.', 'fergcorp_countdownTimer'); ?></p>
@@ -345,7 +278,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<ul>
                                        <li><em><?php _e('Title Suffix', 'fergcorp_countdownTimer'); ?>:</em> <code>:&lt;br /&gt;</code></li>
                                    </ul>
-                                   <p><?php _e('Title Suffix', 'fergcorp_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_getOptions["titleSuffix"])); ?>" name="titleSuffix" /></p>
+                                   <p><?php _e('Title Suffix', 'fergcorp_countdownTimer'); ?> <input type="text" value="<?php echo htmlspecialchars(stripslashes(get_option('fergcorp_countdownTimer_titleSuffix'))); ?>" name="fergcorp_countdownTimer_titleSuffix" /></p>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
@@ -354,7 +287,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								echo "<ul>";
 								fergcorp_countdownTimer();
 								echo "</ul>";
-                                fergcorp_countdownTimer_js();
+								if(get_option('fergcorp_countdownTimer_enableJS')) {
+	                                fergcorp_countdownTimer_js();
+								}
 							}
 							add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "fergcorp_countdownTimer_example_display_meta_box", "fergcorp-countdown-timer");
 							
@@ -387,18 +322,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string If set, will return the formated output ready for display
 	*/
 	function fergcorp_countdownTimer($eventLimit = -1, $output = "echo"){ //'echo' will print the results, 'return' will just return them
-		global $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_noEventsPresent;
+		global $fergcorp_countdownTimer_noEventsPresent;
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 		
-		$fergcorp_countdownTimer_dates = get_option("fergcorp_countdowntracker");//Get our text, times, and settings from the database
-		$fergcorp_countdownTimer_getOptions = get_option("fergcorp_countdownOptions");//Get the options from the WPDB
-		
-		//Remove events that shouldn't be displayed because the time elapsed and the Time Since option isn't ticked
-		if($fergcorp_countdownTimer_dates!=''){
-			if(count($fergcorp_countdownTimer_dates["oneTime"][0])!=0){
-				foreach($fergcorp_countdownTimer_dates["oneTime"] as $key => $value){
+
+		$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+		if($fergcorp_countdownTimer_oneTimeEvent!=''){
+		/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
+			if(count($fergcorp_countdownTimer_oneTimeEvent[0])!=0){
+				foreach($fergcorp_countdownTimer_oneTimeEvent as $key => $value){
 					if(($value["date"]<=time())&&($value["timeSince"]=="")){
-					$fergcorp_countdownTimer_dates["oneTime"][$key]["text"]=NULL;
+					$fergcorp_countdownTimer_oneTimeEvent[$key]["date"]=NULL;
 					}
 				}
 			}
@@ -409,20 +343,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		else{
 				$fergcorp_countdownTimer_noEventsPresent = TRUE;//because there are no dates at all!
 		}
-
+		
 		/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
 		At some point, I plan to make this into a function; but for, this will do...
 
 		And what it does is this:
 		The number of elements in the array are counted. Then for array is gone through x^(x-1) times. This allows for all posible date permuations to be sorted out and ordered correctly.
 		Genious, yes? No*/
-		$eventCount = count($fergcorp_countdownTimer_dates["oneTime"]);
+		$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
 		for($x=0; $x<$eventCount; $x++){
 			for($z=0; $z<$eventCount-1; $z++){
-				if(($fergcorp_countdownTimer_dates["oneTime"][$z+1]["date"] < $fergcorp_countdownTimer_dates["oneTime"][$z]["date"]) && (array_key_exists($z+1, $fergcorp_countdownTimer_dates["oneTime"]))){
-					$temp = $fergcorp_countdownTimer_dates["oneTime"][$z];
-					$fergcorp_countdownTimer_dates["oneTime"][$z] = $fergcorp_countdownTimer_dates["oneTime"][$z+1];
-					$fergcorp_countdownTimer_dates["oneTime"][$z+1] = $temp;
+				if(($fergcorp_countdownTimer_oneTimeEvent[$z+1]["date"] < $fergcorp_countdownTimer_oneTimeEvent[$z]["date"]) && (array_key_exists($z+1, $fergcorp_countdownTimer_oneTimeEvent))){
+					$temp = $fergcorp_countdownTimer_oneTimeEvent[$z];
+					$fergcorp_countdownTimer_oneTimeEvent[$z] = $fergcorp_countdownTimer_oneTimeEvent[$z+1];
+					$fergcorp_countdownTimer_oneTimeEvent[$z+1] = $temp;
 				}
 			}
 		}
@@ -433,22 +367,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($fergcorp_countdownTimer_noEventsPresent == FALSE){
 			$fergcorp_countdownTimer_noEventsPresent = TRUE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
+					$thisEvent = fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["text"]), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeOffset'));			
 				if($output == "echo")
-					echo fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), $fergcorp_countdownTimer_getOptions["timeOffset"]);
+					echo $thisEvent;
 				elseif($output == "return"){
-					$toReturn .= fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]), $fergcorp_countdownTimer_dates["oneTime"][$i]["date"], 0, $fergcorp_countdownTimer_dates["oneTime"][$i]["timeSince"], $fergcorp_countdownTimer_getOptions["timeSinceTime"], stripslashes($fergcorp_countdownTimer_dates["oneTime"][$i]["link"]), stripslashes($fergcorp_countdownTimer_getOptions["timeOffset"]) );
+					$toReturn .= $thisEvent;
 				}
-				if(($fergcorp_countdownTimer_dates["oneTime"][$i]["text"]==NULL) && (isset($fergcorp_countdownTimer_dates["oneTime"][$i]))){
+				if(($fergcorp_countdownTimer_oneTimeEvent[$i]["text"]==NULL) && (isset($fergcorp_countdownTimer_oneTimeEvent[$i]))){
 					$eventCount++;
 				}
 			}
 		}
 		if($fergcorp_countdownTimer_noEventsPresent){
 			if($output == "echo"){
-				echo $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'fergcorp_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
+				_e('No dates present', 'fergcorp_countdownTimer');
 			}
 			elseif($output == "return"){
-				$toReturn .= $fergcorp_countdownTimer_getOptions["displayFormatPrefix"].__('No dates present', 'fergcorp_countdownTimer').$fergcorp_countdownTimer_getOptions["displayFormatSuffix"];
+				$toReturn .= _('No dates present', 'fergcorp_countdownTimer');
 			}
 		}
 
@@ -475,14 +410,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	
 	function fergcorp_countdownTimer_format($eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s"){
-		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_getOptions, $fergcorp_countdownTimer_nonceTracker;
+		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_nonceTracker;
 		if(!isset($fergcorp_countdownTimer_nonceTracker)){
 			$fergcorp_countdownTimer_nonceTracker = array();
 		}
 		$time_left = $time - time() + $offset;
 		$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
 		$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't start with numeric	
-		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.$fergcorp_countdownTimer_getOptions["titleSuffix"]."\n";
+		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.get_option('fergcorp_countdownTimer_titleSuffix')."\n";
 		$timePrefix = "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
 		
 		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
@@ -544,7 +479,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTime){
-		global $fergcorp_countdownTimer_getOptions;
 
 		$rollover = 0;
 		$s = '';
@@ -598,8 +532,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Year
-		if($fergcorp_countdownTimer_getOptions['showYear']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || $resultantYear){
+		if(get_option('fergcorp_countdownTimer_showYear')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || $resultantYear){
 				if($resultantYear==1){
 					$s = sprintf(__("%d year, ", "fergcorp_countdownTimer"), $resultantYear)." ";
 				} else{
@@ -613,8 +547,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Month
-		if($fergcorp_countdownTimer_getOptions['showMonth']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || intval($resultantMonth + ($rollover/2628000)) ){
+		if(get_option('fergcorp_countdownTimer_showMonth')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || intval($resultantMonth + ($rollover/2628000)) ){
 				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
 				if($resultantMonth==1){
 					$s .= sprintf(__("%d month, ", "fergcorp_countdownTimer"), $resultantMonth)." ";
@@ -634,7 +568,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$totalTime = $targetTime - $nowTime;
 			
 			//If we showed years, but not months, we need to account for those.
-			if($fergcorp_countdownTimer_getOptions['showYear']){
+			if(get_option('fergcorp_countdownTimer_showYear')){
 				$totalTime = $totalTime - $resultantYear*31536000;
 			}
 			
@@ -654,8 +588,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
-		if($fergcorp_countdownTimer_getOptions['showWeek']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ( ($resultantDay + intval($rollover/86400) )/7)){
+		if(get_option('fergcorp_countdownTimer_showWeek')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($resultantDay + intval($rollover/86400) )/7)){
 				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
 				if((intval( ($resultantDay + intval($rollover/86400) )/7))==1){
 					$s .= sprintf(__("%d week, ", "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))." ";
@@ -669,8 +603,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Day
-		if($fergcorp_countdownTimer_getOptions['showDay']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantDay + intval($rollover/86400)) ){
+
+		if(get_option('fergcorp_countdownTimer_showDay')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantDay + intval($rollover/86400)) ){
 				$resultantDay = $resultantDay + intval($rollover/86400);
 				if($resultantDay==1){
 					$s .= sprintf(__("%d day, ", "fergcorp_countdownTimer"), $resultantDay)." ";
@@ -686,8 +621,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Hour
-		if($fergcorp_countdownTimer_getOptions['showHour']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantHour + intval($rollover/3600)) ){
+		if(get_option('fergcorp_countdownTimer_showHour')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantHour + intval($rollover/3600)) ){
 				$resultantHour = $resultantHour + intval($rollover/3600);
 				if($resultantHour==1){
 					$s .= sprintf(__("%d hour, ", "fergcorp_countdownTimer"), $resultantHour)." ";
@@ -703,8 +638,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Minute
-		if($fergcorp_countdownTimer_getOptions['showMinute']){
-			if($sigNumHit || !$fergcorp_countdownTimer_getOptions['stripZero'] || ($resultantMinute + intval($rollover/60)) ){
+		if(get_option('fergcorp_countdownTimer_showMinute')){
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantMinute + intval($rollover/60)) ){
 				$resultantMinute = $resultantMinute + intval($rollover/60);
 				if($resultantMinute==1){
 					$s .= sprintf(__("%d minute, ", "fergcorp_countdownTimer"), $resultantMinute)." ";
@@ -720,7 +655,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		//Second
-		if($fergcorp_countdownTimer_getOptions['showSecond']){
+		if(get_option('fergcorp_countdownTimer_showSecond')){
 			$resultantSecond = $resultantSecond + $rollover;
 			if($resultantSecond==1){
 				$s .= sprintf(__("%d second, ", "fergcorp_countdownTimer"), $resultantSecond)." ";
@@ -731,22 +666,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		
 		//Catch blank statements
 		if($s==""){
-			if($fergcorp_countdownTimer_getOptions['showSecond']){
+			if(get_option('fergcorp_countdownTimer_showSecond')){
 				$s = sprintf(__("%d seconds, ", "fergcorp_countdownTimer"), "0");
 			}
-			elseif($fergcorp_countdownTimer_getOptions['showMinute']){
+			elseif(get_option('fergcorp_countdownTimer_showMinute')){
 				$s = sprintf(__("%d minutes, ", "fergcorp_countdownTimer"), "0");
 			}
-			elseif($fergcorp_countdownTimer_getOptions['showHour']){
+			elseif(get_option('fergcorp_countdownTimer_showHour')){
 				$s = sprintf(__("%d hours, ", "fergcorp_countdownTimer"), "0");
 			}	
-			elseif($fergcorp_countdownTimer_getOptions['showDay']){
+			elseif(get_option('fergcorp_countdownTimer_showDay')){
 				$s = sprintf(__("%d days, ", "fergcorp_countdownTimer"), "0");
 			}	
-			elseif($fergcorp_countdownTimer_getOptions['showWeek']){
+			elseif(get_option('fergcorp_countdownTimer_showWeek')){
 				$s = sprintf(__("%d weeks, ", "fergcorp_countdownTimer"), "0");
 			}
-			elseif($fergcorp_countdownTimer_getOptions['showMonth']){
+			elseif(get_option('fergcorp_countdownTimer_showMonth')){
 				$s = sprintf(__("%d months, ", "fergcorp_countdownTimer"), "0");
 			}
 			else{
@@ -769,7 +704,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function fergcorp_countdownTimer_loop($theContent){
-		global $fergcorp_countdownTimer_getOptions;
 																						//Filter function for including the countdown with The Loop
 		if(preg_match("<!--fergcorp_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
 			$theContent = preg_replace("/<!--fergcorp_countdownTimer(\(([0-9]+)\))?-->/e", "fergcorp_countdownTimer($2, 'return')", $theContent);	//The actual replacement of the string with the timer
@@ -779,7 +713,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		if(preg_match("<!--fergcorp_countdownTimer_single\((.*?)\)-->", $theContent)){
-			$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".$fergcorp_countdownTimer_getOptions['timeOffset']."')", $theContent);
+			$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."')", $theContent);
 		}
 
 		return $theContent;																													//Return theContent
@@ -821,7 +755,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			'date' => '-1',
 		), $atts));
 	
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset']);
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
 	add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
 	
@@ -836,9 +770,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function fergcorp_countdownTimer_single($date){
-		global $fergcorp_countdownTimer_getOptions;
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', $fergcorp_countdownTimer_getOptions['timeOffset']);
-	
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
 
 
@@ -857,34 +789,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
 		}
 
-		$fergcorpOptions = array(	"deleteOneTimeEvents"	=> "0",
-								"checkUpdate"			=> "1",
-								"timeOffset"			=> "F jS, Y, g:i a",
-								"showYear"				=> "1",
-								"showMonth"				=> "1",
-								"showWeek"				=> "0",
-								"showDay"				=> "1",
-								"showHour"				=> "1",
-								"showMinute"			=> "1",
-								"showSecond"			=> "0",
-								"stripZero"				=> "1",
-								"enableJS"				=> "1",
-								"timeSinceTime"			=> "0",
-								"titleSuffix"			=> ":<br />",
-								"serialDataFilename"	=> "fergcorp_countdownTimer_serialData_".wp_generate_password(8,false).".txt",
-							);
-
-		//Check to see what options exists and add the ones that don't, keeping the values for the ones that do
-		foreach($fergcorpOptions as $key => $value){
-			if(array_key_exists($key, $theOptions)){
-				$newOptionsArray["$key"] = $theOptions["$key"];
+		/**
+		 * Checks to see if an option exists in either the old or new database location and then sets the value to a default if it doesn't exist
+		 *
+		 * @param $prefix string Prefix for the option i.e. fergcorp_countdownTimer_
+		 * @param $option string Actual option
+		 * @param $default string What the default value should be if it doesn't exist
+		 * @since 2.4
+		 * @access public
+		 * @author Andrew Ferguson
+		 * @return string The content of the post with the appropriate dates inserted (if any)
+		*/
+		function install_option($prefix, $option, $default){
+			if(get_option($prefix.$option)){
+				return false;
+			}
+			elseif(array_key_exists($option, $theOptions)){
+				update_option($prefix.$option, $theOptions[$option]);
+				return true;
 			}
 			else{
-				$newOptionsArray["$key"] = $value;
+				update_option($prefix.$option, $default);
+				return true;
 			}
 		}
 
-		update_option("fergcorp_countdownOptions", $newOptionsArray); //Update the WPDB for the options
+		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
+		install_option('fergcorp_countdownTimer_', 'checkUpdate', '1');
+		install_option('fergcorp_countdownTimer_', 'timeOffset', 'F jS, Y, g:i a');
+		install_option('fergcorp_countdownTimer_', 'showYear', '1');
+		install_option('fergcorp_countdownTimer_', 'showMonth', '1');
+		install_option('fergcorp_countdownTimer_', 'showWeek', '0');
+		install_option('fergcorp_countdownTimer_', 'showDay', '1');
+		install_option('fergcorp_countdownTimer_', 'showHour', '1');
+		install_option('fergcorp_countdownTimer_', 'showMinute', '1');
+		install_option('fergcorp_countdownTimer_', 'showSecond', '0');
+		install_option('fergcorp_countdownTimer_', 'stripZero', '1');
+		install_option('fergcorp_countdownTimer_', 'enableJS', '1');
+		install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
+		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
+		install_option('fergcorp_countdownTimer_', 'serialDataFilename', 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
+
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
 
@@ -984,21 +929,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	function fergcorp_countdownTimer_js(){
 		global $fergcorp_countdownTimer_nonceTracker;
-		global $fergcorp_countdownTimer_getOptions;
 
 		echo "<script type=\"text/javascript\">\n";
 		echo "<!--\n";
 
 		//Pass on what units of time should be used
 		echo "var getOptions = new Array();\n";
-		echo "getOptions['showYear'] = ".$fergcorp_countdownTimer_getOptions['showYear'].";\n";
-		echo "getOptions['showMonth'] = ".$fergcorp_countdownTimer_getOptions['showMonth'].";\n";
-		echo "getOptions['showWeek'] = ".$fergcorp_countdownTimer_getOptions['showWeek'].";\n";
-		echo "getOptions['showDay'] = ".$fergcorp_countdownTimer_getOptions['showDay'].";\n";
-		echo "getOptions['showHour'] = ".$fergcorp_countdownTimer_getOptions['showHour'].";\n";
-		echo "getOptions['showMinute'] = ".$fergcorp_countdownTimer_getOptions['showMinute'].";\n";
-		echo "getOptions['showSecond'] = ".$fergcorp_countdownTimer_getOptions['showSecond'].";\n";
-		echo "getOptions['stripZero'] = ".$fergcorp_countdownTimer_getOptions['stripZero'].";\n";
+		echo "getOptions['showYear'] = ".get_option('fergcorp_countdownTimer_showYear').";\n";
+		echo "getOptions['showMonth'] = ".get_option('fergcorp_countdownTimer_showMonth').";\n";
+		echo "getOptions['showWeek'] = ".get_option('fergcorp_countdownTimer_showWeek').";\n";
+		echo "getOptions['showDay'] = ".get_option('fergcorp_countdownTimer_showDay').";\n";
+		echo "getOptions['showHour'] = ".get_option('fergcorp_countdownTimer_showHour').";\n";
+		echo "getOptions['showMinute'] = ".get_option('fergcorp_countdownTimer_showMinute').";\n";
+		echo "getOptions['showSecond'] = ".get_option('fergcorp_countdownTimer_showSecond').";\n";
+		echo "getOptions['stripZero'] = ".get_option('fergcorp_countdownTimer_stripZero').";\n";
 
 		//Pass on language variables
 		echo "var fergcorp_countdownTimer_js_language = new Array();\n";
@@ -1036,7 +980,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * Adds the management page in the admin menu
 	 *
 	 * @since 2.1
-	 * @access public
+	 * @access private
 	 * @author Andrew Ferguson
 	 */
 	function fergcorp_countdownTimer_optionsPage(){		//Action function for adding the configuration panel to the Management Page
@@ -1044,17 +988,86 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadUserScripts' );
 				add_action( "admin_print_scripts-$fergcorp_countdownTimer_add_management_page", 'fergcorp_countdownTimer_LoadAdminScripts' );
 	}
+	
+	/**
+	 * Initialized the options
+
+	 *
+	 * @since 2.4
+	 * @access private
+	 * @author Andrew Ferguson
+	 */
+	
+	function fergcorp_countdownTimer_init(){	// Init plugin options to white list our options
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_deleteOneTimeEvents');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_checkUpdate');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeOffset');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showYear');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showMonth');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showWeek');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showDay');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showHour');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showMinute');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showSecond');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_stripZero');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableJS');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeSinceTime');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
+		
+		//register_setting('fergcorp_countdownTimer_oneTimeEvents', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
+	}
 
 	add_action('admin_menu', 'fergcorp_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
+	add_action('admin_init', 'fergcorp_countdownTimer_init');			//Initialized the options
 	register_activation_hook( __FILE__, 'fergcorp_countdownTimer_install');
-
-	$fergcorp_countdownTimer_getOptions = get_option("fergcorp_countdownOptions");	//Get the options from the WPDB (this is actually pretty sloppy on my part and should be fixed)
 	
-	if($fergcorp_countdownTimer_getOptions["enableJS"]) {
+	if(get_option('fergcorp_countdownTimer_enableJS')) {
 		add_action('wp_footer', 'fergcorp_countdownTimer_js');
 	}
 
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
+
+	function test($input){
+		echo "$input";
+	}
+
+	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){
+			$oneTimeEvent_count = count($input)/4;	//Figure out how many fields there are
+			$j=0;	//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
+			for($i=0; $i<$oneTimeEvent_count; $i++){
+				if($input["date$i"]==""){ //If the date field is empty, ignore the entry
+				}
+				else{																							//If not, add it to an array so the data can be updated
+					$output[$j] = array(	"date" => strtotime($input["date$i"]),	//Date of the event converted to UNIX time
+											"text" => $input["text$i"],				//Text associated with the event (i.e. event label)
+											"timeSince" => $input["timeSince$i"],	//After the event has occured, should "Time Since" be displayed? Boolean value (0 0 for no or 1 for yes)
+											"link" => $input["link$i"],				//Where should the text link to (this can be null)
+													); 								//For every field, create an array. Then stick that array into the master array
+					$j++;
+				}
+			}
+			/*End One Time Events*/
+
+			/*Begin sorting events by time*/
+			for($x=0; $x<$oneTimeEvent_count; $x++){
+				for($z=0; $z<$oneTimeEvent_count-1; $z++){
+					if(($output[$z+1]["date"] < $output[$z]["date"]) && (array_key_exists($z+1, $output))){
+						$temp = $output[$z];
+						$output[$z] = $output[$z+1];
+						$output[$z+1] = $temp;
+					}
+				}
+			}
+			/*End sorting events by time*/
+			
+			//Leaving this out of 2.4 release
+			//$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
+			//fwrite($file, serialize($results));
+			//fclose($file);
+
+	return $output;
+}
 
 	/**
 	 * Loads the appropriate scripts when in the admin page
@@ -1077,9 +1090,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 */
 	function fergcorp_countdownTimer_LoadUserScripts() {
-		$fergcorp_countdownTimer_getOptions = get_option("fergcorp_countdownOptions");
 		$fergcorp_countdownTimer_getVersion = get_option("fergcorp_countdownTimer_version");
-		if($fergcorp_countdownTimer_getOptions["enableJS"]) {
+		if(get_option('fergcorp_countdownTimer_enableJS')) {
 			wp_enqueue_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), FALSE, $fergcorp_countdownTimer_getVersion);
 			wp_enqueue_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $fergcorp_countdownTimer_getVersion);
 		}
