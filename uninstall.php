@@ -24,8 +24,23 @@ if( !defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') )
     exit();
 
 //Remove options from wp_options table
-delete_option('fergcorp_countdowntracker');
-delete_option('fergcorp_countdownOptions');
+delete_option('fergcorp_countdownTimer_deleteOneTimeEvents');
+delete_option('fergcorp_countdownTimer_checkUpdate');
+delete_option('fergcorp_countdownTimer_timeOffset');
+delete_option('fergcorp_countdownTimer_showYear');
+delete_option('fergcorp_countdownTimer_showMonth');
+delete_option('fergcorp_countdownTimer_showWeek');
+delete_option('fergcorp_countdownTimer_showDay');
+delete_option('fergcorp_countdownTimer_showHour');
+delete_option('fergcorp_countdownTimer_showMinute');
+delete_option('fergcorp_countdownTimer_showSecond');
+delete_option('fergcorp_countdownTimer_stripZero');
+delete_option('fergcorp_countdownTimer_enableJS');
+delete_option('fergcorp_countdownTimer_timeSinceTime');
+delete_option('fergcorp_countdownTimer_titleSuffix');
+delete_option('fergcorp_countdownTimer_serialDataFilename');
+delete_option('fergcorp_countdownTimer_enableShortcodeExcerpt');
+delete_option('fergcorp_countdownTimer_oneTimeEvent');
 delete_option('fergcorp_countdownTimer_version');
 delete_option('widget_fergcorp_countdown');
 
