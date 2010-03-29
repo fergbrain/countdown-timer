@@ -107,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                   </tr>
                                 </table>
 
-								<p><?php _e("I've been spending more and more time writing and supporting plugins. I'm a college student and really only do this programming thing on the side for the love of it.", 'fergcorp_countdownTimer'); ?></p>
+								<p><?php _e("I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above.", 'fergcorp_countdownTimer'); ?></p>
                             
                             
 							<?php
@@ -126,7 +126,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             <?php
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
-                            <p><?php printf(__("You've made it this far, you're almost there. To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'fergcorp_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
+                            <p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
+										<p><?php _e('Examples of some (but not all) valid dates', 'fergcorp_countdownTimer'); ?>:</p>
+										<ul style="list-style:inside circle; font-size:11px; margin-left: 20px;">
+													<li>now</li>
+													<li>31 january 1986</li>
+													<li>+1 day</li>
+													<li>next thursday</li>
+													<li>last monday</li>
+										</ul>
+                          
+                            <p><?php printf(__("To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'fergcorp_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
 										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file:", 'fergcorp_countdownTimer'); ?></p>
 										<p>
 											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
@@ -138,10 +148,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										</p>
                                         
                                         <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'fergcorp_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'fergcorp_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
+										<p>
                                    			<code>
 													[fergcorp_cdt]<br /><br />
                                                     [fergcorp_cdt max=##]
 											</code>
+                                        </p>
                                         <p><?php _e("Where <em>##</em> is maximum number of results to be displayed - ordered by date.", 'fergcorp_countdownTimer'); ?></p>   
 										<p><?php _e("If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:", 'fergcorp_countdownTimer'); ?></p>
 										<p>
@@ -149,10 +161,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													[fergcorp_cdt_single date="<em>ENTER_DATE_HERE</em>"]
 											</code>
 										</p>
-										<p><?php printf(__("Where <em>\"ENTER_DATE_HERE\"</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>                     
+										<p><?php printf(__("Where <em>ENTER_DATE_HERE</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>                     
                             <?php		
 							}
-                        	add_meta_box('fergcorp_countdownTimer_installation', __('Installation Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
+                        	add_meta_box('fergcorp_countdownTimer_installation', __('Installation and Usage Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
 										
 							function fergcorp_countdownTimer_events_meta_box(){
 
@@ -166,15 +178,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									}
 								}
 							?>
-								<p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
-										<p><?php _e('Examples of some (but not all) valid dates', 'fergcorp_countdownTimer'); ?>:</p>
-										<ul>
-													<li>now</li>
-													<li>31 january 1986</li>
-													<li>+1 day</li>
-													<li>next thursday</li>
-													<li>last monday</li>
-										</ul>
 										<table border="0" cellspacing="0" cellpadding="2">
 										<tr align="center">
 											<td><strong><?php _e('Delete', 'fergcorp_countdownTimer'); ?></strong></td>
@@ -220,9 +223,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 							function fergcorp_countdownTimer_management_meta_box(){
 								?>
-								<ul>
-									<li><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_enableJS" type="radio" value="1" <?php checked('1', get_option('fergcorp_countdownTimer_enableJS')); ?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_enableJS" type="radio" value="0" <?php checked('0', get_option('fergcorp_countdownTimer_enableJS'));?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-								</ul>
+								<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer'); ?><input type="text" value="<?php echo get_option('fergcorp_countdownTimer_timeSinceTime'); ?>" name="fergcorp_countdownTimer_timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
+								<p><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_enableJS" type="radio" value="1" <?php checked('1', get_option('fergcorp_countdownTimer_enableJS')); ?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_enableJS" type="radio" value="0" <?php checked('0', get_option('fergcorp_countdownTimer_enableJS'));?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
+                                <p><?php _e('By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer.', 'fergcorp_countdownTimer'); ?></p>
+                                <p><?php _e('Enable shortcodes in the_excerpt:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_enableShortcodeExcerpt" type="radio" value="1" <?php checked('1', get_option('fergcorp_countdownTimer_enableShortcodeExcerpt')); ?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_enableShortcodeExcerpt" type="radio" value="0" <?php checked('0', get_option('fergcorp_countdownTimer_enableShortcodeExcerpt'));?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
                                 <?php /*<p><?php //_e('Countdown Timer exports your events so they can be used by other applications, such as Facebook. The location of your file is:', 'fergcorp_countdownTimer'); ?></p>
 								<ul>
                                 	<li><input name="serialDataFilename" type="hidden" value="<?php print(get_option('fergcorp_countdownTimer_serialDataFilename')); ?>" size="50"/> <a href="<?php print(plugins_url(dirname(plugin_basename(__FILE__)) . "/" . get_option('fergcorp_countdownTimer_serialDataFilename'))); ?>" target="_blank"><?php //print(plugins_url(dirname(plugin_basename(__FILE__)) . "/". get_option('fergcorp_countdownTimer_serialDataFilename'))); ?></a></li>
@@ -231,6 +236,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'fergcorp_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
+
+
 
 							function fergcorp_countdownTimer_display_options_meta_box(){
 								?>
@@ -245,8 +252,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<li><?php _e('Seconds:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 									<li><?php _e('Strip non-significant zeros:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 								</ul>
-								<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer'); ?><input type="text" value="<?php echo get_option('fergcorp_countdownTimer_timeSinceTime'); ?>" name="fergcorp_countdownTimer_timeSinceTime" size="10" /> <?php _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "fergcorp_countdownTimer_display_options_meta_box", "fergcorp-countdown-timer");
@@ -370,10 +375,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		if($fergcorp_countdownTimer_noEventsPresent){
 			if($output == "echo"){
+
 				_e('No dates present', 'fergcorp_countdownTimer');
 			}
 			elseif($output == "return"){
-				$toReturn .= _('No dates present', 'fergcorp_countdownTimer');
+				$toReturn .= __('No dates present', 'fergcorp_countdownTimer');
 			}
 		}
 
@@ -693,6 +699,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 
+
 		if(preg_match("<!--fergcorp_countdownTimer_single\((.*?)\)-->", $theContent)){
 			$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."')", $theContent);
 		}
@@ -700,6 +707,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		return $theContent;																													//Return theContent
 	}
 	add_filter('the_content', 'fergcorp_countdownTimer_loop', 1);
+	add_filter('the_excerpt', 'fergcorp_countdownTimer_loop', 1);
 	
 	/**
 	 * Processes shortcodes
@@ -719,6 +727,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		return fergcorp_countdownTimer($max, 'return');
 	}
 	add_shortcode('fergcorp_cdt', 'fergcorp_cdt_function');
+
 	
 	/**
 	 * Processes shortcodes
@@ -806,6 +815,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
 		install_option('fergcorp_countdownTimer_', 'serialDataFilename', 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
+		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
@@ -983,6 +993,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeSinceTime');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
+		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableShortcodeExcerpt');
 		
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
 	}
@@ -994,12 +1005,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	if(get_option('fergcorp_countdownTimer_enableJS')) {
 		add_action('wp_footer', 'fergcorp_countdownTimer_js');
 	}
+	
+	if(get_option('fergcorp_countdownTimer_enableShortcodeExcerpt')) {
+		add_filter('the_excerpt', 'do_shortcode');
+	}
 
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
-
-	function test($input){
-		echo "$input";
-	}
 
 	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){
 			$oneTimeEvent_count = count($input)/4;	//Figure out how many fields there are
