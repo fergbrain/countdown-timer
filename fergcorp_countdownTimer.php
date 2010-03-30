@@ -808,7 +808,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'checkUpdate', $theOptions, '1');
 		install_option('fergcorp_countdownTimer_', 'timeOffset', $theOptions, 'F jS, Y, g:i a');
 		install_option('fergcorp_countdownTimer_', 'showYear', $theOptions, '1');
 		install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '1');
@@ -821,7 +820,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'enableJS', $theOptions, '1');
 		install_option('fergcorp_countdownTimer_', 'timeSinceTime', $theOptions, '0');
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
-		install_option('fergcorp_countdownTimer_', 'serialDataFilename', $theOptions, 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
+		//install_option('fergcorp_countdownTimer_', 'serialDataFilename', $theOptions, 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt'); //For 2.5 release
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
 
 		delete_option('afdn_countdownOptions');
@@ -988,7 +987,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 */
 	function fergcorp_countdownTimer_init(){	// Init plugin options to white list our options
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_deleteOneTimeEvents');
-		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_checkUpdate');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeOffset');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showYear');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showMonth');
@@ -1001,7 +999,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableJS');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeSinceTime');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
-		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
+		//register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableShortcodeExcerpt');
 		
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
