@@ -216,7 +216,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										</table>
 										<?php echo '<input type="hidden" name="oneTimeEvent_count" value="'.($oneTimeEvent_count+1).'" />'; ?>
 
-										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer'); ?> <input name="deleteOneTimeEvents" type="radio" value="1" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="deleteOneTimeEvents" type="radio" value="0" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==0?"checked='checked'":NULL)?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
+										<p><?php _e("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_deleteOneTimeEvents" type="radio" value="1" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==1?"checked='checked'":NULL)?> /><?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_deleteOneTimeEvents" type="radio" value="0" <?php print(get_option('fergcorp_countdownTimer_deleteOneTimeEvents')==0?"checked='checked'":NULL)?>/><?php _e('No', 'fergcorp_countdownTimer'); ?></p>
                                <?php
                             }
 						   	add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "fergcorp_countdownTimer_events_meta_box", "fergcorp-countdown-timer");
@@ -769,7 +769,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	*/
 	function fergcorp_countdownTimer_install(){
 		$plugin_data = get_plugin_data(__FILE__);
-		$theOptions = get_option("fergcorp_countdownOptions");
+		$theOptions = get_option("afdn_countdownOptions");
 
 		if(get_option("widget_fergcorp_countdown") == NULL){	//Create default details for the widget if needed
 			update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
@@ -817,8 +817,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'serialDataFilename', 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 
-		delete_option('fergcorp_countdowntracker');
-		delete_option('fergcorp_countdownOptions');
+		
+		//Convert Tracker Data!
+
+
+		delete_option('afdn_countdowntracker');
+		delete_option('afdn_countdownOptions');
 		
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
