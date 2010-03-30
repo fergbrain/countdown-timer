@@ -770,8 +770,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer_install(){
 		$plugin_data = get_plugin_data(__FILE__);
 		$theOptions = get_option("afdn_countdownOptions");
+		
+		if(!empty(get_option("afdn_countdowntracker"){ //Convert the old format of oneTimeEvent storage to the new format in 2.4
+			$a = get_option("afdn_countdowntracker");
+			update_option('fergcorp_countdownTimer_oneTimeEvent', $a['oneTime']);
+			delete_option('afdn_countdowntracker');
+		}
 
-		if(get_option("widget_fergcorp_countdown") == NULL){	//Create default details for the widget if needed
+		if(empty(get_option("widget_fergcorp_countdown"))){	//Create default details for the widget if needed
 			update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
 		}
 
@@ -787,7 +793,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		 * @return string The content of the post with the appropriate dates inserted (if any)
 		*/
 		function install_option($prefix, $option, $default){
-			if(get_option($prefix.$option)){
+			if(!empty(get_option($prefix.$option))){
 				return false;
 			}
 			elseif(array_key_exists($option, $theOptions)){
@@ -817,11 +823,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'serialDataFilename', 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 
-		
-		//Convert Tracker Data!
-
-
-		delete_option('afdn_countdowntracker');
 		delete_option('afdn_countdownOptions');
 		
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
