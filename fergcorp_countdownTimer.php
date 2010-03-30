@@ -770,14 +770,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	function fergcorp_countdownTimer_install(){
 		$plugin_data = get_plugin_data(__FILE__);
 		$theOptions = get_option("afdn_countdownOptions");
+		$theTracker = get_option("afdn_countdowntracker");
+		$theWidget = get_option("widget_fergcorp_countdown");
 		
-		if(!empty(get_option("afdn_countdowntracker"){ //Convert the old format of oneTimeEvent storage to the new format in 2.4
-			$a = get_option("afdn_countdowntracker");
-			update_option('fergcorp_countdownTimer_oneTimeEvent', $a['oneTime']);
+		if(!empty($theTracker)){ //Convert the old format of oneTimeEvent storage to the new format in 2.4
+			update_option('fergcorp_countdownTimer_oneTimeEvent', $theTracker['oneTime']);
 			delete_option('afdn_countdowntracker');
 		}
 
-		if(empty(get_option("widget_fergcorp_countdown"))){	//Create default details for the widget if needed
+		if(empty($theWidget)){	//Create default details for the widget if needed
 			update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
 		}
 
@@ -792,8 +793,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		 * @author Andrew Ferguson
 		 * @return string The content of the post with the appropriate dates inserted (if any)
 		*/
-		function install_option($prefix, $option, $default){
-			if(!empty(get_option($prefix.$option))){
+		function install_option($prefix, $option, $theOptions, $default){
+			if(get_option($prefix.$option) != NULL){
 				return false;
 			}
 			elseif(array_key_exists($option, $theOptions)){
@@ -806,22 +807,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 
-		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
-		install_option('fergcorp_countdownTimer_', 'checkUpdate', '1');
-		install_option('fergcorp_countdownTimer_', 'timeOffset', 'F jS, Y, g:i a');
-		install_option('fergcorp_countdownTimer_', 'showYear', '1');
-		install_option('fergcorp_countdownTimer_', 'showMonth', '1');
-		install_option('fergcorp_countdownTimer_', 'showWeek', '0');
-		install_option('fergcorp_countdownTimer_', 'showDay', '1');
-		install_option('fergcorp_countdownTimer_', 'showHour', '1');
-		install_option('fergcorp_countdownTimer_', 'showMinute', '1');
-		install_option('fergcorp_countdownTimer_', 'showSecond', '0');
-		install_option('fergcorp_countdownTimer_', 'stripZero', '1');
-		install_option('fergcorp_countdownTimer_', 'enableJS', '1');
-		install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
-		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
-		install_option('fergcorp_countdownTimer_', 'serialDataFilename', 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
-		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
+		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
+		install_option('fergcorp_countdownTimer_', 'checkUpdate', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'timeOffset', $theOptions, 'F jS, Y, g:i a');
+		install_option('fergcorp_countdownTimer_', 'showYear', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'showWeek', $theOptions, '0');
+		install_option('fergcorp_countdownTimer_', 'showDay', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'showHour', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'showMinute', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'showSecond', $theOptions, '0');
+		install_option('fergcorp_countdownTimer_', 'stripZero', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'enableJS', $theOptions, '1');
+		install_option('fergcorp_countdownTimer_', 'timeSinceTime', $theOptions, '0');
+		install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
+		install_option('fergcorp_countdownTimer_', 'serialDataFilename', $theOptions, 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt');
+		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
 
 		delete_option('afdn_countdownOptions');
 		
