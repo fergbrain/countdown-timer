@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 23:03-0800\n"
-"PO-Revision-Date: 2010-03-28 23:04-0800\n"
+"POT-Creation-Date: 2010-03-29 23:00-0800\n"
+"PO-Revision-Date: 2010-03-29 23:01-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -278,125 +278,125 @@ msgid "No dates present"
 msgstr ""
 
 #: fergcorp_countdownTimer.php:426
-#: fergcorp_countdownTimer.php:944
+#: fergcorp_countdownTimer.php:952
 #, php-format
 msgid "%s ago"
 msgstr ""
 
 #: fergcorp_countdownTimer.php:437
-#: fergcorp_countdownTimer.php:945
+#: fergcorp_countdownTimer.php:953
 #, php-format
 msgid "in %s"
 msgstr ""
 
 #: fergcorp_countdownTimer.php:533
-#: fergcorp_countdownTimer.php:930
+#: fergcorp_countdownTimer.php:938
 #, php-format
 msgid "%d year, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:535
 #: fergcorp_countdownTimer.php:675
-#: fergcorp_countdownTimer.php:931
+#: fergcorp_countdownTimer.php:939
 #, php-format
 msgid "%d years, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:549
-#: fergcorp_countdownTimer.php:932
+#: fergcorp_countdownTimer.php:940
 #, php-format
 msgid "%d month, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:551
 #: fergcorp_countdownTimer.php:672
-#: fergcorp_countdownTimer.php:933
+#: fergcorp_countdownTimer.php:941
 #, php-format
 msgid "%d months, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:583
-#: fergcorp_countdownTimer.php:934
+#: fergcorp_countdownTimer.php:942
 #, php-format
 msgid "%d week, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:585
 #: fergcorp_countdownTimer.php:669
-#: fergcorp_countdownTimer.php:935
+#: fergcorp_countdownTimer.php:943
 #, php-format
 msgid "%d weeks, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:598
-#: fergcorp_countdownTimer.php:936
+#: fergcorp_countdownTimer.php:944
 #, php-format
 msgid "%d day, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:600
 #: fergcorp_countdownTimer.php:666
-#: fergcorp_countdownTimer.php:937
+#: fergcorp_countdownTimer.php:945
 #, php-format
 msgid "%d days, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:615
-#: fergcorp_countdownTimer.php:938
+#: fergcorp_countdownTimer.php:946
 #, php-format
 msgid "%d hour, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:617
 #: fergcorp_countdownTimer.php:663
-#: fergcorp_countdownTimer.php:939
+#: fergcorp_countdownTimer.php:947
 #, php-format
 msgid "%d hours, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:632
-#: fergcorp_countdownTimer.php:940
+#: fergcorp_countdownTimer.php:948
 #, php-format
 msgid "%d minute, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:634
 #: fergcorp_countdownTimer.php:660
-#: fergcorp_countdownTimer.php:941
+#: fergcorp_countdownTimer.php:949
 #, php-format
 msgid "%d minutes, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:648
-#: fergcorp_countdownTimer.php:942
+#: fergcorp_countdownTimer.php:950
 #, php-format
 msgid "%d second, "
 msgstr ""
 
 #: fergcorp_countdownTimer.php:650
 #: fergcorp_countdownTimer.php:657
-#: fergcorp_countdownTimer.php:943
+#: fergcorp_countdownTimer.php:951
 #, php-format
 msgid "%d seconds, "
 msgstr ""
 
-#: fergcorp_countdownTimer.php:858
+#: fergcorp_countdownTimer.php:866
 msgid "Widget title:"
 msgstr ""
 
-#: fergcorp_countdownTimer.php:859
+#: fergcorp_countdownTimer.php:867
 msgid "Maximum # of events to show:"
 msgstr ""
 
-#: fergcorp_countdownTimer.php:861
+#: fergcorp_countdownTimer.php:869
 msgid "Notes:"
 msgstr ""
 
-#: fergcorp_countdownTimer.php:861
+#: fergcorp_countdownTimer.php:869
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr ""
 
-#: fergcorp_countdownTimer.php:894
+#: fergcorp_countdownTimer.php:902
 msgid "Adds the Countdown Timer"
 msgstr ""
 
