@@ -95,25 +95,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                     <td><ul><li><a href="http://wordpress.org/tags/countdown-timer" target="_blank"><?php _e('Support Forum','fergcorp_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="http://www.amazon.com/gp/registry/registry.html?ie=UTF8&amp;type=wishlist&amp;id=E7Q6VO0I8XI4" target="_blank"><?php _e('Amazon Wishlist','fergcorp_countdownTimer'); ?></a></li></ul></td>
                                     <td><ul><li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=38923"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" alt="Donate"/></a></li></ul></td>
-                                	<?php if(__('translator_name','fergcorp_countdownTimer')!='translator_name') {?>
-	                                    <td><ul><li><?php _e('Translated by', 'fergcorp_countdownTimer'); ?> 
-                                        	<?php if(__('translator_url','fergcorp_countdownTimer')!='translator_url') {?>
-                                            	<a href="<?php _e('translator_url','fergcorp_countdownTimer'); ?>"><?php _e('translator_name','fergcorp_countdownTimer'); ?></a>
-											<?php } else { ?>
-                                            	<?php _e('translator_name','fergcorp_countdownTimer'); ?>
-                                             <?php } ?>
-										</li></ul></td>
-                                    <?php } ?>
                                   </tr>
                                 </table>
-
-								<p><?php _e("I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above.", 'fergcorp_countdownTimer'); ?></p>
-                            
-                            
+								<p><?php _e("I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above.", 'fergcorp_countdownTimer'); ?></p>                            
 							<?php
 						}
 						add_meta_box("fergcorp_countdownTimer_resources", __('Resources'), "fergcorp_countdownTimer_resources_meta_box", "fergcorp-countdown-timer");
-						
                         ?>
    
                         <form method="post" action="options.php">
