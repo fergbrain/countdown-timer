@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 18:55-0800\n"
-"PO-Revision-Date: 2010-03-31 18:55-0800\n"
+"POT-Creation-Date: 2010-03-31 22:02-0800\n"
+"PO-Revision-Date: 2010-03-31 22:33-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,8 @@ msgid "Amazon Wishlist"
 msgstr "Amazon pageidavimai"
 
 #: fergcorp_countdownTimer.php:100
-msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above."
-msgstr ""
+msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to continue to see updates, please consider donating above."
+msgstr "Esmu kodēti un atbalstīja šo spraudni jau vairākus gadus, tomēr es esmu pilna laika inženieris ar reālu, pilna laika darbu, un tiešām tikai darīt plānošanas lieta pusē par mīlestību no tā. Ja vēlaties turpināt, lai aplūkotu atjauninājumus, lūdzu, apsveriet ziedotājas iepriekš."
 
 #: fergcorp_countdownTimer.php:103
 msgid "Resources"
@@ -40,74 +40,74 @@ msgstr "Resursai"
 #: fergcorp_countdownTimer.php:116
 #, php-format
 msgid "Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr ""
+msgstr "Atgalinės atskaitos laikmatis naudoja <a %s>PHP strtotime funkcija</a> ir Parse apie bet anglų teksto datetime aprašymas."
 
 #: fergcorp_countdownTimer.php:117
 msgid "Examples of some (but not all) valid dates"
-msgstr ""
+msgstr "Pavyzdžiai kai kurių (bet ne visos) svarbių datų"
 
 #: fergcorp_countdownTimer.php:126
 #, php-format
 msgid "To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>."
-msgstr ""
+msgstr "Norėdami įterpti minutnik į jūsų šoninės panelės, galite naudoti <a %s>minutnik widget</a> ."
 
 #: fergcorp_countdownTimer.php:127
 msgid "Alternatively, you can also use this code in your sidebar.php file:"
-msgstr ""
+msgstr "Taip pat galite naudoti šį kodą į savo sidebar.php failą:"
 
 #: fergcorp_countdownTimer.php:137
 #, php-format
 msgid "If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:"
-msgstr ""
+msgstr "Jei norite įterpti minutnik į puslapį arba paštu, galite naudoti šiuos <abbr %s %s>trumpos</abbr> grąžinti visus ar tam tikrą skaičių Atgalinės laikmačiai, atitinkamai:"
 
 #: fergcorp_countdownTimer.php:137
 msgid "A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut."
-msgstr ""
+msgstr "Trumpa yra WordPress individualų kodą, kuris leidžia jums padaryti madingas dalykų su labai mažai pastangų. Trumpos galite dėti failus ar sukurti objektus, kurie paprastai reikalauja daug sudėtingas, negraži kodas tik vienoje eilutėje. Trumpa = santrumpa."
 
 #: fergcorp_countdownTimer.php:144
 msgid "Where <em>##</em> is maximum number of results to be displayed - ordered by date."
-msgstr ""
+msgstr "Jei <em># #</em> yra didžiausias paieškos rezultatų skaičius, kuris bus rodomas - užsakymai pagal datą."
 
 #: fergcorp_countdownTimer.php:145
 msgid "If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:"
-msgstr ""
+msgstr "Jei norite įterpti individualios Atskaitą laikmaèiai, pavyzdžiui, pranešimų ar puslapius, galite naudoti šias trumpas:"
 
 #: fergcorp_countdownTimer.php:147
 msgid "Time until my birthday:"
-msgstr ""
+msgstr "Laikas iki mano gimtadienio:"
 
 #: fergcorp_countdownTimer.php:151
 #, php-format
 msgid "Where <em>ENTER_DATE_HERE</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr ""
+msgstr "Jei <em>ENTER_DATE_HERE</em> naudoja <a %s>PHP strtotime funkcija</a> ir Parse apie bet anglų teksto datetime aprašymas."
 
 #: fergcorp_countdownTimer.php:154
 msgid "Installation and Usage Notes"
-msgstr ""
+msgstr "Įrengimas ir naudojimas Pastabos"
 
 #: fergcorp_countdownTimer.php:170
 msgid "Delete"
-msgstr ""
+msgstr "Panaikinti"
 
 #: fergcorp_countdownTimer.php:171
 msgid "Event Date"
-msgstr ""
+msgstr "Įvykio data"
 
 #: fergcorp_countdownTimer.php:172
 msgid "Event Title"
-msgstr ""
+msgstr "Renginio pavadinimas"
 
 #: fergcorp_countdownTimer.php:173
 msgid "Link"
-msgstr ""
+msgstr "Nuoroda"
 
 #: fergcorp_countdownTimer.php:174
 msgid "Display \"Time since\""
-msgstr ""
+msgstr "Display \"Laikas nuo\""
 
 #: fergcorp_countdownTimer.php:206
 msgid "Automatically delete 'One Time Events' after they have occured?"
-msgstr ""
+msgstr "Automatiškai pašalinti \"Viena valanda Renginių po jos atsirado?"
 
 #: fergcorp_countdownTimer.php:206
 #: fergcorp_countdownTimer.php:215
@@ -121,7 +121,7 @@ msgstr ""
 #: fergcorp_countdownTimer.php:239
 #: fergcorp_countdownTimer.php:240
 msgid "Yes"
-msgstr ""
+msgstr "Taip"
 
 #: fergcorp_countdownTimer.php:206
 #: fergcorp_countdownTimer.php:215
@@ -135,127 +135,127 @@ msgstr ""
 #: fergcorp_countdownTimer.php:239
 #: fergcorp_countdownTimer.php:240
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: fergcorp_countdownTimer.php:209
 msgid "One Time Events"
-msgstr ""
+msgstr "Vienas Renginiai"
 
 #: fergcorp_countdownTimer.php:213
 msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
-msgstr ""
+msgstr "Kiek laiko laikmatis yra matomi, jeigu \"Ekranas\" laiką, nes \"\" yra pažymėtas:"
 
 #: fergcorp_countdownTimer.php:214
 msgid "Seconds: "
-msgstr ""
+msgstr "Sekundės:"
 
 #: fergcorp_countdownTimer.php:214
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
-msgstr ""
+msgstr "(0 = begalybės; 86400 sekundžių = 1 dieną; 604800 sekundžių = 1 savaitę)"
 
 #: fergcorp_countdownTimer.php:215
 msgid "Enable JavaScript countdown:"
-msgstr ""
+msgstr "Enable JavaScript Countdown:"
 
 #: fergcorp_countdownTimer.php:216
 msgid "By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer."
-msgstr ""
+msgstr "Pagal nutylėjimą, WordPress nėra apdoroti trumpos, kurie ištraukomis. Jei norite įjungti šią funkciją, galite tai padaryti čia. Atkreipkite dėmesį, kad tai leis ištrauka analizuojant iš <em>visų</em> trumpos ir ne tik tuos, kurie susiję su minutnik."
 
 #: fergcorp_countdownTimer.php:217
 msgid "Enable shortcodes in the_excerpt:"
-msgstr ""
+msgstr "Įtraukti trumpos ir the_excerpt:"
 
 #: fergcorp_countdownTimer.php:225
 msgid "Management"
-msgstr ""
+msgstr "Valdymas"
 
 #: fergcorp_countdownTimer.php:231
 msgid "This setting controls what units of time are displayed."
-msgstr ""
+msgstr "Šis nustatymas kas laiko vienetais, yra rodomas."
 
 #: fergcorp_countdownTimer.php:233
 msgid "Years:"
-msgstr ""
+msgstr "Metai:"
 
 #: fergcorp_countdownTimer.php:234
 msgid "Months:"
-msgstr ""
+msgstr "Mėnesio:"
 
 #: fergcorp_countdownTimer.php:235
 msgid "Weeks:"
-msgstr ""
+msgstr "Savaitės:"
 
 #: fergcorp_countdownTimer.php:236
 msgid "Days:"
-msgstr ""
+msgstr "Dienos:"
 
 #: fergcorp_countdownTimer.php:237
 msgid "Hours:"
-msgstr ""
+msgstr "Darbo laikas:"
 
 #: fergcorp_countdownTimer.php:238
 msgid "Minutes:"
-msgstr ""
+msgstr "Protokolas:"
 
 #: fergcorp_countdownTimer.php:239
 msgid "Seconds:"
-msgstr ""
+msgstr "Sekundės:"
 
 #: fergcorp_countdownTimer.php:240
 msgid "Strip non-significant zeros:"
-msgstr ""
+msgstr "Ruožas nereikšmingas nulio:"
 
 #: fergcorp_countdownTimer.php:244
 msgid "Countdown Time Display"
-msgstr ""
+msgstr "Tas, kurio nėra laiko atvaizdavimas"
 
 #: fergcorp_countdownTimer.php:248
 #, php-format
 msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>."
-msgstr ""
+msgstr "Jei nustatysite \"onHover laiko formatas\", sklandė virš Liko parodys vartotojas kas įvykio data. onHover laiko formatas naudoja <a %s>PHP Date () funkciją</a> ."
 
 #: fergcorp_countdownTimer.php:249
 msgid "Examples"
-msgstr ""
+msgstr "Pavyzdžiai"
 
 #: fergcorp_countdownTimer.php:251
 #: fergcorp_countdownTimer.php:252
 msgid "goes to"
-msgstr ""
+msgstr "eina į"
 
 #: fergcorp_countdownTimer.php:254
 #: fergcorp_countdownTimer.php:257
 msgid "onHover Time Format"
-msgstr ""
+msgstr "onHover laiko formatas"
 
 #: fergcorp_countdownTimer.php:261
 msgid "This setting allows you to customize how each event is styled and wrapped."
-msgstr ""
+msgstr "Šis nustatymas leidžia jums keisti, kaip kiekvienas įvykis yra stilizuotas ir suvynioti."
 
 #: fergcorp_countdownTimer.php:262
 msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
-msgstr ""
+msgstr "<strong>Pavadinimas priesagos</strong> nustato turinio, kuris rodomas iškart po pavadinimo ir prieš laikmatis."
 
 #: fergcorp_countdownTimer.php:263
 msgid "Examples/Defaults"
-msgstr ""
+msgstr "Pavyzdžiai / nutylėjimą"
 
 #: fergcorp_countdownTimer.php:265
 #: fergcorp_countdownTimer.php:267
 msgid "Title Suffix"
-msgstr ""
+msgstr "Pavadinimas priesagos"
 
 #: fergcorp_countdownTimer.php:270
 msgid "Display Format Options"
-msgstr ""
+msgstr "Formatas Funkcijos"
 
 #: fergcorp_countdownTimer.php:280
 msgid "Example Display"
-msgstr ""
+msgstr "Pavyzdys Rodyti"
 
 #: fergcorp_countdownTimer.php:287
 msgid "Save Changes"
-msgstr ""
+msgstr "Išsaugoti pakeitimus"
 
 #: fergcorp_countdownTimer.php:366
 #: fergcorp_countdownTimer.php:369
@@ -263,127 +263,113 @@ msgid "No dates present"
 msgstr "Datų nėra"
 
 #: fergcorp_countdownTimer.php:413
-#: fergcorp_countdownTimer.php:939
+#: fergcorp_countdownTimer.php:911
 #, php-format
 msgid "%s ago"
 msgstr "prieš %s"
 
 #: fergcorp_countdownTimer.php:424
-#: fergcorp_countdownTimer.php:940
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "in %s"
 msgstr "%s"
 
-#: fergcorp_countdownTimer.php:520
-#: fergcorp_countdownTimer.php:925
-#, php-format
-msgid "%d year, "
-msgstr "%d metai"
-
-#: fergcorp_countdownTimer.php:522
-#: fergcorp_countdownTimer.php:662
-#: fergcorp_countdownTimer.php:926
-#, php-format
-msgid "%d years, "
-msgstr "%d metai,"
-
-#: fergcorp_countdownTimer.php:536
-#: fergcorp_countdownTimer.php:927
-#, php-format
-msgid "%d month, "
-msgstr "%d mėnuo,"
-
-#: fergcorp_countdownTimer.php:538
-#: fergcorp_countdownTimer.php:659
-#: fergcorp_countdownTimer.php:928
-#, php-format
-msgid "%d months, "
-msgstr "%d mėnesių,"
-
-#: fergcorp_countdownTimer.php:570
-#: fergcorp_countdownTimer.php:929
-#, php-format
-msgid "%d week, "
-msgstr "%d savaitė,"
-
-#: fergcorp_countdownTimer.php:572
-#: fergcorp_countdownTimer.php:656
-#: fergcorp_countdownTimer.php:930
-#, php-format
-msgid "%d weeks, "
-msgstr "%d savaičių,"
-
-#: fergcorp_countdownTimer.php:585
-#: fergcorp_countdownTimer.php:931
-#, php-format
-msgid "%d day, "
-msgstr "%d diena,"
-
-#: fergcorp_countdownTimer.php:587
-#: fergcorp_countdownTimer.php:653
-#: fergcorp_countdownTimer.php:932
-#, php-format
-msgid "%d days, "
-msgstr "%d dienų,"
-
-#: fergcorp_countdownTimer.php:602
-#: fergcorp_countdownTimer.php:933
-#, php-format
-msgid "%d hour, "
-msgstr "%d valanda,"
-
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:650
-#: fergcorp_countdownTimer.php:934
-#, php-format
-msgid "%d hours, "
-msgstr "%d valandų."
-
-#: fergcorp_countdownTimer.php:619
-#: fergcorp_countdownTimer.php:935
-#, php-format
-msgid "%d minute, "
-msgstr "%d minutė,"
-
-#: fergcorp_countdownTimer.php:621
-#: fergcorp_countdownTimer.php:647
-#: fergcorp_countdownTimer.php:936
-#, php-format
-msgid "%d minutes, "
-msgstr "%d minutės,"
-
-#: fergcorp_countdownTimer.php:635
-#: fergcorp_countdownTimer.php:937
-#, php-format
-msgid "%d second, "
-msgstr "%d sekundė,"
-
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:644
-#: fergcorp_countdownTimer.php:938
+#: fergcorp_countdownTimer.php:616
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekundės,"
 
-#: fergcorp_countdownTimer.php:853
+#: fergcorp_countdownTimer.php:619
+#: fergcorp_countdownTimer.php:908
+#, php-format
+msgid "%d minutes, "
+msgstr "%d minutės,"
+
+#: fergcorp_countdownTimer.php:622
+#: fergcorp_countdownTimer.php:906
+#, php-format
+msgid "%d hours, "
+msgstr "%d valandų."
+
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:904
+#, php-format
+msgid "%d days, "
+msgstr "%d dienų,"
+
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:902
+#, php-format
+msgid "%d weeks, "
+msgstr "%d savaičių,"
+
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:900
+#, php-format
+msgid "%d months, "
+msgstr "%d mėnesių,"
+
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:898
+#, php-format
+msgid "%d years, "
+msgstr "%d metai,"
+
+#: fergcorp_countdownTimer.php:825
 msgid "Widget title:"
 msgstr "Priedo antraštė:"
 
-#: fergcorp_countdownTimer.php:854
+#: fergcorp_countdownTimer.php:826
 msgid "Maximum # of events to show:"
-msgstr ""
+msgstr "Didžiausias # renginių rodyti:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Notes:"
-msgstr ""
+msgstr "Pastabos:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
-msgstr ""
+msgstr "Nustatyti \"Didžiausia # renginių\" į \"1\", jei norite ne riba."
 
-#: fergcorp_countdownTimer.php:889
+#: fergcorp_countdownTimer.php:861
 msgid "Adds the Countdown Timer"
-msgstr ""
+msgstr "Prideda minutnik"
+
+#: fergcorp_countdownTimer.php:897
+#, php-format
+msgid "%d year, "
+msgstr "%d metai"
+
+#: fergcorp_countdownTimer.php:899
+#, php-format
+msgid "%d month, "
+msgstr "%d mėnuo,"
+
+#: fergcorp_countdownTimer.php:901
+#, php-format
+msgid "%d week, "
+msgstr "%d savaitė,"
+
+#: fergcorp_countdownTimer.php:903
+#, php-format
+msgid "%d day, "
+msgstr "%d diena,"
+
+#: fergcorp_countdownTimer.php:905
+#, php-format
+msgid "%d hour, "
+msgstr "%d valanda,"
+
+#: fergcorp_countdownTimer.php:907
+#, php-format
+msgid "%d minute, "
+msgstr "%d minutė,"
+
+#: fergcorp_countdownTimer.php:909
+#, php-format
+msgid "%d second, "
+msgstr "%d sekundė,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Nustatymai/datos atnaujintos sėkmingai."

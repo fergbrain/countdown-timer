@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 18:55-0800\n"
-"PO-Revision-Date: 2010-03-31 18:55-0800\n"
+"POT-Creation-Date: 2010-03-31 22:01-0800\n"
+"PO-Revision-Date: 2010-03-31 22:01-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgid "Amazon Wishlist"
 msgstr "Lista želja"
 
 #: fergcorp_countdownTimer.php:100
-msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above."
+msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to continue to see updates, please consider donating above."
 msgstr ""
 
 #: fergcorp_countdownTimer.php:103
@@ -264,127 +264,113 @@ msgid "No dates present"
 msgstr "Nijedan datum nije postavljen"
 
 #: fergcorp_countdownTimer.php:413
-#: fergcorp_countdownTimer.php:939
+#: fergcorp_countdownTimer.php:911
 #, php-format
 msgid "%s ago"
 msgstr "prije %s"
 
 #: fergcorp_countdownTimer.php:424
-#: fergcorp_countdownTimer.php:940
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "in %s"
 msgstr "za %s"
 
-#: fergcorp_countdownTimer.php:520
-#: fergcorp_countdownTimer.php:925
-#, php-format
-msgid "%d year, "
-msgstr "%d godinu,"
-
-#: fergcorp_countdownTimer.php:522
-#: fergcorp_countdownTimer.php:662
-#: fergcorp_countdownTimer.php:926
-#, php-format
-msgid "%d years, "
-msgstr "%d godine,"
-
-#: fergcorp_countdownTimer.php:536
-#: fergcorp_countdownTimer.php:927
-#, php-format
-msgid "%d month, "
-msgstr "%d mjesec,"
-
-#: fergcorp_countdownTimer.php:538
-#: fergcorp_countdownTimer.php:659
-#: fergcorp_countdownTimer.php:928
-#, php-format
-msgid "%d months, "
-msgstr "%d mjeseca,"
-
-#: fergcorp_countdownTimer.php:570
-#: fergcorp_countdownTimer.php:929
-#, php-format
-msgid "%d week, "
-msgstr "%d sedmicu,"
-
-#: fergcorp_countdownTimer.php:572
-#: fergcorp_countdownTimer.php:656
-#: fergcorp_countdownTimer.php:930
-#, php-format
-msgid "%d weeks, "
-msgstr "%d sedmice,"
-
-#: fergcorp_countdownTimer.php:585
-#: fergcorp_countdownTimer.php:931
-#, php-format
-msgid "%d day, "
-msgstr "%d dan,"
-
-#: fergcorp_countdownTimer.php:587
-#: fergcorp_countdownTimer.php:653
-#: fergcorp_countdownTimer.php:932
-#, php-format
-msgid "%d days, "
-msgstr "%d dana,"
-
-#: fergcorp_countdownTimer.php:602
-#: fergcorp_countdownTimer.php:933
-#, php-format
-msgid "%d hour, "
-msgstr "%d sahat,"
-
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:650
-#: fergcorp_countdownTimer.php:934
-#, php-format
-msgid "%d hours, "
-msgstr "%d sahata,"
-
-#: fergcorp_countdownTimer.php:619
-#: fergcorp_countdownTimer.php:935
-#, php-format
-msgid "%d minute, "
-msgstr "%d minutu,"
-
-#: fergcorp_countdownTimer.php:621
-#: fergcorp_countdownTimer.php:647
-#: fergcorp_countdownTimer.php:936
-#, php-format
-msgid "%d minutes, "
-msgstr "%d minute,"
-
-#: fergcorp_countdownTimer.php:635
-#: fergcorp_countdownTimer.php:937
-#, php-format
-msgid "%d second, "
-msgstr "%d sekundu,"
-
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:644
-#: fergcorp_countdownTimer.php:938
+#: fergcorp_countdownTimer.php:616
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekunde,"
 
-#: fergcorp_countdownTimer.php:853
+#: fergcorp_countdownTimer.php:619
+#: fergcorp_countdownTimer.php:908
+#, php-format
+msgid "%d minutes, "
+msgstr "%d minute,"
+
+#: fergcorp_countdownTimer.php:622
+#: fergcorp_countdownTimer.php:906
+#, php-format
+msgid "%d hours, "
+msgstr "%d sahata,"
+
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:904
+#, php-format
+msgid "%d days, "
+msgstr "%d dana,"
+
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:902
+#, php-format
+msgid "%d weeks, "
+msgstr "%d sedmice,"
+
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:900
+#, php-format
+msgid "%d months, "
+msgstr "%d mjeseca,"
+
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:898
+#, php-format
+msgid "%d years, "
+msgstr "%d godine,"
+
+#: fergcorp_countdownTimer.php:825
 msgid "Widget title:"
 msgstr "Naslov widžeta:"
 
-#: fergcorp_countdownTimer.php:854
+#: fergcorp_countdownTimer.php:826
 msgid "Maximum # of events to show:"
 msgstr "Najviše prikazanih stavki:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Notes:"
 msgstr "Napomene:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Podesite 'Najviše prikazanih stavki:' na '-1' za neograničen broj."
 
-#: fergcorp_countdownTimer.php:889
+#: fergcorp_countdownTimer.php:861
 msgid "Adds the Countdown Timer"
 msgstr "Odbrojavanje - šta prikazati"
+
+#: fergcorp_countdownTimer.php:897
+#, php-format
+msgid "%d year, "
+msgstr "%d godinu,"
+
+#: fergcorp_countdownTimer.php:899
+#, php-format
+msgid "%d month, "
+msgstr "%d mjesec,"
+
+#: fergcorp_countdownTimer.php:901
+#, php-format
+msgid "%d week, "
+msgstr "%d sedmicu,"
+
+#: fergcorp_countdownTimer.php:903
+#, php-format
+msgid "%d day, "
+msgstr "%d dan,"
+
+#: fergcorp_countdownTimer.php:905
+#, php-format
+msgid "%d hour, "
+msgstr "%d sahat,"
+
+#: fergcorp_countdownTimer.php:907
+#, php-format
+msgid "%d minute, "
+msgstr "%d minutu,"
+
+#: fergcorp_countdownTimer.php:909
+#, php-format
+msgid "%d second, "
+msgstr "%d sekundu,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Opcije/datumi uspješno ažurirani."
@@ -464,3 +450,5 @@ msgstr "Odbrojavanje - šta prikazati"
 
 #~ msgid "Enable CountdownTimer within The Loop:"
 #~ msgstr "Uključi Odbrojavanje unutar WP petlje:"
+
+

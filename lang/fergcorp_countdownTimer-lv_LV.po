@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 18:55-0800\n"
-"PO-Revision-Date: 2010-03-31 18:55-0800\n"
+"POT-Creation-Date: 2010-03-31 22:02-0800\n"
+"PO-Revision-Date: 2010-03-31 22:06-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,15 +23,15 @@ msgstr "Plugina mājaslapa"
 
 #: fergcorp_countdownTimer.php:95
 msgid "Support Forum"
-msgstr ""
+msgstr "Atbalsta forums"
 
 #: fergcorp_countdownTimer.php:96
 msgid "Amazon Wishlist"
-msgstr ""
+msgstr "Amazon Vēlmju"
 
 #: fergcorp_countdownTimer.php:100
-msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above."
-msgstr ""
+msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to continue to see updates, please consider donating above."
+msgstr "Esmu kodēti un atbalstīja šo spraudni jau vairākus gadus, tomēr es esmu pilna laika inženieris ar reālu, pilna laika darbu, un tiešām tikai darīt plānošanas lieta pusē par mīlestību no tā. Ja vēlaties turpināt, lai aplūkotu atjauninājumus, lūdzu, apsveriet ziedotājas iepriekš."
 
 #: fergcorp_countdownTimer.php:103
 #, fuzzy
@@ -41,50 +41,50 @@ msgstr "Resursi!"
 #: fergcorp_countdownTimer.php:116
 #, php-format
 msgid "Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr ""
+msgstr "Atpakaļskaitīšanas taimeris izmanto <a %s>PHP&#39;s strtotime funkciju</a> un parsēt par visiem angļu teksta datetime apraksts."
 
 #: fergcorp_countdownTimer.php:117
 msgid "Examples of some (but not all) valid dates"
-msgstr ""
+msgstr "Piemēri dažu (bet ne visas) ir spēkā datumos"
 
 #: fergcorp_countdownTimer.php:126
 #, php-format
 msgid "To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>."
-msgstr ""
+msgstr "Lai ievietotu Countdown taimeris jūsu sānjoslas, jūs varat izmantot <a %s>Countdown Taimeris logrīku</a> ."
 
 #: fergcorp_countdownTimer.php:127
 msgid "Alternatively, you can also use this code in your sidebar.php file:"
-msgstr ""
+msgstr "Varat arī izmantot šo kodu, jūsu sidebar.php failu:"
 
 #: fergcorp_countdownTimer.php:137
 #, php-format
 msgid "If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:"
-msgstr ""
+msgstr "Ja vēlaties ievietot Countdown taimeris uz lapu vai pastu, jūs varat izmantot šādus <abbr %s %s>shortcodes</abbr> atgriezt visu vai ierobežotu skaitu Countdown taimeri, attiecīgi:"
 
 #: fergcorp_countdownTimer.php:137
 msgid "A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut."
-msgstr ""
+msgstr "Shortcode ir WordPress konkrētu kodu, kas ļauj jums darīt modes lietas ar ļoti maz pūles. Shortcodes var iegult failus vai izveidojiet objektus, kas parasti prasa daudz sarežģītāku, neglīts kods tikai vienā rindā. Shortcode = īsceļu."
 
 #: fergcorp_countdownTimer.php:144
 msgid "Where <em>##</em> is maximum number of results to be displayed - ordered by date."
-msgstr ""
+msgstr "Kur <em># #</em> ir maksimālais rezultātu skaits, kas parādīsies - pasūtīts pēc datuma."
 
 #: fergcorp_countdownTimer.php:145
 msgid "If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:"
-msgstr ""
+msgstr "Ja vēlaties ievietot atsevišķu atpakaļskaitīšanas taimeri, piemēram, amatu vai lapas, jūs varat izmantot šādus shortcode:"
 
 #: fergcorp_countdownTimer.php:147
 msgid "Time until my birthday:"
-msgstr ""
+msgstr "Laika līdz mana dzimšanas diena:"
 
 #: fergcorp_countdownTimer.php:151
 #, php-format
 msgid "Where <em>ENTER_DATE_HERE</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description."
-msgstr ""
+msgstr "Ja <em>ENTER_DATE_HERE</em> izmanto <a %s>PHP&#39;s strtotime funkciju</a> un parsēt par visiem angļu teksta datetime apraksts."
 
 #: fergcorp_countdownTimer.php:154
 msgid "Installation and Usage Notes"
-msgstr ""
+msgstr "Uzstādīšanas un lietošanas piezīmes"
 
 #: fergcorp_countdownTimer.php:170
 msgid "Delete"
@@ -100,7 +100,7 @@ msgstr "Virsraksts"
 
 #: fergcorp_countdownTimer.php:173
 msgid "Link"
-msgstr ""
+msgstr "Saite"
 
 #: fergcorp_countdownTimer.php:174
 msgid "Display \"Time since\""
@@ -108,7 +108,7 @@ msgstr "Rādīt pievienošanas laiku"
 
 #: fergcorp_countdownTimer.php:206
 msgid "Automatically delete 'One Time Events' after they have occured?"
-msgstr ""
+msgstr "Automātiski izdzēš \"One Time Notikumi\", kad tie radušies?"
 
 #: fergcorp_countdownTimer.php:206
 #: fergcorp_countdownTimer.php:215
@@ -140,11 +140,11 @@ msgstr "nē"
 
 #: fergcorp_countdownTimer.php:209
 msgid "One Time Events"
-msgstr ""
+msgstr "One Time Notikumi"
 
 #: fergcorp_countdownTimer.php:213
 msgid "How long the timer remain visable if \"Display 'Time Since'\" is ticked:"
-msgstr ""
+msgstr "Cik ilgi taimeri ir redzams, ja \"Display\" Time Tā \"\" ir atzīmēts:"
 
 #: fergcorp_countdownTimer.php:214
 msgid "Seconds: "
@@ -152,27 +152,27 @@ msgstr "Sekundes"
 
 #: fergcorp_countdownTimer.php:214
 msgid "(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)"
-msgstr ""
+msgstr "(0 = bezgalīgs; 86.400 sekundes = 1 diena, 604800 sekundes = 1 nedēļa)"
 
 #: fergcorp_countdownTimer.php:215
 msgid "Enable JavaScript countdown:"
-msgstr ""
+msgstr "Enable JavaScript atpakaļskaitīšanas:"
 
 #: fergcorp_countdownTimer.php:216
 msgid "By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer."
-msgstr ""
+msgstr "Pēc noklusējuma WordPress nav parsēt shortcodes kas ir fragmentāri. Ja jūs vēlaties, lai šo funkcionalitāti, jūs varat darīt šeit. Ņemiet vērā, ka tas ļaus analizējot <em>visu</em> ekscerpēt shortcodes, kas, ne tikai tie, kas saistīti ar atpakaļskaitīšanas taimeri."
 
 #: fergcorp_countdownTimer.php:217
 msgid "Enable shortcodes in the_excerpt:"
-msgstr ""
+msgstr "Ieslēgt shortcodes ir the_excerpt:"
 
 #: fergcorp_countdownTimer.php:225
 msgid "Management"
-msgstr ""
+msgstr "Vadība"
 
 #: fergcorp_countdownTimer.php:231
 msgid "This setting controls what units of time are displayed."
-msgstr ""
+msgstr "Šis iestatījums kontrolē kāda laika vienībās tiek rādīti."
 
 #: fergcorp_countdownTimer.php:233
 msgid "Years:"
@@ -204,187 +204,173 @@ msgstr "Sekundes"
 
 #: fergcorp_countdownTimer.php:240
 msgid "Strip non-significant zeros:"
-msgstr ""
+msgstr "Sloksnes, kas nav būtiska nullēm:"
 
 #: fergcorp_countdownTimer.php:244
 msgid "Countdown Time Display"
-msgstr ""
+msgstr "Countdown laika displejs"
 
 #: fergcorp_countdownTimer.php:248
 #, php-format
 msgid "If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>."
-msgstr ""
+msgstr "Ja iestatāt \"onHover Laika formāts\", Paceltais laika gaitā kreisajā rādīs lietotāju kāda notikuma dienas, kas ir. onHover Laika formāts izmanto <a %s>PHP&#39;s datums () funkciju</a> ."
 
 #: fergcorp_countdownTimer.php:249
 msgid "Examples"
-msgstr ""
+msgstr "Piemēri"
 
 #: fergcorp_countdownTimer.php:251
 #: fergcorp_countdownTimer.php:252
 msgid "goes to"
-msgstr ""
+msgstr "iet uz"
 
 #: fergcorp_countdownTimer.php:254
 #: fergcorp_countdownTimer.php:257
 msgid "onHover Time Format"
-msgstr ""
+msgstr "onHover Laika formāts"
 
 #: fergcorp_countdownTimer.php:261
 msgid "This setting allows you to customize how each event is styled and wrapped."
-msgstr ""
+msgstr "Šis uzstādījums ļauj jums pielāgot, kā katrs notikums tiek veidoti un iesaiņota."
 
 #: fergcorp_countdownTimer.php:262
 msgid "<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer."
-msgstr ""
+msgstr "<strong>Nosaukums Sufikss</strong> nosaka saturu, kas parādās uzreiz pēc virsraksta un pirms taimeris."
 
 #: fergcorp_countdownTimer.php:263
 msgid "Examples/Defaults"
-msgstr ""
+msgstr "Piemēri / noklusējumus"
 
 #: fergcorp_countdownTimer.php:265
 #: fergcorp_countdownTimer.php:267
 msgid "Title Suffix"
-msgstr ""
+msgstr "Nosaukums Sufikss"
 
 #: fergcorp_countdownTimer.php:270
 msgid "Display Format Options"
-msgstr ""
+msgstr "Displeja Format Options"
 
 #: fergcorp_countdownTimer.php:280
 msgid "Example Display"
-msgstr ""
+msgstr "Piemērs Displeja"
 
 #: fergcorp_countdownTimer.php:287
 msgid "Save Changes"
-msgstr ""
+msgstr "Saglabāt izmaiņas"
 
 #: fergcorp_countdownTimer.php:366
 #: fergcorp_countdownTimer.php:369
 msgid "No dates present"
-msgstr ""
+msgstr "Nav datumi klāt"
 
 #: fergcorp_countdownTimer.php:413
-#: fergcorp_countdownTimer.php:939
+#: fergcorp_countdownTimer.php:911
 #, php-format
 msgid "%s ago"
-msgstr ""
+msgstr "%s ago"
 
 #: fergcorp_countdownTimer.php:424
-#: fergcorp_countdownTimer.php:940
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "in %s"
 msgstr "pēc %s "
 
-#: fergcorp_countdownTimer.php:520
-#: fergcorp_countdownTimer.php:925
+#: fergcorp_countdownTimer.php:616
+#: fergcorp_countdownTimer.php:910
 #, php-format
-msgid "%d year, "
-msgstr "%d gads, "
-
-#: fergcorp_countdownTimer.php:522
-#: fergcorp_countdownTimer.php:662
-#: fergcorp_countdownTimer.php:926
-#, php-format
-msgid "%d years, "
-msgstr "%d gadi, "
-
-#: fergcorp_countdownTimer.php:536
-#: fergcorp_countdownTimer.php:927
-#, php-format
-msgid "%d month, "
-msgstr "%d mēnesis, "
-
-#: fergcorp_countdownTimer.php:538
-#: fergcorp_countdownTimer.php:659
-#: fergcorp_countdownTimer.php:928
-#, php-format
-msgid "%d months, "
-msgstr "%d mēneši, "
-
-#: fergcorp_countdownTimer.php:570
-#: fergcorp_countdownTimer.php:929
-#, php-format
-msgid "%d week, "
-msgstr ""
-
-#: fergcorp_countdownTimer.php:572
-#: fergcorp_countdownTimer.php:656
-#: fergcorp_countdownTimer.php:930
-#, php-format
-msgid "%d weeks, "
-msgstr ""
-
-#: fergcorp_countdownTimer.php:585
-#: fergcorp_countdownTimer.php:931
-#, php-format
-msgid "%d day, "
-msgstr "%d diena, "
-
-#: fergcorp_countdownTimer.php:587
-#: fergcorp_countdownTimer.php:653
-#: fergcorp_countdownTimer.php:932
-#, php-format
-msgid "%d days, "
-msgstr "%d dienas, "
-
-#: fergcorp_countdownTimer.php:602
-#: fergcorp_countdownTimer.php:933
-#, php-format
-msgid "%d hour, "
-msgstr "%d stunda, "
-
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:650
-#: fergcorp_countdownTimer.php:934
-#, php-format
-msgid "%d hours, "
-msgstr "%d stundas, "
+msgid "%d seconds, "
+msgstr "%d sekundēm,"
 
 #: fergcorp_countdownTimer.php:619
-#: fergcorp_countdownTimer.php:935
-#, php-format
-msgid "%d minute, "
-msgstr "%d minūte, "
-
-#: fergcorp_countdownTimer.php:621
-#: fergcorp_countdownTimer.php:647
-#: fergcorp_countdownTimer.php:936
+#: fergcorp_countdownTimer.php:908
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minūtes, "
 
-#: fergcorp_countdownTimer.php:635
-#: fergcorp_countdownTimer.php:937
+#: fergcorp_countdownTimer.php:622
+#: fergcorp_countdownTimer.php:906
 #, php-format
-msgid "%d second, "
-msgstr ""
+msgid "%d hours, "
+msgstr "%d stundas, "
 
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:644
-#: fergcorp_countdownTimer.php:938
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:904
 #, php-format
-msgid "%d seconds, "
-msgstr ""
+msgid "%d days, "
+msgstr "%d dienas, "
 
-#: fergcorp_countdownTimer.php:853
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:902
+#, php-format
+msgid "%d weeks, "
+msgstr "%d nedēļas,"
+
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:900
+#, php-format
+msgid "%d months, "
+msgstr "%d mēneši, "
+
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:898
+#, php-format
+msgid "%d years, "
+msgstr "%d gadi, "
+
+#: fergcorp_countdownTimer.php:825
 msgid "Widget title:"
 msgstr "Notikumu taimeris:"
 
-#: fergcorp_countdownTimer.php:854
+#: fergcorp_countdownTimer.php:826
 msgid "Maximum # of events to show:"
-msgstr ""
+msgstr "Maksimālais # notikumu, lai parādītu:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Notes:"
-msgstr ""
+msgstr "Piezīmes:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
-msgstr ""
+msgstr "Set \"Maksimālais # notikumu\" uz \"-1\", ja vēlaties, nav ierobežojumu."
 
-#: fergcorp_countdownTimer.php:889
+#: fergcorp_countdownTimer.php:861
 msgid "Adds the Countdown Timer"
-msgstr ""
+msgstr "Pievieno Countdown taimeris"
+
+#: fergcorp_countdownTimer.php:897
+#, php-format
+msgid "%d year, "
+msgstr "%d gads, "
+
+#: fergcorp_countdownTimer.php:899
+#, php-format
+msgid "%d month, "
+msgstr "%d mēnesis, "
+
+#: fergcorp_countdownTimer.php:901
+#, php-format
+msgid "%d week, "
+msgstr "%d nedēļā,"
+
+#: fergcorp_countdownTimer.php:903
+#, php-format
+msgid "%d day, "
+msgstr "%d diena, "
+
+#: fergcorp_countdownTimer.php:905
+#, php-format
+msgid "%d hour, "
+msgstr "%d stunda, "
+
+#: fergcorp_countdownTimer.php:907
+#, php-format
+msgid "%d minute, "
+msgstr "%d minūte, "
+
+#: fergcorp_countdownTimer.php:909
+#, php-format
+msgid "%d second, "
+msgstr "%d no otras puses,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Viss izdevās veiksmīgi."
@@ -397,3 +383,5 @@ msgstr ""
 
 #~ msgid "translator_url"
 #~ msgstr "http://www.btserv.org"
+
+

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 18:55-0800\n"
-"PO-Revision-Date: 2010-03-31 18:55-0800\n"
+"POT-Creation-Date: 2010-03-31 22:02-0800\n"
+"PO-Revision-Date: 2010-03-31 22:06-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,8 @@ msgid "Amazon Wishlist"
 msgstr "Amazon ønskeliste"
 
 #: fergcorp_countdownTimer.php:100
-msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to coninue to see updates, please consider donating above."
-msgstr ""
+msgid "I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to continue to see updates, please consider donating above."
+msgstr "Jeg har kodet og støttet denne plugin i flere år nå, men jeg er en full tid ingeniør med en ekte, fulltids jobb og gjør dette kun programmeringen ting på siden for kjærligheten til det. Hvis du ønsker å fortsette å se oppdateringer, bør du vurdere å donere ovenfor."
 
 #: fergcorp_countdownTimer.php:103
 msgid "Resources"
@@ -160,11 +160,11 @@ msgstr "Aktiver nedtelling basert på JavaScript:"
 
 #: fergcorp_countdownTimer.php:216
 msgid "By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer."
-msgstr ""
+msgstr "Som standard WordPress ikke analysere koder som er i utdrag. Hvis du vil aktivere denne funksjonaliteten, kan du gjøre det her. Merk at dette vil gjøre det mulig analyseringen av <em>alle</em> koder i utdrag, ikke bare de som er knyttet til Countdown Timer."
 
 #: fergcorp_countdownTimer.php:217
 msgid "Enable shortcodes in the_excerpt:"
-msgstr ""
+msgstr "Aktiver koder i the_excerpt:"
 
 #: fergcorp_countdownTimer.php:225
 msgid "Management"
@@ -256,7 +256,7 @@ msgstr "Eksempel på visning"
 
 #: fergcorp_countdownTimer.php:287
 msgid "Save Changes"
-msgstr ""
+msgstr "Lagre endringer"
 
 #: fergcorp_countdownTimer.php:366
 #: fergcorp_countdownTimer.php:369
@@ -264,127 +264,113 @@ msgid "No dates present"
 msgstr "Ingen dato tilgjengelig"
 
 #: fergcorp_countdownTimer.php:413
-#: fergcorp_countdownTimer.php:939
+#: fergcorp_countdownTimer.php:911
 #, php-format
 msgid "%s ago"
 msgstr "%s siden"
 
 #: fergcorp_countdownTimer.php:424
-#: fergcorp_countdownTimer.php:940
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "in %s"
 msgstr "om %s"
 
-#: fergcorp_countdownTimer.php:520
-#: fergcorp_countdownTimer.php:925
-#, php-format
-msgid "%d year, "
-msgstr "%d år,"
-
-#: fergcorp_countdownTimer.php:522
-#: fergcorp_countdownTimer.php:662
-#: fergcorp_countdownTimer.php:926
-#, php-format
-msgid "%d years, "
-msgstr "%d år,"
-
-#: fergcorp_countdownTimer.php:536
-#: fergcorp_countdownTimer.php:927
-#, php-format
-msgid "%d month, "
-msgstr "%d måned,"
-
-#: fergcorp_countdownTimer.php:538
-#: fergcorp_countdownTimer.php:659
-#: fergcorp_countdownTimer.php:928
-#, php-format
-msgid "%d months, "
-msgstr "%d måneder,"
-
-#: fergcorp_countdownTimer.php:570
-#: fergcorp_countdownTimer.php:929
-#, php-format
-msgid "%d week, "
-msgstr "%d uke,"
-
-#: fergcorp_countdownTimer.php:572
-#: fergcorp_countdownTimer.php:656
-#: fergcorp_countdownTimer.php:930
-#, php-format
-msgid "%d weeks, "
-msgstr "%d uker,"
-
-#: fergcorp_countdownTimer.php:585
-#: fergcorp_countdownTimer.php:931
-#, php-format
-msgid "%d day, "
-msgstr "%d dag,"
-
-#: fergcorp_countdownTimer.php:587
-#: fergcorp_countdownTimer.php:653
-#: fergcorp_countdownTimer.php:932
-#, php-format
-msgid "%d days, "
-msgstr "%d dager,"
-
-#: fergcorp_countdownTimer.php:602
-#: fergcorp_countdownTimer.php:933
-#, php-format
-msgid "%d hour, "
-msgstr "%d time,"
-
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:650
-#: fergcorp_countdownTimer.php:934
-#, php-format
-msgid "%d hours, "
-msgstr "%d timer,"
-
-#: fergcorp_countdownTimer.php:619
-#: fergcorp_countdownTimer.php:935
-#, php-format
-msgid "%d minute, "
-msgstr "%d minutt,"
-
-#: fergcorp_countdownTimer.php:621
-#: fergcorp_countdownTimer.php:647
-#: fergcorp_countdownTimer.php:936
-#, php-format
-msgid "%d minutes, "
-msgstr "%d minutter,"
-
-#: fergcorp_countdownTimer.php:635
-#: fergcorp_countdownTimer.php:937
-#, php-format
-msgid "%d second, "
-msgstr "%d sekund,"
-
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:644
-#: fergcorp_countdownTimer.php:938
+#: fergcorp_countdownTimer.php:616
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekunder,"
 
-#: fergcorp_countdownTimer.php:853
+#: fergcorp_countdownTimer.php:619
+#: fergcorp_countdownTimer.php:908
+#, php-format
+msgid "%d minutes, "
+msgstr "%d minutter,"
+
+#: fergcorp_countdownTimer.php:622
+#: fergcorp_countdownTimer.php:906
+#, php-format
+msgid "%d hours, "
+msgstr "%d timer,"
+
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:904
+#, php-format
+msgid "%d days, "
+msgstr "%d dager,"
+
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:902
+#, php-format
+msgid "%d weeks, "
+msgstr "%d uker,"
+
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:900
+#, php-format
+msgid "%d months, "
+msgstr "%d måneder,"
+
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:898
+#, php-format
+msgid "%d years, "
+msgstr "%d år,"
+
+#: fergcorp_countdownTimer.php:825
 msgid "Widget title:"
 msgstr "Småsnutt-tittel"
 
-#: fergcorp_countdownTimer.php:854
+#: fergcorp_countdownTimer.php:826
 msgid "Maximum # of events to show:"
 msgstr "Maks antall hendelser som skal vises:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Notes:"
 msgstr "Notat:"
 
-#: fergcorp_countdownTimer.php:856
+#: fergcorp_countdownTimer.php:828
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "La 'Maks antall hendelser som skal vises' stå som '-1' hvis du ikke ønsker noe grense."
 
-#: fergcorp_countdownTimer.php:889
+#: fergcorp_countdownTimer.php:861
 msgid "Adds the Countdown Timer"
 msgstr "Visning av nedtelling"
+
+#: fergcorp_countdownTimer.php:897
+#, php-format
+msgid "%d year, "
+msgstr "%d år,"
+
+#: fergcorp_countdownTimer.php:899
+#, php-format
+msgid "%d month, "
+msgstr "%d måned,"
+
+#: fergcorp_countdownTimer.php:901
+#, php-format
+msgid "%d week, "
+msgstr "%d uke,"
+
+#: fergcorp_countdownTimer.php:903
+#, php-format
+msgid "%d day, "
+msgstr "%d dag,"
+
+#: fergcorp_countdownTimer.php:905
+#, php-format
+msgid "%d hour, "
+msgstr "%d time,"
+
+#: fergcorp_countdownTimer.php:907
+#, php-format
+msgid "%d minute, "
+msgstr "%d minutt,"
+
+#: fergcorp_countdownTimer.php:909
+#, php-format
+msgid "%d second, "
+msgstr "%d sekund,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Oppdatering av valg/datoer lykkes"
@@ -462,3 +448,5 @@ msgstr "Visning av nedtelling"
 
 #~ msgid "Enable CountdownTimer within The Loop:"
 #~ msgstr "Aktiver CountdownTimer innen The Loop:"
+
+
