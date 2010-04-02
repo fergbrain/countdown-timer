@@ -660,7 +660,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 		if(preg_match("<!--fergcorp_countdownTimer_single\((.*?)\)-->", $theContent)){
-			$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_settings('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."')", $theContent);
+				$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_option('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."')", $theContent);
 		}
 
 		return $theContent;																													//Return theContent
@@ -703,7 +703,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			'date' => '-1',
 		), $atts));
 	
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_option('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
 	add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
 
@@ -716,7 +716,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function fergcorp_countdownTimer_single($date){
-		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_settings('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
+		return fergcorp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_option('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeOffset'));
 	}
 
 	/**
@@ -979,9 +979,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 
 	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){
-			$oneTimeEvent_count = count($input)/4;	//Figure out how many fields there are
+			if(function_exists(date_default_timezone_set)){
+				date_default_timezone_set(get_option('timezone_string'));
+			}
+			$oneTimeEvent_count = (count($input) + 1)/4;	//Figure out how many fields there are
 			$j=0;	//Keep track of how many actual fields are filled, versus how many were sent (there could be empty fields which need to be removed)
-			for($i=0; $i<$oneTimeEvent_count; $i++){
+			for($i=0; $i<=$oneTimeEvent_count; $i++){
 				if($input["date$i"]==""){ //If the date field is empty, ignore the entry
 				}
 				else{																							//If not, add it to an array so the data can be updated
@@ -1008,7 +1011,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			/*End sorting events by time*/
 			
 			//Leaving this out of 2.4 release
-			//$file = fopen(dirname(__FILE__)."/".$_POST['serialDataFilename'], 'wb');
+			//$file = fopen(dirname(__FILE__)."/".get_option('fergcorp_countdownTimer_serialDataFilename'), 'wb');
 			//fwrite($file, serialize($results));
 			//fclose($file);
 
