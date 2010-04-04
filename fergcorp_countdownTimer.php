@@ -413,7 +413,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$content .= $eventTitle;
 			}
 			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</abbr>";
-			if(!standalone)
+			if(!$standalone)
 				$content .= "</li>\r\n";
 			return $content;
 		}
