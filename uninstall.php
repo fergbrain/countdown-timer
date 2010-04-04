@@ -1,8 +1,8 @@
 <?php
 /*
 Countdown Timer Uninstall Module
-Version 2.4 (kept in step with fergcorp_countdownTimer.php)
-Copyright (c) 2010 Andrew Ferguson
+Version 2.4.1 (kept in step with fergcorp_countdownTimer.php)
+Copyright (c) 2009-2010 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

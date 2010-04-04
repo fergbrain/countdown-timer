@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
 Requires at least: 2.7
-Tested up to: 3.0-alpha
-Stable tag: 2.4
+Tested up to: 3.0-beta1
+Stable tag: 2.4.1
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -63,6 +63,8 @@ If you don't want to use the widget, you can also add the following code into yo
 <?php function_exists('fergcorp_countdownTimer')?fergcorp_countdownTimer():NULL; ?>
 </ul>
 </li>`
+
+Events can be added and other settings modified in the Settings > Countdown Timer section of the Administration Menu.
 
 = Inserting countdown timers into a page or post =
 
