@@ -142,6 +142,13 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 
 == Changelog ==
 
+= 2.4.1 =
+Release Date: 4/4/2010
+
+ * Standalone mode prevents li-element from being added when used in line. This also restores functionality that was in 2.3.5.
+ * Fixed event insertion bug where events may not be saved if the total number of events is larger than a certain number (I never did figure out what that number was...but it was probably around 4 or 5).
+ * Updated serialized output for the commented out file out serialized function.
+
 = 2.4 =
 Release Date: 4/2/2010:
 
@@ -403,5 +410,5 @@ Release date: 05/15/2005:
 Initial public release
 
 == Upgrade Notice ==
-= 2.4 =
-General updates to increase stability and user experience. Also added CSS hooks.
+= 2.4.1 =
+Fixed a bug that caused issues if you had more than 4 or five countdown events. Also eliminated the li-element from standlone instances.
