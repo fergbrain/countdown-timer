@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: afdn_countdownTimer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 22:02-0800\n"
-"PO-Revision-Date: 2010-03-31 22:33-0800\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/countdown-timer\n"
+"POT-Creation-Date: 2010-04-05 02:04+0000\n"
+"PO-Revision-Date: 2010-04-10 16:49-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -11,6 +11,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Lithuanian\n"
+"X-Poedit-Country: LITHUANIA\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: fergcorp_countdownTimer.php:54
@@ -262,114 +265,142 @@ msgstr "Išsaugoti pakeitimus"
 msgid "No dates present"
 msgstr "Datų nėra"
 
-#: fergcorp_countdownTimer.php:413
-#: fergcorp_countdownTimer.php:911
+#: fergcorp_countdownTimer.php:415
+#: fergcorp_countdownTimer.php:917
 #, php-format
 msgid "%s ago"
 msgstr "prieš %s"
 
-#: fergcorp_countdownTimer.php:424
-#: fergcorp_countdownTimer.php:912
+#: fergcorp_countdownTimer.php:428
+#: fergcorp_countdownTimer.php:918
 #, php-format
 msgid "in %s"
 msgstr "%s"
 
+#: fergcorp_countdownTimer.php:525
+#: fergcorp_countdownTimer.php:903
+#, php-format
+msgid "%d year, "
+msgid_plural "%d years, "
+msgstr[0] "%d metai"
+msgstr[1] "%d metai"
+msgstr[2] "%d metų"
+
+#: fergcorp_countdownTimer.php:537
+#: fergcorp_countdownTimer.php:905
+#, php-format
+msgid "%d month, "
+msgid_plural "%d months, "
+msgstr[0] "%d mėnesį,"
+msgstr[1] "%d mėnesiai,"
+msgstr[2] "%d mėnesių,"
+
+#: fergcorp_countdownTimer.php:567
+#: fergcorp_countdownTimer.php:907
+#, php-format
+msgid "%d week, "
+msgid_plural "%d weeks, "
+msgstr[0] "%d savaitę,"
+msgstr[1] "%d savaitės,"
+msgstr[2] "%d savaičių,"
+
+#: fergcorp_countdownTimer.php:578
+#: fergcorp_countdownTimer.php:909
+#, php-format
+msgid "%d day, "
+msgid_plural "%d days, "
+msgstr[0] "%d diena,"
+msgstr[1] "%d dienos,"
+msgstr[2] "%d dienų,"
+
+#: fergcorp_countdownTimer.php:591
+#: fergcorp_countdownTimer.php:911
+#, php-format
+msgid "%d hour, "
+msgid_plural "%d hours, "
+msgstr[0] "%d valanda,"
+msgstr[1] "%d valandos,"
+msgstr[2] "%d valandos,"
+
+#: fergcorp_countdownTimer.php:604
+#: fergcorp_countdownTimer.php:913
+#, php-format
+msgid "%d minute, "
+msgid_plural "%d minutes, "
+msgstr[0] "%d minutę,"
+msgstr[1] "%d minutes,"
+msgstr[2] "%d minučių,"
+
 #: fergcorp_countdownTimer.php:616
-#: fergcorp_countdownTimer.php:910
+#: fergcorp_countdownTimer.php:915
+#, php-format
+msgid "%d second, "
+msgid_plural "%d seconds, "
+msgstr[0] "%d sekundė,"
+msgstr[1] "%d sekundes,"
+msgstr[2] "%d sekundžių,"
+
+#: fergcorp_countdownTimer.php:622
+#: fergcorp_countdownTimer.php:916
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekundės,"
 
-#: fergcorp_countdownTimer.php:619
-#: fergcorp_countdownTimer.php:908
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:914
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minutės,"
 
-#: fergcorp_countdownTimer.php:622
-#: fergcorp_countdownTimer.php:906
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "%d hours, "
 msgstr "%d valandų."
 
-#: fergcorp_countdownTimer.php:625
-#: fergcorp_countdownTimer.php:904
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d days, "
 msgstr "%d dienų,"
 
-#: fergcorp_countdownTimer.php:628
-#: fergcorp_countdownTimer.php:902
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:908
 #, php-format
 msgid "%d weeks, "
 msgstr "%d savaičių,"
 
-#: fergcorp_countdownTimer.php:631
-#: fergcorp_countdownTimer.php:900
+#: fergcorp_countdownTimer.php:637
+#: fergcorp_countdownTimer.php:906
 #, php-format
 msgid "%d months, "
 msgstr "%d mėnesių,"
 
-#: fergcorp_countdownTimer.php:634
-#: fergcorp_countdownTimer.php:898
+#: fergcorp_countdownTimer.php:640
+#: fergcorp_countdownTimer.php:904
 #, php-format
 msgid "%d years, "
 msgstr "%d metai,"
 
-#: fergcorp_countdownTimer.php:825
+#: fergcorp_countdownTimer.php:831
 msgid "Widget title:"
 msgstr "Priedo antraštė:"
 
-#: fergcorp_countdownTimer.php:826
+#: fergcorp_countdownTimer.php:832
 msgid "Maximum # of events to show:"
 msgstr "Didžiausias # renginių rodyti:"
 
-#: fergcorp_countdownTimer.php:828
+#: fergcorp_countdownTimer.php:834
 msgid "Notes:"
 msgstr "Pastabos:"
 
-#: fergcorp_countdownTimer.php:828
+#: fergcorp_countdownTimer.php:834
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Nustatyti \"Didžiausia # renginių\" į \"1\", jei norite ne riba."
 
-#: fergcorp_countdownTimer.php:861
+#: fergcorp_countdownTimer.php:867
 msgid "Adds the Countdown Timer"
 msgstr "Prideda minutnik"
-
-#: fergcorp_countdownTimer.php:897
-#, php-format
-msgid "%d year, "
-msgstr "%d metai"
-
-#: fergcorp_countdownTimer.php:899
-#, php-format
-msgid "%d month, "
-msgstr "%d mėnuo,"
-
-#: fergcorp_countdownTimer.php:901
-#, php-format
-msgid "%d week, "
-msgstr "%d savaitė,"
-
-#: fergcorp_countdownTimer.php:903
-#, php-format
-msgid "%d day, "
-msgstr "%d diena,"
-
-#: fergcorp_countdownTimer.php:905
-#, php-format
-msgid "%d hour, "
-msgstr "%d valanda,"
-
-#: fergcorp_countdownTimer.php:907
-#, php-format
-msgid "%d minute, "
-msgstr "%d minutė,"
-
-#: fergcorp_countdownTimer.php:909
-#, php-format
-msgid "%d second, "
-msgstr "%d sekundė,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Nustatymai/datos atnaujintos sėkmingai."
