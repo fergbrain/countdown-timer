@@ -20,7 +20,7 @@ Events can be inserted into the sidebar, either manually or as a widget, or with
 
 You'll need to modify your `wp-config.php` file. Open it up and look for the line: `define ('WPLANG', '');`
 
-You'll want 'WPLANG', 'de_DE';`
+You'll want `'WPLANG', 'de_DE';`
 
 Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation.
 
@@ -37,7 +37,7 @@ Of course, you'll replace de_DE with the language extension that you want to use
  * Italian translation: it_IT
  * Bosnian translation: bs_BA
  * Hungarian translation: hu_HU
- * Norwegian translation: nb_NO
+ * Norwegian translation: nn_NO
  * Latvian translation: lv_LV
  * Romanian translation: ro_RO
  * Russian translation: ru_RU
