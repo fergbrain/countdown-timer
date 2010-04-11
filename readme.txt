@@ -97,16 +97,22 @@ Events are automatically sorted by date of occurrence.
 
 = Changing the font, size, and style using CSS =
 
-Starting with version 2.4, you can makes changes to the apperance of Countdown Timer display using CSS.
+Starting with version 2.4, you can makes changes to the appearance of Countdown Timer display using CSS.
 
-The following CSS classes are availible:
+The following CSS classes are available:
 
- * `fergcorp_countdownTimer_event_li` styles each List Item, each item encompases one countdown event
+ * `fergcorp_countdownTimer_event_li` styles each List Item, each item encompasses one countdown event
  * `fergcorp_countdownTimer_event_title` styles the title of the event
  * `fergcorp_countdownTimer_event_linkTitle` styles the title of an event if it is linked
  * `fergcorp_countdownTimer_event_time` styles the actual countdown timer
 
 == Frequently Asked Questions ==
+
+= I have JavaScript countdown enabled and it works on the administration page in the Example Display, but not on my main site! =
+
+This, unfortunately, is a problem with your theme, and not with Countdown Timer. Themes _must_ call wp_footer(), which is a standard hook for WordPress. Without it, many other plugins may not work properly either.
+
+Your best bet to fix the problem is to modify the `footer.php` file and put `<?php wp_footer(); ?>` right before `</html>`. Then contact the person you designed the theme and let them know of their coding oversight.
 
 = Your program is broken! The count down is off by XX days! =
 
@@ -114,7 +120,7 @@ Well, not quite. As it turns out, determining the number of months between two d
 
 However, how many months exist between January 15 and February 20? There are 36 days, which is obviously more than the number of days in any given month we have, so the timer should display 1 month and how many days? Six days (30 days/month)? Five days (31 days/month)? Eight days (28 days/month since the date does end in February)?
 
-I happened to mention my problem to a friend who said that the US military decided that there were 30 days in every month and to prorate the the addition day (or less day(s)) for all the months that have more (or less) than 30 days.
+I happened to mention my problem to a friend who said that the US military decided that there were 30 days in every month and to prorate the addition day (or less day(s)) for all the months that have more (or less) than 30 days.
 
 = Wait, so how /do/ you count months? =
 
@@ -159,9 +165,9 @@ Release Date: 4/2/2010:
  * Changed the way dates are removed. Made it based on the lack of a date, instead of the lack of a title. 
  * Reduced the user access level to Options Manager instead of Administrator
  * Moved the options page from tools to settings in the admin menu
- * Implemented the register_setting function, incidently changing the way options are stored
+ * Implemented the register_setting function, incidentally changing the way options are stored
  * Added option to parse shortcodes in the_excerpt
- * Updated all the lanuages files using Google Translate and http://pepipopum.dixo.net/index.php
+ * Updated all the languages files using Google Translate and http://pepipopum.dixo.net/index.php
  * Use the get_option directly instead of by variable
  * Removed checkUpdate variable because we don't use it anymore.
  * Updated to use _n i18n function
@@ -189,20 +195,20 @@ Release Date: 11/19/2008:
  * Updated meta boxes to work in WP 2.7
  * Removed the option to disable enableTheLoop (i.e. always enabled now)
  * Added shortcodes. See documentation for usage
- * Updated some of the text so that links are not part of the translation. Not that this has been an issue, but it assures that links aren’t tampered with in language translations
+ * Updated some of the text so that links are not part of the translation. Not that this has been an issue, but it assures that links aren't tampered with in language translations
  * Updated the widget to use the latest WP functions
  * Widget now has a description
  * Internal versioning is now done automatically
  * Fixed a bug where “No Dates Present” would not display, even though there were no dates present
  * Fixed a bug where an empty array would cause plugin to crash
  * Fixed a problem that caused the timer to only display “in ” if “strip zeros” is enabled
- * Updated a couple function checks to check for the functions that we’re actually using
+ * Updated a couple function checks to check for the functions that we're actually using
  * Updated the plugins_dir function call to properly reference the countdown-timer directory (this fixes issues with IIS and Windows)
  * Added a helper function for afdn_countdownTimer so that users can use fergcorp_countdownTimer instead
  * Fixed a potential bug (aka The Furton Fix) for systems running Windows where PHP may barf and give a warning:
 Warning: date() [function.date]: Windows does not support dates prior to midnight (00:00:00), January 1, 1970 in afdn_countdownTimer.php on line 612
  * Various bug and security fixes
- * Paypal link doesn’t use a form anymore
+ * Paypal link doesn't use a form anymore
  * Added a test to ensure cal_days_in_month function exists. If not, use a drop in replacement.
 
  = 2.2.5 =
@@ -237,20 +243,20 @@ Release Date: 6/30/2008:
 = 2.2.1 =
 Release Date: 6/18/2008:
 
- * Fixed bug where Countdown Time Display didn’t function properly
+ * Fixed bug where Countdown Time Display didn't function properly
  * Added Italian and Polish translations, updated others
 
 = 2.2 =
 Release Date: 5/15/2008:
 
  * Updated some phrases that missed being i18n
- * Updated i18n to use use sprintf’s to assist in proper translation
+ * Updated i18n to use sprintf’s to assist in proper translation
  * Update the admin page to WordPress 2.5 Look and Feel
  * Users are now able to define the data (text/HTML) that comes after the title and before the actual countdown
  * Implemented a new function, fergcorp_countdownTimer_single($date), that allows users to create a one-off event outside of The Loop. $date should be PHP strtotime parseable string
  * Plugin output is now XHTML 1.0 Strict compliant
  * Scripts are now loaded using wp_enqueue_script
- * Added a new JS file, webtoolkit.sprintf.js, because JS doesn’t have native sprintf support
+ * Added a new JS file, webtoolkit.sprintf.js, because JS doesn't have native sprintf support
  * Translators names (and URL, if available) are now displayed/credited within the plugin
  * Tweaked the table for the “Resources” area
  * Tweaked the table for the “One Time Events” area
@@ -262,7 +268,7 @@ Release Date: 2/20/2008:
  * Fixed i18n translation issues where mo file would sometimes not be loaded
  * Updated UI (note: Based on UI code from Google XML Sitemaps)
  * Removed code dealing with recurring events (which has not been included for a few versions now)
- * Added js countdown ability to admin example (which doesn’t have wp_footer hook?)
+ * Added js countdown ability to admin example (which doesn't have wp_footer hook?)
  * Updated the link to the JS file to make it dynamic in case a folder gets renamed
  * Fixed a bug in the JS file that caused dates to be calculated incorrectly
  * Append a letter to the beginning of the unique id (as per XHTML requirement)…who knew?
@@ -281,10 +287,10 @@ Release Date: 12/29/2007:
  * Rearranged text in the installation notes to emphasize using the widget rather then the code
  * Fixed a bug that crashed the plugin if no dates were present (a PHP 5 problem??)
  * Implemented the ‘register_activation_hook’ function rather then the old way
- * Changed the way DB updates are handeled. Instead of having a specific update regimine for each version, the plugin will only update an option field if it doesn’t exist (if it exists, but is blank, it will NOT update…as it shouldn’t).
+ * Changed the way DB updates are handled. Instead of having a specific update regimen for each version, the plugin will only update an option field if it doesn't exist (if it exists, but is blank, it will NOT update…as it shouldn't).
  * Updated fergcorp_countdownTimer_fuzzyDate with another variable so that the real target date is always known.
  * Removed code dealing with updates since WP 2.3 now does this automatically
- * Bug fix. Widget title isn’t saveable due to a programming error. Thanks to Michael Small for the catch.
+ * Bug fix. Widget title isn't saveable due to a programming error. Thanks to Michael Small for the catch.
  * Renamed some functions from afdn to fergcorp
  * Added JavaScript function for JS countdown
  * Tabbed $afdnOptions array to make it more readable
@@ -297,7 +303,7 @@ Release Date: 12/29/2007:
 = 1.91 =
 Release Date: 12/4/2007:
 
-Fixed error where the widget wasn’t updated correctly.
+Fixed error where the widget wasn't updated correctly.
 
 = 1.9 =
 Release Date: 8/7/2007:
@@ -305,7 +311,7 @@ Release Date: 8/7/2007:
  * One-off countdown timers (i.e. standalone timers for posts, etc)
  * Ability to customize timer style
  * Added “week” as a unit of time
- * Even more bug fixes including the one where if the plugin was in a directory other then the plugin directory, it really wouldn’t work.
+ * Even more bug fixes including the one where if the plugin was in a directory other then the plugin directory, it really wouldn't work.
 
 = 1.8 =
 Release Date: 5/7/2007:
@@ -315,7 +321,7 @@ Release Date: 5/7/2007:
  * Ability to select any combination of years, days, hours, minutes, and seconds to display
  * Internationalization support
  * Default settings automatically set on activation
- * More accurate countdown mechanism (you wouldn’t think counting could be so hard)
+ * More accurate countdown mechanism (you wouldn't think counting could be so hard)
  * Numerous bug fixes
  * Reorganized management page
 
