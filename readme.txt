@@ -3,7 +3,7 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
 Requires at least: 2.7
-Tested up to: 3.0-beta1
+Tested up to: 3.0
 Stable tag: 2.4.2
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
@@ -129,7 +129,7 @@ Using the above example of January 15 to February 20, there would be one month a
 
 = Where I am supposed to set the count down time? =
 
-Log into your WordPress Dashboard. Expand the Tools menu, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
+Log into your WordPress Dashboard. Expand the Settings menu, click on Countdown Timer. Scroll down to One Time Events. In the dates field, type the date you want to count down to. Fill in the event title field with what text you want displayed. Click Update Events.
 
 = There's a foreign (non-English) word that's wrong, what do I do? =
 
