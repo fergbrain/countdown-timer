@@ -31,7 +31,6 @@ function _n(singular, plural, count){
 
 function fergcorp_countdownTimer_js ()
 {
-    var r = 0;
     for (var i=0; i < fergcorp_countdownTimer_js_events.length; i++) {
 		
 		var nowDate = new Date();
@@ -50,7 +49,6 @@ function fergcorp_countdownTimer_js ()
 
 function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	var rollover = 0;
-	var vars = '';
 	var sigNumHit = false;
 	var totalTime = 0;
 
