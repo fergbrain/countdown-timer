@@ -522,7 +522,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Year
 		if(get_option('fergcorp_countdownTimer_showYear')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || $resultantYear){
-				$s = sprintf(_n("%d year, ", "%d years, ", $resultantYear, "fergcorp_countdownTimer"), $resultantYear)." ";
+				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", $resultantYear, "fergcorp_countdownTimer"), $resultantYear)."</span> ";
 				$sigNumHit = true;
 			}
 		}
@@ -534,7 +534,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showMonth')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || intval($resultantMonth + ($rollover/2628000)) ){
 				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
-				$s .= sprintf(_n("%d month, ", "%d months, ", $resultantMonth, "fergcorp_countdownTimer"), $resultantMonth)." ";
+				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", $resultantMonth, "fergcorp_countdownTimer"), $resultantMonth)."</span> ";
 				$rollover = $rollover - intval($rollover/2628000)*2628000; //(12/31536000)
 				$sigNumHit = true;
 			}
@@ -564,7 +564,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showWeek')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($resultantDay + intval($rollover/86400) )/7)){
 				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
-				$s .= sprintf(_n("%d week, ", "%d weeks, ", (intval( ($resultantDay + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))." ";		
+				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($resultantDay + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))."</span> ";		
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$resultantDay = $resultantDay - intval( ($resultantDay + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
@@ -575,7 +575,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showDay')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantDay + intval($rollover/86400)) ){
 				$resultantDay = $resultantDay + intval($rollover/86400);
-				$s .= sprintf(_n("%d day, ", "%d days, ",  $resultantDay, "fergcorp_countdownTimer"), $resultantDay)." ";
+				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,",  $resultantDay, "fergcorp_countdownTimer"), $resultantDay)."</span> ";
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$sigNumHit = true;
 			}
@@ -588,7 +588,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showHour')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantHour + intval($rollover/3600)) ){
 				$resultantHour = $resultantHour + intval($rollover/3600);
-				$s .= sprintf(_n("%d hour, ", "%d hours, ", $resultantHour, "fergcorp_countdownTimer"), $resultantHour)." ";
+				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", $resultantHour, "fergcorp_countdownTimer"), $resultantHour)."</span> ";
 				$rollover = $rollover - intval($rollover/3600)*3600;
 				$sigNumHit = true;
 			}
@@ -601,7 +601,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showMinute')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantMinute + intval($rollover/60)) ){
 				$resultantMinute = $resultantMinute + intval($rollover/60);
-				$s .= sprintf(_n("%d minute, ", "%d minutes, ", $resultantMinute, "fergcorp_countdownTimer"), $resultantMinute)." ";
+				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", $resultantMinute, "fergcorp_countdownTimer"), $resultantMinute)."</span> ";
 				$rollover = $rollover - intval($rollover/60)*60;
 				$sigNumHit = true;
 			}
@@ -613,7 +613,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Second
 		if(get_option('fergcorp_countdownTimer_showSecond')){
 			$resultantSecond = $resultantSecond + $rollover;
-			$s .= sprintf(_n("%d second, ", "%d seconds, ", $resultantSecond, "fergcorp_countdownTimer"), $resultantSecond)." ";
+			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $resultantSecond, "fergcorp_countdownTimer"), $resultantSecond)."</span> ";
 		}
 		
 		//Catch blank statements
@@ -641,7 +641,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 		
-		return preg_replace("/(,? *)$/is", "", $s);
+		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
+		
 
 	}
 

@@ -1,6 +1,6 @@
 /*******************************************************************************\
 Countdown Timer JavaScript Module
-Version 2.4.2 (kept in step with fergcorp_countdownTimer.php)
+Version 2.4.3 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2007-2010 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
@@ -110,7 +110,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	//Year
 	if(getOptions['showYear']){
 		if(sigNumHit || !getOptions['stripZero'] || resultantYear){
-			s = sprintf(_n(fergcorp_countdownTimer_js_language['year'], fergcorp_countdownTimer_js_language['years'], resultantYear), resultantYear) + ' ';
+			s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['year'], fergcorp_countdownTimer_js_language['years'], resultantYear), resultantYear) + '</span> ';
 			sigNumHit = true;
 		}
 	}
@@ -122,7 +122,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showMonth']){
 		if(sigNumHit || !getOptions['stripZero'] || (resultantMonth + parseInt(rollover/2628000)) ){
 			resultantMonth = resultantMonth + parseInt(rollover/2628000);
-			s = s + sprintf(_n(fergcorp_countdownTimer_js_language['month'], fergcorp_countdownTimer_js_language['months'], resultantMonth), resultantMonth) + ' ';
+			s = s + '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['month'], fergcorp_countdownTimer_js_language['months'], resultantMonth), resultantMonth) + '</span> ';
 			rollover = rollover - parseInt(rollover/2628000)*2628000;
 			sigNumHit = true;
 		}
@@ -156,7 +156,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showWeek']){
 		if(sigNumHit || !getOptions['stripZero'] || parseInt( (resultantDay + parseInt(rollover/86400) )/7)){
 			resultantDay = resultantDay + parseInt(rollover/86400);
-			s = s + sprintf(_n(fergcorp_countdownTimer_js_language['week'], fergcorp_countdownTimer_js_language['weeks'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7))), (parseInt( (resultantDay + parseInt(rollover/86400) )/7))) + ' ';
+			s = s + '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['week'], fergcorp_countdownTimer_js_language['weeks'], (parseInt( (resultantDay + parseInt(rollover/86400) )/7))), (parseInt( (resultantDay + parseInt(rollover/86400) )/7))) + '</span> ';
 			rollover = rollover - parseInt(rollover/86400)*86400;
 			resultantDay = resultantDay - parseInt( (resultantDay + parseInt(rollover/86400) )/7 )*7;
 			sigNumHit = true;
@@ -167,7 +167,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showDay']){
 		if(sigNumHit || !getOptions['stripZero'] || (resultantDay + parseInt(rollover/86400)) ){
 			resultantDay = resultantDay + parseInt(rollover/86400);
-			s = s + sprintf(_n(fergcorp_countdownTimer_js_language['day'], fergcorp_countdownTimer_js_language['days'], resultantDay), resultantDay) + ' ';
+			s = s + '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['day'], fergcorp_countdownTimer_js_language['days'], resultantDay), resultantDay) + '</span> ';
 			rollover = rollover - parseInt(rollover/86400)*86400;
 			sigNumHit = true;
 		}
@@ -180,7 +180,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showHour']){
 		if(sigNumHit || !getOptions['stripZero'] || (resultantHour + parseInt(rollover/3600)) ){
 			resultantHour = resultantHour + parseInt(rollover/3600);
-			s = s + sprintf(_n(fergcorp_countdownTimer_js_language['hour'], fergcorp_countdownTimer_js_language['hours'], resultantHour), resultantHour) + ' ';
+			s = s + '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['hour'], fergcorp_countdownTimer_js_language['hours'], resultantHour), resultantHour) + '<span> ';
 			rollover = rollover - parseInt(rollover/3600)*3600;
 			sigNumHit = true;
 		}
@@ -193,7 +193,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	if(getOptions['showMinute']){
 		if(sigNumHit || !getOptions['stripZero'] || (resultantMinute + parseInt(rollover/60)) ){
 			resultantMinute = resultantMinute + parseInt(rollover/60);
-			s = s + sprintf(_n(fergcorp_countdownTimer_js_language['minute'], fergcorp_countdownTimer_js_language['minutes'], resultantMinute), resultantMinute) + ' ';
+			s = s + '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['minute'], fergcorp_countdownTimer_js_language['minutes'], resultantMinute), resultantMinute) + '</span> ';
 			rollover = rollover - parseInt(rollover/60)*60;
 			sigNumHit = true;
 		}
@@ -204,7 +204,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	//Second
 	if(getOptions['showSecond']){
-		s = s + sprintf(_n(fergcorp_countdownTimer_js_language['second'], fergcorp_countdownTimer_js_language['seconds'], resultantSecond), resultantSecond) + ' ';
+		s = s + '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['second'], fergcorp_countdownTimer_js_language['seconds'], resultantSecond), resultantSecond) + '</span> ';
 	}
 	
 	
@@ -234,5 +234,5 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	}
 
 	
-	return s.replace(/(,? *)$/, ""); //...and return the result (a string)
+	return s.replace(/(, ?<\/span> *)$/, "<\/span>"); //...and return the result (a string)
 }
