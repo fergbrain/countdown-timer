@@ -148,6 +148,16 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 
 == Changelog ==
 
+= 2.4.3 =
+Release Date: 3/10/2012
+
+ * Fixed bug with missing `?>` at end of file
+ * Added additional element to each unit of time to allow for better CSS customization. New CSS hooks include: .fergcorp_countdownTimer_timeUnit .fergcorp_countdownTimer_year .fergcorp_countdownTimer_month .fergcorp_countdownTimer_week .fergcorp_countdownTimer_day .fergcorp_countdownTimer_hour .fergcorp_countdownTimer_minute .fergcorp_countdownTimer_second
+ * Added ability to prevent wrapping by adding following to your CSS file: .fergcorp_countdownTimer_timeUnit {white-space: nowrap;}
+ * Removed unused "vars" and "r" variable
+
+
+
 = 2.4.2 =
 Release Date: 4/12/2010
 
