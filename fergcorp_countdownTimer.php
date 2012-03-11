@@ -3,12 +3,12 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Plugin Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.5 Alpha
+Version: 2.4.2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
 Countdown Timer - Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
-Copyright (c) 2005-2011 Andrew Ferguson
+Copyright (c) 2005-2010 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -237,8 +237,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<li><?php _e('Hours:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showHour" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showHour')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showHour" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showHour')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 									<li><?php _e('Minutes:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showMinute" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showMinute')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showMinute" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showMinute')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 									<li><?php _e('Seconds:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_showSecond" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_showSecond')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Strip non-significant units of time:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
-									<li><?php _e('Zero pad (e.g. "05 minutes" instead of "5 minutes" units of time (expect for years):'); ?> <input name="fergcorp_countdownTimer_padTime" type="radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_padTime')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_padTime" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_padTime')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
+									<li><?php _e('Strip non-significant zeros:', 'fergcorp_countdownTimer'); ?> <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "1" <?php checked('1', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('Yes', 'fergcorp_countdownTimer'); ?> :: <input name="fergcorp_countdownTimer_stripZero" type = "radio" value = "0" <?php checked('0', get_option('fergcorp_countdownTimer_stripZero')); ?> /> <?php _e('No', 'fergcorp_countdownTimer'); ?></li>
 								</ul>
 								<?php
 							}
@@ -306,7 +305,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string If set, will return the formated output ready for display
 	*/
 	function fergcorp_countdownTimer($eventLimit = -1, $output = "echo"){ //'echo' will print the results, 'return' will just return them
-		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_sprintf_format;
+		global $fergcorp_countdownTimer_noEventsPresent;
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 
 		$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
@@ -345,15 +344,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		if($eventLimit != -1)	//If the eventLimit is set
 			$eventCount = $eventLimit;
-		
-		//Set's the padding format we want to use
-		if(get_option('fergcorp_countdownTimer_padTime')){
-			$fergcorp_countdownTimer_sprintf_format = "%02d";
-		}
-		else{
-			$fergcorp_countdownTimer_sprintf_format = "%d";	
-		}
-			
 
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 		if($fergcorp_countdownTimer_noEventsPresent == FALSE){
@@ -477,7 +467,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTime){
-		global $fergcorp_countdownTimer_sprintf_format;
 
 		$rollover = 0;
 		$s = '';
@@ -533,7 +522,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Year
 		if(get_option('fergcorp_countdownTimer_showYear')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || $resultantYear){
-				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s year,", "%s years,", $resultantYear, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantYear)."</span> ";
+				$s = sprintf(_n("%d year, ", "%d years, ", $resultantYear, "fergcorp_countdownTimer"), $resultantYear)." ";
 				$sigNumHit = true;
 			}
 		}
@@ -545,7 +534,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showMonth')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || intval($resultantMonth + ($rollover/2628000)) ){
 				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
-				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s month,", "%s months,", $resultantMonth, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantMonth)."</span> ";
+				$s .= sprintf(_n("%d month, ", "%d months, ", $resultantMonth, "fergcorp_countdownTimer"), $resultantMonth)." ";
 				$rollover = $rollover - intval($rollover/2628000)*2628000; //(12/31536000)
 				$sigNumHit = true;
 			}
@@ -575,7 +564,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showWeek')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($resultantDay + intval($rollover/86400) )/7)){
 				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
-				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s week,", "%s weeks,", (intval( ($resultantDay + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), (intval( ($resultantDay + intval($rollover/86400) )/7)))."</span> ";		
+				$s .= sprintf(_n("%d week, ", "%d weeks, ", (intval( ($resultantDay + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))." ";		
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$resultantDay = $resultantDay - intval( ($resultantDay + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
@@ -586,7 +575,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showDay')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantDay + intval($rollover/86400)) ){
 				$resultantDay = $resultantDay + intval($rollover/86400);
-				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s day,", "%s days,",  $resultantDay, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantDay)."</span> ";
+				$s .= sprintf(_n("%d day, ", "%d days, ",  $resultantDay, "fergcorp_countdownTimer"), $resultantDay)." ";
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$sigNumHit = true;
 			}
@@ -599,7 +588,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showHour')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantHour + intval($rollover/3600)) ){
 				$resultantHour = $resultantHour + intval($rollover/3600);
-				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s hour,", "%s hours,", $resultantHour, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantHour)."</span> ";
+				$s .= sprintf(_n("%d hour, ", "%d hours, ", $resultantHour, "fergcorp_countdownTimer"), $resultantHour)." ";
 				$rollover = $rollover - intval($rollover/3600)*3600;
 				$sigNumHit = true;
 			}
@@ -612,7 +601,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showMinute')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantMinute + intval($rollover/60)) ){
 				$resultantMinute = $resultantMinute + intval($rollover/60);
-				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s minute,", "%s minutes,", $resultantMinute, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantMinute)."</span> ";
+				$s .= sprintf(_n("%d minute, ", "%d minutes, ", $resultantMinute, "fergcorp_countdownTimer"), $resultantMinute)." ";
 				$rollover = $rollover - intval($rollover/60)*60;
 				$sigNumHit = true;
 			}
@@ -624,36 +613,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		//Second
 		if(get_option('fergcorp_countdownTimer_showSecond')){
 			$resultantSecond = $resultantSecond + $rollover;
-			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(sprintf(_n("%s second,", "%s seconds,", $resultantSecond, "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), $resultantSecond)."</span> ";
+			$s .= sprintf(_n("%d second, ", "%d seconds, ", $resultantSecond, "fergcorp_countdownTimer"), $resultantSecond)." ";
 		}
 		
 		//Catch blank statements
 		if($s==""){
 			if(get_option('fergcorp_countdownTimer_showSecond')){
-				$s = sprintf(sprintf(__("%s seconds,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d seconds, ", "fergcorp_countdownTimer"), "0");
 			}
 			elseif(get_option('fergcorp_countdownTimer_showMinute')){
-				$s = sprintf(sprintf(__("%s minutes,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d minutes, ", "fergcorp_countdownTimer"), "0");
 			}
 			elseif(get_option('fergcorp_countdownTimer_showHour')){
-				$s = sprintf(sprintf(__("%s hours,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d hours, ", "fergcorp_countdownTimer"), "0");
 			}	
 			elseif(get_option('fergcorp_countdownTimer_showDay')){
-				$s = sprintf(sprintf(__("%s days,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d days, ", "fergcorp_countdownTimer"), "0");
 			}	
 			elseif(get_option('fergcorp_countdownTimer_showWeek')){
-				$s = sprintf(sprintf(__("%s weeks,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d weeks, ", "fergcorp_countdownTimer"), "0");
 			}
 			elseif(get_option('fergcorp_countdownTimer_showMonth')){
-				$s = sprintf(sprintf(__("%s months,", "fergcorp_countdownTimer"), $fergcorp_countdownTimer_sprintf_format), "0");
+				$s = sprintf(__("%d months, ", "fergcorp_countdownTimer"), "0");
 			}
 			else{
-				$s = sprintf(__("%d years,", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(__("%d years, ", "fergcorp_countdownTimer"), "0");
 			}
 		}
 		
-		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
-		
+		return preg_replace("/(,? *)$/is", "", $s);
 
 	}
 
@@ -766,7 +754,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		 * @param $option string Actual option
 		 * @param $default string What the default value should be if it doesn't exist
 		 * @since 2.4
-		 * @access private
+		 * @access public
 		 * @author Andrew Ferguson
 		 * @return string The content of the post with the appropriate dates inserted (if any)
 		*/
@@ -799,7 +787,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
 		//install_option('fergcorp_countdownTimer_', 'serialDataFilename', $theOptions, 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt'); //For 2.5 release
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'padTime', $theOptions, '0');
 
 		delete_option('afdn_countdownOptions');
 		
@@ -895,7 +882,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	*/
 	function fergcorp_countdownTimer_js(){
-		global $fergcorp_countdownTimer_jsUID, $fergcorp_countdownTimer_sprintf_format;
+		global $fergcorp_countdownTimer_jsUID;
 
 		echo "<script type=\"text/javascript\">\n";
 		echo "<!--\n";
@@ -913,20 +900,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Pass on language variables
 		echo "var fergcorp_countdownTimer_js_language = new Array();\n";
-		echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('%d year,', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('%d years,', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(sprintf(__('%s month,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['months'] = '".addslashes(sprintf(__('%s months,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['week'] = '".addslashes(sprintf(__('%s week,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['weeks'] = '".addslashes(sprintf(__('%s weeks,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['day'] = '".addslashes(sprintf(__('%s day,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['days'] = '".addslashes(sprintf(__('%s days,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hour'] = '".addslashes(sprintf(__('%s hour,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hours'] = '".addslashes(sprintf(__('%s hours,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minute'] = '".addslashes(sprintf(__('%s minute,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(sprintf(__('%s minutes,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(sprintf(__('%s second,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
-		echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(sprintf(__('%s seconds,', 'fergcorp_countdownTimer'), $fergcorp_countdownTimer_sprintf_format))."';\n";
+		echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('%d year, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('%d years, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(__('%d month, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['months'] = '".addslashes(__('%d months, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['week'] = '".addslashes(__('%d week, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['weeks'] = '".addslashes(__('%d weeks, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['day'] = '".addslashes(__('%d day, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['days'] = '".addslashes(__('%d days, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['hour'] = '".addslashes(__('%d hour, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['hours'] = '".addslashes(__('%d hours, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['minute'] = '".addslashes(__('%d minute, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('%d minutes, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('%d second, ', 'fergcorp_countdownTimer'))."';\n";
+		echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('%d seconds, ', 'fergcorp_countdownTimer'))."';\n";
 		echo "fergcorp_countdownTimer_js_language['ago'] = '".addslashes(__('%s ago', 'fergcorp_countdownTimer'))."';\n";
 		echo "fergcorp_countdownTimer_js_language['in'] = '".addslashes(__('in %s', 'fergcorp_countdownTimer'))."';\n";
 
@@ -979,7 +966,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
 		//register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableShortcodeExcerpt');
-		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_padTime');
 		
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
 	}
@@ -1061,4 +1047,3 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			wp_enqueue_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, get_option("fergcorp_countdownTimer_version"));
 		}
 	}
-?>
