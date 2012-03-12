@@ -128,5 +128,4 @@ sprintfWrapper = {
 	}
 }
 
-
 sprintf = sprintfWrapper.init;
