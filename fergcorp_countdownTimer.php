@@ -402,7 +402,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
 		$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't start with numeric	
 		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.get_option('fergcorp_countdownTimer_titleSuffix')."\n";
-		$timePrefix = "<abbr title = \"".gmdate($timeFormat, $time + (get_option('gmt_offset') * 3600))."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
+		if ($timeFormat == "") {
+			$timeFormat = get_option('date_format') . ", " . get_option('time_format');
+		}
+		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $time + (get_option('gmt_offset') * 3600), TRUE)."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
 		
 		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
