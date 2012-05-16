@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: afdn_countdownTimer\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/countdown-timer\n"
-"POT-Creation-Date: 2010-04-05 02:04+0000\n"
-"PO-Revision-Date: 2010-04-10 17:44-0800\n"
+"Project-Id-Version: fergcorp_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-15 23:10-0800\n"
+"PO-Revision-Date: 2012-05-15 23:13-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: WP-Support Sverige / Mattias Tengblad <info@wp-support.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n\n"
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: SWEDEN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -268,135 +268,149 @@ msgstr "Spara ändringar"
 msgid "No dates present"
 msgstr "Inga datum angivna"
 
-#: fergcorp_countdownTimer.php:415
-#: fergcorp_countdownTimer.php:917
+#: fergcorp_countdownTimer.php:418
+#: fergcorp_countdownTimer.php:921
 #, php-format
 msgid "%s ago"
 msgstr "%s sedan"
 
-#: fergcorp_countdownTimer.php:428
-#: fergcorp_countdownTimer.php:918
+#: fergcorp_countdownTimer.php:431
+#: fergcorp_countdownTimer.php:922
 #, php-format
 msgid "in %s"
 msgstr "om %s"
 
-#: fergcorp_countdownTimer.php:525
-#: fergcorp_countdownTimer.php:903
-#, php-format
-msgid "%d year, "
-msgid_plural "%d years, "
-msgstr[0] "%d år,"
-msgstr[1] "%d år,"
+#: fergcorp_countdownTimer.php:528
+#, fuzzy, php-format
+msgid "%d year,"
+msgstr "%d år,"
 
-#: fergcorp_countdownTimer.php:537
-#: fergcorp_countdownTimer.php:905
-#, php-format
-msgid "%d month, "
-msgid_plural "%d months, "
-msgstr[0] "%d månad,"
-msgstr[1] "%d månader,"
+#: fergcorp_countdownTimer.php:540
+#, fuzzy, php-format
+msgid "%d month,"
+msgstr "%d månad,"
 
-#: fergcorp_countdownTimer.php:567
-#: fergcorp_countdownTimer.php:907
-#, php-format
-msgid "%d week, "
-msgid_plural "%d weeks, "
-msgstr[0] "%d vecka,"
-msgstr[1] "%d veckor,"
+#: fergcorp_countdownTimer.php:570
+#, fuzzy, php-format
+msgid "%d week,"
+msgstr "%d vecka,"
 
-#: fergcorp_countdownTimer.php:578
-#: fergcorp_countdownTimer.php:909
-#, php-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d dag,"
-msgstr[1] "%d dagar,"
+#: fergcorp_countdownTimer.php:581
+#, fuzzy, php-format
+msgid "%d day,"
+msgstr "%d dag,"
 
-#: fergcorp_countdownTimer.php:591
-#: fergcorp_countdownTimer.php:911
-#, php-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d timma,"
-msgstr[1] "%d timmar,"
+#: fergcorp_countdownTimer.php:594
+#, fuzzy, php-format
+msgid "%d hour,"
+msgstr "%d timma,"
 
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:913
-#, php-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minut,"
-msgstr[1] "%d minuter,"
+#: fergcorp_countdownTimer.php:607
+#, fuzzy, php-format
+msgid "%d minute,"
+msgstr "%d minut,"
 
-#: fergcorp_countdownTimer.php:616
-#: fergcorp_countdownTimer.php:915
-#, php-format
-msgid "%d second, "
-msgid_plural "%d seconds, "
-msgstr[0] "%d sekund,"
-msgstr[1] "%d sekunder,"
+#: fergcorp_countdownTimer.php:619
+#, fuzzy, php-format
+msgid "%d second,"
+msgstr "%d sekund,"
 
-#: fergcorp_countdownTimer.php:622
-#: fergcorp_countdownTimer.php:916
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:920
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekunder,"
 
-#: fergcorp_countdownTimer.php:625
-#: fergcorp_countdownTimer.php:914
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:918
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minuter,"
 
-#: fergcorp_countdownTimer.php:628
-#: fergcorp_countdownTimer.php:912
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:916
 #, php-format
 msgid "%d hours, "
 msgstr "%d timmar,"
 
-#: fergcorp_countdownTimer.php:631
-#: fergcorp_countdownTimer.php:910
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:914
 #, php-format
 msgid "%d days, "
 msgstr "%d dagar,"
 
-#: fergcorp_countdownTimer.php:634
-#: fergcorp_countdownTimer.php:908
+#: fergcorp_countdownTimer.php:637
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "%d weeks, "
 msgstr "%d veckor,"
 
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:906
+#: fergcorp_countdownTimer.php:640
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d months, "
 msgstr "%d månader,"
 
-#: fergcorp_countdownTimer.php:640
-#: fergcorp_countdownTimer.php:904
+#: fergcorp_countdownTimer.php:643
+#: fergcorp_countdownTimer.php:908
 #, php-format
 msgid "%d years, "
 msgstr "%d år,"
 
-#: fergcorp_countdownTimer.php:831
+#: fergcorp_countdownTimer.php:835
 msgid "Widget title:"
 msgstr "Widget titel:"
 
-#: fergcorp_countdownTimer.php:832
+#: fergcorp_countdownTimer.php:836
 msgid "Maximum # of events to show:"
 msgstr "Max antal event att visa:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Notes:"
 msgstr "Noteringar:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Sätt 'Max antal event att visa' till '-1' om du inte vill ha någon gräns."
 
-#: fergcorp_countdownTimer.php:867
+#: fergcorp_countdownTimer.php:871
 msgid "Adds the Countdown Timer"
 msgstr "Nedräkningstimer"
+
+#: fergcorp_countdownTimer.php:907
+#, fuzzy, php-format
+msgid "%d year, "
+msgstr "%d år,"
+
+#: fergcorp_countdownTimer.php:909
+#, fuzzy, php-format
+msgid "%d month, "
+msgstr "%d månad,"
+
+#: fergcorp_countdownTimer.php:911
+#, fuzzy, php-format
+msgid "%d week, "
+msgstr "%d vecka,"
+
+#: fergcorp_countdownTimer.php:913
+#, fuzzy, php-format
+msgid "%d day, "
+msgstr "%d dag,"
+
+#: fergcorp_countdownTimer.php:915
+#, fuzzy, php-format
+msgid "%d hour, "
+msgstr "%d timma,"
+
+#: fergcorp_countdownTimer.php:917
+#, fuzzy, php-format
+msgid "%d minute, "
+msgstr "%d minut,"
+
+#: fergcorp_countdownTimer.php:919
+#, fuzzy, php-format
+msgid "%d second, "
+msgstr "%d sekund,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Inställningar/datum uppdaterade."

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: afdn_countdownTimer\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/countdown-timer\n"
-"POT-Creation-Date: 2010-04-05 02:04+0000\n"
-"PO-Revision-Date: 2010-04-04 20:30-0800\n"
+"Project-Id-Version: fergcorp_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-15 23:09-0800\n"
+"PO-Revision-Date: 2012-05-15 23:12-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n\n"
 "X-Poedit-Bookmarks: -1,8,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
@@ -267,142 +267,149 @@ msgstr "Uložit změny"
 msgid "No dates present"
 msgstr "Nebyla nastavena žádná událost"
 
-#: fergcorp_countdownTimer.php:415
-#: fergcorp_countdownTimer.php:917
+#: fergcorp_countdownTimer.php:418
+#: fergcorp_countdownTimer.php:921
 #, php-format
 msgid "%s ago"
 msgstr "%s před"
 
-#: fergcorp_countdownTimer.php:428
-#: fergcorp_countdownTimer.php:918
+#: fergcorp_countdownTimer.php:431
+#: fergcorp_countdownTimer.php:922
 #, php-format
 msgid "in %s"
 msgstr "za %s"
 
-#: fergcorp_countdownTimer.php:525
-#: fergcorp_countdownTimer.php:903
+#: fergcorp_countdownTimer.php:528
 #, fuzzy, php-format
-msgid "%d year, "
-msgid_plural "%d years, "
-msgstr[0] "%d rok,"
-msgstr[1] "%d rok,"
-msgstr[2] "%d rok,"
+msgid "%d year,"
+msgstr "%d rok,"
 
-#: fergcorp_countdownTimer.php:537
-#: fergcorp_countdownTimer.php:905
+#: fergcorp_countdownTimer.php:540
 #, fuzzy, php-format
-msgid "%d month, "
-msgid_plural "%d months, "
-msgstr[0] "%d měsíc,"
-msgstr[1] "%d měsíc,"
-msgstr[2] "%d měsíc,"
+msgid "%d month,"
+msgstr "%d měsíc,"
 
-#: fergcorp_countdownTimer.php:567
-#: fergcorp_countdownTimer.php:907
+#: fergcorp_countdownTimer.php:570
 #, fuzzy, php-format
-msgid "%d week, "
-msgid_plural "%d weeks, "
-msgstr[0] "%d týden,"
-msgstr[1] "%d týden,"
-msgstr[2] "%d týden,"
+msgid "%d week,"
+msgstr "%d týden,"
 
-#: fergcorp_countdownTimer.php:578
-#: fergcorp_countdownTimer.php:909
+#: fergcorp_countdownTimer.php:581
 #, fuzzy, php-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d den,"
-msgstr[1] "%d den,"
-msgstr[2] "%d den,"
+msgid "%d day,"
+msgstr "%d den,"
 
-#: fergcorp_countdownTimer.php:591
-#: fergcorp_countdownTimer.php:911
+#: fergcorp_countdownTimer.php:594
 #, fuzzy, php-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d hodina,"
-msgstr[1] "%d hodina,"
-msgstr[2] "%d hodina,"
+msgid "%d hour,"
+msgstr "%d hodina,"
 
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:913
+#: fergcorp_countdownTimer.php:607
 #, fuzzy, php-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minuta,"
-msgstr[1] "%d minuta,"
-msgstr[2] "%d minuta,"
+msgid "%d minute,"
+msgstr "%d minuta,"
 
-#: fergcorp_countdownTimer.php:616
-#: fergcorp_countdownTimer.php:915
+#: fergcorp_countdownTimer.php:619
 #, fuzzy, php-format
-msgid "%d second, "
-msgid_plural "%d seconds, "
-msgstr[0] "%d sekunda,"
-msgstr[1] "%d sekunda,"
-msgstr[2] "%d sekunda,"
+msgid "%d second,"
+msgstr "%d sekunda,"
 
-#: fergcorp_countdownTimer.php:622
-#: fergcorp_countdownTimer.php:916
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:920
 #, php-format
 msgid "%d seconds, "
 msgstr "%d sekund,"
 
-#: fergcorp_countdownTimer.php:625
-#: fergcorp_countdownTimer.php:914
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:918
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minut,"
 
-#: fergcorp_countdownTimer.php:628
-#: fergcorp_countdownTimer.php:912
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:916
 #, php-format
 msgid "%d hours, "
 msgstr "%d hodin,"
 
-#: fergcorp_countdownTimer.php:631
-#: fergcorp_countdownTimer.php:910
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:914
 #, php-format
 msgid "%d days, "
 msgstr "%d dní,"
 
-#: fergcorp_countdownTimer.php:634
-#: fergcorp_countdownTimer.php:908
+#: fergcorp_countdownTimer.php:637
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "%d weeks, "
 msgstr "%d týdnu,"
 
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:906
+#: fergcorp_countdownTimer.php:640
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d months, "
 msgstr "%d měsícu,"
 
-#: fergcorp_countdownTimer.php:640
-#: fergcorp_countdownTimer.php:904
+#: fergcorp_countdownTimer.php:643
+#: fergcorp_countdownTimer.php:908
 #, php-format
 msgid "%d years, "
 msgstr "%d roky,"
 
-#: fergcorp_countdownTimer.php:831
+#: fergcorp_countdownTimer.php:835
 msgid "Widget title:"
 msgstr "Název widgetu"
 
-#: fergcorp_countdownTimer.php:832
+#: fergcorp_countdownTimer.php:836
 msgid "Maximum # of events to show:"
 msgstr "Maximální počet zobrazených událostí:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Notes:"
 msgstr "Poznámky:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Pro neomezený počet událostí nastavte na hodnotu '-1'."
 
-#: fergcorp_countdownTimer.php:867
+#: fergcorp_countdownTimer.php:871
 msgid "Adds the Countdown Timer"
 msgstr "Odpočítávadlo"
+
+#: fergcorp_countdownTimer.php:907
+#, fuzzy, php-format
+msgid "%d year, "
+msgstr "%d rok,"
+
+#: fergcorp_countdownTimer.php:909
+#, fuzzy, php-format
+msgid "%d month, "
+msgstr "%d měsíc,"
+
+#: fergcorp_countdownTimer.php:911
+#, fuzzy, php-format
+msgid "%d week, "
+msgstr "%d týden,"
+
+#: fergcorp_countdownTimer.php:913
+#, fuzzy, php-format
+msgid "%d day, "
+msgstr "%d den,"
+
+#: fergcorp_countdownTimer.php:915
+#, fuzzy, php-format
+msgid "%d hour, "
+msgstr "%d hodina,"
+
+#: fergcorp_countdownTimer.php:917
+#, fuzzy, php-format
+msgid "%d minute, "
+msgstr "%d minuta,"
+
+#: fergcorp_countdownTimer.php:919
+#, fuzzy, php-format
+msgid "%d second, "
+msgstr "%d sekunda,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Možnosti/data úšpešne změněny."

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: afdn_countdownTimer\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/countdown-timer\n"
-"POT-Creation-Date: 2010-04-05 02:04+0000\n"
-"PO-Revision-Date: 2010-04-04 19:39-0800\n"
+"Project-Id-Version: fergcorp_countdownTimer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-15 23:09-0800\n"
+"PO-Revision-Date: 2012-05-15 23:13-0800\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -267,135 +267,149 @@ msgstr "Enregistrer les modifications"
 msgid "No dates present"
 msgstr "Aucune date présente"
 
-#: fergcorp_countdownTimer.php:415
-#: fergcorp_countdownTimer.php:917
+#: fergcorp_countdownTimer.php:418
+#: fergcorp_countdownTimer.php:921
 #, php-format
 msgid "%s ago"
 msgstr "il y a %s"
 
-#: fergcorp_countdownTimer.php:428
-#: fergcorp_countdownTimer.php:918
+#: fergcorp_countdownTimer.php:431
+#: fergcorp_countdownTimer.php:922
 #, php-format
 msgid "in %s"
 msgstr "dans %s"
 
-#: fergcorp_countdownTimer.php:525
-#: fergcorp_countdownTimer.php:903
-#, php-format
-msgid "%d year, "
-msgid_plural "%d years, "
-msgstr[0] "%d an,"
-msgstr[1] "%d ans,"
+#: fergcorp_countdownTimer.php:528
+#, fuzzy, php-format
+msgid "%d year,"
+msgstr "%d an,"
 
-#: fergcorp_countdownTimer.php:537
-#: fergcorp_countdownTimer.php:905
-#, php-format
-msgid "%d month, "
-msgid_plural "%d months, "
-msgstr[0] "%d mois,"
-msgstr[1] "%d mois,"
+#: fergcorp_countdownTimer.php:540
+#, fuzzy, php-format
+msgid "%d month,"
+msgstr "%d mois,"
 
-#: fergcorp_countdownTimer.php:567
-#: fergcorp_countdownTimer.php:907
-#, php-format
-msgid "%d week, "
-msgid_plural "%d weeks, "
-msgstr[0] "%d semaine,"
-msgstr[1] "%d semaines,"
+#: fergcorp_countdownTimer.php:570
+#, fuzzy, php-format
+msgid "%d week,"
+msgstr "%d semaine,"
 
-#: fergcorp_countdownTimer.php:578
-#: fergcorp_countdownTimer.php:909
-#, php-format
-msgid "%d day, "
-msgid_plural "%d days, "
-msgstr[0] "%d jour,"
-msgstr[1] "%d jours,"
+#: fergcorp_countdownTimer.php:581
+#, fuzzy, php-format
+msgid "%d day,"
+msgstr "%d jour,"
 
-#: fergcorp_countdownTimer.php:591
-#: fergcorp_countdownTimer.php:911
-#, php-format
-msgid "%d hour, "
-msgid_plural "%d hours, "
-msgstr[0] "%d heure,"
-msgstr[1] "%d heures,"
+#: fergcorp_countdownTimer.php:594
+#, fuzzy, php-format
+msgid "%d hour,"
+msgstr "%d heure,"
 
-#: fergcorp_countdownTimer.php:604
-#: fergcorp_countdownTimer.php:913
-#, php-format
-msgid "%d minute, "
-msgid_plural "%d minutes, "
-msgstr[0] "%d minute,"
-msgstr[1] "%d minutes,"
+#: fergcorp_countdownTimer.php:607
+#, fuzzy, php-format
+msgid "%d minute,"
+msgstr "%d minute,"
 
-#: fergcorp_countdownTimer.php:616
-#: fergcorp_countdownTimer.php:915
-#, php-format
-msgid "%d second, "
-msgid_plural "%d seconds, "
-msgstr[0] "%d seconde,"
-msgstr[1] "%d secondes,"
+#: fergcorp_countdownTimer.php:619
+#, fuzzy, php-format
+msgid "%d second,"
+msgstr "%d seconde,"
 
-#: fergcorp_countdownTimer.php:622
-#: fergcorp_countdownTimer.php:916
+#: fergcorp_countdownTimer.php:625
+#: fergcorp_countdownTimer.php:920
 #, php-format
 msgid "%d seconds, "
 msgstr "%d secondes,"
 
-#: fergcorp_countdownTimer.php:625
-#: fergcorp_countdownTimer.php:914
+#: fergcorp_countdownTimer.php:628
+#: fergcorp_countdownTimer.php:918
 #, php-format
 msgid "%d minutes, "
 msgstr "%d minutes,"
 
-#: fergcorp_countdownTimer.php:628
-#: fergcorp_countdownTimer.php:912
+#: fergcorp_countdownTimer.php:631
+#: fergcorp_countdownTimer.php:916
 #, php-format
 msgid "%d hours, "
 msgstr "%d heures,"
 
-#: fergcorp_countdownTimer.php:631
-#: fergcorp_countdownTimer.php:910
+#: fergcorp_countdownTimer.php:634
+#: fergcorp_countdownTimer.php:914
 #, php-format
 msgid "%d days, "
 msgstr "%d jours,"
 
-#: fergcorp_countdownTimer.php:634
-#: fergcorp_countdownTimer.php:908
+#: fergcorp_countdownTimer.php:637
+#: fergcorp_countdownTimer.php:912
 #, php-format
 msgid "%d weeks, "
 msgstr "%d semaines,"
 
-#: fergcorp_countdownTimer.php:637
-#: fergcorp_countdownTimer.php:906
+#: fergcorp_countdownTimer.php:640
+#: fergcorp_countdownTimer.php:910
 #, php-format
 msgid "%d months, "
 msgstr "%d mois,"
 
-#: fergcorp_countdownTimer.php:640
-#: fergcorp_countdownTimer.php:904
+#: fergcorp_countdownTimer.php:643
+#: fergcorp_countdownTimer.php:908
 #, php-format
 msgid "%d years, "
 msgstr "%d ans,"
 
-#: fergcorp_countdownTimer.php:831
+#: fergcorp_countdownTimer.php:835
 msgid "Widget title:"
 msgstr "Titre du Widget:"
 
-#: fergcorp_countdownTimer.php:832
+#: fergcorp_countdownTimer.php:836
 msgid "Maximum # of events to show:"
 msgstr "Nombre maximum d'évènements à afficher:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Notes:"
 msgstr "Notes:"
 
-#: fergcorp_countdownTimer.php:834
+#: fergcorp_countdownTimer.php:838
 msgid "Set 'Maximum # of events' to '-1' if you want no limit."
 msgstr "Mettre le 'Nombre maximum d'évènements à afficher' à '-1' pour en avoir un nombre illimité."
 
-#: fergcorp_countdownTimer.php:867
+#: fergcorp_countdownTimer.php:871
 msgid "Adds the Countdown Timer"
 msgstr "Countdown Timer"
+
+#: fergcorp_countdownTimer.php:907
+#, fuzzy, php-format
+msgid "%d year, "
+msgstr "%d an,"
+
+#: fergcorp_countdownTimer.php:909
+#, fuzzy, php-format
+msgid "%d month, "
+msgstr "%d mois,"
+
+#: fergcorp_countdownTimer.php:911
+#, fuzzy, php-format
+msgid "%d week, "
+msgstr "%d semaine,"
+
+#: fergcorp_countdownTimer.php:913
+#, fuzzy, php-format
+msgid "%d day, "
+msgstr "%d jour,"
+
+#: fergcorp_countdownTimer.php:915
+#, fuzzy, php-format
+msgid "%d hour, "
+msgstr "%d heure,"
+
+#: fergcorp_countdownTimer.php:917
+#, fuzzy, php-format
+msgid "%d minute, "
+msgstr "%d minute,"
+
+#: fergcorp_countdownTimer.php:919
+#, fuzzy, php-format
+msgid "%d second, "
+msgstr "%d seconde,"
 
 #~ msgid "Options/dates updated successfully."
 #~ msgstr "Les options/dates ont été mises à jour avec succès."
