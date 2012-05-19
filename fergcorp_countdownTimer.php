@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.4.3
+Version: 2.4.4
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -23,6 +23,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+
+@package Countdown_Timer
+@author Andrew Ferguson
+@since
+@access private
+{@internal Missing}
+@param		type		$varname	Description
+@return		type					Description
+@todo		
+
 */
 		
 	$currentLocale = get_locale();
@@ -49,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				postboxes.add_postbox_toggles('fergcorp-countdown-timer'); //For WP2.7 and above
 	
 			});
-
+			
 			function clearField(eventType, fieldNum){ //For deleting events without reloading
 				var agree=confirm('<?php _e('Are you sure you wish to delete', 'fergcorp_countdownTimer'); ?> '+document.getElementsByName(eventType+'[text'+fieldNum+']').item(0).value+'?');
 				if(agree){
@@ -87,6 +98,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				<div id="poststuff">        
                     
 				<?php
+
+                		/**
+                		 * Creates and defines the metabox for the resources box
+                		 * 
+                		 * @package Countdown_Timer
+                		 * @author Andrew Ferguson
+                		 * {@internal since}
+                		 * @access private
+                		 * 
+                		 */
                 		function fergcorp_countdownTimer_resources_meta_box(){
 							?>
                             <table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -111,6 +132,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							<?php settings_fields('fergcorp_countdownTimer_options'); ?>
 
                             <?php
+
+	                		/**
+	                		 * Creates and defines the metabox for the installation box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */							
 							function fergcorp_countdownTimer_installation_meta_box(){
 							?>
                             <p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
@@ -152,7 +183,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                             <?php		
 							}
                         	add_meta_box('fergcorp_countdownTimer_installation', __('Installation and Usage Notes'), 'fergcorp_countdownTimer_installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');
-										
+		             		
+		             		/**
+	                		 * Creates and defines the metabox for the events box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */			
 							function fergcorp_countdownTimer_events_meta_box(){
 
 								$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
@@ -207,7 +247,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
                                <?php
                             }
 						   	add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "fergcorp_countdownTimer_events_meta_box", "fergcorp-countdown-timer");
-
+		            		
+		            		/**
+		            		 * Creates and defines the metabox for the management box
+		            		 * 
+		            		 * @package Countdown_Timer
+		            		 * @author Andrew Ferguson
+		            		 * {@internal since}
+		            		 * @access private
+		            		 * 
+		            		 */
 							function fergcorp_countdownTimer_management_meta_box(){
 								?>
 								<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
@@ -224,8 +273,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 							}
 							add_meta_box("fergcorp_countdownTimer_management", __('Management', 'fergcorp_countdownTimer'), "fergcorp_countdownTimer_management_meta_box", "fergcorp-countdown-timer");
 
-
-
+	                		/**
+	                		 * Creates and defines the metabox for the options box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */
 							function fergcorp_countdownTimer_display_options_meta_box(){
 								?>
 								<p><?php _e('This setting controls what units of time are displayed.', 'fergcorp_countdownTimer'); ?></p>
@@ -242,7 +298,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "fergcorp_countdownTimer_display_options_meta_box", "fergcorp-countdown-timer");
-							
+	                		
+	                		/**
+	                		 * Creates and defines the metabox for the onHover time format box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */							
 							function fergcorp_countdownTimer_onHover_time_format_meta_box(){
 								?>
 								<p><?php printf(__("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/date' target='_blank'"); ?></p>
@@ -255,7 +320,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_onHover_time_format", __('onHover Time Format'), "fergcorp_countdownTimer_onHover_time_format_meta_box", "fergcorp-countdown-timer");
-							
+
+	                		/**
+	                		 * Creates and defines the metabox for the display format options box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */									
 							function fergcorp_countdownTimer_display_format_options_meta_box(){
 								?>
 								<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'fergcorp_countdownTimer'); ?></p>
@@ -268,7 +342,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 								<?php
 							}
 							add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "fergcorp_countdownTimer_display_format_options_meta_box", "fergcorp-countdown-timer");
-
+	                		
+	                		/**
+	                		 * Creates and defines the metabox for the example display box
+	                		 * 
+	                		 * @package Countdown_Timer
+	                		 * @author Andrew Ferguson
+	                		 * {@internal since}
+	                		 * @access private
+	                		 * 
+	                		 */		
 							function fergcorp_countdownTimer_example_display_meta_box(){
 								echo "<ul>";
 								fergcorp_countdownTimer();
@@ -391,7 +474,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	
 	function fergcorp_countdownTimer_format($eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE){
 		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_jsUID;
 		if(!isset($fergcorp_countdownTimer_jsUID)){
@@ -679,7 +761,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	add_filter('the_excerpt', 'fergcorp_countdownTimer_loop', 1);
 	
 	/**
-	 * Processes shortcodes
+	 * Processes [fergcorp_cdt max=##] shortcode
 	 *
 	 * @param $atts array Attributes of the shortcode
 	 * @since 2.3
@@ -687,7 +769,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string countdown timer(s)
 	*/	
-	// [fergcorp_cdt max=##]
 	function fergcorp_cdt_function($atts) {
 		extract(shortcode_atts(array(
 			'max' => '-1',
@@ -699,7 +780,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	
 	/**
-	 * Processes shortcodes
+	 * Processes [fergcorp_cdt max=##] shortcode
 	 *
 	 * @param $atts array Attributes of the shortcode
 	 * @since 2.3
@@ -707,7 +788,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string countdown timer
 	*/	
-	// [fergcorp_cdt max=##]
 	function fergcorp_cdt_single_function($atts) {
 		extract(shortcode_atts(array(
 			'date' => '-1',
