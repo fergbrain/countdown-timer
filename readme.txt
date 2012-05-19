@@ -148,6 +148,12 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 
 == Changelog ==
 
+= 2.4.4 =
+Release date: ??/??/2012
+
+ * On-hover date localization is now completed. Thanks to [pwesolek] for the patch.
+ * Updated language files
+
 = 2.4.3 =
 Release Date: 3/10/2012
 
