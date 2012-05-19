@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
 Requires at least: 2.7
-Tested up to: 3.3.1
-Stable tag: 2.4.3
+Tested up to: 3.4
+Stable tag: 2.4.4
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -48,25 +48,25 @@ Of course, you'll replace de_DE with the language extension that you want to use
 
 == Installation ==
 
-If you can, use the automatic WordPress installer/upgrader.
+1. Install the plugin using your prefered method of choice. Using the built-in WordPress installer is the preffered choice, but you can also do things the hard/manual way.
 
-Otherwise, delete any previous version of Countdown Timer and associated files.
+1. Activate the timer.
 
-Download and install the timer into your plugins directory.
+1. Events can be added and other settings modified in Settings > Countdown Timer in The Dashboard.
 
-Activate the timer and add the widget.
+= Inserting countdown timers into your blog =
 
-If you don't want to use the widget, you can also add the following code into your sidebar.php file:
+There are three places you can insert a countdown timer:
 
-`<li id='countdown'><h2>Countdown:</h2>
-<ul>
-<?php function_exists('fergcorp_countdownTimer')?fergcorp_countdownTimer():NULL; ?>
-</ul>
-</li>`
+1. Sidebar (i.e. widget)
+1. A post or page
+1. PHP (experts only)
 
-Events can be added and other settings modified in the Settings > Countdown Timer section of the Administration Menu.
+= Adding to the sidebar =
 
-= Inserting countdown timers into a page or post =
+Add the widget to the sidebar using going to Appearances > Widget in The Dashboard.
+
+= Adding to a post or page =
 
 If you want to insert the Countdown Timer into a page or post, you can use the following shortcodes to return all or a limited number of Countdown Timers, respectively:
 [fergcorp\_cdt]
@@ -79,25 +79,29 @@ If you want to insert individual countdown timers, such as in posts or on pages,
 Time until my birthday:
 [fergcorp_cdt_single date="ENTER\_DATE\_HERE"]
 
-Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual datetime description.
+Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual datetime description (such as "28 May 2012"
+
+= PHP = 
+
+Countdown Timer also provide PHP functions designed to be accessed publicly so you can include it in elements of your site that may not be in The Loop.
+ 
+`fergcorp_countdownTimer(_$maxEvents_)`
+
+where _$maxEvents_ is the maximum number of events you wish to be displayed. If _$maxEvents_ is not given, the function will return all timers.
+
+Events are automatically sorted by date of occurrence.
+
+Note: You should also encapsulate calls with "fucntion_exists" to prevent unintentional errors if the plugin is deactivated.
 
 = Limiting the number of countdown timers displayed =
 
-If you're using the widget, there is an option to set the maximum number of timers shown. If you are using the PHP code, replace
-
-`fergcorp_countdownTimer()`
-
-with
-
-`fergcorp_countdownTimer(##)`
-
-where ## is the maximum number of events you wish to be displayed.
+If you're using the widget, there is an option to set the maximum number of timers shown. If you are using the PHP code, _$maxEvents_ is the maximum number of events you wish to be displayed.
 
 Events are automatically sorted by date of occurrence.
 
 = Changing the font, size, and style using CSS =
 
-Starting with version 2.4, you can makes changes to the appearance of Countdown Timer display using CSS.
+You can makes changes to the appearance of Countdown Timer display using CSS.
 
 The following CSS classes are available:
 
@@ -105,6 +109,14 @@ The following CSS classes are available:
  * `fergcorp_countdownTimer_event_title` styles the title of the event
  * `fergcorp_countdownTimer_event_linkTitle` styles the title of an event if it is linked
  * `fergcorp_countdownTimer_event_time` styles the actual countdown timer
+ * `fergcorp_countdownTimer_timeUnit` styles the units (e.g. "25 days")
+ * `fergcorp_countdownTimer_year` styles the year text
+ * `fergcorp_countdownTimer_month` styles the month text
+ * `fergcorp_countdownTimer_week` styles the week text
+ * `fergcorp_countdownTimer_day` styles the day text
+ * `fergcorp_countdownTimer_hour` styles the hour text
+ * `fergcorp_countdownTimer_minute` styles the minute text
+ * `fergcorp_countdownTimer_second` styles the second text
 
 == Frequently Asked Questions ==
 
@@ -153,6 +165,7 @@ Release date: ??/??/2012
 
  * On-hover date localization is now completed. Thanks to [pwesolek] for the patch.
  * Updated language files
+ * Updated readme instructions for installation and usage
 
 = 2.4.3 =
 Release Date: 3/10/2012
