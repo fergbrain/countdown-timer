@@ -155,15 +155,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										</ul>
                           
                             <p><?php printf(__("To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'fergcorp_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
-										<p><?php _e("Alternatively, you can also use this code in your sidebar.php file:", 'fergcorp_countdownTimer'); ?></p>
-										<p>
-											<code>&lt;li id='countdown'&gt;&lt;h2&gt;Countdown:&lt;/h2&gt;<br />
-												&lt;ul&gt;<br />
-												&lt;?php function_exists('fergcorp_countdownTimer')?fergcorp_countdownTimer():NULL; ?&gt;<br />
-												&lt;/ul&gt;<br />
-												&lt;/li&gt;
-											</code>
-										</p>
                                         
                                         <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'fergcorp_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'fergcorp_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
 										<p>
