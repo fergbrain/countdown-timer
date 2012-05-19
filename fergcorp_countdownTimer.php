@@ -186,6 +186,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	                		 */			
 							function fergcorp_countdownTimer_events_meta_box(){
 
+			             		/**
+		                		 * Builds <input> HTML
+		                		 * 
+		                		 * @package Countdown_Timer
+		                		 * @author Andrew Ferguson
+		                		 * @since 2.4.4
+		                		 * @access private
+		                		 * @param array		$inputArray
+		                		 * @param string 	$inputString
+		                		 * $return string HMTL code
+		                		 */		
+								function build_input($inputArray, $inputString=''){
+									$attributes = "";
+									foreach ($inputArray as $key => $value) {
+										$attributes .= "$key=\"$value\"";
+									}
+									return "<input $attributes $inputString />";
+								}
+
 								$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 								/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
 								if(get_option('fergcorp_countdownTimer_deleteOneTimeEvents') && (count($fergcorp_countdownTimer_oneTimeEvent[0])!=0) ){
@@ -212,11 +231,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 														if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]!=''){ //If the text is NULL, skip over it?>
 														<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
 														<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
-														<td><input type="text" size="30" name="fergcorp_countdownTimer_oneTimeEvent[date<?php echo $oneTimeEvent_count; ?>]" value="<?php if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "")echo gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100); ?>" /></td>
-														<td><input type="text" size="20" name="fergcorp_countdownTimer_oneTimeEvent[text<?php echo $oneTimeEvent_count; ?>]" value="<?php echo htmlspecialchars(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["text"])); ?>" /></td>
-														<td><input type="text" size="15" name="fergcorp_countdownTimer_oneTimeEvent[link<?php echo $oneTimeEvent_count; ?>]" value="<?php echo $fergcorp_countdownTimer_oneTimeEvent[$i]["link"]; ?>" /></td>
-
-														<td><input type="checkbox" name="fergcorp_countdownTimer_oneTimeEvent[timeSince<?php echo $oneTimeEvent_count; ?>]" value="1" <?php checked("1", $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"]); ?>/></td>
+														<?php
+														echo "<td>".build_input(array(
+																						"type" => "text",
+																						"size" => 30,
+																						"name" => "fergcorp_countdownTimer_oneTimeEvent[date{$oneTimeEvent_count}]",
+																						"value" => ($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "" ? gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100):NULL)
+																					)
+																				)."</td>";
+														
+														echo "<td>".build_input(array(
+																						"type" => "text",
+																						"size" => 20,
+																						"name" => "fergcorp_countdownTimer_oneTimeEvent[text{$oneTimeEvent_count}]",
+																						"value" => htmlspecialchars(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]['text']))
+																					)
+																				)."</td>";
+														
+														echo "<td>".build_input(array(
+																						"type" => "text",
+																						"size" => 15,
+																						"name" => "fergcorp_countdownTimer_oneTimeEvent[link{$oneTimeEvent_count}]",
+																						"value" => $fergcorp_countdownTimer_oneTimeEvent[$i]['link']
+																					)
+																				)."</td>";
+			
+														echo "<td>".build_input(array(
+																					"type" => "checkbox",
+																					"name" => "fergcorp_countdownTimer_oneTimeEvent[timeSince{$oneTimeEvent_count}]",
+																					"value" => 1,
+																					), 
+																				checked("1", $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"])
+																				)."</td>";
+														?>
 														</tr>
 														<?php
 														$oneTimeEvent_count++;
