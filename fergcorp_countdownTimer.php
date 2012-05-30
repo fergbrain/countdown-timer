@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.4.4
+Version: 2.4.4 Build (2012.5.29.19.28)
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 @todo		
 
 */
-		
+	require_once("fergcorp_debug.php");
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
 		$moFile = dirname(__FILE__) . "/lang/fergcorp_countdownTimer-" . $currentLocale . ".mo";
@@ -207,7 +207,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 								$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 								/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
-								if(get_option('fergcorp_countdownTimer_deleteOneTimeEvents') && (count($fergcorp_countdownTimer_oneTimeEvent[0])!=0) ){
+								if( is_array(get_option("fergcorp_countdownTimer_oneTimeEvent")) && get_option('fergcorp_countdownTimer_deleteOneTimeEvents') ){
 									foreach($fergcorp_countdownTimer_oneTimeEvent as $key => $value){
 										if(($value["date"]<=time())&&($value["timeSince"]=="")){
 										$fergcorp_countdownTimer_oneTimeEvent[$key]["date"]=NULL;
