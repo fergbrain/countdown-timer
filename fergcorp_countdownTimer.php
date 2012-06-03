@@ -227,7 +227,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									$oneTimeEvent_count = 0;
 									$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_oneTimeEvent);
 									if($fergcorp_countdownTimer_oneTimeEvent != ""){
-										for($i=0; $i < $oneTimeEvent_entriesCount+1; $i++){
+										for($i=0; $i < $oneTimeEvent_entriesCount; $i++){
 											if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]!=''){ //If the text is NULL, skip over it?>
 												<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
 													<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
