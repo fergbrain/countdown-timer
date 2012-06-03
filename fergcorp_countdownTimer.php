@@ -1133,28 +1133,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				if($input[$i]["date"]==""){ //If the date field is empty, ignore the entry
 					unset($input[$i]);
 				}
-				else{																	//If not, add it to an array so the data can be updated
+				else{	//If not, add it to an array so the data can be updated
 					$input[$i]["date"] = strtotime($input[$i]["date"]);
 					if(!isset($input[$i]["timeSince"]))
 						$input[$i]["timeSince"] = 0;	//Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
 				}
 			}
-			/*End One Time Events*/
-
 			/*Begin sorting events by time*/
-
 			function sortByOrder($a, $b) {
  			   return $a['date'] - $b['date'];
 			}
-			
 			usort($input, 'sortByOrder');
-			
-			/*End sorting events by time*/
-			
-			//Leaving this out of 2.4 release
-			//$file = fopen(dirname(__FILE__)."/".get_option('fergcorp_countdownTimer_serialDataFilename'), 'wb');
-			//fwrite($file, serialize($output));
-			//fclose($file);
 	return $input;
 }
 
