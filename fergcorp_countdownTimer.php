@@ -1125,15 +1125,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 
-	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){	
-			if(function_exists(date_default_timezone_set)){
-				date_default_timezone_set(get_option('timezone_string'));
+	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){
+			//We need a time zone to properly guess what dates the user means	
+			$tz = get_option('timezone_string');
+			if ( $tz ){ //Get and check if we have a valid time zone... 
+				date_default_timezone_set($tz); //...if so, use it
 			}
+			else {	//If there is no time zone...
+				date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
+			}
+				
+				
 			for($i=0; $i < count($input); $i++){
 				if($input[$i]["date"]==""){ //If the date field is empty, ignore the entry
 					unset($input[$i]);
 				}
-				else{	//If not, add it to an array so the data can be updated
+				else{	//If not, add it to an array so the data can be updated				
 					$input[$i]["date"] = strtotime($input[$i]["date"]);
 					if(!isset($input[$i]["timeSince"]))
 						$input[$i]["timeSince"] = 0;	//Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
