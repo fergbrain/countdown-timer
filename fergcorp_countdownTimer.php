@@ -261,7 +261,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 																			"name" => "fergcorp_countdownTimer_oneTimeEvent[timeSince{$oneTimeEvent_count}]",
 																			"value" => 1,
 																				), 
-																			checked("1", $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"])
+																			checked("1", $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], false)
 																			)."</td>";
 													?>
 												</tr>
@@ -288,7 +288,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
 													"value" => "1",
 													),
-												checked("1", get_option('fergcorp_countdownTimer_deleteOneTimeEvents'))
+												checked("1", get_option('fergcorp_countdownTimer_deleteOneTimeEvents'), false)
 												);
 								_e('Yes', 'fergcorp_countdownTimer');
 								echo " :: "; 
@@ -298,7 +298,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 													"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
 													"value" => "0",
 													),
-												checked("0", get_option('fergcorp_countdownTimer_deleteOneTimeEvents'))
+												checked("0", get_option('fergcorp_countdownTimer_deleteOneTimeEvents'), false)
 												);
 								_e('No', 'fergcorp_countdownTimer');
 								echo "</p>";
