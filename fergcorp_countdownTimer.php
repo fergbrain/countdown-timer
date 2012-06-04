@@ -648,7 +648,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function fergcorp_countdownTimer_format($thisEvent){ //$eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE
-		global $fergcorp_countdownTimer_noEventsPresent;
+		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_jsUID;
 		$standalone = FALSE;
 		$timeFormat = "j M Y, G:i:s";
 
@@ -669,7 +669,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			if ( $thisEvent->getTitle() ) {
 				$content .= $thisEvent->getTitle();
 			}
-			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
+			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate( time(), $thisEvent->getTimestamp() ) )."</abbr>";
+			array_push($fergcorp_countdownTimer_jsUID, $thisEvent);
 			if(!$standalone)
 				$content .= "</li>\r\n";
 			return $content;
@@ -681,6 +682,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$content .= $thisEvent->getTitle();
 			}
 			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
+			
+			if(!isset($fergcorp_countdownTimer_jsUID))
+				$fergcorp_countdownTimer_jsUID = array();
+			array_push($fergcorp_countdownTimer_jsUID, $thisEvent);
+			
 			if(!$standalone)
 				$content .= "</li>\r\n";
 			return $content;
@@ -781,34 +787,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		$timeDelta = new DeltaTime($targetTime, $nowTime);
 
-		FB::log($timeDelta, "Delta Time");
-		FB::log($targetTime, "Target Time");
-		FB::log($nowTime, "Now Time");
-
 		$rollover = 0;
 		$s = '';
 		$sigNumHit = false;
-
-		/*$nowYear = date("Y", $nowTime);
-		$nowMonth = date("m", $nowTime);
-		$nowDay = date("d", $nowTime);
-		$nowHour = date("H", $nowTime);
-		$nowMinute = date("i", $nowTime);
-		$nowSecond = date("s", $nowTime);
-
-		$targetYear = date("Y", $targetTime);
-		$targetMonth = date("m", $targetTime);
-		$targetDay = date("d", $targetTime);
-		$targetHour = date("H", $targetTime);
-		$targetMinute = date("i", $targetTime);
-		$targetSecond = date("s", $targetTime);
-
-		$resultantYear = $targetYear - $nowYear;
-		$resultantMonth = $targetMonth - $nowMonth;
-		$resultantDay = $targetDay - $nowDay;
-		$resultantHour = $targetHour - $nowHour;
-		$resultantMinute = $targetMinute - $nowMinute;
-		$resultantSecond = $targetSecond - $nowSecond;*/
 		
 		if($timeDelta->s < 0){
 			$timeDelta->i--;
@@ -836,7 +817,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$timeDelta->m = $timeDelta->m + 12;
 		}
 
-		FB::log($timeDelta, "Delta Time");
 
 		//Year
 		if(get_option('fergcorp_countdownTimer_showYear')){
@@ -859,9 +839,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 		}
 		else{
-			//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)
-			//$rollover = $rollover + $timeDelta->m*2592000;
-			
+			//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)	
 			//If we showed years, but not months, we need to account for those.
 			if(get_option('fergcorp_countdownTimer_showYear')){
 				$timeDelta->delta = $timeDelta->delta - $timeDelta->y*31536000;
@@ -1211,8 +1189,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		echo "var fergcorp_countdownTimer_js_events = new Array();\n";
 		for($i=0; $i < count($fergcorp_countdownTimer_jsUID); $i++){
 				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_jsUID[$i]['id']."\";\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_jsUID[$i]['targetDate']."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_jsUID[$i]->getUID()."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_jsUID[$i]->getTimestamp()."\";\n";
 
 		}
 		echo "fergcorp_countdownTimer_js();\n";
