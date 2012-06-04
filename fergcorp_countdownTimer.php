@@ -236,6 +236,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									}
 									
 									$oneTimeEvent_count = 0;
+									
+									foreach ( $fergcorp_countdownTimer_oneTimeEvent as $thisEvent ) {
+										?>
+										<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
+										<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
+										<?php
+										echo "<td>".build_input(array(
+																	"type" => "text",
+																	"size" => 30,
+																	"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][date]",
+																	"value" => ($thisEvent->date("D, d M Y H:i:s"))
+																	)
+																)."</td>";
+											
+										echo "<td>".build_input(array(
+																	"type" => "text",
+																	"size" => 20,
+																	"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][text]",
+																	"value" => htmlspecialchars(stripslashes($thisEvent->getTitle()))
+																	)
+																)."</td>";
+											
+										echo "<td>".build_input(array(
+																	"type" => "text",
+																	"size" => 15,
+																	"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][link]",
+																	"value" => $thisEvent->getURL()
+																	)
+																)."</td>";
+
+										echo "<td>".build_input(array(
+																	"type" => "checkbox",
+																	"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][timeSince]",
+																	"value" => 1,
+																	), 
+																checked("1", $thisEvent->getTimeSince(), false)
+																)."</td>";
+										?>
+									</tr>
+									<?php
+									$oneTimeEvent_count++;
+									}
+									/*
 									$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_oneTimeEvent);
 									if($fergcorp_countdownTimer_oneTimeEvent != ""){
 										for($i=0; $i < $oneTimeEvent_entriesCount; $i++){
@@ -281,7 +324,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 											}
 											@next($fergcorp_countdownTimer_oneTimeEvent);
 										}
-									}
+									}*/
 									?>
 									<tr align="center">
 										<td></td>
@@ -460,12 +503,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$fergcorp_countdownTimer_noEventsPresent = FALSE;
 
 		$fergcorp_countdownTimer_oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
-		if($fergcorp_countdownTimer_oneTimeEvent!=''){
+		if( '' != $fergcorp_countdownTimer_oneTimeEvent){
 		/*If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL*/
 			if(count($fergcorp_countdownTimer_oneTimeEvent[0])!=0){
-				foreach($fergcorp_countdownTimer_oneTimeEvent as $key => $value){
-					if(($value["date"]<=time())&&($value["timeSince"]=="")){
-					$fergcorp_countdownTimer_oneTimeEvent[$key]["date"]=NULL;
+				foreach($fergcorp_countdownTimer_oneTimeEvent as $thisEvent){
+					if ( ( !$thisEvent->getTimeSince() ) && ( $thisEvent <= new DateTime() ) ) {
+						FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
+						$thisEvent = NULL;
 					}
 				}
 			}
@@ -477,13 +521,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$fergcorp_countdownTimer_noEventsPresent = TRUE;//because there are no dates at all!
 		}
 		
+		$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
 		/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
 		At some point, I plan to make this into a function; but for, this will do...
 
 		And what it does is this:
 		The number of elements in the array are counted. Then for array is gone through x^(x-1) times. This allows for all posible date permuations to be sorted out and ordered correctly.
 		Genious, yes? No*/
-		$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
+		/*$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
 		for($x=0; $x<$eventCount; $x++){
 			for($z=0; $z<$eventCount-1; $z++){
 				if(($fergcorp_countdownTimer_oneTimeEvent[$z+1]["date"] < $fergcorp_countdownTimer_oneTimeEvent[$z]["date"]) && (array_key_exists($z+1, $fergcorp_countdownTimer_oneTimeEvent))){
@@ -493,21 +538,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				}
 			}
 		}
+		 */ 
 		if($eventLimit != -1)	//If the eventLimit is set
 			$eventCount = $eventLimit;
 
+		
+		
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 		if($fergcorp_countdownTimer_noEventsPresent == FALSE){
 			$fergcorp_countdownTimer_noEventsPresent = TRUE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
-					$thisEvent = fergcorp_countdownTimer_format(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["text"]), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeOffset'), false);			
+					$thisEvent = fergcorp_countdownTimer_format($fergcorp_countdownTimer_oneTimeEvent[$i]); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeOffset'), false);			
 				if($output == "echo")
 					echo $thisEvent;
 				elseif($output == "return"){
 					$toReturn .= $thisEvent;
-				}
-				if(($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]==NULL) && (isset($fergcorp_countdownTimer_oneTimeEvent[$i]))){
-					$eventCount++;
 				}
 			}
 		}
@@ -526,6 +571,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	}
 
+	class Fergcorp_Countdown_Timer_Event extends DateTime {
+		private $title;
+		private $time;
+		private $url;
+		private $timeSince;
+		private $UID;
+		
+		public function __construct ($time, $title, $url, $timeSince){
+			$this->setTitle($title);
+			$this->setTime($time);
+			$this->setURL($url);
+			$this->setTimeSince($timeSince);
+			$this->UID = "x".md5(rand());
+			parent::__construct("@".$time);
+		}
+		
+		public function setTitle ( $title ) {
+			$this->title = (string)$title;
+		}
+		
+		public function setTime ( $time ) {
+			$this->time = $time;
+		}
+		
+		public function setURL ( $url ) {
+			$this->url = $url;
+		}
+		
+		public function setTimeSince ( $timeSince ) {
+			$this->timeSince = $timeSince;
+		}
+		
+		public function getTitle () {
+			return $this->title;
+		}
+		
+		public function getTime () {
+			return $this->time;
+		}
+		
+		public function getURL () {
+			return $this->url;
+		}
+		
+		public function getTimeSince () {
+			return $this->timeSince;
+		}
+		
+		public function getUID () {
+			return $this->UID;
+		}
+		
+		public function date ( $format ) {
+			return date($format, $this->getTimestamp());
+		}
+		
+		
+	}
+
+
 	/**
 	 * Returns an individual countdown element
 	 *
@@ -542,43 +647,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function fergcorp_countdownTimer_format($eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE){
-		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_jsUID;
-		if(!isset($fergcorp_countdownTimer_jsUID)){
-			$fergcorp_countdownTimer_jsUID = array();
-		}
-		$time_left = $time - time() + $offset;
+	function fergcorp_countdownTimer_format($thisEvent){ //$eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE
+		global $fergcorp_countdownTimer_noEventsPresent;
+		$standalone = FALSE;
+		$timeFormat = "j M Y, G:i:s";
+
+		$time_left = $thisEvent->getTimestamp() - time();
+		
 		if(!$standalone)
 			$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
-		$nonceTracker = "x".md5(rand()); //XHTML prevents IDs from starting with a number, so append a 'x' on the front just to make sure it dosn't start with numeric	
-		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($link==""?$eventText:"<a href=\"$link\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$eventText."</a>").'</span>'.get_option('fergcorp_countdownTimer_titleSuffix')."\n";
+			
+		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($thisEvent->getURL()==""?$thisEvent->getTitle():"<a href=\"".$thisEvent->getURL()."\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$thisEvent->getTitle()."</a>").'</span>'.get_option('fergcorp_countdownTimer_titleSuffix')."\n";
 		if ($timeFormat == "") {
 			$timeFormat = get_option('date_format') . ", " . get_option('time_format');
 		}
-		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $time, false)."\" id = '$nonceTracker' class = 'fergcorp_countdownTimer_event_time'>";
+		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
 		
-		if(($time_left < 0)&&($timeSince==1)&&((($time_left + $timeSinceTime) > 0)||($timeSinceTime == 0))){ //If the event has already passed and we still want to display the event
+		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) ){ //If the event has already passed and we still want to display the event
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
-			$fergcorp_countdownTimer_jsUID[count($fergcorp_countdownTimer_jsUID)] = array("id"			=> $nonceTracker,
-																										"targetDate"	=> $time,
-																										);	//Don't want to actually keep track of it until now
-			if($eventText){
-				$content .= $eventTitle;
+
+			if ( $thisEvent->getTitle() ) {
+				$content .= $thisEvent->getTitle();
 			}
-			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate((time() + $offset), $time, $time))."</abbr>";
+			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
 			if(!$standalone)
 				$content .= "</li>\r\n";
 			return $content;
 		}
 		elseif($time_left > 0){ //If the event has not yet happened yet
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
-			$fergcorp_countdownTimer_jsUID[count($fergcorp_countdownTimer_jsUID)] = array("id"			=> $nonceTracker,
-																										"targetDate"	=> $time,
-																										);	//Don't want to actually keep track of it until now
-			if($eventText){
-				$content .= $eventTitle;
+			
+			if($thisEvent->getTitle()){
+				$content .= $thisEvent->getTitle();
 			}
-			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($time, (time() + $offset), $time))."</abbr>";
+			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
 			if(!$standalone)
 				$content .= "</li>\r\n";
 			return $content;
@@ -607,6 +709,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
 		}
 	}
+	
+	class DeltaTime{
+			
+			public $nowYear;
+			public $nowMonth;
+			private $nowDay;
+			private $nowHour ;
+			private $nowMinute;
+			private $nowSecond;
+			
+			private $targetYear;
+			private $targetMonth;
+			private $targetDay;
+			private $targetHour ;
+			private $targetMinute;
+			private $targetSecond;
+			
+			public $y;
+			public $m;
+			public $d;
+			public $h;
+			public $i;
+			public $s;
+			
+			public $w;
+			
+			public $delta;
+			
+			public function __construct($targetTime, $nowTime){
+				$this->nowYear = date("Y", $nowTime);
+				$this->nowMonth = date("m", $nowTime);
+				$this->nowDay = date("d", $nowTime);
+				$this->nowHour = date("H", $nowTime);
+				$this->nowMinute = date("i", $nowTime);
+				$this->nowSecond = date("s", $nowTime);
+				
+				$this->targetYear = date("Y", $targetTime);
+				$this->targetMonth = date("m", $targetTime);
+				$this->targetDay = date("d", $targetTime);
+				$this->targetHour = date("H", $targetTime);
+				$this->targetMinute = date("i", $targetTime);
+				$this->targetSecond = date("s", $targetTime);
+				
+				$this->y = $this->targetYear - $this->nowYear;
+				$this->m  = $this->targetMonth - $this->nowMonth;
+				$this->d = $this->targetDay - $this->nowDay;
+				$this->h  = $this->targetHour - $this->nowHour;
+				$this->i = $this->targetMinute - $this->nowMinute;
+				$this->s = $this->targetSecond - $this->nowSecond;
+				
+				$this->delta = $targetTime - $nowTime;
+			}
+			
+		}
 
 	/**
 	 * Returns the numerical part of a single countdown element
@@ -619,13 +775,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime, $realTargetTime){
+	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
+		
+		
+
+		$timeDelta = new DeltaTime($targetTime, $nowTime);
+
+		FB::log($timeDelta, "Delta Time");
+		FB::log($targetTime, "Target Time");
+		FB::log($nowTime, "Now Time");
 
 		$rollover = 0;
 		$s = '';
 		$sigNumHit = false;
 
-		$nowYear = date("Y", $nowTime);
+		/*$nowYear = date("Y", $nowTime);
 		$nowMonth = date("m", $nowTime);
 		$nowDay = date("d", $nowTime);
 		$nowHour = date("H", $nowTime);
@@ -644,70 +808,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		$resultantDay = $targetDay - $nowDay;
 		$resultantHour = $targetHour - $nowHour;
 		$resultantMinute = $targetMinute - $nowMinute;
-		$resultantSecond = $targetSecond - $nowSecond;
+		$resultantSecond = $targetSecond - $nowSecond;*/
 		
-		if($resultantSecond < 0){
-			$resultantMinute--;
-			$resultantSecond = 60 + $resultantSecond;
+		if($timeDelta->s < 0){
+			$timeDelta->i--;
+			$timeDelta->s = 60 + $timeDelta->s;
 		}
 
-		if($resultantMinute < 0){
-			$resultantHour--;
-			$resultantMinute = 60 + $resultantMinute;
+		if($timeDelta->i < 0){
+			$timeDelta->h--;
+			$timeDelta->i = 60 + $timeDelta->i;
 		}
 
-		if($resultantHour < 0){
+		if($timeDelta->h < 0){
 
-			$resultantDay--;
-			$resultantHour = 24 + $resultantHour;
+			$timeDelta->d--;
+			$timeDelta->h = 24 + $timeDelta->h;
 		}
 
-		if($resultantDay < 0){
-			$resultantMonth--;
-			$resultantDay = $resultantDay + cal_days_in_month(CAL_GREGORIAN, $nowMonth, $nowYear); //Holy crap! When did they introduce this function and why haven't I heard about it??
+		if($timeDelta->d < 0){
+			$timeDelta->m--;
+			$timeDelta->d = $timeDelta->d + cal_days_in_month(CAL_GREGORIAN, $timeDelta->nowMonth, $timeDelta->nowYear); //Holy crap! When did they introduce this function and why haven't I heard about it??
 		}
 
-		if($resultantMonth < 0){
-			$resultantYear--;
-			$resultantMonth = $resultantMonth + 12;
+		if($timeDelta->m < 0){
+			$timeDelta->y--;
+			$timeDelta->m = $timeDelta->m + 12;
 		}
+
+		FB::log($timeDelta, "Delta Time");
 
 		//Year
 		if(get_option('fergcorp_countdownTimer_showYear')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || $resultantYear){
-				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", $resultantYear, "fergcorp_countdownTimer"), $resultantYear)."</span> ";
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || $timeDelta->y){
+				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", $timeDelta->y, "fergcorp_countdownTimer"), $timeDelta->y)."</span> ";
 				$sigNumHit = true;
 			}
 		}
 		else{
-			$rollover = $resultantYear*31536000;
+			$rollover = $timeDelta->y*31536000;
 		}
 
 		//Month
 		if(get_option('fergcorp_countdownTimer_showMonth')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || intval($resultantMonth + ($rollover/2628000)) ){
-				$resultantMonth = intval($resultantMonth + ($rollover/2628000));
-				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", $resultantMonth, "fergcorp_countdownTimer"), $resultantMonth)."</span> ";
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || intval($timeDelta->m + ($rollover/2628000)) ){
+				$timeDelta->m = intval($timeDelta->m + ($rollover/2628000));
+				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", $timeDelta->m, "fergcorp_countdownTimer"), $timeDelta->m)."</span> ";
 				$rollover = $rollover - intval($rollover/2628000)*2628000; //(12/31536000)
 				$sigNumHit = true;
 			}
 		}
 		else{
 			//If we don't want to show months, let's just calculate the exact number of seconds left since all other units of time are fixed (i.e. months are not a fixed unit of time)
-			$rollover = $rollover + $resultantMonth*2592000;
-			$totalTime = $targetTime - $nowTime;
+			//$rollover = $rollover + $timeDelta->m*2592000;
 			
 			//If we showed years, but not months, we need to account for those.
 			if(get_option('fergcorp_countdownTimer_showYear')){
-				$totalTime = $totalTime - $resultantYear*31536000;
+				$timeDelta->delta = $timeDelta->delta - $timeDelta->y*31536000;
 			}
 			
 			//Re calculate the resultant times
-			$resultantWeek = intval( $totalTime/(86400*7) ); 
-			$resultantDay = intval( $totalTime/86400 );
-			$resultantHour = intval( ($totalTime - $resultantDay*86400)/3600 );
-			$resultantMinute = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600)/60 );
-			$resultantSecond = intval( ($totalTime - $resultantDay*86400 - $resultantHour*3600 - $resultantMinute*60) );
+			$timeDelta->w = intval( $timeDelta->delta/(86400*7) ); 
+			$timeDelta->d = intval( $timeDelta->delta/86400 );
+			$timeDelta->h = intval( ($timeDelta->delta - $timeDelta->d*86400)/3600 );
+			$timeDelta->i = intval( ($timeDelta->delta - $timeDelta->d*86400 - $timeDelta->h*3600)/60 );
+			$timeDelta->s = intval( ($timeDelta->delta - $timeDelta->d*86400 - $timeDelta->h*3600 - $timeDelta->i*60) );
 			
 			//and clear any rollover time
 			$rollover = 0;
@@ -715,58 +880,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 		//Week (weeks are counted differently becuase we can just take 7 days and call it a week...so we do that)
 		if(get_option('fergcorp_countdownTimer_showWeek')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($resultantDay + intval($rollover/86400) )/7)){
-				$resultantWeek = $resultantWeek + intval($rollover/86400)/7;
-				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($resultantDay + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))."</span> ";		
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($timeDelta->d + intval($rollover/86400) )/7)){
+				$timeDelta->w = $timeDelta->w + intval($rollover/86400)/7;
+				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))."</span> ";		
 				$rollover = $rollover - intval($rollover/86400)*86400;
-				$resultantDay = $resultantDay - intval( ($resultantDay + intval($rollover/86400) )/7 )*7;
+				$timeDelta->d = $timeDelta->d - intval( ($timeDelta->d + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
 			}
 		}
 
 		//Day
 		if(get_option('fergcorp_countdownTimer_showDay')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantDay + intval($rollover/86400)) ){
-				$resultantDay = $resultantDay + intval($rollover/86400);
-				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,",  $resultantDay, "fergcorp_countdownTimer"), $resultantDay)."</span> ";
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($timeDelta->d + intval($rollover/86400)) ){
+				$timeDelta->d = $timeDelta->d + intval($rollover/86400);
+				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,",  $timeDelta->d, "fergcorp_countdownTimer"), $timeDelta->d)."</span> ";
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$sigNumHit = true;
 			}
 		}
 		else{
-			$rollover = $rollover + $resultantDay*86400;
+			$rollover = $rollover + $timeDelta->d*86400;
 		}
 
 		//Hour
 		if(get_option('fergcorp_countdownTimer_showHour')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantHour + intval($rollover/3600)) ){
-				$resultantHour = $resultantHour + intval($rollover/3600);
-				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", $resultantHour, "fergcorp_countdownTimer"), $resultantHour)."</span> ";
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($timeDelta->h + intval($rollover/3600)) ){
+				$timeDelta->h = $timeDelta->h + intval($rollover/3600);
+				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", $timeDelta->h, "fergcorp_countdownTimer"), $timeDelta->h)."</span> ";
 				$rollover = $rollover - intval($rollover/3600)*3600;
 				$sigNumHit = true;
 			}
 		}
 		else{
-			$rollover = $rollover + $resultantHour*3600;
+			$rollover = $rollover + $timeDelta->h*3600;
 		}
 
 		//Minute
 		if(get_option('fergcorp_countdownTimer_showMinute')){
-			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($resultantMinute + intval($rollover/60)) ){
-				$resultantMinute = $resultantMinute + intval($rollover/60);
-				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", $resultantMinute, "fergcorp_countdownTimer"), $resultantMinute)."</span> ";
+			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ($timeDelta->i + intval($rollover/60)) ){
+				$timeDelta->i = $timeDelta->i + intval($rollover/60);
+				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", $timeDelta->i, "fergcorp_countdownTimer"), $timeDelta->i)."</span> ";
 				$rollover = $rollover - intval($rollover/60)*60;
 				$sigNumHit = true;
 			}
 		}
 		else{
-			$rollover = $rollover + $resultantMinute*60;
+			$rollover = $rollover + $timeDelta->i*60;
 		}
 
 		//Second
 		if(get_option('fergcorp_countdownTimer_showSecond')){
-			$resultantSecond = $resultantSecond + $rollover;
-			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $resultantSecond, "fergcorp_countdownTimer"), $resultantSecond)."</span> ";
+			$timeDelta->s = $timeDelta->s + $rollover;
+			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $timeDelta->s, "fergcorp_countdownTimer"), $timeDelta->s)."</span> ";
 		}
 		
 		//Catch blank statements
@@ -1109,6 +1274,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	add_action('wp_head', 'fergcorp_countdownTimer_LoadUserScripts', 1); //Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 
 	function fergcorp_countdownTimer_OneTimeEvent_sanitize($input){
+			
+			$event_object_array = array();
+			
 			//We need a time zone to properly guess what dates the user means	
 			$tz = get_option('timezone_string');
 			if ( $tz ){ //Get and check if we have a valid time zone... 
@@ -1123,18 +1291,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				if($input[$i]["date"]==""){ //If the date field is empty, ignore the entry
 					unset($input[$i]);
 				}
-				else{	//If not, add it to an array so the data can be updated				
-					$input[$i]["date"] = strtotime($input[$i]["date"]);
-					if(!isset($input[$i]["timeSince"]))
-						$input[$i]["timeSince"] = 0;	//Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
+				else{	//If not, add it to an array so the data can be updated
+				 
+				 if(!isset($input[$i]["timeSince"])){
+						$input[$i]["timeSince"] = 0; //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
+				 	}
+					array_push(	$event_object_array, new Fergcorp_Countdown_Timer_Event(strtotime($input[$i]["date"]), $input[$i]["text"], $input[$i]["link"], $input[$i]["timeSince"]));
 				}
 			}
 			/*Begin sorting events by time*/
-			function sortByOrder($a, $b) {
- 			   return $a['date'] - $b['date'];
+			function cmp($adate, $bdate) {
+			    if($adate < $bdate){
+			        return -1;  
+			    }else if($adate == $bdate){
+			        return 0;   
+			    }else{
+			        return 1;   
+			    }
+				
 			}
-			usort($input, 'sortByOrder');
-	return $input;
+	return $event_object_array;
 }
 
 	/**
