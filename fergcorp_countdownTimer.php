@@ -225,6 +225,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 										<td><?php _e('Display "Time since"', 'fergcorp_countdownTimer'); ?></td>
 									</tr>
 									<?php
+									
+									//We need a time zone to properly guess what dates the user means	
+									$tz = get_option('timezone_string');
+									if ( $tz ){ //Get and check if we have a valid time zone... 
+										date_default_timezone_set($tz); //...if so, use it
+									}
+									else {	//If there is no time zone...
+										date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
+									}
+									
 									$oneTimeEvent_count = 0;
 									$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_oneTimeEvent);
 									if($fergcorp_countdownTimer_oneTimeEvent != ""){
@@ -237,7 +247,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 																				"type" => "text",
 																				"size" => 30,
 																				"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][date]",
-																				"value" => ($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "" ? gmdate("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"] + (get_option('gmt_offset') * 3600))." ".(get_option('gmt_offset')>="0"?"+":NULL).(get_option('gmt_offset')=="0"?"00":NULL).(get_option('gmt_offset')*100):NULL)
+																				"value" => ($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "" ? date("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"]):NULL)
 																				)
 																			)."</td>";
 														
