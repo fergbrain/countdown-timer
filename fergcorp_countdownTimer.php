@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 2.4.4 Build (2012.5.29.19.28)
+Version: 3.0 Build (2012.6.3.23.32)
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 @todo		
 
 */
-	require_once("fergcorp_debug.php");
 	$currentLocale = get_locale();
 	if(!empty($currentLocale)) {
 		$moFile = dirname(__FILE__) . "/lang/fergcorp_countdownTimer-" . $currentLocale . ".mo";
@@ -476,23 +475,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		
 		$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
-		/*Now that all the events are in the same array, we need to sort them by date. This is actually the same code used above for the admin page.
-		At some point, I plan to make this into a function; but for, this will do...
 
-		And what it does is this:
-		The number of elements in the array are counted. Then for array is gone through x^(x-1) times. This allows for all posible date permuations to be sorted out and ordered correctly.
-		Genious, yes? No*/
-		/*$eventCount = count($fergcorp_countdownTimer_oneTimeEvent);
-		for($x=0; $x<$eventCount; $x++){
-			for($z=0; $z<$eventCount-1; $z++){
-				if(($fergcorp_countdownTimer_oneTimeEvent[$z+1]["date"] < $fergcorp_countdownTimer_oneTimeEvent[$z]["date"]) && (array_key_exists($z+1, $fergcorp_countdownTimer_oneTimeEvent))){
-					$temp = $fergcorp_countdownTimer_oneTimeEvent[$z];
-					$fergcorp_countdownTimer_oneTimeEvent[$z] = $fergcorp_countdownTimer_oneTimeEvent[$z+1];
-					$fergcorp_countdownTimer_oneTimeEvent[$z+1] = $temp;
-				}
-			}
-		}
-		 */ 
 		if($eventLimit != -1)	//If the eventLimit is set
 			$eventCount = $eventLimit;
 
@@ -579,9 +562,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		
 		public function date ( $format ) {
 			return date($format, $this->getTimestamp());
-		}
-		
-		
+		}	
 	}
 
 
@@ -722,7 +703,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				
 				$this->delta = $targetTime - $nowTime;
 			}
-			
 		}
 
 	/**
@@ -736,10 +716,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function fergcorp_countdownTimer_fuzzyDate($targetTime, $nowTime){
-		
-		
-
+	function fergcorp_countdownTimer_fuzzyDate ( $targetTime, $nowTime ) {
+			
 		$timeDelta = new DeltaTime($targetTime, $nowTime);
 
 		$rollover = 0;
@@ -757,7 +735,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 
 		if($timeDelta->h < 0){
-
 			$timeDelta->d--;
 			$timeDelta->h = 24 + $timeDelta->h;
 		}
@@ -771,7 +748,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$timeDelta->y--;
 			$timeDelta->m = $timeDelta->m + 12;
 		}
-
 
 		//Year
 		if(get_option('fergcorp_countdownTimer_showYear')){
@@ -815,7 +791,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if(get_option('fergcorp_countdownTimer_showWeek')){
 			if($sigNumHit || !get_option('fergcorp_countdownTimer_stripZero') || ( ($timeDelta->d + intval($rollover/86400) )/7)){
 				$timeDelta->w = $timeDelta->w + intval($rollover/86400)/7;
-				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($resultantDay + intval($rollover/86400) )/7)))."</span> ";		
+				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($timeDelta->i + intval($rollover/86400) )/7)))."</span> ";		
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$timeDelta->d = $timeDelta->d - intval( ($timeDelta->d + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
@@ -891,13 +867,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				$s = sprintf(__("%d years, ", "fergcorp_countdownTimer"), "0");
 			}
 		}
-		
 		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
-		
-
 	}
-
-
 	
 	/**
 	 * Processes [fergcorp_cdt max=##] shortcode
@@ -1008,7 +979,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		install_option('fergcorp_countdownTimer_', 'enableJS', $theOptions, '1');
 		install_option('fergcorp_countdownTimer_', 'timeSinceTime', $theOptions, '0');
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
-		//install_option('fergcorp_countdownTimer_', 'serialDataFilename', $theOptions, 'fergcorp_countdownTimer_serialData_'.wp_generate_password(8,false).'.txt'); //For 2.5 release
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
 
 		delete_option('afdn_countdownOptions');
@@ -1146,7 +1116,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
 				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$fergcorp_countdownTimer_jsUID[$i]->getUID()."\";\n";
 				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$fergcorp_countdownTimer_jsUID[$i]->getTimestamp()."\";\n";
-
 		}
 		echo "fergcorp_countdownTimer_js();\n";
 		echo "//-->\n";
@@ -1187,7 +1156,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableJS');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeSinceTime');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_titleSuffix');
-		//register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_serialDataFilename');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_enableShortcodeExcerpt');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', 'fergcorp_countdownTimer_OneTimeEvent_sanitize');
 	}
@@ -1218,14 +1186,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			else {	//If there is no time zone...
 				date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
 			}
-				
-				
+					
 			for($i=0; $i < count($input); $i++){
 				if($input[$i]["date"]==""){ //If the date field is empty, ignore the entry
 					unset($input[$i]);
 				}
-				else{	//If not, add it to an array so the data can be updated
-				 
+				else{	//If not, add it to an array so the data can be updated				 
 				 if(!isset($input[$i]["timeSince"])){
 						$input[$i]["timeSince"] = 0; //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
 				 	}
@@ -1241,8 +1207,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			    }else{
 			        return 1;   
 			    }
-				
 			}
+			usort($event_object_array, 'cmp');
 	return $event_object_array;
 }
 
