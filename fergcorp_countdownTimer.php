@@ -278,53 +278,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 									<?php
 									$oneTimeEvent_count++;
 									}
-									/*
-									$oneTimeEvent_entriesCount = count($fergcorp_countdownTimer_oneTimeEvent);
-									if($fergcorp_countdownTimer_oneTimeEvent != ""){
-										for($i=0; $i < $oneTimeEvent_entriesCount; $i++){
-											if($fergcorp_countdownTimer_oneTimeEvent[$i]["date"]!=''){ //If the text is NULL, skip over it?>
-												<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $oneTimeEvent_count; ?>" align="center">
-													<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $oneTimeEvent_count; ?>');">X</a></td>
-													<?php
-													echo "<td>".build_input(array(
-																				"type" => "text",
-																				"size" => 30,
-																				"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][date]",
-																				"value" => ($fergcorp_countdownTimer_oneTimeEvent[$i]["date"] != "" ? date("D, d M Y H:i:s", $fergcorp_countdownTimer_oneTimeEvent[$i]["date"]):NULL)
-																				)
-																			)."</td>";
-														
-													echo "<td>".build_input(array(
-																				"type" => "text",
-																				"size" => 20,
-																				"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][text]",
-																				"value" => htmlspecialchars(stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]['text']))
-																				)
-																			)."</td>";
-														
-													echo "<td>".build_input(array(
-																				"type" => "text",
-																				"size" => 15,
-																				"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][link]",
-																				"value" => $fergcorp_countdownTimer_oneTimeEvent[$i]['link']
-																				)
-																			)."</td>";
-			
-													echo "<td>".build_input(array(
-																				"type" => "checkbox",
-																				"name" => "fergcorp_countdownTimer_oneTimeEvent[{$oneTimeEvent_count}][timeSince]",
-																				"value" => 1,
-																				), 
-																			checked("1", $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], false)
-																			)."</td>";
-													?>
-												</tr>
-												<?php
-												$oneTimeEvent_count++;
-											}
-											@next($fergcorp_countdownTimer_oneTimeEvent);
-										}
-									}*/
+
 									?>
 									<tr align="center">
 										<td></td>
@@ -667,8 +621,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 
 			if ( $thisEvent->getTitle() ) {
-				$content .= $thisEvent->getTitle();
+				$content .= $eventTitle;
 			}
+			
 			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate( time(), $thisEvent->getTimestamp() ) )."</abbr>";
 			array_push($fergcorp_countdownTimer_jsUID, $thisEvent);
 			if(!$standalone)
@@ -679,7 +634,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			
 			if($thisEvent->getTitle()){
-				$content .= $thisEvent->getTitle();
+				$content .= $eventTitle;
 			}
 			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
 			
