@@ -799,34 +799,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 	}
 
-	/**
-	 * Returns the content of the post with dates inserted (if any)
-	 *
-	 * @param $theContent string The content of the post
-	 * @since 2.1
-	 * @access public
-	 * @author Andrew Ferguson
-	 * @return string The content of the post with the appropriate dates inserted (if any)
-	*/
-	function fergcorp_countdownTimer_loop($theContent){
-																						//Filter function for including the countdown with The Loop
-		if(preg_match("<!--fergcorp_countdownTimer(\([0-9]+\))-->", $theContent)){																//If the string is found within the loop, replace it
-			$theContent = preg_replace("/<!--fergcorp_countdownTimer(\(([0-9]+)\))?-->/e", "fergcorp_countdownTimer($2, 'return')", $theContent);	//The actual replacement of the string with the timer
-		}
-		elseif(preg_match("<!--fergcorp_countdownTimer-->", $theContent)){																		//If the string is found within the loop, replace it
-			$theContent = preg_replace("/<!--fergcorp_countdownTimer-->/e", "fergcorp_countdownTimer('-1', 'return')", $theContent);				//The actual replacement of the string with the timer
-		}
 
-
-
-		if(preg_match("<!--fergcorp_countdownTimer_single\((.*?)\)-->", $theContent)){
-				$theContent = preg_replace("/<!--fergcorp_countdownTimer_single\(('|\")(.*?)('|\")\)-->/e", "fergcorp_countdownTimer_format('', strtotime('$2'), ".( date('Z') - (get_option('gmt_offset') * 3600) ).", true, '0', '', '".get_option('fergcorp_countdownTimer_timeOffset')."', true)", $theContent);
-		}
-
-		return $theContent;																													//Return theContent
-	}
-	add_filter('the_content', 'fergcorp_countdownTimer_loop', 1);
-	add_filter('the_excerpt', 'fergcorp_countdownTimer_loop', 1);
 	
 	/**
 	 * Processes [fergcorp_cdt max=##] shortcode
