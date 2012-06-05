@@ -485,7 +485,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		if($fergcorp_countdownTimer_noEventsPresent == FALSE){
 			$fergcorp_countdownTimer_noEventsPresent = TRUE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
-					$thisEvent = fergcorp_countdownTimer_format($fergcorp_countdownTimer_oneTimeEvent[$i]); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeOffset'), false);			
+					$thisEvent = fergcorp_countdownTimer_format($fergcorp_countdownTimer_oneTimeEvent[$i], get_option('fergcorp_countdownTimer_timeSinceTime')); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeOffset'), false);			
 				if($output == "echo")
 					echo $thisEvent;
 				elseif($output == "return"){
@@ -582,10 +582,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function fergcorp_countdownTimer_format($thisEvent){ //$eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE
+	function fergcorp_countdownTimer_format($thisEvent, $timeSinceTime=0){ //$eventText, $time, $offset, $timeSince=0, $timeSinceTime=0, $link=NULL, $timeFormat = "j M Y, G:i:s", $standalone =  FALSE
 		global $fergcorp_countdownTimer_noEventsPresent, $fergcorp_countdownTimer_jsUID;
 		$standalone = FALSE;
 		$timeFormat = "j M Y, G:i:s";
+		
+		if(!isset($fergcorp_countdownTimer_jsUID))
+			$fergcorp_countdownTimer_jsUID = array();
 
 		$time_left = $thisEvent->getTimestamp() - time();
 		
@@ -598,7 +601,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 		}
 		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
 		
-		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) ){ //If the event has already passed and we still want to display the event
+		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) && ( ( ( $time_left + $timeSinceTime ) > 0 ) || ( 0 == $timeSinceTime ) ) ){ //If the event has already passed and we still want to display the event
 			$fergcorp_countdownTimer_noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 
 			if ( $thisEvent->getTitle() ) {
@@ -619,8 +622,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 			}
 			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";
 			
-			if(!isset($fergcorp_countdownTimer_jsUID))
-				$fergcorp_countdownTimer_jsUID = array();
 			array_push($fergcorp_countdownTimer_jsUID, $thisEvent);
 			
 			if(!$standalone)
