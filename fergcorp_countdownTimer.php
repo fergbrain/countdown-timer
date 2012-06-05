@@ -1188,17 +1188,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 				date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
 			}
 					
-			for($i=0; $i < count($input); $i++){
-				if($input[$i]["date"]==""){ //If the date field is empty, ignore the entry
-					unset($input[$i]);
-				}
-				else{	//If not, add it to an array so the data can be updated				 
-				 if(!isset($input[$i]["timeSince"])){
-						$input[$i]["timeSince"] = 0; //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
-				 	}
-					array_push(	$event_object_array, new Fergcorp_Countdown_Timer_Event(strtotime($input[$i]["date"]), $input[$i]["text"], $input[$i]["link"], $input[$i]["timeSince"]));
+			FB::log($input, "Input");
+			foreach($input as $event){
+				FB::log($event, "Event");
+				if("" != $event["date"]){
+					if(!isset($event["timeSince"])){ //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
+						$event["timeSince"] = 0;
+					}
+					array_push($event_object_array, new Fergcorp_Countdown_Timer_Event(strtotime($event["date"]), $event["text"], $event["link"], $event["timeSince"]));
 				}
 			}
+
 			/*Begin sorting events by time*/
 			function cmp($adate, $bdate) {
 			    if($adate < $bdate){
