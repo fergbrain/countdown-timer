@@ -89,11 +89,12 @@ class Fergcorp_Countdown_Timer{
 		$this->titleSuffix = get_option("fergcorp_countdownTimer_titleSuffix");
 		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
 		
+		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+		FB::log($this->eventList, "EventList");
 		
 		// Load localization domain
 		load_plugin_textdomain( 'fergcorp_countdownTimer', false, dirname(__FILE__) . '/lang/' );
-		FB::log(dirname(__FILE__) . '/lang/', "language directory rel to WP_PLUGIN");
-				
+						
 		// Register scripts for the countdown timer
 		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), FALSE, $this->version );
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
@@ -115,43 +116,22 @@ class Fergcorp_Countdown_Timer{
 		add_action('wp_head', array( &$this, 'print_countdown_scripts' ), 1);
 		
 		//Admin hooks
-		add_action('admin_init', 'fergcorp_countdownTimer_init');			//Initialized the options
-		add_action('admin_menu', 'fergcorp_countdownTimer_optionsPage');	//Add Action for adding the options page to admin panel
+		add_action('admin_init', array ( &$this, 'register_settings' ) );			//Initialized the options
+		add_action('admin_menu', array ( &$this, 'register_settings_page' ) );	//Add Action for adding the options page to admin panel
 		
-		add_shortcode('fergcorp_cdt_single', 'fergcorp_cdt_single_function');
-		add_shortcode('fergcorp_cdt', 'fergcorp_cdt_function');
-		
-		
-		
+		add_shortcode('fergcorp_cdt_single', array ( &$this, 'shortcode_singleTimer' ) );
+		add_shortcode('fergcorp_cdt', array ( &$this, 'shortcode_showTimer' ) );
 
-		
-
-		
-		/**
-		 * Loads the appropriate scripts
-		 *
-		 * @since 2.2
-		 * @access private
-		 * @author Andrew Ferguson
-		 */
-		function fergcorp_countdownTimer_LoadUserScripts() {
-
-		}
-		
-			
-
-		
-		$this->events = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used	
 	}
 	
 	/**
 	 * Loads the appropriate scripts when in the admin page
 	 *
 	 * @since 2.2
-	 * @access private
+	 * @access public
 	 * @author Andrew Ferguson
 	 */
-	private function print_admin_script() {
+	public function print_admin_script() {
 	    wp_enqueue_script('postbox'); //These appear to be new functions in WP 2.5
 	}
 		
@@ -159,10 +139,10 @@ class Fergcorp_Countdown_Timer{
 	 * Loads the appropriate scripts for running the timer
 	 *
 	 * @since 3.0
-	 * @access private
+	 * @access public
 	 * @author Andrew Ferguson
 	 */
-	private function print_countdown_scripts(){
+	public function print_countdown_scripts(){
 		if($this->enableJS) {	
 			wp_register_script('fergcorp_countdowntimer');
 			wp_register_script('webkit_sprintf');
@@ -174,11 +154,11 @@ class Fergcorp_Countdown_Timer{
 	 * Adds the management page in the admin menu
 	 *
 	 * @since 3.0
-	 * @access private
+	 * @access public
 	 * @author Andrew Ferguson
 	 */
-	private function register_settings_page(){
-		$settings_page = add_options_page(__('Countdown Timer Settings', 'fergcorp_countdownTimer'), __('Countdown Timer', 'fergcorp_countdownTimer'), 'manage_options', basename(__FILE__),  array(&$this, "settings_page]"));
+	public function register_settings_page(){
+		$settings_page = add_options_page(__('Countdown Timer Settings', 'fergcorp_countdownTimer'), __('Countdown Timer', 'fergcorp_countdownTimer'), 'manage_options', basename(__FILE__),  array(&$this, "settings_page"));
 		add_action( 'admin_print_scripts-' . $settings_page, array( &$this, 'print_admin_script' ) );
 		add_action( 'admin_print_scripts-' . $settings_page, array( &$this, 'print_countdown_scripts' ) );
 	}
@@ -190,7 +170,11 @@ class Fergcorp_Countdown_Timer{
 	 * @access private
 	 * @author Andrew Ferguson
 	 */
-	public function settings_page(){ ?>
+	public function settings_page(){ 
+		FB::log("Settings page");
+		FB::log($this->eventList, "EventList");
+		?>
+	
 		<script type="text/javascript">
 		// <![CDATA[	
 			jQuery(document).ready( function($) {
@@ -272,334 +256,14 @@ class Fergcorp_Countdown_Timer{
                 wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 				settings_fields('fergcorp_countdownTimer_options');
 				
-				/**
-        		 * Creates and defines the metabox for the installation box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */							
-				function installation_meta_box () { ?>
-					
-                <p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
-							<p><?php _e('Examples of some (but not all) valid dates', 'fergcorp_countdownTimer'); ?>:</p>
-							<ul style="list-style:inside circle; font-size:11px; margin-left: 20px;">
-										<li>now</li>
-										<li>31 january 1986</li>
-										<li>+1 day</li>
-										<li>next thursday</li>
-										<li>last monday</li>
-							</ul>
-              
-                <p><?php printf(__("To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'fergcorp_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
-                            
-                            <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'fergcorp_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'fergcorp_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
-							<p>
-                       			<code>
-										[fergcorp_cdt]<br /><br />
-                                        [fergcorp_cdt max=##]
-								</code>
-                            </p>
-                            <p><?php _e("Where <em>##</em> is maximum number of results to be displayed - ordered by date.", 'fergcorp_countdownTimer'); ?></p>   
-							<p><?php _e("If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:", 'fergcorp_countdownTimer'); ?></p>
-							<p>
-								<code><?php _e("Time until my birthday:", 'fergcorp_countdownTimer'); ?><br />
-										[fergcorp_cdt_single date="<em>ENTER_DATE_HERE</em>"]
-								</code>
-							</p>
-							<p><?php printf(__("Where <em>ENTER_DATE_HERE</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>                     
-                <?php		
-				}
-            	add_meta_box('fergcorp_countdownTimer_installation', __('Installation and Usage Notes'), 'installation_meta_box', 'fergcorp-countdown-timer', 'advanced', 'default');				
-				 
-				 
-				/**
-        		 * Creates and defines the metabox for the events box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */			
-				function events_meta_box(){				
-					
-				?>
-					<table border="0" cellspacing="0" cellpadding="2">
-						<tr align="center">
-							<td><strong><?php _e('Delete', 'fergcorp_countdownTimer'); ?></strong></td>
-							<td><?php _e('Event Date', 'fergcorp_countdownTimer'); ?></td>
-							<td><?php _e('Event Title', 'fergcorp_countdownTimer'); ?></td>
-							<td><?php _e('Link', 'fergcorp_countdownTimer'); ?></td>
-							<td><?php _e('Display "Time since"', 'fergcorp_countdownTimer'); ?></td>
-						</tr>
-						<?php
-						
-						//We need a time zone to properly guess what dates the user means	
-						$tz = get_option('timezone_string');
-						if ( $tz ){ //Get and check if we have a valid time zone... 
-							date_default_timezone_set($tz); //...if so, use it
-						}
-						else {	//If there is no time zone...
-							date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
-						}
-						
-						$event_count = 0;
-						
-						foreach ( $this->eventList as $thisEvent ) {
-							//f the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
-							if ( ( !$thisEvent->getTimeSince() ) && ( $thisEvent <= new DateTime() ) ) {
-								FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
-								$thisEvent = NULL;
-								FB::log($thisEvent, "Deleted");
-							}
-							?>
-							<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $event_count; ?>" align="center">
-							<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $event_count; ?>');">X</a></td>
-							<?php
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 30,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
-														"value" => ($thisEvent->date("D, d M Y H:i:s"))
-														)
-													)."</td>";
-								
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 20,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
-														"value" => htmlspecialchars(stripslashes($thisEvent->getTitle()))
-														)
-													)."</td>";
-								
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 15,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
-														"value" => $thisEvent->getURL()
-														)
-													)."</td>";
-
-							echo "<td>".build_input(array(
-														"type" => "checkbox",
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
-														"value" => 1,
-														), 
-													checked("1", $thisEvent->getTimeSince(), false)
-													)."</td>";
-							?>
-							</tr>
-							<?php
-							$event_count++;
-						}
-
-						?>
-						<tr align="center">
-							<td></td>
-							<?php
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 30,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[$event_count}][date]",
-														)
-													)."</td>";
-								
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 20,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
-														)
-													)."</td>";
-								
-							echo "<td>".build_input(array(
-														"type" => "text",
-														"size" => 15,
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
-														)
-													)."</td>";
-
-							echo "<td>".build_input(array(
-														"type" => "checkbox",
-														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
-														"value" => 1,
-														)
-													)."</td>";
-							?>
-						</tr>
-					</table>
-					<?php echo '<input type="hidden" name="event_count" value="'.($event_count+1).'" />';
-					echo "<p>".__("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer');
-					//Yes
-					echo build_input(array(
-										"type"  => "radio",
-										"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
-										"value" => "1",
-										),
-									checked("1", $this->deleteOneTimeEvents, false)
-									);
-					_e('Yes', 'fergcorp_countdownTimer');
-					echo " :: "; 
-					//...or No	
-					echo build_input(array(
-										"type"  => "radio",
-										"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
-										"value" => "0",
-										),
-									checked("0", $this->deleteOneTimeEvents, false)
-									);
-					_e('No', 'fergcorp_countdownTimer');
-					echo "</p>";
-                }
-			   	add_meta_box("fergcorp_countdownTimer_events", __('One Time Events'), "events_meta_box", "fergcorp-countdown-timer");
-			   	
-        		/**
-        		 * Creates and defines the metabox for the management box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */
-				function management_meta_box(){
-					?>
-					<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer');
-                    
-                    echo build_input(array(
-                    					"type"  => "text",
-                    					"size"  => "10",
-                    					"name"  => "fergcorp_countdownTimer_timeSinceTime",
-                    					"value" => $this->timeSinceTime
-                    					));
-										
-                    _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
-
-					<p><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer');
-					
-					echo build_yes_no("fergcorp_countdownTimer_enableJS", $this->enableJS);
-
-					?>
-					</p>
-                    
-                    <p><?php _e('By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer.', 'fergcorp_countdownTimer'); ?></p>
-                    <p><?php _e('Enable shortcodes in the_excerpt:', 'fergcorp_countdownTimer');
-					
-					echo build_yes_no("fergcorp_countdownTimer_enableShortcodeExcerpt", $this->enabledShortcodeExcerpt);
-
-					?>
-					</p>
-					<?php
-				}
-				add_meta_box("fergcorp_countdownTimer_management", __('Management', 'fergcorp_countdownTimer'), "management_meta_box", "fergcorp-countdown-timer");
-
-        		/**
-        		 * Creates and defines the metabox for the options box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */
-				function display_options_meta_box(){
-					?>
-					<p><?php _e('This setting controls what units of time are displayed.', 'fergcorp_countdownTimer'); ?></p>
-					<ul>
-						<li><?php echo __('Years:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showYear", $this->showYear); ?></li>
-					  	<li><?php echo __('Months:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showMonth", $this->showMonth); ?></li>
-					  	<li><?php echo __('Week:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showWeek", $this->showWeek); ?></li>
-					  	<li><?php echo __('Days:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showDay", $this->showDay); ?></li>
-					  	<li><?php echo __('Hours:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showHour", $this->showHour); ?></li>
-					  	<li><?php echo __('Minutes:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showMinute", $this->showMinute); ?></li>
-					  	<li><?php echo __('Seconds:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_showSecond", $this->showSecond); ?></li>						
-						<li><?php echo __('Strip non-significant zeros:', 'fergcorp_countdownTimer') . build_yes_no("fergcorp_countdownTimer_stripZero", $this->stripZero); ?></li>
-					</ul>
-					<?php
-				}
-				add_meta_box("fergcorp_countdownTimer_display_options", __('Countdown Time Display'), "display_options_meta_box", "fergcorp-countdown-timer");
-        		
-        		/**
-        		 * Creates and defines the metabox for the onHover time format box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */							
-				function onHover_time_format_meta_box(){
-					?>
-					<p><?php printf(__("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/date' target='_blank'"); ?></p>
-					<p><?php _e('Examples', 'fergcorp_countdownTimer'); ?>:</p>
-					<ul>
-						<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
-						<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
-					</ul>
-					<p><?php _e('onHover Time Format', 'fergcorp_countdownTimer');
-					echo build_input(array(
-										"type"  => "text",
-										"size"  => "20",
-										"name"  => "fergcorp_countdownTimer_timeFormat",
-										"value" => $this->timeFormat
-										));
-						
-						
-					echo "</p>";
-					
-				}
-				add_meta_box("fergcorp_countdownTimer_onHover_time_format", __('onHover Time Format'), "onHover_time_format_meta_box", "fergcorp-countdown-timer");
-
-        		/**
-        		 * Creates and defines the metabox for the display format options box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * {@internal since}
-        		 * @access private
-        		 * 
-        		 */									
-				function display_format_options_meta_box(){
-					?>
-					<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'fergcorp_countdownTimer'); ?></p>
-					<p><?php _e('<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer.', 'fergcorp_countdownTimer'); ?></p>
-					<p><?php _e('Examples/Defaults', 'fergcorp_countdownTimer'); ?>:</p>
-					<ul>
-						<li><em><?php _e('Title Suffix', 'fergcorp_countdownTimer'); ?>:</em> <code>:&lt;br /&gt;</code></li>
-					</ul>
-					<p><?php _e('Title Suffix', 'fergcorp_countdownTimer');
-                   	
-                   	echo build_input(array(
-										"type"  => "text",
-										"size"  => "20",
-										"name"  => "fergcorp_countdownTimer_titleSuffix",
-										"value" => htmlspecialchars(stripslashes($this->titleSuffix))
-					));
-                	echo "</p>";
-				}
-				add_meta_box("fergcorp_countdownTimer_display_format_options", __('Display Format Options'), "display_format_options_meta_box", "fergcorp-countdown-timer");
-        		
-        		/**
-        		 * Creates and defines the metabox for the example display box
-        		 * 
-        		 * @package Countdown_Timer
-        		 * @author Andrew Ferguson
-        		 * @internal 3.0
-        		 * @access private
-        		 * 
-        		 */		
-				function example_display_meta_box(){
-					echo "<ul>";
-					fergcorp_countdownTimer();
-					echo "</ul>";
-					if($this->enableJS) {
-                        fergcorp_countdownTimer_js();
-					}
-				}
-				add_meta_box("fergcorp_countdownTimer_example_display", __('Example Display'), "example_display_meta_box", "fergcorp-countdown-timer");
+				
+            	add_meta_box('fergcorp_countdownTimer_installation', 			__('Installation and Usage Notes', 'fergcorp_countdownTimer'),	array ( &$this, 'installation_meta_box' ), 				'fergcorp-countdown-timer', 'advanced', 'default');				
+			   	add_meta_box("fergcorp_countdownTimer_events", 					__('One Time Events', 'fergcorp_countdownTimer'),				array ( &$this, 'events_meta_box' ), 					"fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_management", 				__('Management', 'fergcorp_countdownTimer'), 					array ( &$this, "management_meta_box" ), 				"fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_display_options", 		__('Countdown Time Display', 'fergcorp_countdownTimer'), 		array ( &$this, "display_options_meta_box" ), 			"fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_onHover_time_format", 	__('onHover Time Format', 'fergcorp_countdownTimer'), 			array ( &$this, "onHover_time_format_meta_box" ), 		"fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_display_format_options", 	__('Display Format Options', 'fergcorp_countdownTimer'), 		array ( &$this, "display_format_options_meta_box" ), 	"fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_example_display", 		__('Example Display', 'fergcorp_countdownTimer'), 				array ( &$this, "example_display_meta_box" ), 			"fergcorp-countdown-timer");
 				do_meta_boxes('fergcorp-countdown-timer','advanced',null);
 				   
 			?>
@@ -614,52 +278,334 @@ class Fergcorp_Countdown_Timer{
    
         </div>
 		<?php
+					
+	}
+
 		/**
-		 * Builds <input> HTML
+		 * Creates and defines the metabox for the options box
 		 * 
 		 * @package Countdown_Timer
 		 * @author Andrew Ferguson
-		 * @since 2.4.4
+		 * @internal 3.0
 		 * @access private
-		 * @param array		$inputArray
-		 * @param string 	$inputString
-		 * $return string HMTL code
-		 */		
-		function build_input($inputArray, $inputString=''){
-			$attributes = "";
-			foreach ($inputArray as $key => $value) {
-				$attributes .= "$key=\"$value\" ";
-			}
-			return "<input ".trim($attributes." ".$inputString)." />";
-			
+		 * 
+		 */
+		function display_options_meta_box(){
+			?>
+			<p><?php _e('This setting controls what units of time are displayed.', 'fergcorp_countdownTimer'); ?></p>
+			<ul>
+				<li><?php echo __('Years:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showYear", $this->showYear); ?></li>
+			  	<li><?php echo __('Months:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showMonth", $this->showMonth); ?></li>
+			  	<li><?php echo __('Week:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showWeek", $this->showWeek); ?></li>
+			  	<li><?php echo __('Days:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showDay", $this->showDay); ?></li>
+			  	<li><?php echo __('Hours:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showHour", $this->showHour); ?></li>
+			  	<li><?php echo __('Minutes:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showMinute", $this->showMinute); ?></li>
+			  	<li><?php echo __('Seconds:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showSecond", $this->showSecond); ?></li>						
+				<li><?php echo __('Strip non-significant zeros:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_stripZero", $this->stripZero); ?></li>
+			</ul>
+			<?php
 		}
-		
-		function build_yes_no($name, $option){
-			
-			//Yes
-			$output = build_input(array(
-								"type"  => "radio",
-								"name"  => $name,
-								"value" => "1"
-								),
-							checked("1", $option, false)
-							); 
-			$output .= __('Yes', 'fergcorp_countdownTimer');
-			$output .= " :: ";
-			//...or No
-			$output .= build_input(array(
-								"type"  => "radio",
-								"name"  => $name,
-								"value" => "0"
-								),
-							checked("0", $option, false)
-							); 
-			$output .= __('No', 'fergcorp_countdownTimer');
-			
-			return $output;
-		}			
-	}
 
+		/**
+		 * Creates and defines the metabox for the events box
+		 * 
+		 * @package Countdown_Timer
+		 * @author Andrew Ferguson
+		 * @internal 3.0
+		 * @access public
+		 * 
+		 */			
+		public function events_meta_box(){				
+			
+		?>
+			<table border="0" cellspacing="0" cellpadding="2">
+				<tr align="center">
+					<td><strong><?php _e('Delete', 'fergcorp_countdownTimer'); ?></strong></td>
+					<td><?php _e('Event Date', 'fergcorp_countdownTimer'); ?></td>
+					<td><?php _e('Event Title', 'fergcorp_countdownTimer'); ?></td>
+					<td><?php _e('Link', 'fergcorp_countdownTimer'); ?></td>
+					<td><?php _e('Display "Time since"', 'fergcorp_countdownTimer'); ?></td>
+				</tr>
+				<?php
+				
+				//We need a time zone to properly guess what dates the user means	
+				$tz = get_option('timezone_string');
+				if ( $tz ){ //Get and check if we have a valid time zone... 
+					date_default_timezone_set($tz); //...if so, use it
+				}
+				else {	//If there is no time zone...
+					date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
+				}
+				
+				$event_count = 0;
+				FB::log($this->eventList, "EventList");
+				foreach ( $this->eventList as $thisEvent ) {
+					//f the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
+					if ( ( !$thisEvent->getTimeSince() ) && ( $thisEvent <= new DateTime() ) ) {
+						FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
+						$thisEvent = NULL;
+						FB::log($thisEvent, "Deleted");
+					}
+					?>
+					<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $event_count; ?>" align="center">
+					<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $event_count; ?>');">X</a></td>
+					<?php
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 30,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
+												"value" => ($thisEvent->date("D, d M Y H:i:s"))
+												)
+											)."</td>";
+						
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 20,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
+												"value" => htmlspecialchars(stripslashes($thisEvent->getTitle()))
+												)
+											)."</td>";
+						
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 15,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
+												"value" => $thisEvent->getURL()
+												)
+											)."</td>";
+
+					echo "<td>".$this->build_input(array(
+												"type" => "checkbox",
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
+												"value" => 1,
+												), 
+											checked("1", $thisEvent->getTimeSince(), false)
+											)."</td>";
+					?>
+					</tr>
+					<?php
+					$event_count++;
+				}
+
+				?>
+				<tr align="center">
+					<td></td>
+					<?php
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 30,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[$event_count}][date]",
+												)
+											)."</td>";
+						
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 20,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
+												)
+											)."</td>";
+						
+					echo "<td>".$this->build_input(array(
+												"type" => "text",
+												"size" => 15,
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
+												)
+											)."</td>";
+
+					echo "<td>".$this->build_input(array(
+												"type" => "checkbox",
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
+												"value" => 1,
+												)
+											)."</td>";
+					?>
+				</tr>
+			</table>
+			<?php echo '<input type="hidden" name="event_count" value="'.($event_count+1).'" />';
+			echo "<p>".__("Automatically delete 'One Time Events' after they have occured?", 'fergcorp_countdownTimer');
+			//Yes
+			echo $this->build_input(array(
+								"type"  => "radio",
+								"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
+								"value" => "1",
+								),
+							checked("1", $this->deleteOneTimeEvents, false)
+							);
+			_e('Yes', 'fergcorp_countdownTimer');
+			echo " :: "; 
+			//...or No	
+			echo $this->build_input(array(
+								"type"  => "radio",
+								"name"  => "fergcorp_countdownTimer_deleteOneTimeEvents",
+								"value" => "0",
+								),
+							checked("0", $this->deleteOneTimeEvents, false)
+							);
+			_e('No', 'fergcorp_countdownTimer');
+			echo "</p>";
+        }
+
+        /**
+		 * Creates and defines the metabox for the installation box
+		 * 
+		 * @package Countdown_Timer
+		 * @author Andrew Ferguson
+		 * @internal 3.0
+		 * @access private
+		 * 
+		 */							
+		function installation_meta_box () { ?>
+			
+        <p><?php printf(__("Countdown timer uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>
+					<p><?php _e('Examples of some (but not all) valid dates', 'fergcorp_countdownTimer'); ?>:</p>
+					<ul style="list-style:inside circle; font-size:11px; margin-left: 20px;">
+								<li>now</li>
+								<li>31 january 1986</li>
+								<li>+1 day</li>
+								<li>next thursday</li>
+								<li>last monday</li>
+					</ul>
+      
+        <p><?php printf(__("To insert the Countdown Timer into your sidebar, you can use the <a %s>Countdown Timer Widget</a>.", 'fergcorp_countdownTimer'), "href='".admin_url('widgets.php')."'"); ?></p>
+                    
+                    <p><?php printf(__("If you want to insert the Countdown Timer into a page or post, you can use the following <abbr %s %s>shortcodes</abbr> to return all or a limited number of Countdown Timers, respectively:", 'fergcorp_countdownTimer'), "title='".__('A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. Shortcodes can embed files or create objects that would normally require lots of complicated, ugly code in just one line. Shortcode = shortcut.', 'fergcorp_countdownTimer')."'", "style='cursor:pointer; border-bottom:1px black dashed'" ); ?></p>
+					<p>
+               			<code>
+								[fergcorp_cdt]<br /><br />
+                                [fergcorp_cdt max=##]
+						</code>
+                    </p>
+                    <p><?php _e("Where <em>##</em> is maximum number of results to be displayed - ordered by date.", 'fergcorp_countdownTimer'); ?></p>   
+					<p><?php _e("If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:", 'fergcorp_countdownTimer'); ?></p>
+					<p>
+						<code><?php _e("Time until my birthday:", 'fergcorp_countdownTimer'); ?><br />
+								[fergcorp_cdt_single date="<em>ENTER_DATE_HERE</em>"]
+						</code>
+					</p>
+					<p><?php printf(__("Where <em>ENTER_DATE_HERE</em> uses <a %s>PHP's strtotime function</a> and will parse about any English textual datetime description.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/strtotime' target='_blank'"); ?></p>                     
+        <?php		
+		}
+
+        /**
+		 * Creates and defines the metabox for the management box
+		 * 
+		 * @package Countdown_Timer
+		 * @author Andrew Ferguson
+		 * @internal 3.0
+		 * @access private
+		 * 
+		 */
+		function management_meta_box(){
+			?>
+			<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer');
+            
+            echo $this->build_input(array(
+            					"type"  => "text",
+            					"size"  => "10",
+            					"name"  => "fergcorp_countdownTimer_timeSinceTime",
+            					"value" => $this->timeSinceTime
+            					));
+								
+            _e("(0 = infinite; 86400 seconds = 1 day; 604800 seconds = 1 week)", "fergcorp_countdownTimer"); ?></p>
+
+			<p><?php _e('Enable JavaScript countdown:', 'fergcorp_countdownTimer');
+			
+			echo $this->build_yes_no("fergcorp_countdownTimer_enableJS", $this->enableJS);
+
+			?>
+			</p>
+            
+            <p><?php _e('By default, WordPress does not parse shortcodes that are in excerpts. If you want to enable this functionality, you can do so here. Note that this will enable the parsing of <em>all</em> shortcodes in the excerpt, not just the ones associated with Countdown Timer.', 'fergcorp_countdownTimer'); ?></p>
+            <p><?php _e('Enable shortcodes in the_excerpt:', 'fergcorp_countdownTimer');
+			
+			echo $this->build_yes_no("fergcorp_countdownTimer_enableShortcodeExcerpt", $this->enabledShortcodeExcerpt);
+
+			?>
+			</p>
+			<?php
+		}
+
+		
+	/**
+	 * Creates and defines the metabox for the onHover time format box
+	 * 
+	 * @package Countdown_Timer
+	 * @author Andrew Ferguson
+	 * @internal 3.0
+	 * @access private
+	 * 
+	 */							
+	function onHover_time_format_meta_box(){
+		?>
+		<p><?php printf(__("If you set 'onHover Time Format', hovering over the time left will show the user what the date of the event is. onHover Time Format uses <a %s>PHP's Date() function</a>.", 'fergcorp_countdownTimer'), "href='http://us2.php.net/date' target='_blank'"); ?></p>
+		<p><?php _e('Examples', 'fergcorp_countdownTimer'); ?>:</p>
+		<ul>
+			<li>"<em>j M Y, G:i:s</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>17 Mar 2008, 14:50:00</strong>"</li>
+			<li>"<em>F jS, Y, g:i a</em>" <?php _e('goes to', 'fergcorp_countdownTimer'); ?> "<strong>March 17th, 2008, 2:50 pm</strong>"</li>
+		</ul>
+		<p><?php _e('onHover Time Format', 'fergcorp_countdownTimer');
+		echo $this->build_input(array(
+							"type"  => "text",
+							"size"  => "20",
+							"name"  => "fergcorp_countdownTimer_timeFormat",
+							"value" => $this->timeFormat
+							));
+			
+			
+		echo "</p>";
+		
+	}
+		
+		
+	/**
+	 * Creates and defines the metabox for the display format options box
+	 * 
+	 * @package Countdown_Timer
+	 * @author Andrew Ferguson
+	 * {@internal since}
+	 * @access private
+	 * 
+	 */									
+	function display_format_options_meta_box(){
+		?>
+		<p><?php _e('This setting allows you to customize how each event is styled and wrapped.', 'fergcorp_countdownTimer'); ?></p>
+		<p><?php _e('<strong>Title Suffix</strong> sets the content that appears immediately after title and before the timer.', 'fergcorp_countdownTimer'); ?></p>
+		<p><?php _e('Examples/Defaults', 'fergcorp_countdownTimer'); ?>:</p>
+		<ul>
+			<li><em><?php _e('Title Suffix', 'fergcorp_countdownTimer'); ?>:</em> <code>:&lt;br /&gt;</code></li>
+		</ul>
+		<p><?php _e('Title Suffix', 'fergcorp_countdownTimer');
+       	
+       	echo $this->build_input(array(
+							"type"  => "text",
+							"size"  => "20",
+							"name"  => "fergcorp_countdownTimer_titleSuffix",
+							"value" => htmlspecialchars(stripslashes($this->titleSuffix))
+		));
+    	echo "</p>";
+	}
+		
+		
+	/**
+	 * Creates and defines the metabox for the example display box
+	 * 
+	 * @package Countdown_Timer
+	 * @author Andrew Ferguson
+	 * @internal 3.0
+	 * @access private
+	 * 
+	 */		
+	function example_display_meta_box(){
+		echo "<ul>";
+		fergcorp_countdownTimer();
+		echo "</ul>";
+		if($this->enableJS) {
+            $this->js();
+		}
+	}
+		
+		
 	/**
 	 * Creates a PHP-based one-off time for use outside the loop
 	 *
@@ -705,7 +651,7 @@ class Fergcorp_Countdown_Timer{
 		if(FALSE == $this->noEventsPresent){
 			$this->noEventsPresent = TRUE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
-					$toReturn .= fergcorp_countdownTimer_format($this->eventList[$i], $this->timeSinceTime); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
+					$toReturn .= $this->formatEvent($this->eventList[$i], $this->timeSinceTime); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
 			}
 		}
 		
@@ -950,7 +896,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 * @return string countdown timer(s)
 	*/	
-	function widget_showTimer($atts) {
+	function shortcode_showTimer($atts) {
 		extract(shortcode_atts(array(
 								'max' => '-1',
 								),
@@ -968,7 +914,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 * @return string countdown timer
 	*/	
-	function widget_singleTimer($atts) {
+	function shortcode_singleTimer($atts) {
 		extract(shortcode_atts(array(
 			'date' => '-1',
 		), $atts));
@@ -981,10 +927,10 @@ class Fergcorp_Countdown_Timer{
 	 * Initialized the options
 	 *
 	 * @since 3.0
-	 * @access private
+	 * @access public
 	 * @author Andrew Ferguson
 	 */
-	private function register_settigs(){	// Init plugin options to white list our options
+	public function register_settings(){	// Init plugin options to white list our options
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_deleteOneTimeEvents');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_timeFormat');
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_showYear');
@@ -1158,6 +1104,53 @@ class Fergcorp_Countdown_Timer{
 		
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
+
+/**
+		 * Builds <input> HTML
+		 * 
+		 * @package Countdown_Timer
+		 * @author Andrew Ferguson
+		 * @since 2.4.4
+		 * @access private
+		 * @param array		$inputArray
+		 * @param string 	$inputString
+		 * $return string HMTL code
+		 */		
+		function build_input($inputArray, $inputString=''){
+			$attributes = "";
+			foreach ($inputArray as $key => $value) {
+				$attributes .= "$key=\"$value\" ";
+			}
+			return "<input ".trim($attributes." ".$inputString)." />";
+			
+		}
+		
+		function build_yes_no($name, $option){
+			
+			//Yes
+			$output = $this->build_input(array(
+								"type"  => "radio",
+								"name"  => $name,
+								"value" => "1"
+								),
+							checked("1", $option, false)
+							); 
+			$output .= __('Yes', 'fergcorp_countdownTimer');
+			$output .= " :: ";
+			//...or No
+			$output .= $this->build_input(array(
+								"type"  => "radio",
+								"name"  => $name,
+								"value" => "0"
+								),
+							checked("0", $option, false)
+							); 
+			$output .= __('No', 'fergcorp_countdownTimer');
+			
+			return $output;
+		}
+
+
 }
 
 	class Fergcorp_Countdown_Timer_Options{
@@ -1184,7 +1177,7 @@ class Fergcorp_Countdown_Timer{
 		
 		public function initialize(){
 			
-			nstall_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
+			install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
 			install_option('fergcorp_countdownTimer_', 'timeFormat', $theOptions, 'F jS, Y, g:i a');
 			install_option('fergcorp_countdownTimer_', 'showYear', $theOptions, '1');
 			install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '1');
