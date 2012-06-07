@@ -75,7 +75,7 @@ class Fergcorp_Countdown_Timer{
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
 		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
-		$this->timeFormat = get_option("fergcorp_countdownTimer_timeFormat");
+		$this->timeFormat = get_option("fergcorp_countdownTimer_timeOffset");
 		$this->showYear = get_option("fergcorp_countdownTimer_showYear");
 		$this->showMonth = get_option("fergcorp_countdownTimer_showMonth");
 		$this->showWeek = get_option("fergcorp_countdownTimer_showWeek");
@@ -103,7 +103,7 @@ class Fergcorp_Countdown_Timer{
 		// Run our code later in case this loads prior to any required plugins.
 		add_action('widgets_init', 'widget_fergcorp_countdown_init');
 		if($this->enableJS) {
-			add_action('wp_footer', 'fergcorp_countdownTimer_js');
+			add_action('wp_footer', array ( &$this, 'js' ) );
 		}	
 		if($this->enabledShortcodeExcerpt) {
 			add_filter('the_excerpt', 'do_shortcode');
@@ -144,8 +144,8 @@ class Fergcorp_Countdown_Timer{
 	 */
 	public function print_countdown_scripts(){
 		if($this->enableJS) {	
-			wp_register_script('fergcorp_countdowntimer');
-			wp_register_script('webkit_sprintf');
+			wp_enqueue_script('fergcorp_countdowntimer');
+			wp_enqueue_script('webkit_sprintf');
 		}
 	}
 	
@@ -598,7 +598,7 @@ class Fergcorp_Countdown_Timer{
 	 */		
 	function example_display_meta_box(){
 		echo "<ul>";
-		fergcorp_countdownTimer();
+		$this->showTimer();
 		echo "</ul>";
 		if($this->enableJS) {
             $this->js();
@@ -636,7 +636,8 @@ class Fergcorp_Countdown_Timer{
 	public function showTimer($eventLimit = -1, $output = TRUE){
 		$this->noEventsPresent = FALSE;
 		$toReturn = "";
-		
+		FB::log("showTimer");
+		FB::log($this->eventList, "Event");
 		//Make sure there's something to count
 		if( '' != $this->eventList){
 			$this->noEventsPresent = TRUE;
