@@ -202,6 +202,7 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	//Second
 	if(getOptions['showSecond']){
+		resultantSecond = resultantSecond + rollover;
 		s = s + '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' + sprintf(_n(fergcorp_countdownTimer_js_language['second'], fergcorp_countdownTimer_js_language['seconds'], resultantSecond), resultantSecond) + '</span> ';
 	}
 	
