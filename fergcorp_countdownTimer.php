@@ -396,7 +396,7 @@ class Fergcorp_Countdown_Timer{
 					echo "<td>".$this->build_input(array(
 												"type" => "text",
 												"size" => 30,
-												"name" => "fergcorp_countdownTimer_oneTimeEvent[$event_count}][date]",
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
 												)
 											)."</td>";
 						
@@ -687,33 +687,33 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function formatEvent($thisEvent){
+	function formatEvent($thisEvent, $standAlone = FALSE){
 		$time_left = $thisEvent->getTimestamp() - time();
 		
-		if(!$standalone)
+		if(!$standAlone)
 			$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
 			
 		$eventTitle = "<span class = 'fergcorp_countdownTimer_event_title'>".($thisEvent->getURL()==""?$thisEvent->getTitle():"<a href=\"".$thisEvent->getURL()."\" class = 'fergcorp_countdownTimer_event_linkTitle'>".$thisEvent->getTitle()."</a>").'</span>'.$this->titleSuffix."\n";
 		
 		if ($this->timeFormat == "") {
-			$timeFormat = get_option('date_format') . ", " . get_option('time_format');
+			$this->timeFormat = get_option('date_format') . ", " . get_option('time_format');
 		}
-		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
+		$timePrefix = "<abbr title = \"".date_i18n($this->timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
 		
 		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) && ( ( ( $time_left + $this->timeSinceTime ) > 0 ) || ( 0 == $this->timeSinceTime ) ) ){ //If the event has already passed and we still want to display the event
 			$this->eventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			if ( $thisEvent->getTitle() ) {
 				$content .= $eventTitle;
 			}
-			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate( time(), $thisEvent->getTimestamp() ) )."</abbr>";
+			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), $this->fuzzyDate( time(), $thisEvent->getTimestamp() ) )."</abbr>";
 		}
 		elseif($time_left > 0){ //If the event has not yet happened yet
-			$$this->eventsPresent = FALSE; //Set to FALSE so we know there's an event to display
+			$this->eventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			
 			if($thisEvent->getTitle()){
 				$content .= $eventTitle;
 			}
-			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";	
+			$content .= $timePrefix.sprintf(__("in %s", 'fergcorp_countdownTimer'), $this->fuzzyDate($thisEvent->getTimestamp(), time() ) )."</abbr>";	
 		}			
 		else{
 			return NULL;
@@ -721,7 +721,7 @@ class Fergcorp_Countdown_Timer{
 
 		array_push($this->jsUID, $thisEvent);
 		
-		if(!$standalone)
+		if(!$standAlone)
 			$content .= "</li>\r\n";
 		return $content;
 	}
@@ -956,10 +956,10 @@ class Fergcorp_Countdown_Timer{
 	 * Sanitize the callback
 	 *
 	 * @since 3.0
-	 * @access private
+	 * @access public
 	 * @author Andrew Ferguson
 	 */	
-	private function sanitize($input){
+	public function sanitize($input){
 				
 				$event_object_array = array();
 				
@@ -1041,10 +1041,11 @@ class Fergcorp_Countdown_Timer{
 
 		//Pass on details about each timer
 		echo "var fergcorp_countdownTimer_js_events = new Array();\n";
-		foreach ( $this->jsUID as $thisEvent ) {
+		for ( $i = 0; $i < count( $this->jsUID ); $i++){
+		//foreach ( $this->jsUID as $thisEvent ) {
 				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$thisEvent->getUID()."\";\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$thisEvent->getTimestamp()."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$this->eventList[$i]->getUID()."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$this->eventList[$i]->getTimestamp()."\";\n";
 		}
 		echo "fergcorp_countdownTimer_js();\n";
 		echo "//-->\n";
