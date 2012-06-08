@@ -40,7 +40,7 @@ class Fergcorp_Countdown_Timer{
 		
 	//Per instance
 	private $eventList;
-	private $noEventsPresent;
+	private $eventsPresent;
 	private $jsUID = array();
 	
 	//Settings
@@ -339,54 +339,56 @@ class Fergcorp_Countdown_Timer{
 				
 				$event_count = 0;
 				FB::log($this->eventList, "EventList");
-				foreach ( $this->eventList as $thisEvent ) {
-					//f the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
-					if ( ( !$thisEvent->getTimeSince() ) && ( $thisEvent <= new DateTime() ) ) {
-						FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
-						$thisEvent = NULL;
-						FB::log($thisEvent, "Deleted");
+				//for($i=0; $i < count($this->eventList); $i++){
+					if ( is_array( $this->eventList ) ) {	
+						foreach ( $this->eventList as $thisEvent ) {
+						//If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
+						if ( ( !$thisEvent->getTimeSince() ) && ( $thisEvent <= new DateTime() ) ) {
+							FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
+							$thisEvent = NULL;
+							FB::log($thisEvent, "Deleted");
+						}
+						?>
+						<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $event_count; ?>" align="center">
+						<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $event_count; ?>');">X</a></td>
+						<?php
+						echo "<td>".$this->build_input(array(
+													"type" => "text",
+													"size" => 30,
+													"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
+													"value" => ($thisEvent->date("D, d M Y H:i:s"))
+													)
+												)."</td>";
+							
+						echo "<td>".$this->build_input(array(
+													"type" => "text",
+													"size" => 20,
+													"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
+													"value" => htmlspecialchars(stripslashes($thisEvent->getTitle()))
+													)
+												)."</td>";
+							
+						echo "<td>".$this->build_input(array(
+													"type" => "text",
+													"size" => 15,
+													"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
+													"value" => $thisEvent->getURL()
+													)
+												)."</td>";
+	
+						echo "<td>".$this->build_input(array(
+													"type" => "checkbox",
+													"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
+													"value" => 1,
+													), 
+												checked("1", $thisEvent->getTimeSince(), false)
+												)."</td>";
+						?>
+						</tr>
+						<?php
+						$event_count++;
 					}
-					?>
-					<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $event_count; ?>" align="center">
-					<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $event_count; ?>');">X</a></td>
-					<?php
-					echo "<td>".$this->build_input(array(
-												"type" => "text",
-												"size" => 30,
-												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
-												"value" => ($thisEvent->date("D, d M Y H:i:s"))
-												)
-											)."</td>";
-						
-					echo "<td>".$this->build_input(array(
-												"type" => "text",
-												"size" => 20,
-												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][text]",
-												"value" => htmlspecialchars(stripslashes($thisEvent->getTitle()))
-												)
-											)."</td>";
-						
-					echo "<td>".$this->build_input(array(
-												"type" => "text",
-												"size" => 15,
-												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][link]",
-												"value" => $thisEvent->getURL()
-												)
-											)."</td>";
-
-					echo "<td>".$this->build_input(array(
-												"type" => "checkbox",
-												"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][timeSince]",
-												"value" => 1,
-												), 
-											checked("1", $thisEvent->getTimeSince(), false)
-											)."</td>";
-					?>
-					</tr>
-					<?php
-					$event_count++;
 				}
-
 				?>
 				<tr align="center">
 					<td></td>
@@ -634,13 +636,14 @@ class Fergcorp_Countdown_Timer{
 	 * @return string Formated output ready for display
 	*/
 	public function showTimer($eventLimit = -1, $output = TRUE){
-		$this->noEventsPresent = FALSE;
+		$this->eventsPresent = FALSE;
 		$toReturn = "";
 		FB::log("showTimer");
 		FB::log($this->eventList, "Event");
+		
 		//Make sure there's something to count
 		if( '' != $this->eventList){
-			$this->noEventsPresent = TRUE;
+			$this->eventsPresent = TRUE;
 		}
 		
 		$eventCount = count($this->eventList);
@@ -649,14 +652,14 @@ class Fergcorp_Countdown_Timer{
 			$eventCount = $eventLimit;
 
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
-		if(FALSE == $this->noEventsPresent){
-			$this->noEventsPresent = TRUE; //Reset the test
+		if($this->eventsPresent){
+			$this->eventsPresent = FALSE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
 					$toReturn .= $this->formatEvent($this->eventList[$i], $this->timeSinceTime); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
 			}
 		}
 		
-		if($this->noEventsPresent){
+		if(!$this->eventsPresent){
 				$toReturn = __('No dates present', 'fergcorp_countdownTimer');
 		}
 		
@@ -698,14 +701,14 @@ class Fergcorp_Countdown_Timer{
 		$timePrefix = "<abbr title = \"".date_i18n($timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
 		
 		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) && ( ( ( $time_left + $this->timeSinceTime ) > 0 ) || ( 0 == $this->timeSinceTime ) ) ){ //If the event has already passed and we still want to display the event
-			$this->noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
+			$this->eventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			if ( $thisEvent->getTitle() ) {
 				$content .= $eventTitle;
 			}
 			$content .= $timePrefix.sprintf(__("%s ago", 'fergcorp_countdownTimer'), fergcorp_countdownTimer_fuzzyDate( time(), $thisEvent->getTimestamp() ) )."</abbr>";
 		}
 		elseif($time_left > 0){ //If the event has not yet happened yet
-			$$this->noEventsPresent = FALSE; //Set to FALSE so we know there's an event to display
+			$$this->eventsPresent = FALSE; //Set to FALSE so we know there's an event to display
 			
 			if($thisEvent->getTitle()){
 				$content .= $eventTitle;
