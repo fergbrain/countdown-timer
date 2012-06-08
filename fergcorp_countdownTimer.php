@@ -90,7 +90,6 @@ class Fergcorp_Countdown_Timer{
 		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
 		
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
-		FB::log($this->eventList, "EventList");
 		
 		// Load localization domain
 		load_plugin_textdomain( 'fergcorp_countdownTimer', false, dirname(__FILE__) . '/lang/' );
@@ -170,10 +169,7 @@ class Fergcorp_Countdown_Timer{
 	 * @access private
 	 * @author Andrew Ferguson
 	 */
-	public function settings_page(){ 
-		FB::log("Settings page");
-		FB::log($this->eventList, "EventList");
-		?>
+	public function settings_page(){ ?>
 	
 		<script type="text/javascript">
 		// <![CDATA[	
@@ -338,22 +334,17 @@ class Fergcorp_Countdown_Timer{
 				}
 				
 				$event_count = 0;
-				FB::log($this->eventList, "EventList");
-				//for($i=0; $i < count($this->eventList); $i++){
 					if ( is_array( $this->eventList ) ) {	
 						foreach ( $this->eventList as $thisEvent ) {
 						//If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
 						if ( ( $this->deleteOneTimeEvents ) && ( $thisEvent <= new DateTime() ) ) {
-							FB::log($thisEvent, "thisEvent happened in the past and should not be displayed");
 							$thisEvent = NULL;
-							FB::log($thisEvent, "Deleted");
 						}
 						else{
 							?>
 							<tr id="fergcorp_countdownTimer_oneTimeEvent_table<?php echo $event_count; ?>" align="center">
 							<td><a href="javascript:void(0);" onclick="javascript:clearField('fergcorp_countdownTimer_oneTimeEvent','<?php echo $event_count; ?>');">X</a></td>
 							<?php
-							FB::log($thisEvent, "Build input");
 							echo "<td>".$this->build_input(array(
 														"type" => "text",
 														"size" => 30,
@@ -641,8 +632,6 @@ class Fergcorp_Countdown_Timer{
 	public function showTimer($eventLimit = -1, $output = TRUE){
 		$this->eventsPresent = FALSE;
 		$toReturn = "";
-		FB::log("showTimer");
-		FB::log($this->eventList, "Event");
 		
 		//Make sure there's something to count
 		if( '' != $this->eventList){
@@ -691,6 +680,7 @@ class Fergcorp_Countdown_Timer{
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function formatEvent($thisEvent, $standAlone = FALSE){
+		FB::info($thisEvent, "Starting to Format Event");
 		$time_left = $thisEvent->getTimestamp() - time();
 		
 		if(!$standAlone)
@@ -721,8 +711,9 @@ class Fergcorp_Countdown_Timer{
 		else{
 			return NULL;
 		}
-
+		FB::log($this->jsUID, "jsUID...adding one more...");
 		array_push($this->jsUID, $thisEvent);
+		FB::log($this->jsUID, "jsUID added");
 		
 		if(!$standAlone)
 			$content .= "</li>\r\n";
@@ -974,10 +965,8 @@ class Fergcorp_Countdown_Timer{
 				else {	//If there is no time zone...
 					date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
 				}
-						
-				FB::log($input, "Input");
+
 				foreach($input as $event){
-					FB::log($event, "Event");
 					if("" != $event["date"]){
 						if(!isset($event["timeSince"])){ //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
 							$event["timeSince"] = 0;
@@ -1047,8 +1036,8 @@ class Fergcorp_Countdown_Timer{
 		for ( $i = 0; $i < count( $this->jsUID ); $i++){
 		//foreach ( $this->jsUID as $thisEvent ) {
 				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$this->eventList[$i]->getUID()."\";\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$this->eventList[$i]->getTimestamp()."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$this->jsUID[$i]->getUID()."\";\n";
+				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$this->jsUID[$i]->getTimestamp()."\";\n";
 		}
 		echo "fergcorp_countdownTimer_js();\n";
 		echo "//-->\n";
