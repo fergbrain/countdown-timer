@@ -99,8 +99,7 @@ class Fergcorp_Countdown_Timer{
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
 
 
-		// Run our code later in case this loads prior to any required plugins.
-		add_action('widgets_init', 'widget_fergcorp_countdown_init');
+
 		if($this->enableJS) {
 			add_action('wp_footer', array ( &$this, 'js' ) );
 		}	
@@ -1330,86 +1329,79 @@ class Fergcorp_Countdown_Timer{
 		}
 
 
+			// Run our code later in case this loads prior to any required plugins.
+		//add_action('widgets_init', 'widget_fergcorp_countdown_init');
+
+class Fergcorp_Countdown_Timer_Widget extends  WP_Widget{
 	
-
-	if(!function_exists('widget_fergcorp_countdown_init')){
-
-		/**
-		 * Initialize the widget
-		 *
-		 * @since 2.1
-		 * @access public
-		 * @author Andrew Ferguson
-		*/
-		function widget_fergcorp_countdown_init() {
-
-			// Check for the required plugin functions. This will prevent fatal
-			// errors occurring when you deactivate the dynamic-sidebar plugin.
-			if ( !function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control') )
-				return;
-
-			/**
-			 * Saves options and prints the widget's config form.
-			 *
-			 * @since 2.1
-			 * @access private
-			 * @author Andrew Ferguson
-			*/
-			function widget_fergcorp_countdown_control() {
-				$options = $newoptions = get_option('widget_fergcorp_countdown');
-				if ( $_POST['countdown-submit'] ) {
-					$newoptions['title'] = strip_tags(stripslashes($_POST['countdown-title']));
-					$newoptions['count'] = (int) $_POST['countdown-count'];
-				}
-				if ( $options != $newoptions ) {
-					$options = $newoptions;
-					update_option('widget_fergcorp_countdown', $options);
-				}
-			?>
-						<div style="text-align:left">
-						<label for="countdown-title" style="line-height:35px;display:block;"><?php _e('Widget title:', 'fergcorp_countdownTimer'); ?> <input type="text" id="countdown-title" name="countdown-title" value="<?php echo wp_specialchars($options['title'], true); ?>" /></label>
-						<label for="countdown-count" style="line-height:35px;display:block;"><?php _e('Maximum # of events to show:', 'fergcorp_countdownTimer'); ?> <input type="text" id="countdown-count" name="countdown-count" value="<?php echo $options['count']; ?>" size="5"/></label>
-						<input type="hidden" name="countdown-submit" id="countdown-submit" value="1" />
-						<small><strong><?php _e('Notes:', 'widget_fergcorp_countdown'); ?></strong> <?php _e("Set 'Maximum # of events' to '-1' if you want no limit.", 'fergcorp_countdownTimer'); ?></small>
-						</div>
-			<?php
-			}
-
-			/**
-			 * Outputs the widget version of the countdown timer
-			 *
-			 * @since 2.1
-			 * @access private
-			 * @author Andrew Ferguson
-			*/
-			function widget_fergcorp_countdown($args) {
-
-				$options = get_option('widget_fergcorp_countdown');
-
-				// $args is an array of strings that help widgets to conform to the active theme: before_widget, before_title, after_widget, and after_title are the array keys. Default tags: li and h2.
-				extract($args);
-
-				$title = $options['title'];
-
-				// These lines generate our output. Widgets can be very complex but as you can see here, they can also be very, very simple.
-				echo $before_widget . $before_title . "<span class = 'fergcorp_countdownTimer_widgetTitle' >". $title . "</span>" . $after_title;
-
-				?>
-					<ul>
-						<?php fergcorp_countdownTimer($options['count'], "echo"); ?>
-					</ul>
-				<?php
-				echo $after_widget;
-			}
-
-			// This registers our widget so it appears with the other available widgets and can be dragged and dropped into any active sidebars.
-			$widget_ops = array('description' => __('Adds the Countdown Timer', 'fergcorp_countdownTimer'));
-			wp_register_sidebar_widget('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown', $widget_ops);
-			wp_register_widget_control('fergcorp_countdownTimer', 'Countdown Timer', 'widget_fergcorp_countdown_control');
+	public function __construct(){
+		global $fergcorp_countdownTimer;
+		parent::__construct(
+					'fergcorp_countdown_timer_widget', // Base ID
+					'Countdown Timer', // Name
+					array( 'description' => __('Adds the Countdown Timer', 'fergcorp_countdownTimer' ), ) // Args
+		);
+	}
+	
+	public function form( $instance){
+		
+		if ( $instance ) {
+			$title = esc_attr( $instance['title'] );
+			$countLimit = $instance['countLimit'];
 		}
-
-
+		else {
+			$title = __( 'Countdown Timer' );
+			$countLimit = -1;
+		}
+		
+		
+		FB::log($this, "This");
+		FB::log($instance, "Instance");
+		
+		?>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
+		<label for="<?php echo $this->get_field_id( 'countLimit' ); ?>"><?php _e('Maximum # of events to show:', 'fergcorp_countdownTimer'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'countLimit' ); ?>" name="<?php echo $this->get_field_name( 'countLimit' ); ?>" type="text" value="<?php echo $countLimit; ?>" size="5"/>
+		<small><strong><?php _e('Notes:', 'widget_fergcorp_countdown'); ?></strong> <?php _e("Set 'Maximum # of events' to '-1' if you want no limit.", 'fergcorp_countdownTimer'); ?></small>
+						<?php
+	}
+	
+	public function update( $new_instance, $old_instance ){
+		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['countLimit'] = intval($new_instance['countLimit']);
+		return $instance;
+		
+	}
+		
+	public function widget( $args, $instance ){
+		
+		FB::log($args, "Args");
+		FB::log($instance, "Instance");
+		
+		$options = get_option('widget_fergcorp_countdown');
+		
+		echo $args['before_widget'];
+		if ( ! empty( $instance['title'] ) ) {
+			echo $args['before_title'];
+			echo esc_html( $instance['title'] ); //$instance['title']
+			echo $args['after_title'];
+		}
+		echo "<ul>";
+		$fergcorp_countdownTimer = new Fergcorp_Countdown_Timer();
+		$fergcorp_countdownTimer->showTimer($instance['countLimit']);
+		echo "</ul>";
+	
+		echo $args['after_widget'];
+	
+	}
 }
+
+function fergcorp_countdown_timer_register_widgets() {
+	register_widget( 'Fergcorp_Countdown_Timer_Widget' );
+}
+
+add_action( 'widgets_init', 'fergcorp_countdown_timer_register_widgets' );
 
 // Start this plugin once all other plugins are fully loaded
 add_action( 'init', 'fergcorp_countdownTimer', 5 );
