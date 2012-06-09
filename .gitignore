@@ -2,3 +2,6 @@
 countdown-timer.sublime-project
 countdown-timer.sublime-workspace
 fergcorp_debug.php
+phpunit.xml
+tests/bootstrap.php
+tests/countdown-timer/CountDownTimerTest.php
