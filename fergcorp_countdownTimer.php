@@ -730,7 +730,7 @@ class Fergcorp_Countdown_Timer{
 	*/
 	function fuzzyDate ( $targetTime, $nowTime ) {
 			
-		$timeDelta = new DeltaTime($targetTime, $nowTime);
+		$timeDelta = new Fergcorp_DeltaTime($targetTime, $nowTime);
 
 		$rollover = 0;
 		$s = '';
@@ -1147,53 +1147,6 @@ class Fergcorp_Countdown_Timer{
 
 }
 
-	class Fergcorp_Countdown_Timer_Options{
-			
-		private $deleteOneTimeEvents;
-		private $timeFormat;
-		private $showYear;
-		private $showMonth;
-		private $showWeek;
-		private $showDay;
-		private $showHour;
-		private $showMinute;
-		private $showSecond;
-		private $stripZero;
-		private $enableJS;
-		private $timeSinceTime;
-		private $titleSuffix;
-		private $enabledShortcodeExcerpt;
-		
-		public function __construct(){
-			get_option("fergcorp_countdownTimer_options");
-			
-		}
-		
-		public function initialize(){
-			
-			install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
-			install_option('fergcorp_countdownTimer_', 'timeFormat', $theOptions, 'F jS, Y, g:i a');
-			install_option('fergcorp_countdownTimer_', 'showYear', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '0');
-			install_option('fergcorp_countdownTimer_', 'showDay', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'showHour', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'showMinute', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'showSecond', $theOptions, '0');
-			install_option('fergcorp_countdownTimer_', 'stripZero', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'enableJS', $theOptions, '1');
-			install_option('fergcorp_countdownTimer_', 'timeSinceTime', $theOptions, '0');
-			install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
-			install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
-			
-		}
-			
-
-		
-		
-		
-	}
-
 	class Fergcorp_Countdown_Timer_Event extends DateTime {
 		private $title;
 		private $time;
@@ -1275,62 +1228,7 @@ class Fergcorp_Countdown_Timer{
 		}
 	}
 	
-	class DeltaTime{
-			
-			public $nowYear;
-			public $nowMonth;
-			private $nowDay;
-			private $nowHour ;
-			private $nowMinute;
-			private $nowSecond;
-			
-			private $targetYear;
-			private $targetMonth;
-			private $targetDay;
-			private $targetHour ;
-			private $targetMinute;
-			private $targetSecond;
-			
-			public $y;
-			public $m;
-			public $d;
-			public $h;
-			public $i;
-			public $s;
-			
-			public $w;
-			
-			public $delta;
-			
-			public function __construct($targetTime, $nowTime){
-				$this->nowYear = date("Y", $nowTime);
-				$this->nowMonth = date("m", $nowTime);
-				$this->nowDay = date("d", $nowTime);
-				$this->nowHour = date("H", $nowTime);
-				$this->nowMinute = date("i", $nowTime);
-				$this->nowSecond = date("s", $nowTime);
-				
-				$this->targetYear = date("Y", $targetTime);
-				$this->targetMonth = date("m", $targetTime);
-				$this->targetDay = date("d", $targetTime);
-				$this->targetHour = date("H", $targetTime);
-				$this->targetMinute = date("i", $targetTime);
-				$this->targetSecond = date("s", $targetTime);
-				
-				$this->y = $this->targetYear - $this->nowYear;
-				$this->m  = $this->targetMonth - $this->nowMonth;
-				$this->d = $this->targetDay - $this->nowDay;
-				$this->h  = $this->targetHour - $this->nowHour;
-				$this->i = $this->targetMinute - $this->nowMinute;
-				$this->s = $this->targetSecond - $this->nowSecond;
-				
-				$this->delta = $targetTime - $nowTime;
-			}
-		}
 
-
-			// Run our code later in case this loads prior to any required plugins.
-		//add_action('widgets_init', 'widget_fergcorp_countdown_init');
 
 class Fergcorp_Countdown_Timer_Widget extends  WP_Widget{
 	
@@ -1375,12 +1273,6 @@ class Fergcorp_Countdown_Timer_Widget extends  WP_Widget{
 	}
 		
 	public function widget( $args, $instance ){
-		
-		FB::log($args, "Args");
-		FB::log($instance, "Instance");
-		
-		$options = get_option('widget_fergcorp_countdown');
-		
 		echo $args['before_widget'];
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'];
@@ -1396,6 +1288,60 @@ class Fergcorp_Countdown_Timer_Widget extends  WP_Widget{
 	
 	}
 }
+
+class Fergcorp_DeltaTime{
+		
+	public $nowYear;
+	public $nowMonth;
+	private $nowDay;
+	private $nowHour ;
+	private $nowMinute;
+	private $nowSecond;
+	
+	private $targetYear;
+	private $targetMonth;
+	private $targetDay;
+	private $targetHour ;
+	private $targetMinute;
+	private $targetSecond;
+	
+	public $y;
+	public $m;
+	public $d;
+	public $h;
+	public $i;
+	public $s;
+	
+	public $w;
+	
+	public $delta;
+	
+	public function __construct($targetTime, $nowTime){
+		$this->nowYear = date("Y", $nowTime);
+		$this->nowMonth = date("m", $nowTime);
+		$this->nowDay = date("d", $nowTime);
+		$this->nowHour = date("H", $nowTime);
+		$this->nowMinute = date("i", $nowTime);
+		$this->nowSecond = date("s", $nowTime);
+		
+		$this->targetYear = date("Y", $targetTime);
+		$this->targetMonth = date("m", $targetTime);
+		$this->targetDay = date("d", $targetTime);
+		$this->targetHour = date("H", $targetTime);
+		$this->targetMinute = date("i", $targetTime);
+		$this->targetSecond = date("s", $targetTime);
+		
+		$this->y = $this->targetYear - $this->nowYear;
+		$this->m  = $this->targetMonth - $this->nowMonth;
+		$this->d = $this->targetDay - $this->nowDay;
+		$this->h  = $this->targetHour - $this->nowHour;
+		$this->i = $this->targetMinute - $this->nowMinute;
+		$this->s = $this->targetSecond - $this->nowSecond;
+		
+		$this->delta = $targetTime - $nowTime;
+	}
+}
+
 
 function fergcorp_countdown_timer_register_widgets() {
 	register_widget( 'Fergcorp_Countdown_Timer_Widget' );
