@@ -680,7 +680,6 @@ class Fergcorp_Countdown_Timer{
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
 	function formatEvent($thisEvent, $standAlone = FALSE){
-		FB::info($thisEvent, "Starting to Format Event");
 		$time_left = $thisEvent->getTimestamp() - time();
 		
 		if(!$standAlone)
@@ -711,9 +710,8 @@ class Fergcorp_Countdown_Timer{
 		else{
 			return NULL;
 		}
-		FB::log($this->jsUID, "jsUID...adding one more...");
+		
 		array_push($this->jsUID, $thisEvent);
-		FB::log($this->jsUID, "jsUID added");
 		
 		if(!$standAlone)
 			$content .= "</li>\r\n";
@@ -806,7 +804,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showWeek){
 			if($sigNumHit || !$this->stripZero || ( ($timeDelta->d + intval($rollover/86400) )/7)){
 				$timeDelta->w = $timeDelta->w + intval($rollover/86400)/7;
-				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($timeDelta->i + intval($rollover/86400) )/7)))."</span> ";		
+				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($timeDelta->d + intval($rollover/86400) )/7)))."</span> ";		
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$timeDelta->d = $timeDelta->d - intval( ($timeDelta->d + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
