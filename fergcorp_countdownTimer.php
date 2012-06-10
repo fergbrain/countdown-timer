@@ -75,7 +75,7 @@ class Fergcorp_Countdown_Timer{
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
 		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
-		$this->timeFormat = get_option("fergcorp_countdownTimer_timeOffset");
+		$this->timeFormat = get_option("fergcorp_countdownTimer_timeFormat");
 		$this->showYear = get_option("fergcorp_countdownTimer_showYear");
 		$this->showMonth = get_option("fergcorp_countdownTimer_showMonth");
 		$this->showWeek = get_option("fergcorp_countdownTimer_showWeek");
@@ -1050,28 +1050,30 @@ class Fergcorp_Countdown_Timer{
 	*/
 	public function install(){
 		$plugin_data = get_plugin_data(__FILE__);
-		FB::log($plugin_data, "Plugin Data");
-
+		
 		//Move widget details from old option to new option only if the new option does not exist
 		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {
-			FB::info("Removing old option and converting it to new option");
-			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
-			FB::log($oldWidget, "Old Widget");
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
 																			"countLimit"	=> $oldWidget["count"],
 																			)
 			);
-			FB::log(get_option("widget_fergcorp_countdown_timer_widget"), "widget_fergcorp_countdown_timer_widget");
-			delete_option("widget_fergcorp_countdown");
-			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
+			delete_option("widget_fergcorp_countdown");			
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
 		elseif( $oldWidget ){
-			FB::info("Removing old option only because new option already exists");
-			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
 			delete_option("widget_fergcorp_countdown");
-			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
 		}
+		
+		//Move timeFormat data from old option to new option only if the new option does not exist
+		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {
+			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
+			delete_option("fergcorp_countdownTimer_timeOffset");			
+		}
+		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
+		elseif( $timeOffset ){
+			delete_option("fergcorp_countdownTimer_timeOffset");
+		}
+		
 
 
 		/**
