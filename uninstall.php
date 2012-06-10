@@ -25,7 +25,7 @@ if( !defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') )
 
 //Remove options from wp_options table
 delete_option('fergcorp_countdownTimer_deleteOneTimeEvents');
-delete_option('fergcorp_countdownTimer_timeOffset');
+delete_option('fergcorp_countdownTimer_timeFormat');
 delete_option('fergcorp_countdownTimer_showYear');
 delete_option('fergcorp_countdownTimer_showMonth');
 delete_option('fergcorp_countdownTimer_showWeek');
@@ -44,7 +44,7 @@ delete_option('widget_fergcorp_countdown_timer_widget');
 
 //Remove metadata for all users from wp_usermeta table
 global $wpdb;
-$wpdb->query("DELETE FROM $wpdb->usermeta WHERE `meta_key` LIKE '%fergcorpcountdowntimer'");
+$wpdb->query("DELETE FROM $wpdb->usermeta WHERE `meta_key` LIKE '%fergcorp-countdown-timer'");
 
 
 ?>
