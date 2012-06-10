@@ -1304,17 +1304,17 @@ class Fergcorp_DeltaTime{
 		
 	public $nowYear;
 	public $nowMonth;
-	private $nowDay;
-	private $nowHour ;
-	private $nowMinute;
-	private $nowSecond;
+	public $nowDay;
+	public $nowHour ;
+	public $nowMinute;
+	public $nowSecond;
 	
-	private $targetYear;
-	private $targetMonth;
-	private $targetDay;
-	private $targetHour ;
-	private $targetMinute;
-	private $targetSecond;
+	public $targetYear;
+	public $targetMonth;
+	public $targetDay;
+	public $targetHour ;
+	public $targetMinute;
+	public $targetSecond;
 	
 	public $y;
 	public $m;
