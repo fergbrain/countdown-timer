@@ -1073,8 +1073,6 @@ class Fergcorp_Countdown_Timer{
 		elseif( $timeOffset ){
 			delete_option("fergcorp_countdownTimer_timeOffset");
 		}
-		
-
 
 		/**
 		 * Checks to see if an option exists in either the old or new database location and then sets the value to a default if it doesn't exist
@@ -1096,7 +1094,7 @@ class Fergcorp_Countdown_Timer{
 				return true;
 			}
 		}
-		
+		//Install the defaults
 		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
 		install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
 		install_option('fergcorp_countdownTimer_', 'showYear', '1');
@@ -1112,10 +1110,11 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 		
+		//Update version number...last thing
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
 
-/**
+		/**
 		 * Builds <input> HTML
 		 * 
 		 * @package Countdown_Timer
@@ -1131,12 +1130,10 @@ class Fergcorp_Countdown_Timer{
 			foreach ($inputArray as $key => $value) {
 				$attributes .= "$key=\"$value\" ";
 			}
-			return "<input ".trim($attributes." ".$inputString)." />";
-			
+			return "<input ".trim($attributes." ".$inputString)." />";		
 		}
 		
 		function build_yes_no($name, $option){
-			
 			//Yes
 			$output = $this->build_input(array(
 								"type"  => "radio",
@@ -1159,93 +1156,91 @@ class Fergcorp_Countdown_Timer{
 			
 			return $output;
 		}
-
-
 }
 
-	class Fergcorp_Countdown_Timer_Event extends DateTime {
-		private $title;
-		private $time;
-		private $url;
-		private $timeSince;
-		private $UID;
-		
-		
-		public function __construct ($time, $title = NULL, $url = NULL, $timeSince = NULL){
-			$this->setTitle($title);
-			$this->setTime($time);
-			$this->setURL($url);
-			$this->setTimeSince($timeSince);
-			$this->UID = "x".md5(rand());
-			parent::__construct("@".$time);
-		}
-		
-		public function setTitle ( $title ) {
-			$this->title = (string)$title;
-		}
-		
-		public function setTime ( $time ) {
-			$this->time = $time;
-		}
-		
-		public function setURL ( $url ) {
-			$this->url = $url;
-		}
-		
-		public function setTimeSince ( $timeSince ) {
-			$this->timeSince = $timeSince;
-		}
-		
-		public function getTitle () {
-			return $this->title;
-		}
-		
-		public function getTime () {
-			return $this->time;
-		}
-		
-		public function getURL () {
-			return $this->url;
-		}
-		
-		public function getTimeSince () {
-			return $this->timeSince;
-		}
-		
-		public function getUID () {
-			return $this->UID;
-		}
-		
-		public function date ( $format ) {
-			return date($format, $this->getTimestamp());
-		}	
-	}
-
-
-
+class Fergcorp_Countdown_Timer_Event extends DateTime {
+	private $title;
+	private $time;
+	private $url;
+	private $timeSince;
+	private $UID;
 	
-	if(!function_exists("cal_days_in_month")){
-		/**
-		 * Returns the number of days in a given month and year, taking into account leap years.
-		 * The is a replacement function should cal_days_in_month not be availible
-		 *
-		 * @param $calendar int ignored
-	 	 * @param $month int month (integers 1-12) 
-		 * @param $year int year (any integer)
-		 * @since 2.3
-		 * @access private
-		 * @author David Bindel (dbindel at austin dot rr dot com) (http://us.php.net/manual/en/function.cal-days-in-month.php#38666)
-		 * @author ben at sparkyb dot net
-		 * @return int The content of the post with the appropriate dates inserted (if any)
-		*/
-		function cal_days_in_month($calendar, $month, $year){
-			// calculate number of days in a month 
-			return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
-		}
+	public function __construct ($time, $title = NULL, $url = NULL, $timeSince = NULL){
+		$this->setTitle($title);
+		$this->setTime($time);
+		$this->setURL($url);
+		$this->setTimeSince($timeSince);
+		$this->UID = "x".md5(rand());
+		parent::__construct("@".$time);
 	}
 	
-
-
+	public function setTitle ( $title ) {
+		$this->title = (string)$title;
+	}
+	
+	public function setTime ( $time ) {
+		$this->time = $time;
+	}
+	
+	public function setURL ( $url ) {
+		$this->url = $url;
+	}
+	
+	public function setTimeSince ( $timeSince ) {
+		$this->timeSince = $timeSince;
+	}
+	
+	public function getTitle () {
+		return $this->title;
+	}
+	
+	public function getTime () {
+		return $this->time;
+	}
+	
+	public function getURL () {
+		return $this->url;
+	}
+	
+	public function getTimeSince () {
+		return $this->timeSince;
+	}
+	
+	public function getUID () {
+		return $this->UID;
+	}
+	
+	public function date ( $format ) {
+		return date($format, $this->getTimestamp());
+	}	
+}
+	
+if(!function_exists("cal_days_in_month")){
+	/**
+	 * Returns the number of days in a given month and year, taking into account leap years.
+	 * The is a replacement function should cal_days_in_month not be availible
+	 *
+	 * @param $calendar int ignored
+ 	 * @param $month int month (integers 1-12) 
+	 * @param $year int year (any integer)
+	 * @since 2.3
+	 * @access private
+	 * @author David Bindel (dbindel at austin dot rr dot com) (http://us.php.net/manual/en/function.cal-days-in-month.php#38666)
+	 * @author ben at sparkyb dot net
+	 * @return int The content of the post with the appropriate dates inserted (if any)
+	*/
+	function cal_days_in_month($calendar, $month, $year){
+		// calculate number of days in a month 
+		return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+	}
+}
+/**
+ * Widget class for Countdown Timer
+ * 
+ * @since 3.0
+ * @access public
+ * @author Andrew Ferguson
+ */
 class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 	
 	public function __construct(){
@@ -1358,20 +1353,17 @@ class Fergcorp_DeltaTime{
 	}
 }
 
-
 function fergcorp_countdown_timer_register_widgets() {
 	register_widget( 'Fergcorp_Countdown_Timer_Widget' );
 }
 
-add_action( 'widgets_init', 'fergcorp_countdown_timer_register_widgets' );
-
-// Start this plugin once all other plugins are fully loaded
-add_action( 'init', 'fergcorp_countdownTimer', 5 );
 function fergcorp_countdownTimer() {
 	global $fergcorp_countdownTimer;
 	$fergcorp_countdownTimer = new Fergcorp_Countdown_Timer();
 }
 
 register_activation_hook( __FILE__, array('Fergcorp_Countdown_Timer', 'install') );
+add_action( 'init', 'fergcorp_countdownTimer', 5 );
+add_action( 'widgets_init', 'fergcorp_countdown_timer_register_widgets' );
 
 ?>
