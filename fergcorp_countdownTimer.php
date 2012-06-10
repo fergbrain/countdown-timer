@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0 Build (2012.6.3.23.32)
+Version: 3.0 Build (2012.6.10.01.02)
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -107,7 +107,7 @@ class Fergcorp_Countdown_Timer{
 			add_filter('the_excerpt', 'do_shortcode');
 		}
 	
-		register_activation_hook( __FILE__, array(&$this, 'install'));
+		//register_activation_hook( __FILE__, array(&$this, 'install'));
 		
 
 		//Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
@@ -1048,13 +1048,31 @@ class Fergcorp_Countdown_Timer{
 	 * @access public
 	 * @author Andrew Ferguson
 	*/
-	private function install(){
+	public function install(){
 		$plugin_data = get_plugin_data(__FILE__);
+		FB::log($plugin_data, "Plugin Data");
 
-
-		if(empty($theWidget)){	//Create default details for the widget if needed
-			update_option("widget_fergcorp_countdown", array("title"=>"Countdown Timer", "count"=>"-1"));
+		//Move widget details from old option to new option only if the new option does not exist
+		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {
+			FB::info("Removing old option and converting it to new option");
+			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
+			FB::log($oldWidget, "Old Widget");
+			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
+																			"countLimit"	=> $oldWidget["count"],
+																			)
+			);
+			FB::log(get_option("widget_fergcorp_countdown_timer_widget"), "widget_fergcorp_countdown_timer_widget");
+			delete_option("widget_fergcorp_countdown");
+			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
 		}
+		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
+		elseif( $oldWidget ){
+			FB::info("Removing old option only because new option already exists");
+			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
+			delete_option("widget_fergcorp_countdown");
+			FB::log(get_option("widget_fergcorp_countdown"), "widget_fergcorp_countdown");
+		}
+
 
 		/**
 		 * Checks to see if an option exists in either the old or new database location and then sets the value to a default if it doesn't exist
@@ -1063,38 +1081,34 @@ class Fergcorp_Countdown_Timer{
 		 * @param $option string Actual option
 		 * @param $default string What the default value should be if it doesn't exist
 		 * @since 2.4
-		 * @access public
+		 * @access private
 		 * @author Andrew Ferguson
 		 * @return string The content of the post with the appropriate dates inserted (if any)
 		*/
-		function install_option($prefix, $option, $theOptions, $default){
+		function install_option($prefix, $option, $default){
 			if(get_option($prefix.$option) != NULL){
 				return false;
-			}
-			elseif(array_key_exists($option, $theOptions)){
-				update_option($prefix.$option, $theOptions[$option]);
-				return true;
 			}
 			else{
 				update_option($prefix.$option, $default);
 				return true;
 			}
 		}
-
-		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'timeFormat', $theOptions, 'F jS, Y, g:i a');
-		install_option('fergcorp_countdownTimer_', 'showYear', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'showMonth', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'showWeek', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'showDay', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'showHour', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'showMinute', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'showSecond', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'stripZero', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'enableJS', $theOptions, '1');
-		install_option('fergcorp_countdownTimer_', 'timeSinceTime', $theOptions, '0');
-		install_option('fergcorp_countdownTimer_', 'titleSuffix', $theOptions, ':<br />');
-		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', $theOptions, '0');
+		
+		install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
+		install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
+		install_option('fergcorp_countdownTimer_', 'showYear', '1');
+		install_option('fergcorp_countdownTimer_', 'showMonth', '1');
+		install_option('fergcorp_countdownTimer_', 'showWeek', '0');
+		install_option('fergcorp_countdownTimer_', 'showDay', '1');
+		install_option('fergcorp_countdownTimer_', 'showHour', '1');
+		install_option('fergcorp_countdownTimer_', 'showMinute', '1');
+		install_option('fergcorp_countdownTimer_', 'showSecond', '0');
+		install_option('fergcorp_countdownTimer_', 'stripZero', '1');
+		install_option('fergcorp_countdownTimer_', 'enableJS', '1');
+		install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
+		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
+		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 		
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 	}
@@ -1230,7 +1244,7 @@ class Fergcorp_Countdown_Timer{
 	
 
 
-class Fergcorp_Countdown_Timer_Widget extends  WP_Widget{
+class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 	
 	public function __construct(){
 		global $fergcorp_countdownTimer;
@@ -1355,5 +1369,7 @@ function fergcorp_countdownTimer() {
 	global $fergcorp_countdownTimer;
 	$fergcorp_countdownTimer = new Fergcorp_Countdown_Timer();
 }
+
+register_activation_hook( __FILE__, array('Fergcorp_Countdown_Timer', 'install') );
 
 ?>
