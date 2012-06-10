@@ -5,3 +5,4 @@ fergcorp_debug.php
 phpunit.xml
 tests/bootstrap.php
 tests/countdown-timer/CountDownTimerTest.php
+unit_test.php
