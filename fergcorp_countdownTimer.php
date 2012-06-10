@@ -1244,7 +1244,7 @@ if(!function_exists("cal_days_in_month")){
 class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 	
 	public function __construct(){
-		global $fergcorp_countdownTimer;
+		global $fergcorp_countdownTimer_init;
 		parent::__construct(
 					'fergcorp_countdown_timer_widget', // Base ID
 					'Countdown Timer', // Name
@@ -1291,8 +1291,8 @@ class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 			echo $args['after_title'];
 		}
 		echo "<ul>";
-		$fergcorp_countdownTimer = new Fergcorp_Countdown_Timer();
-		$fergcorp_countdownTimer->showTimer($instance['countLimit']);
+		$fergcorp_countdownTimer_init = new Fergcorp_Countdown_Timer();
+		$fergcorp_countdownTimer_init->showTimer($instance['countLimit']);
 		echo "</ul>";
 	
 		echo $args['after_widget'];
@@ -1357,13 +1357,18 @@ function fergcorp_countdown_timer_register_widgets() {
 	register_widget( 'Fergcorp_Countdown_Timer_Widget' );
 }
 
-function fergcorp_countdownTimer() {
-	global $fergcorp_countdownTimer;
-	$fergcorp_countdownTimer = new Fergcorp_Countdown_Timer();
+function fergcorp_countdownTimer($countLimit = -1) {
+	global $fergcorp_countdownTimer_init;	
+	$fergcorp_countdownTimer_init->showTimer($countLimit, TRUE);
+}
+
+function fergcorp_countdownTimer_init() {
+	global $fergcorp_countdownTimer_init;
+	$fergcorp_countdownTimer_init = new Fergcorp_Countdown_Timer();
 }
 
 register_activation_hook( __FILE__, array('Fergcorp_Countdown_Timer', 'install') );
-add_action( 'init', 'fergcorp_countdownTimer', 5 );
+add_action( 'init', 'fergcorp_countdownTimer_init', 5 );
 add_action( 'widgets_init', 'fergcorp_countdown_timer_register_widgets' );
 
 ?>
