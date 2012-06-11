@@ -97,7 +97,7 @@ class Fergcorp_Countdown_Timer{
 						
 		// Register scripts for the countdown timer
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
-		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), 'webkit_sprintf', $this->version, TRUE );
+		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), array('jquery','webkit_sprintf'), $this->version, TRUE );
 		
 		if($this->enableJS) {
 			add_action('wp_footer', array ( &$this, 'json' ) );
@@ -237,7 +237,7 @@ class Fergcorp_Countdown_Timer{
 						<p><?php _e("I've coded and supported this plugin for several years now, however I am a full-time engineer with a real, full-time job and really only do this programming thing on the side for the love of it. If you would like to continue to see updates, please consider donating above.", 'fergcorp_countdownTimer'); ?></p>                            
 					<?php
 				}
-				add_meta_box("fergcorp_countdownTimer_resources", __('Resources'), "resources_meta_box", "fergcorp-countdown-timer");
+				add_meta_box("fergcorp_countdownTimer_resources", __('Resources', 'fergcorp_countdownTimer'), "resources_meta_box", "fergcorp-countdown-timer");
 				?>
 		
 	            <form method="post" action="options.php">
@@ -857,25 +857,25 @@ class Fergcorp_Countdown_Timer{
 		//Catch blank statements
 		if($s==""){
 			if($this->showSecond){
-				$s = sprintf(__("%d seconds, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d second,", "%d seconds,", "0", "fergcorp_countdownTimer"), "0");
 			}
 			elseif($this->showMinute){
-				$s = sprintf(__("%d minutes, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d minute,", "%d minute,", "0", "fergcorp_countdownTimer"), "0");
 			}
 			elseif($this->showHour){
-				$s = sprintf(__("%d hours, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d hour,", "%d hour,", "0", "fergcorp_countdownTimer"), "0");
 			}	
 			elseif($this->showDay){
-				$s = sprintf(__("%d days, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d day,", "%d day,", "0", "fergcorp_countdownTimer"), "0");
 			}	
 			elseif($this->showWeek){
-				$s = sprintf(__("%d weeks, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d week,", "%d week,", "0", "fergcorp_countdownTimer"), "0");
 			}
 			elseif($this->showMonth){
-				$s = sprintf(__("%d months, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d month,", "%d month,", "0", "fergcorp_countdownTimer"), "0");
 			}
 			else{
-				$s = sprintf(__("%d years, ", "fergcorp_countdownTimer"), "0");
+				$s = sprintf(_n("%d year,", "%d year,", "0", "fergcorp_countdownTimer"), "0");
 			}
 		}
 		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
@@ -999,12 +999,8 @@ class Fergcorp_Countdown_Timer{
 					);
 					
 		$js_events = array();
-		for ( $i = 0; $i < count( $this->jsUID ); $i++){
-				array_push($js_events, array(
-					'id'			=> $this->jsUID[$i]->getUID(),
-					'targetDate'	=> $this->jsUID[$i]->getTimestamp(),
-				)
-			);
+		foreach($this->jsUID as $event){
+				$js_events[$event->getUID()] = $event->getTimestamp();
 		}
 
 		$js_lang = array(
@@ -1256,16 +1252,16 @@ class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 			$countLimit = $instance['countLimit'];
 		}
 		else {
-			$title = __( 'Countdown Timer' );
+			$title = __( 'Countdown Timer', 'fergcorp_countdownTimer');
 			$countLimit = -1;
 		}
 		
 		?>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' , 'fergcorp_countdownTimer'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 		<label for="<?php echo $this->get_field_id( 'countLimit' ); ?>"><?php _e('Maximum # of events to show:', 'fergcorp_countdownTimer'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'countLimit' ); ?>" name="<?php echo $this->get_field_name( 'countLimit' ); ?>" type="text" value="<?php echo $countLimit; ?>" size="5"/>
-		<small><strong><?php _e('Notes:', 'widget_fergcorp_countdown'); ?></strong> <?php _e("Set 'Maximum # of events' to '-1' if you want no limit.", 'fergcorp_countdownTimer'); ?></small>
+		<small><strong><?php _e('Notes:', 'fergcorp_countdownTimer'); ?></strong> <?php _e("Set 'Maximum # of events' to '-1' if you want no limit.", 'fergcorp_countdownTimer'); ?></small>
 						<?php
 	}
 	
