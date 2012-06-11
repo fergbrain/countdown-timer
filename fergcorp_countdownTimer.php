@@ -101,6 +101,7 @@ class Fergcorp_Countdown_Timer{
 
 
 		if($this->enableJS) {
+			add_action('wp_header', array ( &$this, 'json' ) );	
 			add_action('wp_footer', array ( &$this, 'js' ) );
 		}	
 		if($this->enabledShortcodeExcerpt) {
@@ -985,6 +986,25 @@ class Fergcorp_Countdown_Timer{
 				usort($event_object_array, 'cmp');
 		return $event_object_array;
 	}
+
+
+	function json(){
+		$params = array(	
+						"showYear"		=>$this->showYear,
+						"showMonth"		=>$this->showMonth,
+						"showWeek"		=>$this->showWeek,
+						"showDay"		=>$this->showDay,
+						"showHour"		=>$this->showHour,
+						"showMinute"	=>$this->showMinute,
+						"showSecond"	=>$this->showSecond,
+						"stripZero"		=>$this->stripZero,
+					);
+					
+		wp_localize_script( 'fergcorp_countdowntimer', 'MyScriptParams', $params );
+	}
+	
+	
+
 
 	/**
 	 * Echos the JavaScript for the timer
