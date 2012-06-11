@@ -114,7 +114,26 @@ class Fergcorp_Countdown_Timer{
 		
 		add_shortcode('fergcorp_cdt_single', array ( &$this, 'shortcode_singleTimer' ) );
 		add_shortcode('fergcorp_cdt', array ( &$this, 'shortcode_showTimer' ) );
+		
 
+		 
+		$plugin = plugin_basename(__FILE__); 
+		add_filter("plugin_action_links_$plugin", array( &$this, 'settings_link' ) );
+
+	}
+	
+	/**
+	 * Add settings link on plugin page
+	 * 
+	 * @since 3.0
+	 * @access public
+	 * @author c.bavota (http://bavotasan.com/2009/a-settings-link-for-your-wordpress-plugins/)
+	 */
+
+	public function settings_link($links) { 
+		  $settings_link = '<a href="options-general.php?page=fergcorp_countdownTimer.php">Settings</a>'; 
+		  array_unshift($links, $settings_link); 
+		  return $links; 
 	}
 	
 	/**
