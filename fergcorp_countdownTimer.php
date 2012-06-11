@@ -1350,6 +1350,7 @@ function fergcorp_countdownTimer($countLimit = -1) {
 function fergcorp_countdownTimer_init() {
 	global $fergcorp_countdownTimer_init;
 			// Load localization domain
+	load_plugin_textdomain( 'fergcorp_countdownTimer', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 						
 	$fergcorp_countdownTimer_init = new Fergcorp_Countdown_Timer();
 }
