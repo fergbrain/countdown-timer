@@ -71,7 +71,6 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 */
 	public function __construct(){
-		FB::info(debug_backtrace(),"Constructor");
 		
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
@@ -92,9 +91,7 @@ class Fergcorp_Countdown_Timer{
 		
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 		
-		// Load localization domain
-		load_plugin_textdomain( 'fergcorp_countdownTimer', false, dirname(__FILE__) . '/lang/' );
-						
+
 		// Register scripts for the countdown timer
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
 		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), array('jquery','webkit_sprintf'), $this->version, TRUE );
@@ -492,7 +489,7 @@ class Fergcorp_Countdown_Timer{
 		function management_meta_box(){
 			?>
 			<p><?php _e("How long the timer remain visable if \"Display 'Time Since'\" is ticked:", 'fergcorp_countdownTimer'); ?><br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds: ", 'fergcorp_countdownTimer');
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Seconds:", 'fergcorp_countdownTimer');
             
             echo $this->build_input(array(
             					"type"  => "text",
@@ -595,7 +592,7 @@ class Fergcorp_Countdown_Timer{
 		$this->showTimer();
 		echo "</ul>";
 		if($this->enableJS) {
-            $this->js();
+            $this->json();
 		}
 	}
 		
@@ -709,7 +706,6 @@ class Fergcorp_Countdown_Timer{
 		}
 		
 		array_push($this->jsUID, $thisEvent);
-		FB::log($this->jsUID, "jsuid add");
 		
 		if(!$standAlone)
 			$content .= "</li>\r\n";
@@ -1353,6 +1349,8 @@ function fergcorp_countdownTimer($countLimit = -1) {
 
 function fergcorp_countdownTimer_init() {
 	global $fergcorp_countdownTimer_init;
+			// Load localization domain
+						
 	$fergcorp_countdownTimer_init = new Fergcorp_Countdown_Timer();
 }
 
