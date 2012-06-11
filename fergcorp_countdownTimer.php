@@ -612,7 +612,7 @@ class Fergcorp_Countdown_Timer{
 	*/
 	public function singleTimer($date){
 		
-		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)));
+		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)), TRUE);
 		
 		//return 
 		
@@ -639,15 +639,14 @@ class Fergcorp_Countdown_Timer{
 		}
 		
 		$eventCount = count($this->eventList);
-
 		if($eventLimit != -1)	//If the eventLimit is set
-			$eventCount = $eventLimit;
+			$eventCount = min($eventCount, $eventLimit);
 
 		//This is the part that does the actual outputting. If you want to preface data, this an excellent spot to do it in.
 		if($this->eventsPresent){
 			$this->eventsPresent = FALSE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
-					$toReturn .= $this->formatEvent($this->eventList[$i], $this->timeSinceTime); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
+					$toReturn .= $this->formatEvent($this->eventList[$i], FALSE); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
 			}
 		}
 		
@@ -679,7 +678,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 * @return string The content of the post with the appropriate dates inserted (if any)
 	*/
-	function formatEvent($thisEvent, $standAlone = FALSE){
+	function formatEvent($thisEvent, $standAlone = FALSE){	
 		$time_left = $thisEvent->getTimestamp() - time();
 		
 		if(!$standAlone)
@@ -915,7 +914,7 @@ class Fergcorp_Countdown_Timer{
 			'date' => '-1',
 		), $atts));
 	
-		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)));
+		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)), TRUE);
 	}
 	
 	
@@ -1282,10 +1281,6 @@ class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 			$title = __( 'Countdown Timer' );
 			$countLimit = -1;
 		}
-		
-		
-		FB::log($this, "This");
-		FB::log($instance, "Instance");
 		
 		?>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
