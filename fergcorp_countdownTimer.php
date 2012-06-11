@@ -71,6 +71,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 */
 	public function __construct(){
+		FB::info(debug_backtrace(),"Constructor");
 		
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
@@ -95,21 +96,17 @@ class Fergcorp_Countdown_Timer{
 		load_plugin_textdomain( 'fergcorp_countdownTimer', false, dirname(__FILE__) . '/lang/' );
 						
 		// Register scripts for the countdown timer
-		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), FALSE, $this->version );
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
-
-
-
+		wp_register_script('fergcorp_countdowntimer', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/". 'fergcorp_countdownTimer_java.js'), 'webkit_sprintf', $this->version, TRUE );
+		
 		if($this->enableJS) {
-			add_action('wp_header', array ( &$this, 'json' ) );	
-			add_action('wp_footer', array ( &$this, 'js' ) );
-		}	
+			add_action('wp_footer', array ( &$this, 'json' ) );
+		}
+	
+
 		if($this->enabledShortcodeExcerpt) {
 			add_filter('the_excerpt', 'do_shortcode');
 		}
-	
-		//register_activation_hook( __FILE__, array(&$this, 'install'));
-		
 
 		//Priority needs to be set to 1 so that the scripts can be enqueued before the scripts are printed, since both actions are hooked into the wp_head action.
 		add_action('wp_head', array( &$this, 'print_countdown_scripts' ), 1);
@@ -145,6 +142,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->enableJS) {	
 			wp_enqueue_script('fergcorp_countdowntimer');
 			wp_enqueue_script('webkit_sprintf');
+
 		}
 	}
 	
@@ -711,6 +709,7 @@ class Fergcorp_Countdown_Timer{
 		}
 		
 		array_push($this->jsUID, $thisEvent);
+		FB::log($this->jsUID, "jsuid add");
 		
 		if(!$standAlone)
 			$content .= "</li>\r\n";
@@ -999,65 +998,44 @@ class Fergcorp_Countdown_Timer{
 						"stripZero"		=>$this->stripZero,
 					);
 					
-		wp_localize_script( 'fergcorp_countdowntimer', 'MyScriptParams', $params );
-	}
-	
-	
-
-
-	/**
-	 * Echos the JavaScript for the timer
-	 *
-	 * @since 3.0
-	 * @access public
-	 * @author Andrew Ferguson
-	*/
-	function js(){
-
-		echo "<script type=\"text/javascript\">\n";
-		echo "<!--\n";
-
-		//Pass on what units of time should be used
-		echo "var getOptions = new Array();\n";
-		echo "getOptions['showYear'] = ".$this->showYear.";\n";
-		echo "getOptions['showMonth'] = ".$this->showMonth.";\n";
-		echo "getOptions['showWeek'] = ".$this->showWeek.";\n";
-		echo "getOptions['showDay'] = ".$this->showDay.";\n";
-		echo "getOptions['showHour'] = ".$this->showHour.";\n";
-		echo "getOptions['showMinute'] = ".$this->showMinute.";\n";
-		echo "getOptions['showSecond'] = ".$this->showSecond.";\n";
-		echo "getOptions['stripZero'] = ".$this->stripZero.";\n";
-
-		//Pass on language variables
-		echo "var fergcorp_countdownTimer_js_language = new Array();\n";
-		echo "fergcorp_countdownTimer_js_language['year'] = '".addslashes(__('%d year, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['years'] = '".addslashes(__('%d years, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['month'] = '".addslashes(__('%d month, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['months'] = '".addslashes(__('%d months, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['week'] = '".addslashes(__('%d week, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['weeks'] = '".addslashes(__('%d weeks, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['day'] = '".addslashes(__('%d day, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['days'] = '".addslashes(__('%d days, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hour'] = '".addslashes(__('%d hour, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['hours'] = '".addslashes(__('%d hours, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minute'] = '".addslashes(__('%d minute, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['minutes'] = '".addslashes(__('%d minutes, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['second'] = '".addslashes(__('%d second, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['seconds'] = '".addslashes(__('%d seconds, ', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['ago'] = '".addslashes(__('%s ago', 'fergcorp_countdownTimer'))."';\n";
-		echo "fergcorp_countdownTimer_js_language['in'] = '".addslashes(__('in %s', 'fergcorp_countdownTimer'))."';\n";
-
-		//Pass on details about each timer
-		echo "var fergcorp_countdownTimer_js_events = new Array();\n";
+		$js_events = array();
 		for ( $i = 0; $i < count( $this->jsUID ); $i++){
-		//foreach ( $this->jsUID as $thisEvent ) {
-				echo "fergcorp_countdownTimer_js_events[$i] = new Array()\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['id'] 		= \"".$this->jsUID[$i]->getUID()."\";\n";
-				echo "fergcorp_countdownTimer_js_events[$i]['targetDate'] 	= \"".$this->jsUID[$i]->getTimestamp()."\";\n";
+				array_push($js_events, array(
+					'id'			=> $this->jsUID[$i]->getUID(),
+					'targetDate'	=> $this->jsUID[$i]->getTimestamp(),
+				)
+			);
 		}
-		echo "fergcorp_countdownTimer_js();\n";
-		echo "//-->\n";
-		echo "</script>\n";
+
+		$js_lang = array(
+						"year" 	=> addslashes( _n( "%d year,", "%d years,", 1, "fergcorp_countdownTimer" )),
+						"years"	=> addslashes( _n( "%d year,", "%d years,", 2, "fergcorp_countdownTimer" )),
+						
+						"month" 	=> addslashes( _n( "%d month,", "%d months,", 1, "fergcorp_countdownTimer" )),
+						"months"	=> addslashes( _n( "%d month,", "%d months,", 2, "fergcorp_countdownTimer" )),
+						
+						"week" 	=> addslashes( _n( "%d week,", "%d weeks,", 1, "fergcorp_countdownTimer" )),
+						"weeks"	=> addslashes( _n( "%d week,", "%d weeks,", 2, "fergcorp_countdownTimer" )),
+						
+						"day" 	=> addslashes( _n( "%d day,", "%d days,", 1, "fergcorp_countdownTimer" )),
+						"days"	=> addslashes( _n( "%d day,", "%d days,", 2, "fergcorp_countdownTimer" )),
+						
+						"hour" 	=> addslashes( _n( "%d hour,", "%d hours,", 1, "fergcorp_countdownTimer" )),
+						"hours"	=> addslashes( _n( "%d hour,", "%d hours,", 2, "fergcorp_countdownTimer" )),
+						
+						"minute" 	=> addslashes( _n( "%d minute,", "%d minutes,", 1, "fergcorp_countdownTimer" )),
+						"minutes"	=> addslashes( _n( "%d minute,", "%d minutes,", 2, "fergcorp_countdownTimer" )),
+						
+						"second" 	=> addslashes( _n( "%d second,", "%d seconds,", 1, "fergcorp_countdownTimer" )),
+						"seconds"	=> addslashes( _n( "%d second,", "%d seconds,", 2, "fergcorp_countdownTimer" )),
+						
+
+						"ago" 	=> addslashes(__('%s ago', 'fergcorp_countdownTimer')),
+						"in"	=> addslashes(__('in %s', 'fergcorp_countdownTimer')),
+					);
+		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_js_lang', $js_lang);
+		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_jsEvents', $js_events );					
+		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_options', $params );
 	}
 
 	/**
@@ -1299,6 +1277,7 @@ class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 	}
 		
 	public function widget( $args, $instance ){
+		global $fergcorp_countdownTimer_init;	
 		echo $args['before_widget'];
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'];
@@ -1306,7 +1285,6 @@ class Fergcorp_Countdown_Timer_Widget extends WP_Widget{
 			echo $args['after_title'];
 		}
 		echo "<ul>";
-		$fergcorp_countdownTimer_init = new Fergcorp_Countdown_Timer();
 		$fergcorp_countdownTimer_init->showTimer($instance['countLimit']);
 		echo "</ul>";
 	

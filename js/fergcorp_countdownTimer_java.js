@@ -235,3 +235,4 @@ function fergcorp_countdownTimer_fuzzyDate(targetTime, nowTime, getOptions){
 	
 	return s.replace(/(, ?<\/span> *)$/, "<\/span>"); //...and return the result (a string)
 }
+fergcorp_countdownTimer_js();
