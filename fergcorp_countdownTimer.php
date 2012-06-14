@@ -3,11 +3,11 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0 Build (2012.6.10.16.23)
+Version: 3.0 Beta 1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
-Countdown Timer - Add template tags and widget to count down the years, months, weeks, days, hours, and minutes to a particular event
+Countdown Timer - Use shortcodes and a widget to count down the years, months, weeks, days, hours, and minutes to a particular event
 Copyright (c) 2005-2012 Andrew Ferguson
 
 This program is free software; you can redistribute it and/or
@@ -71,7 +71,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 */
 	public function __construct(){
-		
+		FB::info("Construct");
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
 		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
@@ -1060,7 +1060,7 @@ class Fergcorp_Countdown_Timer{
 		$plugin_data = get_plugin_data(__FILE__);
 		
 		//Move widget details from old option to new option only if the new option does not exist
-		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {
+		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {	
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
 																			"countLimit"	=> $oldWidget["count"],
 																			)
@@ -1068,18 +1068,28 @@ class Fergcorp_Countdown_Timer{
 			delete_option("widget_fergcorp_countdown");			
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $oldWidget ){
+		elseif( $oldWidget ){	
 			delete_option("widget_fergcorp_countdown");
 		}
 		
 		//Move timeFormat data from old option to new option only if the new option does not exist
-		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {
+		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {	
 			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
 			delete_option("fergcorp_countdownTimer_timeOffset");			
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
 		elseif( $timeOffset ){
 			delete_option("fergcorp_countdownTimer_timeOffset");
+		}
+		
+		$oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent");
+		if( ( $oneTimeEvent )  && ( gettype($oneTimeEvent[0]) == "array") ) {
+			$event_object_array = array();
+			foreach( $oneTimeEvent as $event ) {
+				array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($event["date"], $event["text"], $event["link"], $event["timeSince"]));
+			}
+			
+			update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
 		}
 
 		/**
@@ -1095,9 +1105,11 @@ class Fergcorp_Countdown_Timer{
 		*/
 		function install_option($prefix, $option, $default){
 			if(get_option($prefix.$option) != NULL){
+				FB::log("Do not install option");	
 				return false;
 			}
 			else{
+				FB::log("Install option");
 				update_option($prefix.$option, $default);
 				return true;
 			}
@@ -1119,7 +1131,9 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 		
 		//Update version number...last thing
+		FB::log(get_option("fergcorp_countdownTimer_version"), "Update version number from");
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
+		FB::log(get_option("fergcorp_countdownTimer_version"), "...to");
 	}
 
 		/**
