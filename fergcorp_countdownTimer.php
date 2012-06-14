@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0 Beta 1
+Version: 3.0 Beta 2
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -89,6 +89,7 @@ class Fergcorp_Countdown_Timer{
 		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
 		
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+
 		
 
 		// Register scripts for the countdown timer
@@ -1190,6 +1191,10 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 		$this->UID = "x".md5(rand());
 		parent::__construct("@".$time);
 	}
+	
+	public function getTimestamp() {
+         return method_exists('DateTime', 'getTimestamp') ? parent::getTimestamp() : $this->time;
+    }
 	
 	public function setTitle ( $title ) {
 		$this->title = (string)$title;
