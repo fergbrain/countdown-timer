@@ -2,7 +2,7 @@
 /*
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
-Description: Add template tags and widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
+Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
 Version: 3.0 Beta 1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
@@ -71,7 +71,6 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 */
 	public function __construct(){
-		FB::info("Construct");
 		// Load settings
 		$this->version = get_option("fergcorp_countdownTimer_version");
 		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
@@ -1104,12 +1103,10 @@ class Fergcorp_Countdown_Timer{
 		 * @return string The content of the post with the appropriate dates inserted (if any)
 		*/
 		function install_option($prefix, $option, $default){
-			if(get_option($prefix.$option) != NULL){
-				FB::log("Do not install option");	
+			if(get_option($prefix.$option) != NULL){	
 				return false;
 			}
 			else{
-				FB::log("Install option");
 				update_option($prefix.$option, $default);
 				return true;
 			}
@@ -1131,9 +1128,7 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
 		
 		//Update version number...last thing
-		FB::log(get_option("fergcorp_countdownTimer_version"), "Update version number from");
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
-		FB::log(get_option("fergcorp_countdownTimer_version"), "...to");
 	}
 
 		/**
