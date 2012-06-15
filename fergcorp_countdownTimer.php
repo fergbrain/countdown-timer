@@ -306,7 +306,7 @@ class Fergcorp_Countdown_Timer{
 			<ul>
 				<li><?php echo __('Years:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showYear", $this->showYear); ?></li>
 			  	<li><?php echo __('Months:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showMonth", $this->showMonth); ?></li>
-			  	<li><?php echo __('Week:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showWeek", $this->showWeek); ?></li>
+			  	<li><?php echo __('Weeks:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showWeek", $this->showWeek); ?></li>
 			  	<li><?php echo __('Days:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showDay", $this->showDay); ?></li>
 			  	<li><?php echo __('Hours:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showHour", $this->showHour); ?></li>
 			  	<li><?php echo __('Minutes:', 'fergcorp_countdownTimer') . $this->build_yes_no("fergcorp_countdownTimer_showMinute", $this->showMinute); ?></li>
