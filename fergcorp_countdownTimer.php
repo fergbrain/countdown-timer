@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0 Beta 2
+Version: 3.0
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -648,7 +648,7 @@ class Fergcorp_Countdown_Timer{
 		$toReturn = "";
 		
 		//Make sure there's something to count
-		if( '' != $this->eventList){
+		if($this->eventList){
 			$this->eventsPresent = TRUE;
 		}
 		
@@ -965,7 +965,7 @@ class Fergcorp_Countdown_Timer{
 	 * @author Andrew Ferguson
 	 */	
 	public function sanitize($input){
-				
+
 				$event_object_array = array();
 				
 				//We need a time zone to properly guess what dates the user means	
@@ -1041,8 +1041,8 @@ class Fergcorp_Countdown_Timer{
 						"seconds"	=> addslashes( _n( "%d second,", "%d seconds,", 2, "fergcorp_countdownTimer" )),
 						
 
-						"ago" 	=> addslashes(__('%s ago', 'fergcorp_countdownTimer')),
-						"in"	=> addslashes(__('in %s', 'fergcorp_countdownTimer')),
+						"agotime" 	=> addslashes(__('%s ago', 'fergcorp_countdownTimer')),
+						"intime"	=> addslashes(__('in %s', 'fergcorp_countdownTimer')),
 					);
 		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_js_lang', $js_lang);
 		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_jsEvents', $js_events );					
@@ -1127,6 +1127,7 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
 		install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
 		install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
+		install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
 		
 		//Update version number...last thing
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);

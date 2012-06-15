@@ -1,10 +1,12 @@
 === Countdown Timer ===
 Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
-Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer
-Requires at least: 2.7
+Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer, wedding, localization, i18n
+Requires at least: 3.4
 Tested up to: 3.4
 Stable tag: 3.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin allows you to setup a series of dates to count to or from in terms of years, months, weeks, days, hours, minutes, and/or seconds.
 
@@ -14,41 +16,49 @@ Countdown Timer allows you to setup one or more dates to count down to or away f
 
 Events can be inserted into the sidebar using the widget, or within posts and pages using shortcodes.
 
+Currently supports 22 languages.
+
 == Translations ==
 
 = Using another language =
 
-You'll need to modify your `wp-config.php` file. Open it up and look for the line: `define ('WPLANG', '');`
+You'll need to modify your wp-config.php file. To do this...
 
-You'll want `'WPLANG', 'de_DE';`
+1. Open your `wp-config.php` file in a text editor and search for: `define ('WPLANG', '');`
+1. Edit this line according to the language you want to use (and is available). For example, for Deutsch spoken in Germany, you must add: `('WPLANG', 'de_DE');`
+1. Once you've added your language code, save the file.
+1. Upload the modified wp-config.php file into the WordPress root directory.
 
-Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation.
+Of course, you'll replace de_DE with the language extension that you want to use, unless of course you actually did want the German language translation. For more information, consult [Installing WordPress in Your Language](http://codex.wordpress.org/Installing_WordPress_in_Your_Language) on the WordPress Codex
 
- * Swedish translation: sv_SE
- * Spanish translation: es_ES
- * German translation: de_DE
- * French translation: fr_FR
- * Portuguese [Brazil] translation: pr_BR
- * Turkish translation: tr_TR
- * Czech translation: cs_CZ
- * Dutch translation: nl_NL
- * Chinese translation: zh_CN
- * Polish translation: pl_PL
- * Italian translation: it_IT
+= Languages Available =
+
  * Bosnian translation: bs_BA
+ * Catalan (Spain) translation: ca_CA
+ * Czech translation: cs_CZ
+ * Danish translation: da_DK
+ * German translation: de_DE
+ * Spanish translation: es_ES
+ * French translation: fr_FR
  * Hungarian translation: hu_HU
- * Norwegian translation: nn_NO
+ * Italian translation: it_IT
+ * Lithuanian translation: lt_LT
  * Latvian translation: lv_LV
+ * Dutch translation: nl_NL
+ * Norwegian translation: nn_NO
+ * Polish translation: pl_PL
+ * Portuguese [Brazil] translation: pr_BR
  * Romanian translation: ro_RO
  * Russian translation: ru_RU
- * Danish translation: da_DK
- * Lithuanian translation: lt_LT
  * Serbian [Cyrilic] translation: sr_RS
-
+ * Swedish translation: sv_SE
+ * Turkish translation: tr_TR
+ * Vietnamese translation: vi_VI
+ * Chinese translation: zh_CN
 
 == Installation ==
 
-1. Install the plugin using your prefered method of choice. Using the built-in WordPress installer is the preffered choice, but you can also do things the hard/manual way.
+1. Install the plugin using your preferred method of choice. Using the built-in WordPress installer is the preferred choice, but you can also do things the hard/manual way.
 
 1. Activate the timer.
 
@@ -58,40 +68,43 @@ Of course, you'll replace de_DE with the language extension that you want to use
 
 There are three places you can insert a countdown timer:
 
-1. Sidebar (i.e. widget)
-1. A post or page
+1. Sidebar (using the widget)
+1. A post or page (using shortcodes)
 1. PHP (experts only)
 
 = Adding to the sidebar =
 
-Add the widget to the sidebar using going to Appearances > Widget in The Dashboard.
+Add the widget to the sidebar by going to Appearances > Widget in The Dashboard.
 
 = Adding to a post or page =
 
 If you want to insert the Countdown Timer into a page or post, you can use the following shortcodes to return all or a limited number of Countdown Timers, respectively:
-[fergcorp\_cdt]
-[fergcorp\_cdt max=##]
+`[fergcorp\_cdt]`
+`[fergcorp\_cdt max=##]`
 
-Where ## is maximum number of results to be displayed - ordered by date
+Where _##_ is maximum number of results to be displayed, ordered by date.
 
 If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:
 
-Time until my birthday:
-[fergcorp_cdt_single date="ENTER\_DATE\_HERE"]
+`[fergcorp_cdt_single date="ENTER\_DATE\_HERE"]`
 
-Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual datetime description (such as "28 May 2012"
+Example:
+`Time until our wedding:
+[fergcorp_cdt_single date="08 December 2012"]`
+
+Where "ENTER_DATE_HERE" uses PHP's strtotime function and will parse about any English textual date/time description (such as "08 December 2012"). A complete list of valid formats can be found on PHP's [Supported Date and Time Format](http://www.php.net/manual/en/datetime.formats.php) page.
 
 = PHP = 
 
-Countdown Timer also provide PHP functions designed to be accessed publicly so you can include it in elements of your site that may not be in The Loop.
+Countdown Timer also provides a PHP function designed to be accessed publicly so you can include it in elements of your site that may not be in The Loop.
  
-`fergcorp_countdownTimer(_$maxEvents_)`
+`fergcorp_countdownTimer(##)`
 
-where _$maxEvents_ is the maximum number of events you wish to be displayed. If _$maxEvents_ is not given, the function will return all timers.
+Where _##_ is the maximum number of events you wish to be displayed. If _$maxEvents_ is not given, the function will return all timers.
 
 Events are automatically sorted by date of occurrence.
 
-Note: You should also encapsulate calls with "fucntion_exists" to prevent unintentional errors if the plugin is deactivated.
+Note: You should also encapsulate calls with "function_exists" to prevent unintentional fatal errors if the plugin is deactivated.
 
 = Limiting the number of countdown timers displayed =
 
@@ -120,6 +133,10 @@ The following CSS classes are available:
 
 == Frequently Asked Questions ==
 
+= How do I prevent the timer from wrapping my countdown? =
+
+Add the following to your CSS file: .fergcorp_countdownTimer_timeUnit {white-space: nowrap;}
+
 = I have JavaScript countdown enabled and it works on the administration page in the Example Display, but not on my main site! =
 
 This, unfortunately, is a problem with your theme, and not with Countdown Timer. Themes _must_ call wp_footer(), which is a standard hook for WordPress. Without it, many other plugins may not work properly either.
@@ -137,7 +154,6 @@ I happened to mention my problem to a friend who said that the US military decid
 = Wait, so how /do/ you count months? =
 
 Using the above example of January 15 to February 20, there would be one month and five days. February 15 to March 20 would also be one month and five days. Why? January 15 to February 15 is one month. February 15 to February 20 is 5 days. Put them together and you get one month and five days.
-
 
 = Where I am supposed to set the count down time? =
 
@@ -161,13 +177,18 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 == Changelog ==
 
 = 3.0 =
-Release date: 6/??/2012
+Release date: 6/15/2012
 
- * Rewrote plugin as a class, this should provide better code readability for users who wish to contribute
- * On-hover date localization is now completed. Thanks to [pwesolek] for the patch.
+ * Complete code rewrite. Should provide better code readability for users who wish to contribute (yes, that's you if you're reading this)
+ * Future dates respect future saving time events!
+ * Removed ability to use comments tag to insert countdown timer into post,  you should use shortcode
+ * On-hover date localization is now completed and will show the correct time/zone. Thanks to [pwesolek] for the patch
  * date_default_timezone_set will no longer throw an error if the timezone string is not set
- * JS now passed as JSON
- * Updated language files
+ * Remove the display of the GMT offset in the date box. All data should be displayed in blog time.
+ * JS now passed as JSON, and JS is loaded with the footer
+ * Use JQuery to update
+ * Updated language files, reduced to 69 strings now
+ * Fixed Czech language files with correct plurals with thanks to [Prause] for the patch
  * Updated readme instructions for installation and usage
  * Added banner graphic for WordPress directory
  
