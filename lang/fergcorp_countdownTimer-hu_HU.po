@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Countdown Timer v3.0 Build (2012.6.10.16.23)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-15 23:09-0800\n"
-"PO-Revision-Date: 2012-06-11 06:38:55+0000\n"
+"PO-Revision-Date: 2012-06-15 05:35:58+0000\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -341,7 +341,7 @@ msgstr ""
 #: fergcorp_countdownTimer.php:290
 #@ fergcorp_countdownTimer
 msgid "Week:"
-msgstr ""
+msgstr "Hetek:"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:763
@@ -352,7 +352,7 @@ msgstr ""
 #@ fergcorp_countdownTimer
 msgid "%d year,"
 msgid_plural "%d years,"
-msgstr[0] ""
+msgstr[0] "%d év,"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:775
@@ -363,7 +363,7 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d month,"
 msgid_plural "%d months,"
-msgstr[0] ""
+msgstr[0] "%d hónap,"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:802
@@ -374,7 +374,7 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d week,"
 msgid_plural "%d weeks,"
-msgstr[0] ""
+msgstr[0] "%d hét,"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:813
@@ -385,7 +385,7 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d day,"
 msgid_plural "%d days,"
-msgstr[0] ""
+msgstr[0] "%d nap,"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:826
@@ -396,7 +396,7 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d hour,"
 msgid_plural "%d hours,"
-msgstr[0] ""
+msgstr[0] "%d óra,"
 
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:839
@@ -407,7 +407,7 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d minute,"
 msgid_plural "%d minutes,"
-msgstr[0] ""
+msgstr[0] "%d perc,"
 
 #: fergcorp_countdownTimer.php:851
 #: fergcorp_countdownTimer.php:857
@@ -417,10 +417,10 @@ msgstr[0] ""
 #@ fergcorp_countdownTimer
 msgid "%d second,"
 msgid_plural "%d seconds,"
-msgstr[0] ""
+msgstr[0] "%d másodperc,"
 
 #: fergcorp_countdownTimer.php:1257
 #@ fergcorp_countdownTimer
 msgid "Title:"
-msgstr ""
+msgstr "Cím:"
 

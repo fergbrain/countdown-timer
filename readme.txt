@@ -12,7 +12,7 @@ This plugin allows you to setup a series of dates to count to or from in terms o
 
 Countdown Timer allows you to setup one or more dates to count down to or away from.
 
-Events can be inserted into the sidebar, either manually or as a widget, or within posts and pages.
+Events can be inserted into the sidebar using the widget, or within posts and pages using shortcodes.
 
 == Translations ==
 
@@ -163,9 +163,14 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 = 3.0 =
 Release date: 6/??/2012
 
+ * Rewrote plugin as a class, this should provide better code readability for users who wish to contribute
  * On-hover date localization is now completed. Thanks to [pwesolek] for the patch.
+ * date_default_timezone_set will no longer throw an error if the timezone string is not set
+ * JS now passed as JSON
  * Updated language files
  * Updated readme instructions for installation and usage
+ * Added banner graphic for WordPress directory
+ 
 
 = 2.4.3 =
 Release Date: 3/10/2012

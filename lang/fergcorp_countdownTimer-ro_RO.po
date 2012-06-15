@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Countdown Timer v3.0 Build (2012.6.10.16.23)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-15 23:10-0800\n"
-"PO-Revision-Date: 2012-06-11 06:38:10+0000\n"
+"PO-Revision-Date: 2012-06-15 06:04:53+0000\n"
 "Last-Translator: Andrew Ferguson <andrew@fergcorp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -340,7 +340,7 @@ msgstr ""
 #: fergcorp_countdownTimer.php:290
 #@ fergcorp_countdownTimer
 msgid "Week:"
-msgstr ""
+msgstr "Săptămâni:"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -352,8 +352,8 @@ msgstr ""
 #@ fergcorp_countdownTimer
 msgid "%d year,"
 msgid_plural "%d years,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d an,"
+msgstr[1] "%d ani,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -365,8 +365,8 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d month,"
 msgid_plural "%d months,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d lună,"
+msgstr[1] "%d luni,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -378,8 +378,8 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d week,"
 msgid_plural "%d weeks,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d săptămână,"
+msgstr[1] "%d săptămâni,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -391,8 +391,8 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d day,"
 msgid_plural "%d days,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d zi,"
+msgstr[1] "%d zile,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -404,8 +404,8 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d hour,"
 msgid_plural "%d hours,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d oră,"
+msgstr[1] "%d ore,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #. gettext fix: duplicate plural forms found, that may be ambiguous! Please check the code!
@@ -417,8 +417,8 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d minute,"
 msgid_plural "%d minutes,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minut,"
+msgstr[1] "%d minute,"
 
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #: fergcorp_countdownTimer.php:851
@@ -429,11 +429,11 @@ msgstr[1] ""
 #@ fergcorp_countdownTimer
 msgid "%d second,"
 msgid_plural "%d seconds,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d secundă,"
+msgstr[1] "%d secunde,"
 
 #: fergcorp_countdownTimer.php:1257
 #@ fergcorp_countdownTimer
 msgid "Title:"
-msgstr ""
+msgstr "Titlul:"
 
