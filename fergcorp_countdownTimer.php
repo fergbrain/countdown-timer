@@ -91,7 +91,6 @@ class Fergcorp_Countdown_Timer{
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 
 		if(version_compare($this->version, "3.0.1 Alpha 1", "<")){
-			FB::log("Need to update settings");
 			add_action('admin_init', array( &$this, 'updateSettings' ) );
 		}
 
@@ -1061,7 +1060,7 @@ class Fergcorp_Countdown_Timer{
 	*/
 	public function install(){
 		$plugin_data = get_plugin_data(__FILE__);
-		
+		return true;
 		//Move widget details from old option to new option only if the new option does not exist
 		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {	
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
@@ -1180,9 +1179,57 @@ class Fergcorp_Countdown_Timer{
 		}
 		
 	function updateSettings(){
-		FB::log("Going to update settings");
+		global $sidebars_widgets;
+		//check to see if the old widget is being used
+		foreach($sidebars_widgets as $sidebar => $widgets){
+			if( 'wp_inactive_widgets' == $sidebar )
+				continue;
+				
+				if ( is_array($widgets) ) {
+			 		foreach ( $widgets as &$widget ) {
+						if( "fergcorp_countdowntimer" == $widget ){
+							add_action('admin_notices', array( &$this, 'showWidgetUpdateMessage' ) );
+						}
+					}
+				}
+		}
+		
 		$this->install();
 	}
+	
+	/**
+	 * Just show our message (with possible checking if we only want
+	 * to show message to certain users.
+	 */
+	function showWidgetUpdateMessage()
+	{
+	    // Shows as an error message. You could add a link to the right page if you wanted.
+	    $this->showMessage("Update of Countdown Timer is almost complete. It looks like you were using the widget before, I'm terribly sorry but can you please re-add it?", true);
+
+	}
+	
+	/**
+	 * Generic function to show a message to the user using WP's 
+	 * standard CSS classes to make use of the already-defined
+	 * message colour scheme.
+	 *
+	 * @param $message The message you want to tell the user.
+	 * @param $errormsg If true, the message is an error, so use 
+	 * the red message style. If false, the message is a status 
+	  * message, so use the yellow information message style.
+	 */
+	function showMessage($message, $errormsg = false)
+	{
+		if ($errormsg) {
+			echo '<div id="message" class="error">';
+		}
+		else {
+			echo '<div id="message" class="updated fade">';
+		}
+	
+		echo "<p><strong>$message</strong></p></div>";
+	}  
+	
 }
 
 class Fergcorp_Countdown_Timer_Event extends DateTime {
