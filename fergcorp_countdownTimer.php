@@ -1152,7 +1152,7 @@ class Fergcorp_Countdown_Timer{
 			foreach ($inputArray as $key => $value) {
 				$attributes .= "$key=\"$value\" ";
 			}
-			return "<input ".trim($attributes." ".$inputString)." />";		
+			return " <input ".trim($attributes." ".$inputString)." />";
 		}
 		
 		function build_yes_no($name, $option){
