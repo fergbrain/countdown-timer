@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0
+Version: 3.0.1 Alpha 1
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -90,7 +90,10 @@ class Fergcorp_Countdown_Timer{
 		
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 
-		
+		if(version_compare($this->version, "3.0.1 Alpha 1", "<")){
+			FB::log("Need to update settings");
+			add_action('admin_init', array( &$this, 'updateSettings' ) );
+		}
 
 		// Register scripts for the countdown timer
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
@@ -109,8 +112,8 @@ class Fergcorp_Countdown_Timer{
 		add_action('wp_head', array( &$this, 'print_countdown_scripts' ), 1);
 		
 		//Admin hooks
-		add_action('admin_init', array ( &$this, 'register_settings' ) );			//Initialized the options
-		add_action('admin_menu', array ( &$this, 'register_settings_page' ) );	//Add Action for adding the options page to admin panel
+		add_action('admin_init', array( &$this, 'register_settings' ) );			//Initialized the options
+		add_action('admin_menu', array( &$this, 'register_settings_page' ) );	//Add Action for adding the options page to admin panel
 		
 		add_shortcode('fergcorp_cdt_single', array ( &$this, 'shortcode_singleTimer' ) );
 		add_shortcode('fergcorp_cdt', array ( &$this, 'shortcode_showTimer' ) );
@@ -1175,6 +1178,11 @@ class Fergcorp_Countdown_Timer{
 			
 			return $output;
 		}
+		
+	function updateSettings(){
+		FB::log("Going to update settings");
+		$this->install();
+	}
 }
 
 class Fergcorp_Countdown_Timer_Event extends DateTime {
