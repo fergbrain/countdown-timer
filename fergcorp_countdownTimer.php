@@ -1078,20 +1078,20 @@ class Fergcorp_Countdown_Timer{
 				if( 'wp_inactive_widgets' == $sidebar )
 					continue;
 					
-					if ( is_array($widgets) ) {
-				 		foreach ( $widgets as $widget ) {
-							if( "fergcorp_countdowntimer" == $widget ){
-								$sidebars_widgets[$thisSidebar][$j] = "fergcorp_countdown_timer_widget-2"; //not sure why the ID has to be 2, but it does
-							}
-							$j++;
+				if ( is_array($widgets) ) {
+			 		foreach ( $widgets as $widget ) {
+						if( "fergcorp_countdowntimer" == $widget ){
+							$sidebars_widgets[$thisSidebar][$j] = "fergcorp_countdown_timer_widget-2"; //not sure why the ID has to be 2, but it does
 						}
+						$j++;
 					}
+				}
 			}
 		wp_set_sidebars_widgets($sidebars_widgets);
 		wp_get_sidebars_widgets();
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $oldWidget ){	 
+		elseif( $oldWidget ){
 			delete_option("widget_fergcorp_countdown");
 		}
 		
