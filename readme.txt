@@ -4,7 +4,7 @@ Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer, wedding, localization, i18n
 Requires at least: 3.4
 Tested up to: 3.4
-Stable tag: 3.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,13 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 2. Example on Blog
 
 == Changelog ==
+
+= 3.0.1 =
+Release date: 6/18/2012
+
+ * Bug fix: Will now check to see if the plugin has been updated and update settings as required to avoid problems such as "Call to a member function date() on a non-object...". Thanks to [pixwell] and [bonzo01] for pointing this out; special thanks to fiancée for letting me spend some time to fix it.
+ * Bug fix: Widget settings now properly moved from 2.4.3 to new format
+ * Cosmetic: Spaces after input labels 
 
 = 3.0 =
 Release date: 6/15/2012
