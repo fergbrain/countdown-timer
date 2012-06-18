@@ -91,7 +91,7 @@ class Fergcorp_Countdown_Timer{
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
 
 		if(version_compare($this->version, "3.0.1", "<")){
-			add_action('admin_init', array( &$this, 'updateSettings' ) );
+			add_action('admin_init', array( &$this, 'install' ) );
 		}
 
 		// Register scripts for the countdown timer
@@ -1063,24 +1063,57 @@ class Fergcorp_Countdown_Timer{
 
 		//Move widget details from old option to new option only if the new option does not exist
 		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {	
+			FB::info("update_option('widget_fergcorp_countdown_timer_widget')"); 
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
 																			"countLimit"	=> $oldWidget["count"],
 																			)
 			);
-			delete_option("widget_fergcorp_countdown");			
+			FB::info("delete_option('widget_fergcorp_countdown_timer')"); 
+			delete_option("widget_fergcorp_countdown");
+			
+			global $sidebars_widgets;
+			//check to see if the old widget is being used
+			$i=0;
+			$j=0;
+			foreach($sidebars_widgets as $sidebar => $widgets){
+				$thisSidebar = $sidebar;
+				if( 'wp_inactive_widgets' == $sidebar )
+					continue;
+					
+					if ( is_array($widgets) ) {
+				 		foreach ( $widgets as $widget ) {
+				 			
+							if( "fergcorp_countdowntimer" == $widget ){
+								FB::log($sidebars_widgets[$thisSidebar][$j], "replacing old widget");	
+								$sidebars_widgets[$thisSidebar][$j] = "widget_fergcorp_countdown_timer_widget-1";
+								FB::log($sidebars_widgets[$thisSidebar][$j], "updating widget");
+							}
+							$j++;
+						}
+					}
+			}
+		wp_set_sidebars_widgets($sidebars_widgets);
+		wp_get_sidebars_widgets();
+		FB::log($sidebars_widgets, "out of loop, checking stickiness");
+			
+						
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
 		elseif( $oldWidget ){	
+			FB::info("update_option('widget_fergcorp_countdown')"); 
 			delete_option("widget_fergcorp_countdown");
 		}
 		
 		//Move timeFormat data from old option to new option only if the new option does not exist
 		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {	
+			FB::info("update_option('fergcorp_countdownTimer_timeFormat')"); 
+			FB::info("delete_option('fergcorp_countdownTimer_timeOffset')"); 
 			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
 			delete_option("fergcorp_countdownTimer_timeOffset");			
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
 		elseif( $timeOffset ){
+			FB::info("delete_option('fergcorp_countdownTimer_timeOffset')"); 
 			delete_option("fergcorp_countdownTimer_timeOffset");
 		}
 		
@@ -1091,6 +1124,7 @@ class Fergcorp_Countdown_Timer{
 				array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($event["date"], $event["text"], $event["link"], $event["timeSince"]));
 			}
 			
+			FB::info("update_option('fergcorp_countdownTimer_oneTimeEvent')"); 
 			update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
 		}
 
@@ -1110,6 +1144,7 @@ class Fergcorp_Countdown_Timer{
 				return false;
 			}
 			else{
+				FB::info($option, "install option");
 				update_option($prefix.$option, $default);
 				return true;
 			}
@@ -1132,7 +1167,29 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
 		
 		//Update version number...last thing
+		FB::info("update_option('fergcorp_countdownTimer_version')");
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
+		
+		//Reload settings:
+		$this->version = get_option("fergcorp_countdownTimer_version");
+		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
+		$this->timeFormat = get_option("fergcorp_countdownTimer_timeFormat");
+		$this->showYear = get_option("fergcorp_countdownTimer_showYear");
+		$this->showMonth = get_option("fergcorp_countdownTimer_showMonth");
+		$this->showWeek = get_option("fergcorp_countdownTimer_showWeek");
+		$this->showDay = get_option("fergcorp_countdownTimer_showDay");
+		$this->showHour = get_option("fergcorp_countdownTimer_showHour");
+		$this->showMinute = get_option("fergcorp_countdownTimer_showMinute");
+		$this->showSecond = get_option("fergcorp_countdownTimer_showSecond");
+		$this->stripZero = get_option("fergcorp_countdownTimer_stripZero");
+		$this->enableJS = get_option("fergcorp_countdownTimer_enableJS");
+		$this->timeSinceTime = get_option("fergcorp_countdownTimer_timeSinceTime");
+		$this->titleSuffix = get_option("fergcorp_countdownTimer_titleSuffix");
+		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
+		
+		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+		
+		
 	}
 
 		/**
@@ -1177,59 +1234,6 @@ class Fergcorp_Countdown_Timer{
 			
 			return $output;
 		}
-		
-	function updateSettings(){
-		global $sidebars_widgets;
-		//check to see if the old widget is being used
-		foreach($sidebars_widgets as $sidebar => $widgets){
-			if( 'wp_inactive_widgets' == $sidebar )
-				continue;
-				
-				if ( is_array($widgets) ) {
-			 		foreach ( $widgets as &$widget ) {
-						if( "fergcorp_countdowntimer" == $widget ){
-							add_action('admin_notices', array( &$this, 'showWidgetUpdateMessage' ) );
-						}
-					}
-				}
-		}
-		
-		$this->install();
-	}
-	
-	/**
-	 * Just show our message (with possible checking if we only want
-	 * to show message to certain users.
-	 */
-	function showWidgetUpdateMessage()
-	{
-	    // Shows as an error message. You could add a link to the right page if you wanted.
-	    $this->showMessage("Update of Countdown Timer is almost complete. It looks like you were using the widget before, I'm terribly sorry but can you please re-add it?", true);
-
-	}
-	
-	/**
-	 * Generic function to show a message to the user using WP's 
-	 * standard CSS classes to make use of the already-defined
-	 * message colour scheme.
-	 *
-	 * @param $message The message you want to tell the user.
-	 * @param $errormsg If true, the message is an error, so use 
-	 * the red message style. If false, the message is a status 
-	  * message, so use the yellow information message style.
-	 */
-	function showMessage($message, $errormsg = false)
-	{
-		if ($errormsg) {
-			echo '<div id="message" class="error">';
-		}
-		else {
-			echo '<div id="message" class="updated fade">';
-		}
-	
-		echo "<p><strong>$message</strong></p></div>";
-	}  
-	
 }
 
 class Fergcorp_Countdown_Timer_Event extends DateTime {
