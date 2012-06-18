@@ -1062,13 +1062,11 @@ class Fergcorp_Countdown_Timer{
 		$plugin_data = get_plugin_data(__FILE__);
 
 		//Move widget details from old option to new option only if the new option does not exist
-		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {	
-			FB::info("update_option('widget_fergcorp_countdown_timer_widget')"); 
+		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {	 
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
 																			"countLimit"	=> $oldWidget["count"],
 																			)
-			);
-			FB::info("delete_option('widget_fergcorp_countdown_timer')"); 
+			); 
 			delete_option("widget_fergcorp_countdown");
 			
 			global $sidebars_widgets;
@@ -1082,11 +1080,8 @@ class Fergcorp_Countdown_Timer{
 					
 					if ( is_array($widgets) ) {
 				 		foreach ( $widgets as $widget ) {
-				 			
 							if( "fergcorp_countdowntimer" == $widget ){
-								FB::log($sidebars_widgets[$thisSidebar][$j], "replacing old widget");	
-								$sidebars_widgets[$thisSidebar][$j] = "widget_fergcorp_countdown_timer_widget-1";
-								FB::log($sidebars_widgets[$thisSidebar][$j], "updating widget");
+								$sidebars_widgets[$thisSidebar][$j] = "fergcorp_countdown_timer_widget-2"; //not sure why the ID has to be 2, but it does
 							}
 							$j++;
 						}
@@ -1094,26 +1089,19 @@ class Fergcorp_Countdown_Timer{
 			}
 		wp_set_sidebars_widgets($sidebars_widgets);
 		wp_get_sidebars_widgets();
-		FB::log($sidebars_widgets, "out of loop, checking stickiness");
-			
-						
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $oldWidget ){	
-			FB::info("update_option('widget_fergcorp_countdown')"); 
+		elseif( $oldWidget ){	 
 			delete_option("widget_fergcorp_countdown");
 		}
 		
 		//Move timeFormat data from old option to new option only if the new option does not exist
-		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {	
-			FB::info("update_option('fergcorp_countdownTimer_timeFormat')"); 
-			FB::info("delete_option('fergcorp_countdownTimer_timeOffset')"); 
+		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {	 
 			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
 			delete_option("fergcorp_countdownTimer_timeOffset");			
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $timeOffset ){
-			FB::info("delete_option('fergcorp_countdownTimer_timeOffset')"); 
+		elseif( $timeOffset ){ 
 			delete_option("fergcorp_countdownTimer_timeOffset");
 		}
 		
@@ -1122,9 +1110,7 @@ class Fergcorp_Countdown_Timer{
 			$event_object_array = array();
 			foreach( $oneTimeEvent as $event ) {
 				array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($event["date"], $event["text"], $event["link"], $event["timeSince"]));
-			}
-			
-			FB::info("update_option('fergcorp_countdownTimer_oneTimeEvent')"); 
+			} 
 			update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
 		}
 
@@ -1144,7 +1130,6 @@ class Fergcorp_Countdown_Timer{
 				return false;
 			}
 			else{
-				FB::info($option, "install option");
 				update_option($prefix.$option, $default);
 				return true;
 			}
@@ -1167,7 +1152,6 @@ class Fergcorp_Countdown_Timer{
 		install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
 		
 		//Update version number...last thing
-		FB::info("update_option('fergcorp_countdownTimer_version')");
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
 		
 		//Reload settings:
@@ -1233,7 +1217,7 @@ class Fergcorp_Countdown_Timer{
 			$output .= __('No', 'fergcorp_countdownTimer');
 			
 			return $output;
-		}
+		}	
 }
 
 class Fergcorp_Countdown_Timer_Event extends DateTime {
