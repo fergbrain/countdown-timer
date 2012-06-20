@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0.1
+Version: 3.0.4
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -61,17 +61,8 @@ class Fergcorp_Countdown_Timer{
 	
 	private $version;
 	
-	
-	
-	/**
-	 * Default construct to initialize settings required no matter what
-	 * 
-	 * @since 3.0
-	 * @access public
-	 * @author Andrew Ferguson
-	 */
-	public function __construct(){
-		// Load settings
+	public function loadSettings(){
+			
 		$this->version = get_option("fergcorp_countdownTimer_version");
 		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
 		$this->timeFormat = get_option("fergcorp_countdownTimer_timeFormat");
@@ -89,10 +80,29 @@ class Fergcorp_Countdown_Timer{
 		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
 		
 		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
+	}
+	
+	
+	
+	/**
+	 * Default construct to initialize settings required no matter what
+	 * 
+	 * @since 3.0
+	 * @access public
+	 * @author Andrew Ferguson
+	 */
+	public function __construct(){
+		// Load settings		
+		$this->loadSettings();
 
-		if(version_compare($this->version, "3.0.1", "<")){
+
+
+		if(version_compare($this->version, "3.0.4", "<")){
 			add_action('admin_init', array( &$this, 'install' ) );
+			add_action('admin_init', array( &$this, 'loadSettings' ) );
+			
 		}
+
 
 		// Register scripts for the countdown timer
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
@@ -121,7 +131,6 @@ class Fergcorp_Countdown_Timer{
 		 
 		$plugin = plugin_basename(__FILE__); 
 		add_filter("plugin_action_links_$plugin", array( &$this, 'settings_link' ) );
-
 	}
 	
 	/**
@@ -1089,6 +1098,9 @@ class Fergcorp_Countdown_Timer{
 			}
 		wp_set_sidebars_widgets($sidebars_widgets);
 		wp_get_sidebars_widgets();
+		
+		
+		
 		}
 		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
 		elseif( $oldWidget ){
@@ -1153,27 +1165,6 @@ class Fergcorp_Countdown_Timer{
 		
 		//Update version number...last thing
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
-		
-		//Reload settings:
-		$this->version = get_option("fergcorp_countdownTimer_version");
-		$this->deleteOneTimeEvents = get_option("fergcorp_countdownTimer_deleteOneTimeEvents");
-		$this->timeFormat = get_option("fergcorp_countdownTimer_timeFormat");
-		$this->showYear = get_option("fergcorp_countdownTimer_showYear");
-		$this->showMonth = get_option("fergcorp_countdownTimer_showMonth");
-		$this->showWeek = get_option("fergcorp_countdownTimer_showWeek");
-		$this->showDay = get_option("fergcorp_countdownTimer_showDay");
-		$this->showHour = get_option("fergcorp_countdownTimer_showHour");
-		$this->showMinute = get_option("fergcorp_countdownTimer_showMinute");
-		$this->showSecond = get_option("fergcorp_countdownTimer_showSecond");
-		$this->stripZero = get_option("fergcorp_countdownTimer_stripZero");
-		$this->enableJS = get_option("fergcorp_countdownTimer_enableJS");
-		$this->timeSinceTime = get_option("fergcorp_countdownTimer_timeSinceTime");
-		$this->titleSuffix = get_option("fergcorp_countdownTimer_titleSuffix");
-		$this->enabledShortcodeExcerpt = get_option("fergcorp_countdownTimer_enableShortcodeExcerpt");
-		
-		$this->eventList  = get_option("fergcorp_countdownTimer_oneTimeEvent"); //Get the events from the WPDB to make sure a fresh copy is being used
-		
-		
 	}
 
 		/**
