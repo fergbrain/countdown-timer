@@ -36,6 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 */
 
+/**
+ * Main class for Countdown related activities
+ * 
+ * @package Countdown_Timer
+ * @author Andrew Ferguson
+ * @since 3.0
+ * @access public
+ */
 class Fergcorp_Countdown_Timer{
 		
 	//Per instance
@@ -61,6 +69,13 @@ class Fergcorp_Countdown_Timer{
 	
 	private $version;
 	
+	/**
+	 * Load settings
+	 * 
+	 * @since 3.0.4
+	 * @access public
+	 * @author Andrew Ferguson
+	 */
 	public function loadSettings(){
 			
 		$this->version = get_option("fergcorp_countdownTimer_version");
@@ -95,14 +110,11 @@ class Fergcorp_Countdown_Timer{
 		// Load settings		
 		$this->loadSettings();
 
-
-
 		if(version_compare($this->version, "3.0.4", "<")){
 			add_action('admin_init', array( &$this, 'install' ) );
 			add_action('admin_init', array( &$this, 'loadSettings' ) );
 			
 		}
-
 
 		// Register scripts for the countdown timer
 		wp_register_script('webkit_sprintf', plugins_url(dirname(plugin_basename(__FILE__)) . "/js/" . 'webtoolkit.sprintf.js'), FALSE, $this->version);
@@ -172,7 +184,6 @@ class Fergcorp_Countdown_Timer{
 
 		}
 	}
-	
 	
 	/**
 	 * Adds the management page in the admin menu
@@ -1172,21 +1183,31 @@ class Fergcorp_Countdown_Timer{
 		 * 
 		 * @package Countdown_Timer
 		 * @author Andrew Ferguson
-		 * @since 2.4.4
-		 * @access private
+		 * @since 3.0
+		 * @access public
 		 * @param array		$inputArray
 		 * @param string 	$inputString
 		 * $return string HMTL code
 		 */		
-		function build_input($inputArray, $inputString=''){
+		public function build_input($inputArray, $inputString=''){
 			$attributes = "";
 			foreach ($inputArray as $key => $value) {
 				$attributes .= "$key=\"$value\" ";
 			}
 			return " <input ".trim($attributes." ".$inputString)." />";
 		}
-		
-		function build_yes_no($name, $option){
+		/**
+		 * Builds Yes/No <input> HTML
+		 * 
+		 * @package Countdown_Timer
+		 * @author Andrew Ferguson
+		 * @since 3.0
+		 * @access public
+		 * @param string	$name
+		 * @param string 	$option
+		 * $return string HMTL code
+		 */		
+		public function build_yes_no($name, $option){
 			//Yes
 			$output = $this->build_input(array(
 								"type"  => "radio",
