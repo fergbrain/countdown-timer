@@ -179,8 +179,8 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 = 3.0.2 =
 Release date: 6/20/2012
 
- * Bug fix: Settings are updated and loaded properly during both upgrade and activations
- * Bug fix: JS display now respects time unit settings
+ * Bug fix: Settings are updated and loaded properly during both upgrade and activations, thanks to [Beee] and [bonzo01] for playing canary in the coalmine
+ * Bug fix: JS display now respects time unit settings, thanks to [Beee] and [bonzo01] for pointing this out
 
 = 3.0.1 =
 Release date: 6/18/2012
