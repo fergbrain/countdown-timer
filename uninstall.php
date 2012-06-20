@@ -1,7 +1,7 @@
 <?php
 /*
 Countdown Timer Uninstall Module
-Version 3.0 (kept in step with fergcorp_countdownTimer.php)
+Version 3.0.2 (kept in step with fergcorp_countdownTimer.php)
 Copyright (c) 2009-2012 Andrew Ferguson
 ---------------------------------------------------------------------------------
 This program is free software; you can redistribute it and/or
