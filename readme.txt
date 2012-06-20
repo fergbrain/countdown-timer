@@ -79,14 +79,14 @@ Add the widget to the sidebar by going to Appearances > Widget in The Dashboard.
 = Adding to a post or page =
 
 If you want to insert the Countdown Timer into a page or post, you can use the following shortcodes to return all or a limited number of Countdown Timers, respectively:
-`[fergcorp\_cdt]`
-`[fergcorp\_cdt max=##]`
+`[fergcorp_cdt]`
+`[fergcorp_cdt max=##]`
 
 Where _##_ is maximum number of results to be displayed, ordered by date.
 
 If you want to insert individual countdown timers, such as in posts or on pages, you can use the following shortcode:
 
-`[fergcorp_cdt_single date="ENTER\_DATE\_HERE"]`
+`[fergcorp_cdt_single date="ENTER_DATE_HERE"]`
 
 Example:
 `Time until our wedding:
@@ -175,6 +175,12 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 2. Example on Blog
 
 == Changelog ==
+
+= 3.0.2 =
+Release date: 6/20/2012
+
+ * Bug fix: Settings are updated and loaded properly during both upgrade and activations
+ * Bug fix: JS display now respects time unit settings
 
 = 3.0.1 =
 Release date: 6/18/2012
