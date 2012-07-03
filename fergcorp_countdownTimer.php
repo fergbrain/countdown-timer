@@ -373,7 +373,7 @@ class Fergcorp_Countdown_Timer{
 					if ( is_array( $this->eventList ) ) {	
 						foreach ( $this->eventList as $thisEvent ) {
 						//If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
-						if ( ( $this->deleteOneTimeEvents ) && ( $thisEvent <= new DateTime() ) ) {
+						if ( ( $this->deleteOneTimeEvents ) && ( $thisEvent <= new DateTime() ) && ( !$thisEvent->getTimeSince() ) ) {
 							$thisEvent = NULL;
 						}
 						else{
@@ -682,7 +682,12 @@ class Fergcorp_Countdown_Timer{
 		if($this->eventsPresent){
 			$this->eventsPresent = FALSE; //Reset the test
 			for($i = 0; $i < $eventCount; $i++){
-					$toReturn .= $this->formatEvent($this->eventList[$i], FALSE); //stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]->getTitle()), $fergcorp_countdownTimer_oneTimeEvent[$i]["date"], 0, $fergcorp_countdownTimer_oneTimeEvent[$i]["timeSince"], get_option('fergcorp_countdownTimer_timeSinceTime'), stripslashes($fergcorp_countdownTimer_oneTimeEvent[$i]["link"]), get_option('fergcorp_countdownTimer_timeFormat'), false);			
+				if( ( '' == ( $thisTimer = $this->formatEvent($this->eventList[$i], FALSE ) ) ) && ( $eventCount < count( $this->eventList ) ) ) {
+					$eventCount++;
+				}
+				else{
+					$toReturn .= $thisTimer;
+				}
 			}
 		}
 		
