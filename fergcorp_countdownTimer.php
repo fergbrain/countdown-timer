@@ -648,7 +648,7 @@ class Fergcorp_Countdown_Timer{
 	*/
 	public function singleTimer( $date ){
 		
-		return $this->formatEvent( new Fergcorp_Countdown_Timer_Event( strtotime( $date ), NULL, NULL, 1) , TRUE );
+		return $this->formatEvent( new Fergcorp_Countdown_Timer_Event( strtotime( $date ) ) , TRUE );
 		
 	}
 
@@ -731,7 +731,13 @@ class Fergcorp_Countdown_Timer{
 		}
 		$timePrefix = "<abbr title = \"".date_i18n($this->timeFormat, $thisEvent->getTimestamp(), FALSE)."\" id = '".$thisEvent->getUID()."' class = 'fergcorp_countdownTimer_event_time'>";
 		
-		if ( ( $time_left < 0 ) && ( $thisEvent->getTimeSince() ) && ( ( ( $time_left + $this->timeSinceTime ) > 0 ) || ( 0 == $this->timeSinceTime ) ) ){ //If the event has already passed and we still want to display the event
+		if ( 	( $time_left <= 0 ) && 
+					( ( ( $thisEvent->getTimeSince() ) && 
+						( ( ( $time_left + $this->timeSinceTime ) > 0 ) || ( 0 == $this->timeSinceTime ) ) )
+				|| ( $standAlone) ) ) {
+						
+					//If the event has already passed and we still want to display the event
+				
 			$this->eventsPresent = TRUE; //Set to TRUE so we know there's an event to display
 			if ( $thisEvent->getTitle() ) {
 				$content .= $eventTitle;
