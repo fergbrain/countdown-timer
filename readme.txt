@@ -3,8 +3,8 @@ Contributors: fergbrain
 Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer, wedding, localization, i18n
 Requires at least: 3.4
-Tested up to: 3.4
-Stable tag: 3.0.2
+Tested up to: 3.5
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,14 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 2. Example on Blog
 
 == Changelog ==
+
+= 3.0.3 =
+Release date: 7/3/2012
+
+ * Bug fix: Shortcode for events in the past will always display
+ * Bug fix: Don't delete events that have their getTimeSince flag set
+ * Bug fix: Fixed expired timers that didn't show counting against limit of timers displayed
+ * Other minor code cleanup
 
 = 3.0.2 =
 Release date: 6/20/2012
