@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0.2
+Version: 3.0.3
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -646,13 +646,10 @@ class Fergcorp_Countdown_Timer{
 	 * @access public
 	 * @author Andrew Ferguson
 	*/
-	public function singleTimer($date){
+	public function singleTimer( $date ){
 		
-		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)), TRUE);
+		return $this->formatEvent( new Fergcorp_Countdown_Timer_Event( strtotime( $date ), NULL, NULL, 1) , TRUE );
 		
-		//return 
-		
-		//atEventp_countdownTimer_format('', strtotime($date), ( date('Z') - (get_option('gmt_offset') * 3600) ), true, '0', '', get_option('fergcorp_countdownTimer_timeFormat'), true);
 	}
 
 	/**
@@ -721,6 +718,8 @@ class Fergcorp_Countdown_Timer{
 	*/
 	function formatEvent($thisEvent, $standAlone = FALSE){	
 		$time_left = $thisEvent->getTimestamp() - time();
+		
+		$content = '';
 		
 		if(!$standAlone)
 			$content = "<li class = 'fergcorp_countdownTimer_event_li'>";
@@ -942,7 +941,7 @@ class Fergcorp_Countdown_Timer{
 	}
 	
 	/**
-	 * Processes [fergcorp_cdt max=##] shortcode
+	 * Processes [fergcorp_cdt_single date="_DATE_"] shortcode
 	 *
 	 * @param $atts array Attributes of the shortcode
 	 * @since 2.3
@@ -955,7 +954,7 @@ class Fergcorp_Countdown_Timer{
 			'date' => '-1',
 		), $atts));
 	
-		return $this->formatEvent(new Fergcorp_Countdown_Timer_Event(strtotime($date)), TRUE);
+		return $this->singleTimer( $date );
 	}
 	
 	
