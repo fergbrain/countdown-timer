@@ -1019,16 +1019,18 @@ class Fergcorp_Countdown_Timer{
 				}
 	
 				/*Begin sorting events by time*/
-				function cmp($adate, $bdate) {
-				    if($adate < $bdate){
-				        return -1;  
-				    }else if($adate == $bdate){
-				        return 0;   
-				    }else{
-				        return 1;   
-				    }
-				}
-				usort($event_object_array, 'cmp');
+				usort($event_object_array, function($adate, $bdate)
+					{
+					    //FB::info("in anon func");
+					    if($adate < $bdate){
+					        return -1;  
+					    }else if($adate == $bdate){
+					        return 0;   
+					    }else{
+					        return 1;   
+					    }
+					}
+				);
 		return $event_object_array;
 	}
 
