@@ -898,31 +898,31 @@ class Fergcorp_Countdown_Timer{
 		//Second
 		if($this->showSecond){
 			$timeDelta->s = $timeDelta->s + $rollover;
-			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $timeDelta->s, "fergcorp_countdownTimer"), $timeDelta->s)."</span> ";
+			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $timeDelta->s, "fergcorp_countdownTimer"), $timeDelta->s) . "</span> ";
 		}
 		
 		//Catch blank statements
 		if($s==""){
 			if($this->showSecond){
-				$s = sprintf(_n("%d second,", "%d seconds,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showMinute){
-				$s = sprintf(_n("%d minute,", "%d minute,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showHour){
-				$s = sprintf(_n("%d hour,", "%d hour,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}	
 			elseif($this->showDay){
-				$s = sprintf(_n("%d day,", "%d day,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}	
 			elseif($this->showWeek){
-				$s = sprintf(_n("%d week,", "%d week,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showMonth){
-				$s = sprintf(_n("%d month,", "%d month,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			else{
-				$s = sprintf(_n("%d year,", "%d year,", "0", "fergcorp_countdownTimer"), "0");
+				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 		}
 		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
@@ -1021,7 +1021,6 @@ class Fergcorp_Countdown_Timer{
 				/*Begin sorting events by time*/
 				usort($event_object_array, function($adate, $bdate)
 					{
-					    //FB::info("in anon func");
 					    if($adate < $bdate){
 					        return -1;  
 					    }else if($adate == $bdate){
