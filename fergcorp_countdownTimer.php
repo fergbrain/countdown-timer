@@ -373,7 +373,7 @@ class Fergcorp_Countdown_Timer{
 					if ( is_array( $this->eventList ) ) {	
 						foreach ( $this->eventList as $thisEvent ) {
 						//If the user wants, cycle through the array to find out if they have already occured, if so: set them to NULL
-						if ( ( $this->deleteOneTimeEvents ) && ( $thisEvent <= new DateTime() ) && ( !$thisEvent->getTimeSince() ) ) {
+						if ( ( $this->deleteOneTimeEvents ) && ( $thisEvent->getTimestamp() <= time() ) && ( !$thisEvent->getTimeSince() ) ) {
 							$thisEvent = NULL;
 						}
 						else{
