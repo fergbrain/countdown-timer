@@ -110,7 +110,7 @@ class Fergcorp_Countdown_Timer{
 		// Load settings		
 		$this->loadSettings();
 
-		if(version_compare($this->version, "3.0.3", "<")){
+		if(version_compare($this->version, "3.0.4", "<")){
 			add_action('admin_init', array( &$this, 'install' ) );
 			add_action('admin_init', array( &$this, 'loadSettings' ) );
 			
