@@ -3,7 +3,7 @@ require_once('fergcorp_countdownTimer.php');
 
 
 /**
- * Milestone Tests
+ * Countdown Timer Tests
  */
 
 class CountdownTimerTest extends WP_UnitTestCase {
@@ -35,11 +35,6 @@ class CountdownTimerTest extends WP_UnitTestCase {
 	public function test_construct(){
 		$pluginData = get_plugin_data("fergcorp_countdownTimer.php");
 		//global $fergcorp_countdownTimer_init;
-		
-		//global $fergcorp_countdownTimer_init;
-		//First we need to create a ReflectionClass object
-		//passing in the class name as a variable
-		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer");
 		
 		$defaultInstallValues = array(
 		'deleteOneTimeEvents' => '0',
@@ -164,6 +159,116 @@ class CountdownTimerTest extends WP_UnitTestCase {
 		//@TODO
 	}
 	
+	public function test_register_settings_page(){
+		//@TODO
+		//has_action( 'admin_print_scripts-' . $settings_page, array( &$this, 'print_countdown_scripts' ) );
+	}
+	
+	public function test_settings_page(){
+		//@TODO:
+		//$this->expectOutputRegex("(.*)");
+		//$this->plugin->settings_page();
+	}
+	
+	public function test_display_options_meta_box(){
+		//@TODO
+	}
+	
+	public function test_events_meta_box(){
+		//@TODO
+	}
+	
+	public function test_installation_meta_box(){
+		//@TODO
+	}
+	
+	public function test_management_meta_box(){
+		//@TODO
+	}
+	
+	public function test_onHover_time_format_meta_box(){
+		//@TODO
+	}
+	
+	public function test_display_format_options_meta_box(){
+		//@TODO
+	}
+	
+	public function test_example_display_meta_box(){
+		//@TODO
+	}
+	
+	public function test_singleTimer(){
+		//@TODO
+	}
+	
+	public function test_showTimer(){
+		//@TODO
+	}
+	
+	public function test_formatEvent(){
+		//@TODO
+	}
+	
+	public function test_fuzzyDate(){
+		//@TODO
+	}
+	
+	public function test_shortcode_showTimer(){
+		//@TODO
+	}
+	
+	public function test_shortcode_singleTimer(){
+		//@TODO
+	}
+	
+	public function test_register_settings(){
+		//@TODO
+	}
+	
+	public function test_sanitize(){
+		//@TODO
+	}
+	
+	public function test_json(){
+		//@TODO
+	}
+	
+	public function test_install(){
+		//@TODO
+	}
+	
+	public function test_install_option(){
+		$prefix = "test";
+		$option = "option";
+		$default = "default";
+		
+		$this->assertTrue($this->plugin->install_option($prefix, $option, $default));
+		$this->assertFalse($this->plugin->install_option($prefix, $option, $default));
+		$this->assertEquals(get_option($prefix.$option), $default);
+	}
+	
+	public function test_build_input(){
+		$this->expectOutputRegex("/^ <input(.*?)type=\"checkbox\" name=\"fergcorp_countdownTimer_oneTimeEvent\[1\]\[timeSince\]\" value=\"1\"(.*?)checked=\'checked\' \/>$/");	
+		echo $this->plugin->build_input(array(
+												"type" => "checkbox",
+												"name" => "fergcorp_countdownTimer_oneTimeEvent[1][timeSince]",
+												"value" => 1,
+												), 
+											checked("1", "1", false)
+										);
+	}
+	
+	public function test_build_yes_no_1(){
+		$this->expectOutputRegex("/^ <input(.*?)name=\"name\"(.*?)checked=\'checked\' \/>(.*?)<input(.*?)name=\"name\"(.*?) \/>No$/");
+		echo $this->plugin->build_yes_no("name", "1");
+	}
+	
+	public function test_build_yes_no_0(){
+		$this->expectOutputRegex("/^ <input(.*?)name=\"name\"(.*?) \/>(.*?)<input(.*?)name=\"name\"(.*?)checked=\'checked\' \/>No$/");
+		echo $this->plugin->build_yes_no("name", "0");
+	}
+	
 	public function test_fergcorp_countdown_timer_register_widgets(){
 		fergcorp_countdown_timer_register_widgets();
 	}
@@ -178,6 +283,55 @@ class CountdownTimerTest extends WP_UnitTestCase {
 		 unset($this->plugin);
 		
 	}
+}
+
+class Countdown_Timer_Event_Test extends WP_UnitTestCase {
+    public $plugin_slug = 'countdown_timer';
+	private $plugin;
 	
+	//TOTEST:
+	/* Input validation? Only test valid inputs...don't test for invalid?
+	 * Test date manipulation
+	 * Test Defaults
+	 * Test blanks (e.g. database corruption)
+	 * 
+	*/
+	  
+    public function setUp() {
+        parent::setUp();
+		
+		$date = "31 January 2015"; //1422662400
+		
+		$GLOBALS['fergcorp_countdown_timer_event'] = new Fergcorp_Countdown_Timer_Event( strtotime( $date ), "myTitle", "http://google.com",  true);
+        $this->plugin = $GLOBALS['fergcorp_countdown_timer_event'];
+		
+		//$this->plugin->__construct();
+    }
 	
+	public function testTrue(){
+		$this->assertTrue(true);
+	}
+	
+	public function test_construct(){
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		
+		$values = array("title" => "myTitle", 
+						"time" => "1422662400",
+						"url" => "http://google.com",
+						"timeSince" => "1",
+						
+						);
+		
+		
+		$props = $reflection_class->getProperties(ReflectionProperty::IS_PRIVATE);
+		
+		foreach ($props as $prop) {
+			$prop->setAccessible(true);
+			echo $prop->getName() . ": " . $prop->getValue($this->plugin) ."\n";
+			if(key_exists($prop->getName(), $values)){
+				$this->assertEquals($values[$prop->getName()], $prop->getValue($this->plugin), "Failed to match: ".$prop->getName());
+			}
+		}
+		
+	}
 }
