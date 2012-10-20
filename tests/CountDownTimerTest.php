@@ -315,23 +315,307 @@ class Countdown_Timer_Event_Test extends WP_UnitTestCase {
 	public function test_construct(){
 		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
 		
-		$values = array("title" => "myTitle", 
-						"time" => "1422662400",
-						"url" => "http://google.com",
-						"timeSince" => "1",
-						
+		$values = array("title" => "/^myTitle$/", 
+						"time" => "/^1422662400$/",
+						"url" => "/^http\:\/\/google\.com$/",
+						"timeSince" => "/^1$/",
+						"UID" => "/^x[0-9a-z]{32}$/"
 						);
-		
+						
 		
 		$props = $reflection_class->getProperties(ReflectionProperty::IS_PRIVATE);
 		
 		foreach ($props as $prop) {
 			$prop->setAccessible(true);
-			echo $prop->getName() . ": " . $prop->getValue($this->plugin) ."\n";
+			//echo $prop->getName() . ": " . $prop->getValue($this->plugin) ."\n";
 			if(key_exists($prop->getName(), $values)){
-				$this->assertEquals($values[$prop->getName()], $prop->getValue($this->plugin), "Failed to match: ".$prop->getName());
+				$this->assertRegExp($values[$prop->getName()], (string) $prop->getValue($this->plugin), "Failed to match: ".$prop->getName());
 			}
 		}
 		
 	}
+	
+	public function test_getTimestamp() {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("time");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getTimestamp(), $prop->getValue($this->plugin));
+    }
+	
+	public function test_setTitle () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("title");
+		$prop->setAccessible(true);
+		
+		$current_value = $prop->getValue($this->plugin);
+		$this->plugin->setTitle("new title");
+		
+		$this->assertNotEquals("new title", $current_value);
+		$this->assertEquals("new title", $prop->getValue($this->plugin));
+
+	}
+	
+	public function test_setTime () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("time");
+		$prop->setAccessible(true);
+		
+		$current_value = $prop->getValue($this->plugin);
+		$this->plugin->setTime(123456789);
+		
+		$this->assertNotEquals(123456789, $current_value);
+		$this->assertEquals(123456789, $prop->getValue($this->plugin));
+	}
+	
+	public function test_setURL () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("url");
+		$prop->setAccessible(true);
+		
+		$current_value = $prop->getValue($this->plugin);
+		$newValue = "http://example.com";
+		$this->plugin->setURL($newValue);
+		
+		$this->assertNotEquals($newValue, $current_value);
+		$this->assertEquals($newValue, $prop->getValue($this->plugin));
+	}
+	
+	public function test_setTimeSince ( ) {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("timeSince");
+		$prop->setAccessible(true);
+		
+		$current_value = $prop->getValue($this->plugin);
+		$newValue = "0";
+		$this->plugin->setTimeSince($newValue);
+		
+		$this->assertNotEquals($newValue, $current_value);
+		$this->assertEquals($newValue, $prop->getValue($this->plugin));
+	}
+	
+	public function test_getTitle () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("title");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getTitle(), $prop->getValue($this->plugin));
+	}
+	
+	public function test_getTime () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("time");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getTime(), $prop->getValue($this->plugin));
+	}
+	
+	public function test_getURL () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("url");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getURL(), $prop->getValue($this->plugin));
+	}
+	
+	public function test_getTimeSince () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("timeSince");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getTimeSince(), $prop->getValue($this->plugin));
+	}
+	
+	public function test_getUID () {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("UID");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->getUID(), $prop->getValue($this->plugin));
+	}
+	
+	public function  test_date ( ) {
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer_Event");
+		$prop = $reflection_class->getProperty("time");
+		$prop->setAccessible(true);
+		$this->assertEquals($this->plugin->date("U"), $prop->getValue($this->plugin));
+	}	
+}
+
+class Countdown_Timer_Widget_Test extends WP_UnitTestCase {
+    public $plugin_slug = 'countdown_timer';
+	private $plugin;
+	
+	//TOTEST:
+	/* Input validation? Only test valid inputs...don't test for invalid?
+	 * Test date manipulation
+	 * Test Defaults
+	 * Test blanks (e.g. database corruption)
+	 * 
+	*/
+	  
+    public function setUp() {
+        parent::setUp();
+		
+		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
+        $this->fergcorp_countdownTimer_init = $GLOBALS['fergcorp_countdownTimer_init'];
+		$this->fergcorp_countdownTimer_init->install();
+		$this->fergcorp_countdownTimer_init->__construct();
+		
+		$date = "31 January 2015"; //1422662400
+		
+		$GLOBALS['fergcorp_countdown_timer_widget'] = new Fergcorp_Countdown_Timer_Widget();
+        $this->plugin = $GLOBALS['fergcorp_countdown_timer_widget'];
+
+    }
+	
+	public function testTrue(){
+		$this->assertTrue(true);
+	}
+	
+	public function test_construct(){
+
+		$this->assertEquals("fergcorp_countdown_timer_widget", $this->plugin->id_base);
+		$this->assertEquals("Countdown Timer", $this->plugin->name);
+		$this->assertEquals("widget_fergcorp_countdown_timer_widget", $this->plugin->widget_options["classname"]);
+		$this->assertEquals("Adds the Countdown Timer", $this->plugin->widget_options["description"]);
+		$this->assertEquals("fergcorp_countdown_timer_widget", $this->plugin->control_options["id_base"]);
+
+		
+	}
+	
+	public function test_form_1(){
+		$this->expectOutputRegex("/<label(.*?)>(.*?)<\/label>(.*?)<input(.*?)\/>(.*?)<label(.*?)>(.*?)<\/label>(.*?)<input(.*?)\/>(.*?)<small><strong>(.*?)<\/strong>(.*?)<\/small>/is");
+		echo $this->plugin->form( $instance );
+
+	}
+	
+	public function test_form_2(){
+		$instance = array(	"title" => "New Title",
+								"countLimit" => "5",
+		
+		);
+		$this->expectOutputRegex("/<label(.*?)>(.*?)<\/label>(.*?)<input(.*?)\/>(.*?)<label(.*?)>(.*?)<\/label>(.*?)<input(.*?)\/>(.*?)<small><strong>(.*?)<\/strong>(.*?)<\/small>/is");
+		echo $this->plugin->form( $instance );
+
+	}
+	
+	public function test_update(){
+		
+		$new_instance = array(	"title" => "New Title",
+								"countLimit" => "5",
+		
+		);
+		
+		$old_instance = array();
+		
+		$update = $this->plugin->update($new_instance, $old_instance );
+		
+		$this->assertCount(2, $update);
+		$this->assertEquals("New Title", $update["title"] );
+		$this->assertEquals(5, $update["countLimit"] );
+		
+	}
+		
+	public function test_widget_1( ){
+		$args = array(
+					'name' => 'Main Sidebar',
+					'id' => 'sidebar-1',
+					'description' => '',
+					'class' => '',
+					'before_widget' => '<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget">',
+					'after_widget' => '</aside>',
+					'before_title' => '<h3 class="widget-title">',
+					'after_title' => '</h3>',
+					'widget_id' => 'fergcorp_countdown_timer_widget-2',
+					'widget_name' => 'Countdown Timer',
+					);
+		$this->expectOutputRegex("/^<aside(.*?)><ul>(.*?)<\/ul><\/aside>$/is");
+		print $this->plugin->widget($args, $instance );
+		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><ul>No dates present</ul></aside>
+
+	}
+	public function test_widget_2( ){
+		$args = array(
+					'name' => 'Main Sidebar',
+					'id' => 'sidebar-1',
+					'description' => '',
+					'class' => '',
+					'before_widget' => '<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget">',
+					'after_widget' => '</aside>',
+					'before_title' => '<h3 class="widget-title">',
+					'after_title' => '</h3>',
+					'widget_id' => 'fergcorp_countdown_timer_widget-2',
+					'widget_name' => 'Countdown Timer',
+					);
+		$instance = array(	"title" => "New Title",
+							"countLimit" => "5",
+		
+		);
+		$this->expectOutputRegex("/^<aside(.*?)><h3(.*?)>New Title<\/h3><ul>(.*?)<\/ul><\/aside>$/is");
+		print $this->plugin->widget($args, $instance );
+		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><h3 class="widget-title">New Title</h3><ul>No dates present</ul></aside>
+	
+	}
+	
+}
+
+
+class DeltaTime_Test extends WP_UnitTestCase {
+    public $plugin_slug = 'countdown_timer';
+	private $plugin;
+	
+	//TOTEST:
+	/* Input validation? Only test valid inputs...don't test for invalid?
+	 * Test date manipulation
+	 * Test Defaults
+	 * Test blanks (e.g. database corruption)
+	 * 
+	*/
+	  
+    public function setUp() {
+        parent::setUp();
+		
+		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
+        $this->fergcorp_countdownTimer_init = $GLOBALS['fergcorp_countdownTimer_init'];
+		$this->fergcorp_countdownTimer_init->install();
+		$this->fergcorp_countdownTimer_init->__construct();
+		
+		$targetTime = mktime(01, 02, 03, 01, 31, 2015); //?1422662400
+		$nowTime = mktime(12, 01, 02, 10, 19, 2012);
+		
+		$GLOBALS['fergcorp_deltatime'] = new Fergcorp_DeltaTime($targetTime, $nowTime);
+        $this->plugin = $GLOBALS['fergcorp_deltatime'];
+
+    }
+	
+	public function testTrue(){
+		$this->assertTrue(true);
+	}
+
+
+	public function test_contruct(){
+		
+		
+			$this->assertEquals(2012, $this->plugin->nowYear);
+			$this->assertEquals(10, $this->plugin->nowMonth);
+			$this->assertEquals(19, $this->plugin->nowDay);
+			$this->assertEquals(12, $this->plugin->nowHour);
+			$this->assertEquals(01, $this->plugin->nowMinute);
+			$this->assertEquals(02, $this->plugin->nowSecond);
+			
+			$this->assertEquals(2015, $this->plugin->targetYear);
+			$this->assertEquals(01, $this->plugin->targetMonth);
+			$this->assertEquals(31, $this->plugin->targetDay);
+			$this->assertEquals(01, $this->plugin->targetHour);
+			$this->assertEquals(02, $this->plugin->targetMinute);
+			$this->assertEquals(03, $this->plugin->targetSecond);
+			
+			$this->assertEquals(3, $this->plugin->y);
+			$this->assertEquals(-9, $this->plugin->m);
+			$this->assertEquals(12, $this->plugin->d);
+			$this->assertEquals(-11, $this->plugin->h);
+			$this->assertEquals(01, $this->plugin->i);
+			$this->assertEquals(01, $this->plugin->s);
+			
+			$this->assertEquals(NULL, $this->plugin->w);
+			
+			$this->assertEquals(72018061, $this->plugin->delta);
+		
+	}
+
 }
