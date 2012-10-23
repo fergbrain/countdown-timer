@@ -2,6 +2,218 @@
 require_once('fergcorp_countdownTimer.php');
 
 
+
+class Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase {
+	public $plugin_slug = 'countdown_timer';
+	private $plugin;
+	
+	public 	$docType = "XHTML 1.0 Transitional";
+	public 	$htmlStart = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>I AM YOUR DOCUMENT TITLE REPLACE ME</title><meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" /><meta http-equiv="Content-Style-Type" content="text/css" /></head><body><div>';
+	public $htmlEnd = "</div></body></html>";
+	
+	public function setUp() {
+        parent::setUp();
+		define('WP_ADMIN', true);
+		$user1_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user1_id );
+		
+		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
+        $this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
+		$this->plugin->install();
+		
+		$this->plugin->__construct();
+		
+		
+		
+    }
+	
+	public function test_print_admin_script(){ 
+		$this->assertTrue(is_admin());
+		$this->plugin->print_admin_script();
+		$this->assertTrue(wp_script_is("postbox", "enqueued"));
+		
+	}
+	
+	public function test_register_settings_page(){
+		$this->plugin->register_settings_page();	
+		$options = $GLOBALS["submenu"];
+		
+		$this->assertEquals($options["options-general.php"][0][0], "Countdown Timer"); //$menu_title
+		$this->assertEquals($options["options-general.php"][0][1], "manage_options"); //$capability
+		$this->assertEquals($options["options-general.php"][0][2], "fergcorp_countdownTimer.php"); //$menu_slug
+		$this->assertEquals($options["options-general.php"][0][3], "Countdown Timer Settings"); //$page_title
+
+		//has_filter($tag, $function_to_check = false)
+		//var_dump($GLOBALS["wp_filter"]["admin_print_scripts-admin_page_fergcorp_countdownTimer"]);
+		
+		$haystack = $GLOBALS["wp_filter"]["admin_print_scripts-admin_page_fergcorp_countdownTimer"];
+		
+		//var_dump($haystack);
+		
+		//http://stackoverflow.com/questions/1019076/how-to-search-by-key-value-in-a-multidimensional-array-in-php
+		function searchNestedArray(array $array, $search, $mode = 'value') {
+		
+		    foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $key => $value) {
+		        if ($search === ${${"mode"}})
+		            return true;
+		    }
+		    return false;
+		}
+		
+		$this->assertTrue(searchNestedArray($haystack, "print_admin_script"));
+		$this->assertTrue(searchNestedArray($haystack, "print_countdown_scripts"));
+	}
+	
+	public function test_settings_page(){
+			
+		ob_start();
+
+			$this->plugin->settings_page();
+
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		 sleep(1);
+			
+		//@TODO:
+		//$this->expectOutputRegex("(.*)");
+		//
+	}
+	
+	public function test_display_options_meta_box(){
+
+		ob_start();
+  		$this->plugin->display_options_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_events_meta_box(){
+		ob_start();
+  		$this->plugin->events_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_installation_meta_box(){
+		ob_start();
+  		$this->plugin->installation_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_management_meta_box(){
+		ob_start();
+  		$this->plugin->management_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_onHover_time_format_meta_box(){
+		ob_start();
+  		$this->plugin->onHover_time_format_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_display_format_options_meta_box(){
+		ob_start();
+  		$this->plugin->display_format_options_meta_box();
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	public function test_example_display_meta_box(){
+		ob_start();
+		echo "<ul>";
+  		$this->plugin->example_display_meta_box();
+		echo "</ul>";
+		$buffer = ob_get_clean();
+
+		require_once 'Services/W3C/HTMLValidator.php';
+
+		$v = new Services_W3C_HTMLValidator();
+		$v->setOptions(array("doctype" => $docType));
+		$r = $v->validateFragment($this->htmlStart.$buffer.$this->htmlEnd);
+		//print $this->htmlStart.$buffer.$this->htmlEnd;
+		//var_dump($r);
+		
+		$this->assertTrue($r->isValid());
+		sleep(1);
+	}
+	
+	
+	
+}
+
+
 /**
  * Countdown Timer Tests
  */
@@ -149,65 +361,135 @@ class CountdownTimerTest extends WP_UnitTestCase {
 		
 	}
 
-	public function test_print_admin_script(){
-		//@TODO
-		//$this->plugin->print_admin_script();
-		//$this->assertTrue(wp_script_is("postbox", "enqueued"));
-	}
+	public function test_print_countdown_scripts_true(){
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer");
+		$prop = $reflection_class->getProperty("enableJS");
+		$prop->setAccessible(true);
+		$this->assertTrue((bool) $prop->getValue($this->plugin));
+		
+		$this->plugin->print_countdown_scripts();
 
-	public function test_print_countdown_scripts(){
-		//@TODO
+		$this->assertTrue(wp_script_is("fergcorp_countdowntimer", "enqueued"));
+		$this->assertTrue(wp_script_is("webkit_sprintf", "enqueued"));
 	}
 	
-	public function test_register_settings_page(){
-		//@TODO
-		//has_action( 'admin_print_scripts-' . $settings_page, array( &$this, 'print_countdown_scripts' ) );
-	}
+	public function test_print_countdown_scripts_false(){
+		$reflection_class = new ReflectionClass("Fergcorp_Countdown_Timer");
+		$prop = $reflection_class->getProperty("enableJS");
+		$prop->setAccessible(true);
+		$prop->setValue($this->plugin, FALSE);
+		
+		$this->assertFalse((bool) $prop->getValue($this->plugin));
+		
+		$this->plugin->print_countdown_scripts();
+
+		$this->assertFalse(wp_script_is("fergcorp_countdowntimer", "enqueued"));
+		$this->assertFalse(wp_script_is("webkit_sprintf", "enqueued"));
+	}	
 	
-	public function test_settings_page(){
-		//@TODO:
-		//$this->expectOutputRegex("(.*)");
-		//$this->plugin->settings_page();
-	}
+
 	
-	public function test_display_options_meta_box(){
-		//@TODO
-	}
-	
-	public function test_events_meta_box(){
-		//@TODO
-	}
-	
-	public function test_installation_meta_box(){
-		//@TODO
-	}
-	
-	public function test_management_meta_box(){
-		//@TODO
-	}
-	
-	public function test_onHover_time_format_meta_box(){
-		//@TODO
-	}
-	
-	public function test_display_format_options_meta_box(){
-		//@TODO
-	}
-	
-	public function test_example_display_meta_box(){
-		//@TODO
-	}
 	
 	public function test_singleTimer(){
-		//@TODO
+		update_option('timezone_string', "America/Denver");
+		$date = "+31 days";
+		$calcDate = gmdate("F jS, Y, g:i a", strtotime($date)+(3600*(get_option('gmt_offset'))));
+		$this->expectOutputRegex("/<abbr title = \"$calcDate\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'>in <span class=\"fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit\">1 month,<\/span> <span class=\"fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit\">0 days,<\/span> <span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">0 hours,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">0 minutes<\/span><\/abbr>/is");
+		print $this->plugin->singleTimer($date);
 	}
 	
-	public function test_showTimer(){
-		//@TODO
+	public function test_showTimer_noEvents(){
+		$this->expectOutputRegex("/No dates present/is");
+		print $this->plugin->showTimer();
 	}
+	
+	public function test_showTimer_all(){
+		
+		$event_object_array = array();
+		for($i = -3; $i < 3; $i++){
+			$time = time()+($i*3210);
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time, "Date is set to " . date('Y-m-d H:i:s', $time), "http://example.com", $i%2));
+		}
+				
+		update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
+		$this->plugin->loadSettings();
+		$this->expectOutputRegex("/<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">[0-9] hours,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span> ago<\/abbr><\/li>\r\n<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span> ago<\/abbr><\/li>\r\n<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'>in <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span><\/abbr><\/li>\r\n<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'>in <span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">[0-9] hour,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span><\/abbr><\/li>/is");
+		print $this->plugin->showTimer(-1);
+	}
+
+	public function test_showTimer_3(){
+		
+		$event_object_array = array();
+		for($i = -3; $i < 3; $i++){
+			$time = time()+($i*3210);
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time, "Date is set to " . date('Y-m-d H:i:s', $time), "http://example.com", $i%2));
+		}
+				
+		update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
+		$this->plugin->loadSettings();
+		$this->expectOutputRegex("/<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">[0-9] hours,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span> ago<\/abbr><\/li>\r\n<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span> ago<\/abbr><\/li>\r\n<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'>in <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span><\/abbr><\/li>/is");
+		print $this->plugin->showTimer(3);
+	}
+
+	public function test_showTimer_1(){
+		
+		$event_object_array = array();
+		for($i = -3; $i < 3; $i++){
+			$time = time()+($i*3210);
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time, "Date is set to " . date('Y-m-d H:i:s', $time), "http://example.com", $i%2));
+		}
+				
+		update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
+		$this->plugin->loadSettings();
+		$this->expectOutputRegex("/<li class = 'fergcorp_countdownTimer_event_li'><span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/example.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Date is set to (.*?)<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">[0-9] hours,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">[0-9]{2} minutes<\/span> ago<\/abbr><\/li>/is");
+		print $this->plugin->showTimer(1);
+	}
+	
 	
 	public function test_formatEvent(){
 		//@TODO
+		
+		//Setup massive database of events!!!!
+		$event_object_array = array();
+		//Years
+		
+		$time = new DateTime();
+		$time->setDate(2023, 1, 31);
+		$time->setTime(11, 37, 53);
+		
+		for($i = 1; $i < 10; $i++){
+			$time->sub(new DateInterval("P1Y"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+		
+		for($i = 1; $i < 12; $i++){
+			$time->sub(new DateInterval("P1M"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+		
+		for($i = 1; $i < date("t", $time->getTimestamp()); $i++){
+			$time->sub(new DateInterval("P1D"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+		
+		for($i = 0; $i < 23; $i++){
+			$time->sub(new DateInterval("PT1H"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+		
+		for($i = 0; $i < 59; $i++){
+			$time->sub(new DateInterval("PT1M"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+					
+		for($i = 0; $i < 59; $i++){
+			$time->sub(new DateInterval("PT1S"));
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time->getTimestamp(), "Date is set to " . $time->format('Y-m-d H:i:s'), "http://example.com", 0));
+		}
+		
+				update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
+		$this->plugin->loadSettings();
+		
 	}
 	
 	public function test_fuzzyDate(){
