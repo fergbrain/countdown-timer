@@ -152,27 +152,45 @@ class TZ_Admin_Fergcorp_Countdown_Timer_Test extends Test_Admin_Fergcorp_Countdo
 
 }
 
+class HTML_Events_Test_Admin_Fergcorp_Countdown_Timer extends HTML_Test_Admin_Fergcorp_Countdown_Timer{
+
+	public function setUp() {
+		parent::setUp();
+		$event_object_array = array();
+		for($i = -5; $i < 5; $i++){
+			$time = time()+($i*3210);
+			array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($time, "Date is set to " . date('Y-m-d H:i:s', $time), "http://example.com", $i%2));
+		}
+
+		update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
+		update_option('fergcorp_countdownTimer_deleteOneTimeEvents', '1');
+		update_option('timezone_string', "America/Denver");
+		$this->plugin->loadSettings();
+    }
+
+}
+
 class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 	public $plugin_slug = 'countdown_timer';
-	private $plugin;
+	public $plugin;
 
 	public 	$docType = "XHTML 1.0 Transitional";
 	public 	$htmlStart = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>I AM YOUR DOCUMENT TITLE REPLACE ME</title><meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" /><meta http-equiv="Content-Style-Type" content="text/css" /></head><body><div>';
 	public $htmlEnd = "</div></body></html>";
 
 	public function setUp() {
-        parent::setUp();
+	parent::setUp();
 		define('WP_ADMIN', true);
 		$user1_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user1_id );
 
 		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
-        $this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
+		$this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
 		$this->plugin->install();
 
 		$this->plugin->__construct();
 
-    }
+	}
 
 
 	public function tearDown(){
