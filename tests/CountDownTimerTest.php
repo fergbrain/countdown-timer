@@ -141,16 +141,34 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 	}
 
 }
-
-
+       /**
+        * @group TZ
+	    * @group admin
+        */
 class TZ_Admin_Fergcorp_Countdown_Timer_Test extends Test_Admin_Fergcorp_Countdown_Timer{
+	public $timezone_string;
 
     public function setUp() {
+    	$this->timezone_string = 'America/Denver';
         parent::setUp();
-        update_option('timezone_string', "America/Denver");
     }
 
 }
+
+       /**
+        * @group GMT
+	    * @group admin
+        */
+class GMT_Admin_Fergcorp_Countdown_Timer_Test extends Test_Admin_Fergcorp_Countdown_Timer{
+	public $timezone_string;
+
+    public function setUp() {
+    	$this->timezone_string = 'UTC-2';
+        parent::setUp();
+    }
+
+}
+
 
 class HTML_Events_Test_Admin_Fergcorp_Countdown_Timer extends HTML_Test_Admin_Fergcorp_Countdown_Timer{
 
@@ -396,6 +414,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 
 class Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase {
 	public $plugin_slug = 'countdown_timer';
+	public $timezone_string;
 	private $plugin;
 
 	public 	$docType = "XHTML 1.0 Transitional";
@@ -404,9 +423,14 @@ class Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase {
 
 	public function setUp() {
         parent::setUp();
+		
+		update_option('timezone_string', $this->timezone_string);
+		
 		define('WP_ADMIN', true);
 		$user1_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user1_id );
+		
+		
 
 		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
         $this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
@@ -609,12 +633,30 @@ class Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase {
 	}
 }
 
-
+       /**
+        * @group TZ
+	    * @group admin
+        */
 class TZ_CountdownTimer_Test extends CountdownTimerTest{
+	public $timezone_string;
 
     public function setUp() {
+    	$this->timezone_string = 'America/Denver';
         parent::setUp();
-        update_option('timezone_string', "America/Denver");
+    }
+
+}
+
+       /**
+        * @group GMT
+	    * @group admin
+        */
+class GMT_CountdownTimer_Test extends CountdownTimerTest{
+	public $timezone_string;
+
+    public function setUp() {
+    	$this->timezone_string = 'UTC-2';
+        parent::setUp();
     }
 
 }
@@ -626,6 +668,7 @@ class TZ_CountdownTimer_Test extends CountdownTimerTest{
 
 class CountdownTimerTest extends WP_UnitTestCase {
     public $plugin_slug = 'countdown_timer';
+    public $timezone_string;
 	private $plugin;
 
 	//TOTEST:
@@ -638,6 +681,8 @@ class CountdownTimerTest extends WP_UnitTestCase {
 
     public function setUp() {
         parent::setUp();
+        
+        update_option('timezone_string', $this->timezone_string);
 
 		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
         $this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
