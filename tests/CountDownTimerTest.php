@@ -1108,7 +1108,7 @@ function check_this($time, $unitList, $s, $now){
 			//Years
 			for($i = 10; $i > 2; $i--){
 				$time->sub(new DateInterval("P1Y"));
-				$this->assertRegExp("/^".preg_replace("/,<\\\\\/span> $/", "<\/span>", $this->check_this($time, $unitList, $s, $now))."/is", $this->plugin->fuzzyDate($time->getTimestamp(), $now));
+				$this->assertRegExp("/^".preg_replace("/,<\\\\\/span> $/", "<\/span>", $this->check_this($time, $unitList, $s, $now))."/is", $this->plugin->fuzzyDate($time->getTimestamp(), $now), "Date attempted is: " . date("r", $time->getTimestamp()));
 			}
 
 			for($i = 1; $i < 12; $i++){
