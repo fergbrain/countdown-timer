@@ -143,6 +143,11 @@ class Fergcorp_Countdown_Timer{
 
 		$plugin = plugin_basename(__FILE__);
 		add_filter("plugin_action_links_$plugin", array( &$this, 'settings_link' ) );
+		
+		$tz = get_option('timezone_string');
+		if ( $tz ){ //Get and check if we have a valid time zone...
+			date_default_timezone_set($tz); //...if so, use it
+		}
 	}
 
 	/**
@@ -367,16 +372,6 @@ class Fergcorp_Countdown_Timer{
 				</tr>
 				<?php
 
-				//We need a time zone to properly guess what dates the user means
-				$tz = get_option('timezone_string');
-				var_dump($tz);
-				if ( $tz ){ //Get and check if we have a valid time zone...
-					date_default_timezone_set($tz); //...if so, use it
-				}
-				else {	//If there is no time zone...
-					date_default_timezone_set("Etc/GMT".get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
-				}
-
 				$event_count = 0;
 					if ( is_array( $this->eventList ) ) {
 						foreach ( $this->eventList as $thisEvent ) {
@@ -393,7 +388,7 @@ class Fergcorp_Countdown_Timer{
 														"type" => "text",
 														"size" => 30,
 														"name" => "fergcorp_countdownTimer_oneTimeEvent[{$event_count}][date]",
-														"value" => ($thisEvent->date("D, d M Y H:i:s"))
+														"value" => ($thisEvent->date("D, d M Y H:i:s T"))
 														)
 													)."</td>";
 
@@ -999,6 +994,17 @@ class Fergcorp_Countdown_Timer{
 		register_setting('fergcorp_countdownTimer_options', 'fergcorp_countdownTimer_oneTimeEvent', array (&$this, 'sanitize'));
 	}
 
+	public function compare($adate, $bdate)
+					{
+					    if($adate < $bdate){
+					        return -1;
+					    }else if($adate == $bdate){
+					        return 0;
+					    }else{
+					        return 1;
+					    }
+					} 
+
 	/**
 	 * Sanitize the callback
 	 *
@@ -1010,15 +1016,6 @@ class Fergcorp_Countdown_Timer{
 
 				$event_object_array = array();
 
-				//We need a time zone to properly guess what dates the user means
-				$tz = get_option('timezone_string');
-				if ( $tz ){ //Get and check if we have a valid time zone...
-					date_default_timezone_set($tz); //...if so, use it
-				}
-				else {	//If there is no time zone...
-					date_default_timezone_set("Etc/GMT" . get_option("gmt_offset")); //...we make fake it by using the ETC/GMT+7 or whatever.
-				}
-
 				foreach($input as $event){
 					if("" != $event["date"]){
 						if(!isset($event["timeSince"])){ //Checkmark boxes are only set if they are checked, this sets the value to 0 if it isn't set at all
@@ -1029,17 +1026,7 @@ class Fergcorp_Countdown_Timer{
 				}
 
 				/*Begin sorting events by time*/
-				usort($event_object_array, function($adate, $bdate)
-					{
-					    if($adate < $bdate){
-					        return -1;
-					    }else if($adate == $bdate){
-					        return 0;
-					    }else{
-					        return 1;
-					    }
-					}
-				);
+				usort($event_object_array, array($this,'compare'));
 		return $event_object_array;
 	}
 
@@ -1277,9 +1264,9 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 		parent::__construct("@".$time);
 	}
 
-	public function getTimestamp() {
+	/*public function getTimestamp() {
          return method_exists('DateTime', 'getTimestamp') ? parent::getTimestamp() : $this->time;
-    }
+    }*/
 
 	public function setTitle ( $title ) {
 		$this->title = (string)$title;
@@ -1318,6 +1305,7 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 	}
 
 	public function date ( $format ) {
+		//FB::info($this->getTimestamp(), "Timestamp");
 		return date($format, $this->getTimestamp());
 	}
 }
