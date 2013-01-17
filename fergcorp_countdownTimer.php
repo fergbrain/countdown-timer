@@ -110,7 +110,7 @@ class Fergcorp_Countdown_Timer{
 		// Load settings
 		$this->loadSettings();
 
-		if(version_compare($this->version, "3.0.4", "<")){
+		if(version_compare($this->version, "3.0.5", "<")){
 			add_action('admin_init', array( &$this, 'install' ) );
 			add_action('admin_init', array( &$this, 'loadSettings' ) );
 
@@ -1264,9 +1264,9 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 		parent::__construct("@".$time);
 	}
 
-	/*public function getTimestamp() {
+	public function getTimestamp() {
          return method_exists('DateTime', 'getTimestamp') ? parent::getTimestamp() : $this->time;
-    }*/
+    }
 
 	public function setTitle ( $title ) {
 		$this->title = (string)$title;
