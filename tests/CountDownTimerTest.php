@@ -1,5 +1,6 @@
 <?php
 require_once('fergcorp_countdownTimer.php');
+echo 'Current PHP version: ' . phpversion() . "\n";
 
 Class Test_Init_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 
