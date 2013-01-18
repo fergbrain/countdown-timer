@@ -1086,7 +1086,7 @@ class Fergcorp_Countdown_Timer{
 	 * @access public
 	 * @author Andrew Ferguson
 	*/
-	public function install(){
+	public static function install(){
 		$plugin_data = get_plugin_data(__FILE__);
 
 		//Move widget details from old option to new option only if the new option does not exist
@@ -1146,21 +1146,21 @@ class Fergcorp_Countdown_Timer{
 		}
 
 		//Install the defaults
-		$this->install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
-		$this->install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
-		$this->install_option('fergcorp_countdownTimer_', 'showYear', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'showMonth', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'showWeek', '0');
-		$this->install_option('fergcorp_countdownTimer_', 'showDay', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'showHour', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'showMinute', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'showSecond', '0');
-		$this->install_option('fergcorp_countdownTimer_', 'stripZero', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'enableJS', '1');
-		$this->install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
-		$this->install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
-		$this->install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
-		$this->install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showYear', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showMonth', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showWeek', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showDay', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showHour', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showMinute', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showSecond', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'stripZero', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'enableJS', '1');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
+		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
 
 		//Update version number...last thing
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
