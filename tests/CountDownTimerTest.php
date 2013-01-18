@@ -85,9 +85,9 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 
 		$GLOBALS['fergcorp_countdownTimer_init'] = new Fergcorp_Countdown_Timer();
 	    $this->plugin = $GLOBALS['fergcorp_countdownTimer_init'];
-		$this->plugin->install();
+		//$this->plugin->install();
 
-		$this->plugin->__construct();
+		//$this->plugin->__construct();
     }
 
 	public function tearDown(){
@@ -125,6 +125,202 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		foreach($defaultInstallValues as $key => $value){
 			$this->assertEquals($value, get_option("fergcorp_countdownTimer_".$key));
 		}
+	}
+	
+	/**
+	 * @group install
+	 * @covers Fergcorp_Countdown_Timer::install
+	 */
+	public function test_install_v2_4_3(){
+		$oneTimeEvent = array(
+			array(
+					"date" 		=>	1356998400,
+					"text" 		=>	"First of the year",
+					"timeSince"	=>	"1",
+					"link"		=> 	"http://google.com",
+				),
+			array(
+					"date" 		=>	1451001600,
+					"text" 		=>	"Christmas 2015",
+					"timeSince"	=>	NULL,
+					"link"		=> 	"",
+				),
+		);
+		
+		$sidebars_widgets = array(
+									"wp_inactive_widgets"	=> array(),
+									"sidebar-1" 			=> array(	"fergcorp_countdowntimer",
+																		"search-2",
+																		"recent-posts-2",
+																		"recent-comments-2",
+																		"archives-2",
+																		"categories-2",
+																		"meta-2",
+																	),
+									"sidebar-2"				=> array(),
+									"sidebar-3" 			=> array(),
+									"array_version" => 3
+								);
+		wp_set_sidebars_widgets($sidebars_widgets);
+        wp_get_sidebars_widgets();
+		
+		$installValues = array(
+								'widget_fergcorp_countdown'							=>	'a:2:{s:5:"title";s:18:"My Countdown Timer";s:5:"count";i:5;}',
+								'fergcorp_countdownTimer_deleteOneTimeEvents'		=>	'0',
+								'fergcorp_countdownTimer_timeOffset'				=>	'j M Y, G:i:s',
+								'fergcorp_countdownTimer_showYear'					=>	'0',
+								'fergcorp_countdownTimer_showMonth'					=>	'1',
+								'fergcorp_countdownTimer_showWeek'					=>	'0',
+								'fergcorp_countdownTimer_showDay'					=>	'1',
+								'fergcorp_countdownTimer_showHour'					=>	'0',
+								'fergcorp_countdownTimer_showMinute'				=>	'0',
+								'fergcorp_countdownTimer_showSecond'				=>	'0',
+								'fergcorp_countdownTimer_stripZero'					=>	'1',
+								'fergcorp_countdownTimer_enableJS'					=>	'1',
+								'fergcorp_countdownTimer_timeSinceTime'				=>	'0',
+								'fergcorp_countdownTimer_titleSuffix'				=>	'::',
+								'fergcorp_countdownTimer_enableShortcodeExcerpt'	=>	'0',
+								'fergcorp_countdownTimer_version'					=>	'2.4.3',
+								'fergcorp_countdownTimer_oneTimeEvent'				=>	$oneTimeEvent,
+		);
+		
+		foreach($installValues as $key => $value){
+			update_option($key, $value);
+		}
+		
+		$updatedValues = array(
+										'deleteOneTimeEvents' => '0',
+										'timeFormat' => 'j M Y, G:i:s',
+										'showYear' => '0',
+										'showMonth' => '1',
+										'showWeek' => '0',
+										'showDay' => '1',
+										'showHour' => '0',
+										'showMinute' => '0',
+										'showSecond' => '0',
+										'stripZero' => '1',
+										'enableJS' => '1',
+										'timeSinceTime' => '0',
+										'titleSuffix' => '::',
+										'enableShortcodeExcerpt' => '0',
+
+										'version' => $this->pluginData["Version"]
+									);	
+		
+		$this->plugin->install();
+		
+		foreach($updatedValues as $key => $value){
+			$this->assertEquals($value, get_option("fergcorp_countdownTimer_".$key));
+		}
+		
+		$updatedOneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent");
+		
+		for($i=0; $i < count($oneTimeEvent); $i++){
+			$this->assertEquals($oneTimeEvent[$i]["date"], $updatedOneTimeEvent[$i]->getTimestamp());
+			$this->assertEquals($oneTimeEvent[$i]["text"], $updatedOneTimeEvent[$i]->getTitle());
+			$this->assertEquals($oneTimeEvent[$i]["timeSince"], $updatedOneTimeEvent[$i]->getTimeSince());
+			$this->assertEquals($oneTimeEvent[$i]["link"], $updatedOneTimeEvent[$i]->getURL());
+		}
+	}
+
+	/**
+	 * @group install
+	 * @covers Fergcorp_Countdown_Timer::install
+	 */
+	public function test_install_partial_v2_v_3(){
+		$oneTimeEvent = array(
+			array(
+					"date" 		=>	1356998400,
+					"text" 		=>	"First of the year",
+					"timeSince"	=>	"1",
+					"link"		=> 	"http://google.com",
+				),
+			array(
+					"date" 		=>	1451001600,
+					"text" 		=>	"Christmas 2015",
+					"timeSince"	=>	NULL,
+					"link"		=> 	"",
+				),
+		);
+		
+		$sidebars_widgets = array(
+									"wp_inactive_widgets"	=> array(),
+									"sidebar-1" 			=> array(	"fergcorp_countdowntimer",
+																		"search-2",
+																		"recent-posts-2",
+																		"recent-comments-2",
+																		"archives-2",
+																		"categories-2",
+																		"meta-2",
+																	),
+									"sidebar-2"				=> array(),
+									"sidebar-3" 			=> array(),
+									"array_version" => 3
+								);
+		wp_set_sidebars_widgets($sidebars_widgets);
+        wp_get_sidebars_widgets();
+		
+		$installValues = array(
+								'widget_fergcorp_countdown_timer_widget'			=>	'blahblah', //dummy values
+								'widget_fergcorp_countdown'							=>	'a:2:{s:5:"title";s:18:"My Countdown Timer";s:5:"count";i:5;}',
+								'fergcorp_countdownTimer_deleteOneTimeEvents'		=>	'0',
+								'fergcorp_countdownTimer_timeOffset'				=>	'j M Y, G:i:s',
+								'fergcorp_countdownTimer_timeFormat'				=>	'F jS, Y, g:i a',
+								'fergcorp_countdownTimer_showYear'					=>	'0',
+								'fergcorp_countdownTimer_showMonth'					=>	'1',
+								'fergcorp_countdownTimer_showWeek'					=>	'0',
+								'fergcorp_countdownTimer_showDay'					=>	'1',
+								'fergcorp_countdownTimer_showHour'					=>	'0',
+								'fergcorp_countdownTimer_showMinute'				=>	'0',
+								'fergcorp_countdownTimer_showSecond'				=>	'0',
+								'fergcorp_countdownTimer_stripZero'					=>	'1',
+								'fergcorp_countdownTimer_enableJS'					=>	'1',
+								'fergcorp_countdownTimer_timeSinceTime'				=>	'0',
+								'fergcorp_countdownTimer_titleSuffix'				=>	'::',
+								'fergcorp_countdownTimer_enableShortcodeExcerpt'	=>	'0',
+								'fergcorp_countdownTimer_version'					=>	'2.4.3',
+								'fergcorp_countdownTimer_oneTimeEvent'				=>	$oneTimeEvent,
+		);
+		
+		foreach($installValues as $key => $value){
+			update_option($key, $value);
+		}
+		
+		$updatedValues = array(
+										'deleteOneTimeEvents' => '0',
+										'showYear' => '0',
+										'showMonth' => '1',
+										'showWeek' => '0',
+										'showDay' => '1',
+										'showHour' => '0',
+										'showMinute' => '0',
+										'showSecond' => '0',
+										'stripZero' => '1',
+										'enableJS' => '1',
+										'timeSinceTime' => '0',
+										'titleSuffix' => '::',
+										'enableShortcodeExcerpt' => '0',
+
+										'version' => $this->pluginData["Version"]
+									);	
+		
+		$this->plugin->install();
+		
+		foreach($updatedValues as $key => $value){
+			$this->assertEquals($value, get_option("fergcorp_countdownTimer_".$key));
+		}
+		
+		$this->assertEquals(get_option("fergcorp_countdownTimer_timeFormat"), "F jS, Y, g:i a");
+		
+		$updatedOneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent");
+		
+		for($i=0; $i < count($oneTimeEvent); $i++){
+			$this->assertEquals($oneTimeEvent[$i]["date"], $updatedOneTimeEvent[$i]->getTimestamp());
+			$this->assertEquals($oneTimeEvent[$i]["text"], $updatedOneTimeEvent[$i]->getTitle());
+			$this->assertEquals($oneTimeEvent[$i]["timeSince"], $updatedOneTimeEvent[$i]->getTimeSince());
+			$this->assertEquals($oneTimeEvent[$i]["link"], $updatedOneTimeEvent[$i]->getURL());
+		}		
+		
 	}
 
 	/**
@@ -1246,7 +1442,6 @@ function check_this($time, $unitList, $s, $now){
 		$this->plugin->json();
 		$this->assertRegExp("/^var fergcorp_countdown_timer_js_lang = {\"year\":\"%d year,\",\"years\":\"%d years,\",\"month\":\"%d month,\",\"months\":\"%d months,\",\"week\":\"%d week,\",\"weeks\":\"%d weeks,\",\"day\":\"%d day,\",\"days\":\"%d days,\",\"hour\":\"%d hour,\",\"hours\":\"%d hours,\",\"minute\":\"%d minute,\",\"minutes\":\"%d minutes,\",\"second\":\"%d second,\",\"seconds\":\"%d seconds,\",\"agotime\":\"%s ago\",\"intime\":\"in %s\"};\nvar fergcorp_countdown_timer_jsEvents = {\"x[0-9a-z]{32}\":\"[0-9]{10}\",\"x[0-9a-z]{32}\":\"[0-9]{10}\",\"x[0-9a-z]{32}\":\"[0-9]{10}\",\"x[0-9a-z]{32}\":\"[0-9]{10}\"};\nvar fergcorp_countdown_timer_options = {\"showYear\":\"1\",\"showMonth\":\"1\",\"showWeek\":\"0\",\"showDay\":\"1\",\"showHour\":\"1\",\"showMinute\":\"1\",\"showSecond\":\"0\",\"stripZero\":\"1\"};$/is", $GLOBALS["wp_scripts"]->print_scripts_l10n("fergcorp_countdowntimer", FALSE));
 	}
-
 }
 
 class Countdown_Timer_Event_Test extends WP_UnitTestCase {

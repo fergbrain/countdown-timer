@@ -1089,8 +1089,6 @@ class Fergcorp_Countdown_Timer{
 	public function install(){
 		$plugin_data = get_plugin_data(__FILE__);
 
-		//Don't test for now
-		// @codeCoverageIgnoreStart
 		//Move widget details from old option to new option only if the new option does not exist
 		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {
 			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
@@ -1127,9 +1125,7 @@ class Fergcorp_Countdown_Timer{
 		elseif( $oldWidget ){
 			delete_option("widget_fergcorp_countdown");
 		}
-		// @codeCoverageIgnoreEnd
 
-		// @codeCoverageIgnoreStart
 		//Move timeFormat data from old option to new option only if the new option does not exist
 		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {
 			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
@@ -1139,9 +1135,7 @@ class Fergcorp_Countdown_Timer{
 		elseif( $timeOffset ){
 			delete_option("fergcorp_countdownTimer_timeOffset");
 		}
-		// @codeCoverageIgnoreEnd
 
-		// @codeCoverageIgnoreStart
 		$oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent");
 		if( ( $oneTimeEvent )  && ( gettype($oneTimeEvent[0]) == "array") ) {
 			$event_object_array = array();
@@ -1150,7 +1144,6 @@ class Fergcorp_Countdown_Timer{
 			}
 			update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
 		}
-		// @codeCoverageIgnoreEnd
 
 		//Install the defaults
 		$this->install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
