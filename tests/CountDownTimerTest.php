@@ -439,7 +439,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 
 	}
@@ -464,7 +464,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -487,7 +487,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -510,7 +510,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -533,7 +533,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -556,7 +556,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -579,7 +579,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 	/**
@@ -591,9 +591,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 	 */
 	public function test_example_display_meta_box(){
 		ob_start();
-		echo "<ul>";
   		$this->plugin->example_display_meta_box();
-		echo "</ul>";
 		$buffer = ob_get_clean();
 
 		require_once 'Services/W3C/HTMLValidator.php';
@@ -604,7 +602,7 @@ class HTML_Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		//print $this->htmlStart.$buffer.$this->htmlEnd;
 		//var_dump($r);
 
-		$this->assertTrue($r->isValid());
+		$this->assertTrue($r->isValid(), $this->htmlStart.$buffer.$this->htmlEnd);
 		sleep(1);
 	}
 }
@@ -1106,7 +1104,7 @@ class CountdownTimerTest extends WP_UnitTestCase {
 	 */
 	public function test_showTimer_noEvents(){
 
-		$this->assertRegExp("/^No dates present$/is", $this->plugin->showTimer(-1, FALSE));
+		$this->assertRegExp("/^<li>No dates present<\/li>$/is", $this->plugin->showTimer(-1, FALSE));
 	}
 
 	/**
@@ -1685,7 +1683,7 @@ class Countdown_Timer_Widget_Test extends WP_UnitTestCase {
 					);
 		$this->expectOutputRegex("/^<aside(.*?)><ul>(.*?)<\/ul><\/aside>$/is");
 		print $this->plugin->widget($args, $instance );
-		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><ul>No dates present</ul></aside>
+		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><ul><li>No dates present</li></ul></aside>
 
 	}
 	public function test_widget_2( ){
@@ -1707,7 +1705,7 @@ class Countdown_Timer_Widget_Test extends WP_UnitTestCase {
 		);
 		$this->expectOutputRegex("/^<aside(.*?)><h3(.*?)>New Title<\/h3><ul>(.*?)<\/ul><\/aside>$/is");
 		print $this->plugin->widget($args, $instance );
-		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><h3 class="widget-title">New Title</h3><ul>No dates present</ul></aside>
+		//<aside id="fergcorp_countdown_timer_widget-2" class="widget widget_fergcorp_countdown_timer_widget"><h3 class="widget-title">New Title</h3><ul><li>No dates present</li></ul></aside>
 
 	}
 

@@ -692,7 +692,7 @@ class Fergcorp_Countdown_Timer{
 		}
 
 		if(!$this->eventsPresent){
-				$toReturn = __('No dates present', 'fergcorp_countdownTimer');
+				$toReturn = "<li>".__('No dates present', 'fergcorp_countdownTimer')."</li>";
 		}
 
 		//Echo or return
