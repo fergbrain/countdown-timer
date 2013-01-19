@@ -697,6 +697,7 @@ class Test_Admin_Fergcorp_Countdown_Timer extends WP_UnitTestCase {
 	 * @group admin
 	 * @group settings_page
 	 * @covers Fergcorp_Countdown_Timer::sanitize
+	 * @covers Fergcorp_Countdown_Timer::compare
 	 */
 	public function test_sanitize(){
 		//Setup
