@@ -4,7 +4,7 @@ Donate link: http://www.andrewferguson.net/2007/03/08/general-note/
 Tags: countdown, timer, count, date, event, widget, countup, age, fun, time, international, i18n, countdown timer, wedding, localization, i18n
 Requires at least: 3.5
 Tested up to: 3.5
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,11 +175,17 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 2. Example on Blog
 
 == Upgrade Notice ==
-= 3.0.4 =
-A couple of major bug fixes
+= 3.0.5 =
+A couple of major bug fixes that deal resolve issues with using PHP < 5.3 and scope of object during activation 
 
 == Changelog ==
 
+= 3.0.5 =
+Relase date: 1/19/2013
+
+ * Bug fix: Eliminates Fatal error: Using $this when not in object context in...that prevented plugin from activating in certain circumstances
+ * Bug fix: Added getTimestamp function needed for PHP < 5.3
+ * Bug fix: Properly enclose "No dates present" in <li> tags
 
 = 3.0.4 =
 Release date: 1/12/2013
