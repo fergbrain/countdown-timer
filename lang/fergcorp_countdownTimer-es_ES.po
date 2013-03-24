@@ -300,14 +300,14 @@ msgstr "No hay fechas presentes"
 #, php-format
 #@ fergcorp_countdownTimer
 msgid "%s ago"
-msgstr "Hace%s"
+msgstr "Hace %s"
 
 #: fergcorp_countdownTimer.php:721
 #: fergcorp_countdownTimer.php:1045
 #, php-format
 #@ fergcorp_countdownTimer
 msgid "in %s"
-msgstr "en%s"
+msgstr "en %s"
 
 #: fergcorp_countdownTimer.php:1291
 #@ fergcorp_countdownTimer
