@@ -3,7 +3,7 @@
 Plugin Name: Countdown Timer
 Plugin URI: http://www.andrewferguson.net/wordpress-plugins/countdown-timer/
 Description: Use shortcodes and a widget to count down or up to the years, months, weeks, days, hours, minutes, and/or seconds to a particular event.
-Version: 3.0.5
+Version: 3.0.5_2014_05_04
 Author: Andrew Ferguson
 Author URI: http://www.andrewferguson.net
 
@@ -110,7 +110,7 @@ class Fergcorp_Countdown_Timer{
 		// Load settings
 		$this->loadSettings();
 
-		if(version_compare($this->version, "3.0.5", "<")){
+		if(version_compare($this->version, "3.0.5_2014_05_04", "<")){
 			add_action('admin_init', array( &$this, 'install' ) );
 			add_action('admin_init', array( &$this, 'loadSettings' ) );
 
@@ -1093,78 +1093,39 @@ class Fergcorp_Countdown_Timer{
 	public static function install(){
 		$plugin_data = get_plugin_data(__FILE__);
 
-		//Move widget details from old option to new option only if the new option does not exist
-		if( ( $oldWidget = get_option( "widget_fergcorp_countdown" ) ) && (!get_option( "widget_fergcorp_countdown_timer_widget" ) ) ) {
-			update_option("widget_fergcorp_countdown_timer_widget",  array(	"title" 		=> $oldWidget["title"],
-																			"countLimit"	=> $oldWidget["count"],
-																			)
-			);
-			delete_option("widget_fergcorp_countdown");
+		if(version_compare(get_option("fergcorp_countdownTimer_version"), "3", ">")){
+			global $wpdb;
+			$option_name="fergcorp_countdownTimer_oneTimeEvent";
+			$oneTimeEvent_original = $wpdb->get_row($wpdb->prepare("SELECT option_value from $wpdb->options WHERE option_name = %s", $option_name), ARRAY_A);
 
-			global $sidebars_widgets;
-			//check to see if the old widget is being used
-			$i=0;
-			$j=0;
-			foreach($sidebars_widgets as $sidebar => $widgets){
-				$thisSidebar = $sidebar;
-				if( 'wp_inactive_widgets' == $sidebar )
-					continue;
+			$oneTimeEvent_original_1 = preg_replace('/(s:35:"\0Fergcorp_Countdown_Timer_Event\0UID";s:33:"x[0-9a-z]{32}";)}/', '$1s:4:"date";s:0:"";s:13:"timezone_type";i:1;s:8:"timezone";s:6:"+00:00";}', $oneTimeEvent_original["option_value"]);
+			$oneTimeEvent_original_2 = preg_replace('/(O:30:"Fergcorp_Countdown_Timer_Event":5:{)/', 'O:30:"Fergcorp_Countdown_Timer_Event":8:{', $oneTimeEvent_original_1);
 
-				if ( is_array($widgets) ) {
-			 		foreach ( $widgets as $widget ) {
-						if( "fergcorp_countdowntimer" == $widget ){
-							$sidebars_widgets[$thisSidebar][$j] = "fergcorp_countdown_timer_widget-2"; //not sure why the ID has to be 2, but it does
-						}
-						$j++;
-					}
-				}
-			}
-		wp_set_sidebars_widgets($sidebars_widgets);
-		wp_get_sidebars_widgets();
-
-
-
+			$wpdb->update($wpdb->options, array('option_value'=>$oneTimeEvent_original_2), array('option_name'=>'fergcorp_countdownTimer_oneTimeEvent'));
+			$wpdb->flush();
 		}
-		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $oldWidget ){
-			delete_option("widget_fergcorp_countdown");
+		else{
+
+			//Install the defaults
+			$defaults = new Fergcorp_Countdown_Timer();
+			$defaults->install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
+			$defaults->install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showYear', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showMonth', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showWeek', '0');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showDay', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showHour', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showMinute', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'showSecond', '0');
+			$defaults->install_option('fergcorp_countdownTimer_', 'stripZero', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'enableJS', '1');
+			$defaults->install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
+			$defaults->install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
+			$defaults->install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
+			$defaults->install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
+			unset($defaults);
 		}
 
-		//Move timeFormat data from old option to new option only if the new option does not exist
-		if( ( $timeOffset = get_option( "fergcorp_countdownTimer_timeOffset" ) ) && (!get_option( "fergcorp_countdownTimer_timeFormat" ) ) ) {
-			update_option( 'fergcorp_countdownTimer_timeFormat', $timeOffset);
-			delete_option("fergcorp_countdownTimer_timeOffset");
-		}
-		//If the old option exist and the new option exists (becuase of the above logic test), don't update the new option and just remove the old option
-		elseif( $timeOffset ){
-			delete_option("fergcorp_countdownTimer_timeOffset");
-		}
-
-		$oneTimeEvent = get_option("fergcorp_countdownTimer_oneTimeEvent");
-		if( ( $oneTimeEvent )  && ( gettype($oneTimeEvent[0]) == "array") ) {
-			$event_object_array = array();
-			foreach( $oneTimeEvent as $event ) {
-				array_push($event_object_array, new Fergcorp_Countdown_Timer_Event($event["date"], $event["text"], $event["link"], $event["timeSince"]));
-			}
-			update_option("fergcorp_countdownTimer_oneTimeEvent", $event_object_array);
-		}
-
-		//Install the defaults
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'deleteOneTimeEvents', '0');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'timeFormat', 'F jS, Y, g:i a');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showYear', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showMonth', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showWeek', '0');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showDay', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showHour', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showMinute', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'showSecond', '0');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'stripZero', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'enableJS', '1');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'timeSinceTime', '0');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'titleSuffix', ':<br />');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'enableShortcodeExcerpt', '0');
-		Fergcorp_Countdown_Timer::install_option('fergcorp_countdownTimer_', 'oneTimeEvent', '0');
 
 		//Update version number...last thing
 		update_option("fergcorp_countdownTimer_version", $plugin_data["Version"]);
