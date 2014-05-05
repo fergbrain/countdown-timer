@@ -1014,6 +1014,10 @@ class Fergcorp_Countdown_Timer{
 	 */
 	public function sanitize($input){
 
+		if(is_object($input[0])){ //Sanitize is being called twice, not sure why but the second time (when dates have been transformed into objects) should not be run...this effective skips it
+			return $input;
+		}
+
 				$event_object_array = array();
 
 				foreach($input as $event){
@@ -1250,7 +1254,7 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 
 	public function __construct ($time, $title = NULL, $url = NULL, $timeSince = NULL){
 		$this->setTitle($title);
-		$this->setTime($time);
+		$this->setTimestamp($time);
 		$this->setURL($url);
 		$this->setTimeSince($timeSince);
 		$this->UID = "x".md5(rand());
@@ -1258,14 +1262,14 @@ class Fergcorp_Countdown_Timer_Event extends DateTime {
 	}
 
 	public function getTimestamp() {
-         return method_exists('DateTime', 'getTimestamp') ? parent::getTimestamp() : $this->time;
+		return $this->time; //ugh PHP suuuucks with time manipulation
     }
 
 	public function setTitle ( $title ) {
 		$this->title = (string)$title;
 	}
 
-	public function setTime ( $time ) {
+	public function setTimestamp ( $time ) {
 		$this->time = $time;
 	}
 
