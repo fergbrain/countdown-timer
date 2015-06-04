@@ -813,7 +813,7 @@ class Fergcorp_Countdown_Timer{
 		//Year
 		if($this->showYear){
 			if($sigNumHit || !$this->stripZero || $timeDelta->y){
-				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", $timeDelta->y, "fergcorp_countdownTimer"), $timeDelta->y)."</span> ";
+				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> year<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> years<span class='fergcorpmod_countdownTimer_punc'>,</span>", $timeDelta->y, "fergcorp_countdownTimer"), $timeDelta->y)."</span> ";
 				$sigNumHit = true;
 			}
 		}
@@ -825,7 +825,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showMonth){
 			if($sigNumHit || !$this->stripZero || intval($timeDelta->m + ($rollover/2628000)) ){
 				$timeDelta->m = intval($timeDelta->m + ($rollover/2628000));
-				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", $timeDelta->m, "fergcorp_countdownTimer"), $timeDelta->m)."</span> ";
+				$s .= '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> month<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> months<span class='fergcorpmod_countdownTimer_punc'>,</span>", $timeDelta->m, "fergcorp_countdownTimer"), $timeDelta->m)."</span> ";
 				$rollover = $rollover - intval($rollover/2628000)*2628000; //(12/31536000)
 				$sigNumHit = true;
 			}
@@ -852,7 +852,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showWeek){
 			if($sigNumHit || !$this->stripZero || ( ($timeDelta->d + intval($rollover/86400) )/7)){
 				$timeDelta->w = $timeDelta->w + intval($rollover/86400)/7;
-				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($timeDelta->d + intval($rollover/86400) )/7)))."</span> ";
+				$s .= '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> week<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> weeks<span class='fergcorpmod_countdownTimer_punc'>,</span>", (intval( ($timeDelta->d + intval($rollover/86400) )/7)), "fergcorp_countdownTimer"), (intval( ($timeDelta->d + intval($rollover/86400) )/7)))."</span> ";
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$timeDelta->d = $timeDelta->d - intval( ($timeDelta->d + intval($rollover/86400) )/7 )*7;
 				$sigNumHit = true;
@@ -863,7 +863,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showDay){
 			if($sigNumHit || !$this->stripZero || ($timeDelta->d + intval($rollover/86400)) ){
 				$timeDelta->d = $timeDelta->d + intval($rollover/86400);
-				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,",  $timeDelta->d, "fergcorp_countdownTimer"), $timeDelta->d)."</span> ";
+				$s .= '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> day<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> days<span class='fergcorpmod_countdownTimer_punc'>,</span>",  $timeDelta->d, "fergcorp_countdownTimer"), $timeDelta->d)."</span> ";
 				$rollover = $rollover - intval($rollover/86400)*86400;
 				$sigNumHit = true;
 			}
@@ -876,7 +876,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showHour){
 			if($sigNumHit || !$this->stripZero || ($timeDelta->h + intval($rollover/3600)) ){
 				$timeDelta->h = $timeDelta->h + intval($rollover/3600);
-				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", $timeDelta->h, "fergcorp_countdownTimer"), $timeDelta->h)."</span> ";
+				$s .= '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> hour<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> hours<span class='fergcorpmod_countdownTimer_punc'>,</span>", $timeDelta->h, "fergcorp_countdownTimer"), $timeDelta->h)."</span> ";
 				$rollover = $rollover - intval($rollover/3600)*3600;
 				$sigNumHit = true;
 			}
@@ -889,7 +889,7 @@ class Fergcorp_Countdown_Timer{
 		if($this->showMinute){
 			if($sigNumHit || !$this->stripZero || ($timeDelta->i + intval($rollover/60)) ){
 				$timeDelta->i = $timeDelta->i + intval($rollover/60);
-				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", $timeDelta->i, "fergcorp_countdownTimer"), $timeDelta->i)."</span> ";
+				$s .= '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> minute<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> minutes<span class='fergcorpmod_countdownTimer_punc'>,</span>", $timeDelta->i, "fergcorp_countdownTimer"), $timeDelta->i)."</span> ";
 				$rollover = $rollover - intval($rollover/60)*60;
 				$sigNumHit = true;
 			}
@@ -901,33 +901,33 @@ class Fergcorp_Countdown_Timer{
 		//Second
 		if($this->showSecond){
 			$timeDelta->s = $timeDelta->s + $rollover;
-			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", $timeDelta->s, "fergcorp_countdownTimer"), $timeDelta->s) . "</span> ";
+			$s .= '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> second", "<span class='fergcorpmod_countdownTimer_number'>%d</span> seconds", $timeDelta->s, "fergcorp_countdownTimer"), $timeDelta->s) . "</span> ";
 		}
 
 		//Catch blank statements
 		if($s==""){
 			 // @codeCoverageIgnoreStart
 			if($this->showSecond){
-				$s = '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d second,", "%d seconds,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_second fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> second", "<span class='fergcorpmod_countdownTimer_number'>%d</span> seconds", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showMinute){
-				$s = '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d minute,", "%d minutes,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> minute<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> minutes<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showHour){
-				$s = '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d hour,", "%d hours,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> hour<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> hours<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showDay){
-				$s = '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d day,", "%d days,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> day<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> days<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showWeek){
-				$s = '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d week,", "%d weeks,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_week fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> week<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> weeks<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			elseif($this->showMonth){
-				$s = '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d month,", "%d months,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_month fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> month<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> months<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 			 // @codeCoverageIgnoreEnd
 			else{
-				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("%d year,", "%d years,", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
+				$s = '<span class="fergcorp_countdownTimer_year fergcorp_countdownTimer_timeUnit">' . sprintf(_n("<span class='fergcorpmod_countdownTimer_number'>%d</span> year<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> years<span class='fergcorpmod_countdownTimer_punc'>,</span>", "0", "fergcorp_countdownTimer"), "0") . "</span> ";
 			}
 		}
 		return preg_replace("/(, ?<\/span> *)$/is", "</span>", $s);
@@ -1053,30 +1053,30 @@ class Fergcorp_Countdown_Timer{
 		}
 
 		$js_lang = array(
-						"year" 	=> addslashes( _n( "%d year,", "%d years,", 1, "fergcorp_countdownTimer" )),
-						"years"	=> addslashes( _n( "%d year,", "%d years,", 2, "fergcorp_countdownTimer" )),
+						"year" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> year<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> years<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"years"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> year<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> years<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"month" 	=> addslashes( _n( "%d month,", "%d months,", 1, "fergcorp_countdownTimer" )),
-						"months"	=> addslashes( _n( "%d month,", "%d months,", 2, "fergcorp_countdownTimer" )),
+						"month" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> month<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> months<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"months"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> month<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> months<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"week" 	=> addslashes( _n( "%d week,", "%d weeks,", 1, "fergcorp_countdownTimer" )),
-						"weeks"	=> addslashes( _n( "%d week,", "%d weeks,", 2, "fergcorp_countdownTimer" )),
+						"week" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> week<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> weeks<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"weeks"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> week<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> weeks<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"day" 	=> addslashes( _n( "%d day,", "%d days,", 1, "fergcorp_countdownTimer" )),
-						"days"	=> addslashes( _n( "%d day,", "%d days,", 2, "fergcorp_countdownTimer" )),
+						"day" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> day<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> days<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"days"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> day<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> days<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"hour" 	=> addslashes( _n( "%d hour,", "%d hours,", 1, "fergcorp_countdownTimer" )),
-						"hours"	=> addslashes( _n( "%d hour,", "%d hours,", 2, "fergcorp_countdownTimer" )),
+						"hour" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> hour<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> hours<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"hours"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> hour<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> hours<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"minute" 	=> addslashes( _n( "%d minute,", "%d minutes,", 1, "fergcorp_countdownTimer" )),
-						"minutes"	=> addslashes( _n( "%d minute,", "%d minutes,", 2, "fergcorp_countdownTimer" )),
+						"minute" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> minute<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> minutes<span class='fergcorpmod_countdownTimer_punc'>,</span>", 1, "fergcorp_countdownTimer" ),
+						"minutes"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> minute<span class='fergcorpmod_countdownTimer_punc'>,</span>", "<span class='fergcorpmod_countdownTimer_number'>%d</span> minutes<span class='fergcorpmod_countdownTimer_punc'>,</span>", 2, "fergcorp_countdownTimer" ),
 
-						"second" 	=> addslashes( _n( "%d second,", "%d seconds,", 1, "fergcorp_countdownTimer" )),
-						"seconds"	=> addslashes( _n( "%d second,", "%d seconds,", 2, "fergcorp_countdownTimer" )),
+						"second" 	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> second", "<span class='fergcorpmod_countdownTimer_number'>%d</span> seconds", 1, "fergcorp_countdownTimer" ),
+						"seconds"	=> _n( "<span class='fergcorpmod_countdownTimer_number'>%d</span> second", "<span class='fergcorpmod_countdownTimer_number'>%d</span> seconds", 2, "fergcorp_countdownTimer" ),
 
 
-						"agotime" 	=> addslashes(__('%s ago', 'fergcorp_countdownTimer')),
-						"intime"	=> addslashes(__('in %s', 'fergcorp_countdownTimer')),
+						"agotime" 	=> addslashes(__("%s ago", "fergcorp_countdownTimer")),
+						"intime"	=> __("<span class='fergcorpmod_countdownTimer_pre'>in</span> %s", "fergcorp_countdownTimer"),
 					);
 		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_js_lang', $js_lang);
 		wp_localize_script( 'fergcorp_countdowntimer', 'fergcorp_countdown_timer_jsEvents', $js_events );
