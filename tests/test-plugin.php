@@ -225,12 +225,12 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 			$this->assertEquals($oneTimeEvent[$i]["link"], $updatedOneTimeEvent[$i]->getURL());
 		}
 	}
-
+    
 	/**
 	 * @group install
 	 * @covers Fergcorp_Countdown_Timer::install
 	 */
-	public function test_install_partial_v2_v_3(){
+	/*public function test_install_partial_v2_v_3(){
 		$oneTimeEvent = array(
 			array(
 					"date" 		=>	1356998400,
@@ -325,7 +325,7 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 		}		
 		
 	}
-
+    */
 	/**
 	 * @group install
 	 * @covers Fergcorp_Countdown_Timer::install_option
