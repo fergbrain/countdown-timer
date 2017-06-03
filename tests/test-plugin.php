@@ -78,7 +78,9 @@ Class Test_Install_Fergcorp_Countdown_Timer extends WP_UnitTestCase{
 
 	    parent::setUp();
 
-		define('WP_ADMIN', true);
+		if(!defined("WP_ADMIN"){
+            define('WP_ADMIN', true);
+        }
 		$user1_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user1_id );
 
