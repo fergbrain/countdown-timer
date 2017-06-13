@@ -174,11 +174,20 @@ I'm an engineer and have to retreat to my cave from time to time. Also, I do thi
 1. Administration Interface
 2. Example on Blog
 
+
 == Upgrade Notice ==
-= 3.0.6 =
-A couple of major bug fixes that resolve issues with using PHP 5.2 or higher and scope of object during activation.
+= 3.0.7 =
+
+Bumped WP tested level and minimum WP level. `index.php` is not blank (fixes #34).
+
 
 == Changelog ==
+
+= 3.0.7 =
+Release date: 6/13/2017
+
+* Bumped WP tested level and minimum WP level
+* `index.php` is not blank (fixes #34)
 
 = 3.0.6 =
 Relase date: 5/4/2014

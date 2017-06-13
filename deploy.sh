@@ -48,7 +48,9 @@ git push origin master --tags
 
 echo
 echo "Creating local copy of SVN repo ..."
-svn co $SVNURL $SVNPATH
+svn co --depth empty  $SVNURL $SVNPATH
+svn update --set-depth empty $SVNPATH/tags
+svn update --set-depth infinity $SVNPATH/trunk
 
 echo "Exporting the HEAD of master from git to the trunk of SVN"
 git checkout-index -a -f --prefix=$SVNPATH/trunk/
