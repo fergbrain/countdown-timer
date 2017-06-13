@@ -148,6 +148,72 @@ class Test_Countdown_Timer extends WP_UnitTestCase {
 		$this->assertRegExp("/^<span class = 'fergcorp_countdownTimer_event_title'><a href=\"http:\/\/www\.example\.com\" class = 'fergcorp_countdownTimer_event_linkTitle'>Yesterday<\/a><\/span>:<br \/>\n<abbr title = \"(.*?)\" id = 'x[0-9a-z]{32}' class = 'fergcorp_countdownTimer_event_time'><span class=\"fergcorp_countdownTimer_day fergcorp_countdownTimer_timeUnit\">1 day,<\/span> <span class=\"fergcorp_countdownTimer_hour fergcorp_countdownTimer_timeUnit\">0 hours,<\/span> <span class=\"fergcorp_countdownTimer_minute fergcorp_countdownTimer_timeUnit\">0 minutes<\/span> ago<\/abbr>$/is", $this->plugin->formatEvent( new Fergcorp_Countdown_Timer_Event( strtotime( "-1day" ), "Yesterday", "http://www.example.com", 1 ) , TRUE ));
 	}
 	
+	
+	function check_this($time, $unitList, $s, $now){
+					$nowObj = new DateTime;
+					date_timestamp_set($nowObj, $now);
+					$diff = date_diff($time, $nowObj);
+					$secondsDiff = $time->getTimestamp() - $now;
+					$Year =		$s[0].intval($secondsDiff/31536000)." ".$s[1]."s?,".$s[14]." ";
+					$Month =	$s[2].intval($secondsDiff/2628000)." ".$s[3]."s?,".$s[14]." ";
+					$Week =		$s[4].intval($secondsDiff/2628000)." ".$s[5]."s?,".$s[14]." ";
+					$Day = 		$s[6].intval($secondsDiff/86400)." ".$s[7]."s?,".$s[14]." ";
+					$Hour =		$s[8].intval($secondsDiff/3600)." ".$s[9]."s?,".$s[14]." ";
+					$Minute =	$s[10].intval($secondsDiff/60)." ".	$s[11]."s?,".$s[14]." ";
+					$Second = 	$s[12].$secondsDiff." ".		$s[13]."(s)?,".$s[14]." ";
+					$secondFudge = $diff->s;	//"(".($diff->s-1)."|".$diff->s."|".($diff->s+1).")"; //Test takes too long!
+					if(get_option("fergcorp_countdownTimer_showYear")){
+						$Year =		$s[0].$diff->y." ".$s[1]."(s)?,".$s[14]." ";
+						$Month =	$s[2].$diff->m." ".$s[3]."s?,".$s[14]." ";
+						$Day = 		$s[6].$diff->d." ".$s[7]."s?,".$s[14]." ";
+						$Hour =		$s[8].$diff->h." ".$s[9]."s?,".$s[14]." ";
+						$Minute =	$s[10].$diff->i." ".$s[11]."s?,".$s[14]." ";
+						$Second = 	$s[12].$secondFudge." ".$s[13]."s?,".$s[14]." ";
+					}
+					elseif(get_option("fergcorp_countdownTimer_showMonth")){
+						$secondsDiff = $secondsDiff - ($diff->m*2628000);
+						$Day = 		$s[6].$diff->d." ".$s[7]."s?,".$s[14]." ";
+						$Hour =		$s[8].$diff->h." ".$s[9]."s?,".$s[14]." ";
+						$Minute =	$s[10].$diff->i." ".$s[11]."s?,".$s[14]." ";
+						$Second = 	$s[12].$secondFudge." ".$s[13]."s?,".$s[14]." ";
+					}
+					elseif(get_option("fergcorp_countdownTimer_showWeek")){
+						$Week = 	$s[4].intval($diff->days/7)." ".$s[5]."s?,".$s[14]." ";
+						$Day = 		$s[6].($diff->d%7)." ".$s[7]."s?,".$s[14]." ";
+						$Hour =		$s[8].$diff->h." ".$s[9]."s?,".$s[14]." ";
+						$Minute =	$s[10].$diff->i." ".$s[11]."s?,".$s[14]." ";
+						$Second = 	$s[12].$secondFudge." ".$s[13]."s?,".$s[14]." ";
+					}
+					elseif(get_option("fergcorp_countdownTimer_showDay")){
+						$secondsDiff = $secondsDiff - ($diff->d*86400);
+						$Hour =		$s[8].$diff->h." ".$s[9]."s?,".$s[14]." ";
+						$Minute =	$s[10].$diff->i." ".$s[11]."s?,".$s[14]." ";
+						$Second = 	$s[12].$secondFudge." ".$s[13]."s?,".$s[14]." ";
+					}
+					elseif(get_option("fergcorp_countdownTimer_showHour")){
+						$secondsDiff = $secondsDiff - ($diff->h*3600);
+						$Minute =	$s[10].$diff->i." ".	$s[11]."s?,".$s[14]." ";
+						$Second = 	$s[12].$secondFudge." ".		$s[13]."s?,".$s[14]." ";
+					}
+					elseif(get_option("fergcorp_countdownTimer_showMinute")){
+						$secondsDiff = $secondsDiff - ($diff->s*60);
+						$Second = 	$s[12].$secondFudge." ".		$s[13]."s?,".$s[14]." ";
+					}
+					foreach($unitList as $unit){
+						if(get_option("fergcorp_countdownTimer_show{$unit}")){
+							$unitValue[$unit] .= ${$unit};
+						}
+					}
+					$testOfUnits = "";
+					foreach($unitList as $unit){
+						if(get_option("fergcorp_countdownTimer_show{$unit}")){
+							$testOfUnits .= ${$unit};
+						}
+					}
+					//print $testOfUnits."\n\n";
+					return $testOfUnits;
+				}
+	
 	/**
 		 * @group guest
 		 * @group long
