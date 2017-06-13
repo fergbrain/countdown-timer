@@ -10,13 +10,14 @@ notifications:
 php:
   - nightly # PHP 7.0
   - 5.6
-  #- 5.5
-  #- 5.4
+  - 5.5
+  - 5.4
+  - 5.3
 
 env:
-  - WP_PROJECT_TYPE=plugin WP_VERSION=nightly WP_MULTISITE=0 WP_TEST_URL=http://localhost:12000 WP_TEST_USER=test WP_TEST_USER_PASS=test
+  #- WP_PROJECT_TYPE=plugin WP_VERSION=nightly WP_MULTISITE=0 WP_TEST_URL=http://localhost:12000 WP_TEST_USER=test WP_TEST_USER_PASS=test
   - WP_PROJECT_TYPE=plugin WP_VERSION=latest WP_MULTISITE=0 WP_TEST_URL=http://localhost:12000 WP_TEST_USER=test WP_TEST_USER_PASS=test
-  - WP_PROJECT_TYPE=plugin WP_VERSION=3.7 WP_MULTISITE=0 WP_TEST_URL=http://localhost:12000 WP_TEST_USER=test WP_TEST_USER_PASS=test
+  - WP_PROJECT_TYPE=plugin WP_VERSION=4.0 WP_MULTISITE=0 WP_TEST_URL=http://localhost:12000 WP_TEST_USER=test WP_TEST_USER_PASS=test
 
 matrix:
   allow_failures:
@@ -31,4 +32,4 @@ before_script:
   - bash wp-tests/bin/install-wp-tests.sh test root '' localhost $WP_VERSION
 
 script:
-  - phpunit --exclude-group w3c,admin
+  - phpunit --exclude-group TZ,GMT
